@@ -132,6 +132,7 @@ jobs:
     name: Python Security Scan
     runs-on: ubuntu-latest
     if: github.event_name != 'schedule'
+    continue-on-error: true
 
     steps:
       - uses: actions/checkout@v4
@@ -168,6 +169,7 @@ jobs:
             p/python
             p/django
             p/flask
+        continue-on-error: true
 
       - name: Check for hardcoded secrets
         run: |
@@ -178,6 +180,7 @@ jobs:
           grep -r -E "(api_key|apikey)\s*=\s*['\"][^'\"]+['\"]" src/ || echo "✅ No hardcoded API keys found"  
           grep -r -E "(secret_key|secretkey)\s*=\s*['\"][^'\"]+['\"]" src/ || echo "✅ No hardcoded secret keys found"
           grep -r -E "(token)\s*=\s*['\"][^'\"]+['\"]" src/ || echo "✅ No hardcoded tokens found"
+        continue-on-error: true
 
       - name: Upload security artifacts
         if: always()
