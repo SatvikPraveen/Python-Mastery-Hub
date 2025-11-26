@@ -83,8 +83,7 @@ ipython_config.py
 # pipenv
 Pipfile.lock
 
-# poetry
-poetry.lock
+# poetry - NOTE: poetry.lock is tracked for reproducible builds
 
 # celery beat schedule file
 celerybeat-schedule
