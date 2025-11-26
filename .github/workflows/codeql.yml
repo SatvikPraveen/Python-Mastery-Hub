@@ -29,7 +29,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: ["python", "javascript"]
+        language: ["python"]
         # CodeQL supports ['cpp', 'csharp', 'go', 'java', 'javascript', 'python', 'ruby']
 
     steps:
@@ -103,21 +103,6 @@ jobs:
           except ImportError as e:
               print(f'⚠️ Import warning: {e}')
           "
-
-      # For JavaScript: Install Node.js dependencies
-      - name: Setup Node.js
-        if: matrix.language == 'javascript'
-        uses: actions/setup-node@v3
-        with:
-          node-version: "18"
-          cache: "npm"
-          cache-dependency-path: "src/python_mastery_hub/web/static/package-lock.json"
-
-      - name: Install JavaScript dependencies
-        if: matrix.language == 'javascript'
-        run: |
-          cd src/python_mastery_hub/web/static
-          npm ci --production
 
       # Perform CodeQL Analysis
       - name: Perform CodeQL Analysis
