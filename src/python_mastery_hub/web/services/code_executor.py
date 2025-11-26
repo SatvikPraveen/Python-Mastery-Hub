@@ -59,9 +59,7 @@ class ExecutionResult:
 class CodeExecutionError(Exception):
     """Custom exception for code execution errors."""
 
-    def __init__(
-        self, message: str, status: ExecutionStatus, details: Optional[Dict] = None
-    ):
+    def __init__(self, message: str, status: ExecutionStatus, details: Optional[Dict] = None):
         self.message = message
         self.status = status
         self.details = details or {}
@@ -293,9 +291,7 @@ class PythonExecutor:
 
         try:
             # Validate code safety
-            security_issues = SecurityManager.validate_code_safety(
-                code, ProgrammingLanguage.PYTHON
-            )
+            security_issues = SecurityManager.validate_code_safety(code, ProgrammingLanguage.PYTHON)
             if security_issues:
                 return ExecutionResult(
                     success=False,
@@ -310,9 +306,7 @@ class PythonExecutor:
                 )
 
             # Create temporary file for code
-            with tempfile.NamedTemporaryFile(
-                mode="w", suffix=".py", delete=False
-            ) as temp_file:
+            with tempfile.NamedTemporaryFile(mode="w", suffix=".py", delete=False) as temp_file:
                 temp_file.write(code)
                 temp_file_path = temp_file.name
 
@@ -340,9 +334,7 @@ class PythonExecutor:
                 try:
                     # Run with timeout
                     stdout, stderr = await asyncio.wait_for(
-                        process.communicate(
-                            input=input_data.encode() if input_data else None
-                        ),
+                        process.communicate(input=input_data.encode() if input_data else None),
                         timeout=timeout,
                     )
 
@@ -353,11 +345,7 @@ class PythonExecutor:
 
                     # Determine success and status
                     success = process.returncode == 0
-                    status = (
-                        ExecutionStatus.SUCCESS
-                        if success
-                        else ExecutionStatus.RUNTIME_ERROR
-                    )
+                    status = ExecutionStatus.SUCCESS if success else ExecutionStatus.RUNTIME_ERROR
 
                     return ExecutionResult(
                         success=success,
@@ -427,9 +415,7 @@ class JavaScriptExecutor:
 
         try:
             # Create temporary file for code
-            with tempfile.NamedTemporaryFile(
-                mode="w", suffix=".js", delete=False
-            ) as temp_file:
+            with tempfile.NamedTemporaryFile(mode="w", suffix=".js", delete=False) as temp_file:
                 # Wrap code to handle input
                 wrapped_code = f"""
 const readline = require('readline');
@@ -497,9 +483,7 @@ rl.on('close', () => {{
 
                 try:
                     stdout, stderr = await asyncio.wait_for(
-                        process.communicate(
-                            input=input_data.encode() if input_data else None
-                        ),
+                        process.communicate(input=input_data.encode() if input_data else None),
                         timeout=timeout,
                     )
 
@@ -509,11 +493,7 @@ rl.on('close', () => {{
                     stderr_str = stderr.decode("utf-8", errors="replace")
 
                     success = process.returncode == 0
-                    status = (
-                        ExecutionStatus.SUCCESS
-                        if success
-                        else ExecutionStatus.RUNTIME_ERROR
-                    )
+                    status = ExecutionStatus.SUCCESS if success else ExecutionStatus.RUNTIME_ERROR
 
                     return ExecutionResult(
                         success=success,
@@ -640,9 +620,7 @@ class CodeExecutor:
 
         except Exception as e:
             logger.error(f"Code execution failed: {e}")
-            raise CodeExecutionException(
-                f"Execution failed: {str(e)}", ExecutionStatus.ERROR
-            )
+            raise CodeExecutionException(f"Execution failed: {str(e)}", ExecutionStatus.ERROR)
 
     async def test_code_against_cases(
         self,
@@ -706,16 +684,12 @@ class CodeExecutor:
             "total_executions": self.execution_count,
             "total_execution_time": self.total_execution_time,
             "average_execution_time": (
-                self.total_execution_time / self.execution_count
-                if self.execution_count > 0
-                else 0
+                self.total_execution_time / self.execution_count if self.execution_count > 0 else 0
             ),
             "supported_languages": self.get_supported_languages(),
         }
 
-    async def validate_syntax(
-        self, code: str, language: ProgrammingLanguage
-    ) -> Dict[str, Any]:
+    async def validate_syntax(self, code: str, language: ProgrammingLanguage) -> Dict[str, Any]:
         """Validate code syntax without executing it."""
 
         if language == ProgrammingLanguage.PYTHON:

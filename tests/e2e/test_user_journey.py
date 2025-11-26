@@ -45,9 +45,7 @@ class MockUser:
 class MockCourse:
     """Mock course object for testing."""
 
-    def __init__(
-        self, course_id: str, title: str, lessons: List[str], price: float = 0
-    ):
+    def __init__(self, course_id: str, title: str, lessons: List[str], price: float = 0):
         self.id = course_id
         self.title = title
         self.lessons = lessons
@@ -145,16 +143,11 @@ class TestUserRegistrationJourney:
 
         for invalid_data in invalid_data_sets:
             # Simulate validation failure
-            if not invalid_data.get("email") or "@" not in invalid_data.get(
-                "email", ""
-            ):
+            if not invalid_data.get("email") or "@" not in invalid_data.get("email", ""):
                 with pytest.raises(ValueError, match="Invalid email"):
                     raise ValueError("Invalid email")
 
-            if (
-                not invalid_data.get("password")
-                or len(invalid_data.get("password", "")) < 8
-            ):
+            if not invalid_data.get("password") or len(invalid_data.get("password", "")) < 8:
                 with pytest.raises(ValueError, match="Password too weak"):
                     raise ValueError("Password too weak")
 
@@ -185,9 +178,7 @@ class TestCourseEnrollmentJourney:
         assert mock_platform.enrollments[enrollment_id].course_id == free_course.id
 
     @pytest.mark.asyncio
-    async def test_paid_course_enrollment_with_payment(
-        self, mock_platform, sample_courses
-    ):
+    async def test_paid_course_enrollment_with_payment(self, mock_platform, sample_courses):
         """Test enrolling in a paid course with payment processing."""
         # Setup user
         user_id = "user_123"
@@ -227,9 +218,7 @@ class TestCourseEnrollmentJourney:
         assert enrollment_id in mock_platform.enrollments
 
     @pytest.mark.asyncio
-    async def test_course_enrollment_failure_scenarios(
-        self, mock_platform, sample_courses
-    ):
+    async def test_course_enrollment_failure_scenarios(self, mock_platform, sample_courses):
         """Test various enrollment failure scenarios."""
         user_id = "user_123"
         user = MockUser(user_id, "user@example.com", "Test User")
@@ -291,15 +280,11 @@ class TestLearningJourney:
 
             # Update current lesson
             if i < total_lessons - 1:
-                mock_platform.progress[progress_key]["current_lesson"] = course.lessons[
-                    i + 1
-                ]
+                mock_platform.progress[progress_key]["current_lesson"] = course.lessons[i + 1]
 
             # Update progress percentage
             progress_percentage = ((i + 1) / total_lessons) * 100
-            mock_platform.enrollments[
-                enrollment_id
-            ].progress_percentage = progress_percentage
+            mock_platform.enrollments[enrollment_id].progress_percentage = progress_percentage
 
             # Add quiz score (simulate)
             mock_platform.progress[progress_key]["quiz_scores"][lesson] = 85 + (
@@ -307,9 +292,7 @@ class TestLearningJourney:
             )  # Improving scores
 
             # Add time spent
-            mock_platform.progress[progress_key][
-                "time_spent"
-            ] += 30  # 30 minutes per lesson
+            mock_platform.progress[progress_key]["time_spent"] += 30  # 30 minutes per lesson
 
         # Course completion
         if mock_platform.enrollments[enrollment_id].progress_percentage == 100:
@@ -325,10 +308,7 @@ class TestLearningJourney:
             }
 
         # Assertions
-        assert (
-            len(mock_platform.progress[progress_key]["completed_lessons"])
-            == total_lessons
-        )
+        assert len(mock_platform.progress[progress_key]["completed_lessons"]) == total_lessons
         assert mock_platform.enrollments[enrollment_id].progress_percentage == 100
         assert mock_platform.enrollments[enrollment_id].completed_at is not None
         assert certificate_id in mock_platform.certificates
@@ -385,18 +365,13 @@ class TestLearningJourney:
 
         # Calculate progress
         progress_percentage = (
-            len(mock_platform.progress[progress_key]["completed_lessons"])
-            / len(course.lessons)
+            len(mock_platform.progress[progress_key]["completed_lessons"]) / len(course.lessons)
         ) * 100
-        mock_platform.enrollments[
-            enrollment_id
-        ].progress_percentage = progress_percentage
+        mock_platform.enrollments[enrollment_id].progress_percentage = progress_percentage
 
         assert len(mock_platform.progress[progress_key]["study_sessions"]) == 3
         assert mock_platform.enrollments[enrollment_id].progress_percentage == 100
-        assert len(mock_platform.progress[progress_key]["completed_lessons"]) == len(
-            course.lessons
-        )
+        assert len(mock_platform.progress[progress_key]["completed_lessons"]) == len(course.lessons)
 
 
 class TestMultiCourseJourney:
@@ -501,9 +476,7 @@ class TestUserRetentionJourney:
         mock_platform.progress[progress_key]["last_accessed"] = datetime.now()
 
         # Continue progress
-        mock_platform.progress[progress_key]["completed_lessons"].append(
-            course.lessons[1]
-        )
+        mock_platform.progress[progress_key]["completed_lessons"].append(course.lessons[1])
         mock_platform.enrollments[enrollment_id].progress_percentage = 50.0
 
         assert len(mock_platform.notifications) == 1

@@ -198,13 +198,9 @@ class TestRunner:
 
         module = self.module_exercises[module_id]
         if exercise_name not in module["exercises"]:
-            raise ValueError(
-                f"Exercise '{exercise_name}' not found in module '{module_id}'"
-            )
+            raise ValueError(f"Exercise '{exercise_name}' not found in module '{module_id}'")
 
-        colors.print_header(
-            f"🏃 Running Exercise: {exercise_name.replace('_', ' ').title()}"
-        )
+        colors.print_header(f"🏃 Running Exercise: {exercise_name.replace('_', ' ').title()}")
 
         with PerformanceLogger(f"exercise_{module_id}_{exercise_name}") as perf:
             try:
@@ -212,9 +208,7 @@ class TestRunner:
                 exercise_module = await self._import_exercise(module_id, exercise_name)
 
                 if verbose:
-                    colors.print_info(
-                        f"Loaded exercise module: {exercise_module.__name__}"
-                    )
+                    colors.print_info(f"Loaded exercise module: {exercise_module.__name__}")
 
                 # Run the exercise
                 result = await self._execute_exercise(exercise_module, verbose)
@@ -264,11 +258,11 @@ class TestRunner:
         try:
             # Construct module path
             if module_id == "advanced":
-                module_path = f"python_mastery_hub.core.advanced.classes.utilities.exercises.{exercise_name}"
-            else:
                 module_path = (
-                    f"python_mastery_hub.core.{module_id}.exercises.{exercise_name}"
+                    f"python_mastery_hub.core.advanced.classes.utilities.exercises.{exercise_name}"
                 )
+            else:
+                module_path = f"python_mastery_hub.core.{module_id}.exercises.{exercise_name}"
 
             # Import the module
             return importlib.import_module(module_path)
@@ -310,9 +304,7 @@ class TestRunner:
             if exercise_class:
                 # Run class-based exercise
                 if verbose:
-                    colors.print_info(
-                        f"Running class-based exercise: {exercise_class.__name__}"
-                    )
+                    colors.print_info(f"Running class-based exercise: {exercise_class.__name__}")
 
                 exercise_instance = exercise_class()
                 result = await self._run_class_exercise(exercise_instance, verbose)
@@ -343,9 +335,7 @@ class TestRunner:
                         elif isinstance(result, dict):
                             score = result.get("score", 0)
                             total_score += score
-                            feedback.append(
-                                f"✅ {func_name}: {result.get('message', 'PASSED')}"
-                            )
+                            feedback.append(f"✅ {func_name}: {result.get('message', 'PASSED')}")
                         else:
                             feedback.append(f"❌ {func_name}: FAILED")
 
@@ -384,9 +374,7 @@ class TestRunner:
             errors=errors,
         )
 
-    async def _run_class_exercise(
-        self, exercise_instance, verbose: bool
-    ) -> Dict[str, Any]:
+    async def _run_class_exercise(self, exercise_instance, verbose: bool) -> Dict[str, Any]:
         """Run a class-based exercise."""
         result = {"score": 0, "max_score": 100, "feedback": [], "errors": []}
 
@@ -439,9 +427,7 @@ class TestRunner:
 
         return result
 
-    async def run_module_tests(
-        self, module_id: str, verbose: bool = False
-    ) -> List[ExerciseResult]:
+    async def run_module_tests(self, module_id: str, verbose: bool = False) -> List[ExerciseResult]:
         """Run all tests for a specific module."""
         if module_id not in self.module_exercises:
             colors.print_error(f"Module '{module_id}' not found")
@@ -510,9 +496,7 @@ class TestRunner:
         print(
             f"Score: {colors.get_progress_color(result.percentage)}{result.score:.1f}/{result.max_score} ({result.percentage:.1f}%){colors.RESET}"
         )
-        print(
-            f"Execution Time: {colors.BLUE}{result.execution_time:.2f}s{colors.RESET}"
-        )
+        print(f"Execution Time: {colors.BLUE}{result.execution_time:.2f}s{colors.RESET}")
 
         # Feedback
         if result.feedback:
@@ -528,9 +512,7 @@ class TestRunner:
 
         print()
 
-    def _show_module_test_summary(
-        self, module_id: str, results: List[ExerciseResult]
-    ) -> None:
+    def _show_module_test_summary(self, module_id: str, results: List[ExerciseResult]) -> None:
         """Show summary of module test results."""
         module = self.module_exercises[module_id]
 
@@ -540,13 +522,9 @@ class TestRunner:
         passed_tests = sum(1 for r in results if r.passed)
         total_score = sum(r.score for r in results)
         max_total_score = sum(r.max_score for r in results)
-        avg_time = (
-            sum(r.execution_time for r in results) / len(results) if results else 0
-        )
+        avg_time = sum(r.execution_time for r in results) / len(results) if results else 0
 
-        overall_percentage = (
-            (total_score / max_total_score * 100) if max_total_score > 0 else 0
-        )
+        overall_percentage = (total_score / max_total_score * 100) if max_total_score > 0 else 0
 
         print(f"Tests Passed: {colors.GREEN}{passed_tests}{colors.RESET}/{total_tests}")
         print(
@@ -584,9 +562,7 @@ class TestRunner:
                 f"Good progress! {total_tests - passed_tests} tests still need work."
             )
         else:
-            colors.print_info(
-                f"Keep practicing! Focus on the failed exercises to improve."
-            )
+            colors.print_info(f"Keep practicing! Focus on the failed exercises to improve.")
 
     def _show_achievements(self, achievements: List) -> None:
         """Show newly unlocked achievements."""
@@ -598,9 +574,7 @@ class TestRunner:
         for achievement in achievements:
             badge = achievement.badge if hasattr(achievement, "badge") else "🏅"
             name = achievement.name if hasattr(achievement, "name") else "Achievement"
-            description = (
-                achievement.description if hasattr(achievement, "description") else ""
-            )
+            description = achievement.description if hasattr(achievement, "description") else ""
 
             print(f"  {badge} {colors.BOLD}{name}{colors.RESET}")
             print(f"    {description}")
@@ -620,12 +594,7 @@ async def execute(args: argparse.Namespace) -> int:
             return 0
 
         # Run specific exercise
-        if (
-            hasattr(args, "module")
-            and hasattr(args, "exercise")
-            and args.module
-            and args.exercise
-        ):
+        if hasattr(args, "module") and hasattr(args, "exercise") and args.module and args.exercise:
             verbose = getattr(args, "verbose", False)
             result = await runner.run_exercise(args.module, args.exercise, verbose)
             runner._show_exercise_result(result)
@@ -652,9 +621,7 @@ async def execute(args: argparse.Namespace) -> int:
 
 def setup_parser(parser: argparse.ArgumentParser) -> None:
     """Setup the test command parser."""
-    parser.add_argument(
-        "module", nargs="?", help="Module to test (basics, oop, advanced, etc.)"
-    )
+    parser.add_argument("module", nargs="?", help="Module to test (basics, oop, advanced, etc.)")
 
     parser.add_argument("exercise", nargs="?", help="Specific exercise to run")
 
@@ -666,9 +633,7 @@ def setup_parser(parser: argparse.ArgumentParser) -> None:
         help="List available tests",
     )
 
-    parser.add_argument(
-        "--verbose", "-v", action="store_true", help="Enable verbose output"
-    )
+    parser.add_argument("--verbose", "-v", action="store_true", help="Enable verbose output")
 
     parser.add_argument(
         "--all",

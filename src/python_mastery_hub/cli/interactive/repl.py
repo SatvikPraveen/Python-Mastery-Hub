@@ -333,9 +333,7 @@ Type exit() or Ctrl+D to quit
                 )
 
         except SyntaxError:
-            print(
-                f"{colors.RED}Invalid Python syntax in the provided code.{colors.RESET}"
-            )
+            print(f"{colors.RED}Invalid Python syntax in the provided code.{colors.RESET}")
         except Exception as e:
             print(f"{colors.RED}Could not analyze code: {e}{colors.RESET}")
 
@@ -344,13 +342,9 @@ Type exit() or Ctrl+D to quit
         stripped = line.strip()
 
         # Tips for common patterns
-        if "=" in stripped and not any(
-            op in stripped for op in ["==", "!=", "<=", ">="]
-        ):
+        if "=" in stripped and not any(op in stripped for op in ["==", "!=", "<=", ">="]):
             if stripped.count("=") == 1:
-                print(
-                    f"{colors.GRAY}💡 Tip: You're assigning a value to a variable{colors.RESET}"
-                )
+                print(f"{colors.GRAY}💡 Tip: You're assigning a value to a variable{colors.RESET}")
 
         elif stripped.startswith("def "):
             print(
@@ -504,9 +498,7 @@ Type exit() or Ctrl+D to quit
             for option in q["options"]:
                 print(f"  {option}")
 
-            answer = input(
-                f"{colors.CYAN}Your answer (a/b/c/d): {colors.RESET}"
-            ).lower()
+            answer = input(f"{colors.CYAN}Your answer (a/b/c/d): {colors.RESET}").lower()
 
             if answer == q["answer"]:
                 print(f"{colors.GREEN}✅ Correct!{colors.RESET}")
@@ -545,9 +537,7 @@ async def execute(args: argparse.Namespace) -> int:
         try:
             repl.interact()
         except (EOFError, KeyboardInterrupt):
-            print(
-                f"\n{colors.YELLOW}👋 Thanks for using Python Mastery Hub REPL!{colors.RESET}"
-            )
+            print(f"\n{colors.YELLOW}👋 Thanks for using Python Mastery Hub REPL!{colors.RESET}")
 
         # Save history
         try:

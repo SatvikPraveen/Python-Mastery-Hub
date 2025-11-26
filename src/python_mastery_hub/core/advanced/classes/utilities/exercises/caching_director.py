@@ -17,9 +17,7 @@ class CachingDecoratorExercise:
 
     def __init__(self):
         self.title = "Build a Caching Decorator"
-        self.description = (
-            "Create a sophisticated caching decorator with TTL and size limits"
-        )
+        self.description = "Create a sophisticated caching decorator with TTL and size limits"
         self.difficulty = "hard"
 
     def get_instructions(self) -> str:

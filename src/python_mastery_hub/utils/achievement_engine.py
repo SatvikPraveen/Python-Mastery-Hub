@@ -502,9 +502,7 @@ class AchievementEngine:
             ),
         }
 
-    def check_achievements(
-        self, event_type: str, event_data: Dict[str, Any]
-    ) -> List[Achievement]:
+    def check_achievements(self, event_type: str, event_data: Dict[str, Any]) -> List[Achievement]:
         """
         Check if any achievements should be unlocked based on an event.
 
@@ -558,9 +556,7 @@ class AchievementEngine:
         elif condition == "complete_modules":
             required_modules = metadata["modules_required"]
             for module_id in required_modules:
-                module_progress = self.progress_calculator.get_module_progress(
-                    module_id
-                )
+                module_progress = self.progress_calculator.get_module_progress(module_id)
                 if not (module_progress and module_progress.get("is_completed", False)):
                     return False
             return True
@@ -568,17 +564,13 @@ class AchievementEngine:
         elif condition == "complete_all_modules":
             required_modules = metadata["modules_required"]
             for module_id in required_modules:
-                module_progress = self.progress_calculator.get_module_progress(
-                    module_id
-                )
+                module_progress = self.progress_calculator.get_module_progress(module_id)
                 if not (module_progress and module_progress.get("is_completed", False)):
                     return False
             return True
 
         elif condition == "first_topic_ever":
-            return event_type == "topic_completed" and event_data.get(
-                "is_first_topic", False
-            )
+            return event_type == "topic_completed" and event_data.get("is_first_topic", False)
 
         # Add more condition checks as needed...
 

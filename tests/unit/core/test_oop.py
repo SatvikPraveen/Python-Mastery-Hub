@@ -772,10 +772,7 @@ class Calculator:
 
         assert result["success"] is True
         assert result["class_found"] is True
-        assert all(
-            method in result["methods_found"]
-            for method in requirements["required_methods"]
-        )
+        assert all(method in result["methods_found"] for method in requirements["required_methods"])
 
     def test_check_inheritance_chain(self, evaluator):
         """Test checking inheritance relationships."""

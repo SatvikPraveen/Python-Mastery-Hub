@@ -113,9 +113,7 @@ class LearningPath:
     ) -> Dict[str, Any]:
         """Validate if prerequisites are met for an exercise."""
         sequence = cls.get_recommended_sequence()
-        exercise_info = next(
-            (ex for ex in sequence if ex["exercise"] == exercise_name), None
-        )
+        exercise_info = next((ex for ex in sequence if ex["exercise"] == exercise_name), None)
 
         if not exercise_info:
             return {"valid": False, "error": f"Unknown exercise: {exercise_name}"}
@@ -139,9 +137,7 @@ class LearningPath:
                     "Complete LinkedList exercise to understand pointer manipulation"
                 )
             elif prereq == "bst":
-                recommendations.append(
-                    "Complete BST exercise to master recursive algorithms"
-                )
+                recommendations.append("Complete BST exercise to master recursive algorithms")
         return recommendations
 
     @classmethod
@@ -233,9 +229,7 @@ class LearningPath:
                     {
                         "exercise": exercise,
                         "skills_addressed": list(overlap),
-                        "skill_coverage": len(overlap) / len(skill_gaps)
-                        if skill_gaps
-                        else 0,
+                        "skill_coverage": len(overlap) / len(skill_gaps) if skill_gaps else 0,
                     }
                 )
 
@@ -256,9 +250,7 @@ class LearningPath:
 
             exercise_time = sequence_info["estimated_hours"][1]  # Use max estimate
 
-            if time_constraint_hours and (
-                total_time + exercise_time > time_constraint_hours
-            ):
+            if time_constraint_hours and (total_time + exercise_time > time_constraint_hours):
                 continue
 
             path.append(
@@ -335,9 +327,7 @@ class LearningPath:
         recommendations = []
         if concept_coverage < 0.7:
             missing_concepts = required_concepts - familiar_concepts
-            recommendations.append(
-                f"Review these concepts first: {', '.join(missing_concepts)}"
-            )
+            recommendations.append(f"Review these concepts first: {', '.join(missing_concepts)}")
 
         if adjusted_difficulty >= 4:
             recommendations.append("Consider additional preparation or study time")
@@ -393,9 +383,7 @@ class LearningPath:
 
         # Calculate performance metrics
         sequence = cls.get_recommended_sequence()
-        exercise_info = next(
-            (ex for ex in sequence if ex["exercise"] == exercise_name), None
-        )
+        exercise_info = next((ex for ex in sequence if ex["exercise"] == exercise_name), None)
 
         if exercise_info:
             expected_time = exercise_info["estimated_hours"][1]
@@ -405,9 +393,7 @@ class LearningPath:
             progress_entry.update(
                 {
                     "performance_vs_expected": performance_ratio,
-                    "performance_category": cls._categorize_performance(
-                        performance_ratio
-                    ),
+                    "performance_category": cls._categorize_performance(performance_ratio),
                 }
             )
 
@@ -444,9 +430,7 @@ class LearningPath:
                 continue
 
             # Check prerequisites
-            prereq_validation = cls.validate_prerequisites(
-                exercise_name, completed_exercises
-            )
+            prereq_validation = cls.validate_prerequisites(exercise_name, completed_exercises)
             if not prereq_validation["valid"]:
                 continue
 
@@ -458,9 +442,7 @@ class LearningPath:
             )
 
             # Recommend easier exercises for struggling students
-            base_difficulty = {"linkedlist": 3, "bst": 4, "cache": 5}.get(
-                exercise_name, 3
-            )
+            base_difficulty = {"linkedlist": 3, "bst": 4, "cache": 5}.get(exercise_name, 3)
             difficulty_match = 1.0 - abs(base_difficulty - (performance_avg * 5)) / 5
 
             recommendation_score = difficulty_match * 100
@@ -481,9 +463,7 @@ class LearningPath:
         return available_exercises[:3]  # Return top 3 recommendations
 
     @classmethod
-    def _generate_recommendation_rationale(
-        cls, exercise_name: str, performance_avg: float
-    ) -> str:
+    def _generate_recommendation_rationale(cls, exercise_name: str, performance_avg: float) -> str:
         """Generate rationale for exercise recommendation."""
         if performance_avg > 0.8:
             return f"Given your strong performance, {exercise_name} will provide an appropriate challenge"

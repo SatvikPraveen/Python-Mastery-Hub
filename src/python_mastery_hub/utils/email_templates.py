@@ -737,9 +737,7 @@ class EmailTemplateManager:
         Unsubscribe: ${unsubscribe_url}
         """
 
-    def save_template_to_file(
-        self, template_id: str, format_type: str = "json"
-    ) -> None:
+    def save_template_to_file(self, template_id: str, format_type: str = "json") -> None:
         """Save template to file for external editing."""
         template = self.get_template(template_id)
         if not template:
@@ -820,14 +818,14 @@ class EmailRenderer:
         achievements_text = ""
 
         if achievements:
-            achievements_html = (
-                '<div class="achievement"><h3>🏆 New Achievements</h3><ul>'
-            )
+            achievements_html = '<div class="achievement"><h3>🏆 New Achievements</h3><ul>'
             achievements_text = "\n🏆 New Achievements:\n"
 
             for achievement in achievements:
                 achievements_html += f"<li>{achievement.get('badge', '🏆')} {achievement.get('name', 'Achievement')}</li>"
-                achievements_text += f"- {achievement.get('badge', '🏆')} {achievement.get('name', 'Achievement')}\n"
+                achievements_text += (
+                    f"- {achievement.get('badge', '🏆')} {achievement.get('name', 'Achievement')}\n"
+                )
 
             achievements_html += "</ul></div>"
 
@@ -863,9 +861,7 @@ class EmailRenderer:
             "achievement_points": str(achievement_points),
             "total_points": str(total_points),
         }
-        return self.template_manager.render_email(
-            "achievement_notification", variables, "both"
-        )
+        return self.template_manager.render_email("achievement_notification", variables, "both")
 
     def render_learning_reminder(
         self,
@@ -885,9 +881,7 @@ class EmailRenderer:
             "estimated_time": estimated_time,
             "next_module": next_module,
         }
-        return self.template_manager.render_email(
-            "learning_reminder", variables, "both"
-        )
+        return self.template_manager.render_email("learning_reminder", variables, "both")
 
     def render_course_completion(
         self,
@@ -911,9 +905,7 @@ class EmailRenderer:
             "next_recommended_module": next_recommended_module,
             "certificate_url": certificate_url,
         }
-        return self.template_manager.render_email(
-            "course_completion", variables, "both"
-        )
+        return self.template_manager.render_email("course_completion", variables, "both")
 
     def render_streak_milestone(
         self,
@@ -959,9 +951,7 @@ class EmailPreferences:
         # In a real implementation, this would load from database
         return self.default_preferences.copy()
 
-    def update_user_preferences(
-        self, user_id: str, preferences: Dict[str, Any]
-    ) -> None:
+    def update_user_preferences(self, user_id: str, preferences: Dict[str, Any]) -> None:
         """Update email preferences for user."""
         # In a real implementation, this would save to database
         logger.info(f"Updated email preferences for user {user_id}")
@@ -1007,9 +997,7 @@ def render_achievement_email(
 
 
 # Email validation utilities
-def validate_email_variables(
-    template_id: str, variables: Dict[str, Any]
-) -> Tuple[bool, List[str]]:
+def validate_email_variables(template_id: str, variables: Dict[str, Any]) -> Tuple[bool, List[str]]:
     """Validate that all required variables are provided for template."""
     manager = EmailTemplateManager()
     template = manager.get_template(template_id)

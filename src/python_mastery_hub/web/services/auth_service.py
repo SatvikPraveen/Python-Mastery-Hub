@@ -204,7 +204,9 @@ class TokenService:
         # )
 
         # Mock validation for demonstration
-        if token == "mock_verification_token":  # nosec B105: mock token for testing/demo only, not production
+        if (
+            token == "mock_verification_token"
+        ):  # nosec B105: mock token for testing/demo only, not production
             return AuthToken(
                 token=token,
                 token_type=token_type,
@@ -258,9 +260,7 @@ class AuthService:
                 raise BusinessLogicException("Username already taken")
 
             # Validate password strength
-            password_analysis = self.password_service.validate_password_strength(
-                user_data.password
-            )
+            password_analysis = self.password_service.validate_password_strength(user_data.password)
             if not password_analysis["is_valid"]:
                 raise ValidationException(
                     "Password does not meet requirements",
@@ -308,9 +308,7 @@ class AuthService:
         """Authenticate user and return tokens."""
         try:
             # Get user by username or email
-            user = await self._get_user_by_username_or_email(
-                login_data.username_or_email
-            )
+            user = await self._get_user_by_username_or_email(login_data.username_or_email)
             if not user:
                 raise AuthenticationException("Invalid credentials")
 
@@ -324,9 +322,7 @@ class AuthService:
                 raise AuthenticationException("Invalid credentials")
 
             # Verify password
-            if not self.password_service.verify_password(
-                login_data.password, password_hash
-            ):
+            if not self.password_service.verify_password(login_data.password, password_hash):
                 # Log failed login attempt
                 await self._log_failed_login(user.id, login_data.username_or_email)
                 raise AuthenticationException("Invalid credentials")
@@ -407,9 +403,7 @@ class AuthService:
                 raise AuthenticationException("Invalid or expired verification token")
 
             # Update user verification status
-            success = await self._update_user_verification_status(
-                auth_token.user_id, True
-            )
+            success = await self._update_user_verification_status(auth_token.user_id, True)
 
             if success:
                 # Mark token as used
@@ -440,9 +434,7 @@ class AuthService:
             user = await self._get_user_by_email(email)
             if not user:
                 # Don't reveal if email exists for security
-                logger.warning(
-                    f"Password reset requested for non-existent email: {email}"
-                )
+                logger.warning(f"Password reset requested for non-existent email: {email}")
                 return "reset_token_sent"  # Fake success
 
             # Check if user is active
@@ -487,14 +479,10 @@ class AuthService:
                 )
 
             # Hash new password
-            new_password_hash = self.password_service.hash_password(
-                reset_data.new_password
-            )
+            new_password_hash = self.password_service.hash_password(reset_data.new_password)
 
             # Update password
-            success = await self._update_user_password(
-                auth_token.user_id, new_password_hash
-            )
+            success = await self._update_user_password(auth_token.user_id, new_password_hash)
 
             if success:
                 # Mark token as used
@@ -515,9 +503,7 @@ class AuthService:
             logger.error(f"Error resetting password: {e}")
             return False
 
-    async def change_password(
-        self, user_id: str, current_password: str, new_password: str
-    ) -> bool:
+    async def change_password(self, user_id: str, current_password: str, new_password: str) -> bool:
         """Change user password (requires current password)."""
         try:
             # Get current password hash
@@ -526,15 +512,11 @@ class AuthService:
                 raise AuthenticationException("User not found")
 
             # Verify current password
-            if not self.password_service.verify_password(
-                current_password, current_hash
-            ):
+            if not self.password_service.verify_password(current_password, current_hash):
                 raise AuthenticationException("Current password is incorrect")
 
             # Validate new password
-            password_analysis = self.password_service.validate_password_strength(
-                new_password
-            )
+            password_analysis = self.password_service.validate_password_strength(new_password)
             if not password_analysis["is_valid"]:
                 raise ValidationException(
                     "Password does not meet requirements",
@@ -543,9 +525,7 @@ class AuthService:
 
             # Check if new password is different
             if self.password_service.verify_password(new_password, current_hash):
-                raise ValidationException(
-                    "New password must be different from current password"
-                )
+                raise ValidationException("New password must be different from current password")
 
             # Hash new password
             new_password_hash = self.password_service.hash_password(new_password)
@@ -602,9 +582,7 @@ class AuthService:
         # TODO: Update database
         return True
 
-    async def _update_user_verification_status(
-        self, user_id: str, verified: bool
-    ) -> bool:
+    async def _update_user_verification_status(self, user_id: str, verified: bool) -> bool:
         """Update user verification status."""
         # TODO: Update database
         return True

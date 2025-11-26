@@ -114,9 +114,7 @@ class AlgorithmDemo:
         """Demonstrate specific example or all examples."""
         if example_name:
             if example_name not in self.examples:
-                raise ValueError(
-                    f"Example '{example_name}' not found in {self.topic_name}"
-                )
+                raise ValueError(f"Example '{example_name}' not found in {self.topic_name}")
             return self.examples[example_name]
 
         return {

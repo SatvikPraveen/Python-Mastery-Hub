@@ -82,9 +82,7 @@ class ProgressBar:
             return
 
         percentage = (self.current / self.total) * 100 if self.total > 0 else 0
-        filled_width = (
-            int((self.current / self.total) * self.width) if self.total > 0 else 0
-        )
+        filled_width = int((self.current / self.total) * self.width) if self.total > 0 else 0
 
         # Choose color based on progress
         color = get_progress_color(percentage)
@@ -134,9 +132,7 @@ class ProgressBar:
     def _display_simple(self) -> None:
         """Display simple progress bar without colors."""
         percentage = (self.current / self.total) * 100 if self.total > 0 else 0
-        filled_width = (
-            int((self.current / self.total) * self.width) if self.total > 0 else 0
-        )
+        filled_width = int((self.current / self.total) * self.width) if self.total > 0 else 0
 
         filled = "=" * filled_width
         empty = "-" * (self.width - filled_width)
@@ -259,9 +255,7 @@ class MultiProgressBar:
             task["bar"].set_progress(task["current"])
 
 
-def show_progress(
-    current: int, total: int, prefix: str = "Progress", width: int = 50
-) -> None:
+def show_progress(current: int, total: int, prefix: str = "Progress", width: int = 50) -> None:
     """
     Show a simple progress bar.
 
@@ -353,9 +347,7 @@ def show_completion_celebration(module_name: str) -> None:
             )
             time.sleep(0.2)
 
-    print(
-        f"\n\n{Colors.YELLOW}🏆 Achievement Unlocked: {module_name} Master! 🏆{Colors.RESET}\n"
-    )
+    print(f"\n\n{Colors.YELLOW}🏆 Achievement Unlocked: {module_name} Master! 🏆{Colors.RESET}\n")
 
 
 # Export commonly used functions

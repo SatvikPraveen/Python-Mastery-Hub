@@ -14,9 +14,7 @@ class FilePipelineExercise:
 
     def __init__(self):
         self.title = "File Processing Pipeline"
-        self.description = (
-            "Build a memory-efficient file processing pipeline using generators"
-        )
+        self.description = "Build a memory-efficient file processing pipeline using generators"
         self.difficulty = "hard"
 
     def get_instructions(self) -> str:

@@ -56,9 +56,7 @@ class MockInteractiveCLI:
         elif command == "history":
             return self.get_history()
         elif command.startswith("exercise "):
-            exercise_id = (
-                command.split(" ", 1)[1] if len(command.split(" ")) > 1 else None
-            )
+            exercise_id = command.split(" ", 1)[1] if len(command.split(" ")) > 1 else None
             return self.start_exercise(exercise_id)
         else:
             return f"Unknown command: {command}. Type 'help' for available commands."
@@ -124,9 +122,7 @@ class MockInteractiveCLI:
 
     def prompt_user(self, message, input_type="string", validation=None):
         """Prompt user for input with validation"""
-        self.prompt_stack.append(
-            {"message": message, "type": input_type, "validation": validation}
-        )
+        self.prompt_stack.append({"message": message, "type": input_type, "validation": validation})
         return f"PROMPT: {message}"
 
     def validate_input(self, value, input_type, validation=None):
@@ -152,11 +148,7 @@ class MockInteractiveCLI:
             return True, value
 
         elif input_type == "string":
-            if (
-                validation
-                and "min_length" in validation
-                and len(value) < validation["min_length"]
-            ):
+            if validation and "min_length" in validation and len(value) < validation["min_length"]:
                 return False, f"Minimum length: {validation['min_length']}"
             return True, value
 
@@ -372,9 +364,7 @@ class TestInputValidation:
         assert result == "option2"
 
         # Invalid choice
-        valid, result = interactive_cli.validate_input(
-            "invalid_option", "choice", validation
-        )
+        valid, result = interactive_cli.validate_input("invalid_option", "choice", validation)
         assert valid is False
         assert "Invalid choice" in result
         assert "option1, option2, option3" in result

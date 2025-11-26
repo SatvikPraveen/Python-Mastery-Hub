@@ -1016,9 +1016,7 @@ max_value, selected = fractional_knapsack(weights, values, capacity)
         globals_dict = {}
         exec(code, globals_dict)
 
-        assert (
-            globals_dict["max_value"] == 240
-        )  # Should be optimal for fractional knapsack
+        assert globals_dict["max_value"] == 240  # Should be optimal for fractional knapsack
         assert len(globals_dict["selected"]) > 0
 
     def test_huffman_coding(self):

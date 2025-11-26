@@ -149,9 +149,7 @@ class TextFormatter:
 
     def wrap_text(self, text: str, width: int = 80, indent: str = "") -> str:
         """Wrap text to specified width."""
-        return textwrap.fill(
-            text, width=width, initial_indent=indent, subsequent_indent=indent
-        )
+        return textwrap.fill(text, width=width, initial_indent=indent, subsequent_indent=indent)
 
 
 # Global formatter instance
@@ -311,8 +309,7 @@ def format_table(
 
     # Header
     header_line = " | ".join(
-        str(header).ljust(col_widths[header])[: col_widths[header]]
-        for header in headers
+        str(header).ljust(col_widths[header])[: col_widths[header]] for header in headers
     )
     lines.append(header_line)
 
@@ -357,9 +354,7 @@ def format_numbered_list(items: List[str], start: int = 1, indent: str = "  ") -
         return "No items"
 
     width = len(str(start + len(items) - 1))
-    return "\n".join(
-        f"{indent}{i:>{width}}. {item}" for i, item in enumerate(items, start)
-    )
+    return "\n".join(f"{indent}{i:>{width}}. {item}" for i, item in enumerate(items, start))
 
 
 def format_key_value_pairs(
@@ -387,9 +382,7 @@ def format_key_value_pairs(
     return "\n".join(lines)
 
 
-def format_code_block(
-    code: str, language: str = "python", line_numbers: bool = False
-) -> str:
+def format_code_block(code: str, language: str = "python", line_numbers: bool = False) -> str:
     """Format code block with syntax highlighting indicators."""
     lines = code.split("\n")
 
@@ -463,9 +456,7 @@ def format_module_progress(module_progress: Dict[str, Any]) -> str:
         lines.append(f"Started: {format_time_ago(module_progress['start_date'])}")
 
     if module_progress.get("last_completion"):
-        lines.append(
-            f"Last Activity: {format_time_ago(module_progress['last_completion'])}"
-        )
+        lines.append(f"Last Activity: {format_time_ago(module_progress['last_completion'])}")
 
     return "\n".join(lines)
 

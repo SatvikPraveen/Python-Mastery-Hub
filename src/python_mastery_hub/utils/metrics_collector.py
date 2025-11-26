@@ -67,9 +67,7 @@ class MetricStore:
 
     def __init__(self, max_events_per_metric: int = 10000):
         self.max_events_per_metric = max_events_per_metric
-        self._metrics: Dict[str, deque] = defaultdict(
-            lambda: deque(maxlen=max_events_per_metric)
-        )
+        self._metrics: Dict[str, deque] = defaultdict(lambda: deque(maxlen=max_events_per_metric))
         self._counters: Dict[str, float] = defaultdict(float)
         self._lock = threading.RLock()
 
@@ -101,9 +99,7 @@ class MetricStore:
 
             return events
 
-    def get_counter_value(
-        self, metric_name: str, labels: Optional[Dict[str, str]] = None
-    ) -> float:
+    def get_counter_value(self, metric_name: str, labels: Optional[Dict[str, str]] = None) -> float:
         """Get current counter value."""
         with self._lock:
             labels = labels or {}
@@ -174,11 +170,7 @@ class MetricStore:
 
                 # Filter out old events
                 self._metrics[metric_key] = deque(
-                    (
-                        e
-                        for e in self._metrics[metric_key]
-                        if e.timestamp >= cutoff_time
-                    ),
+                    (e for e in self._metrics[metric_key] if e.timestamp >= cutoff_time),
                     maxlen=self.max_events_per_metric,
                 )
 
@@ -230,9 +222,7 @@ class MetricsCollector:
             self._collection_thread.start()
 
         # Start event queue processor
-        self._queue_processor = threading.Thread(
-            target=self._process_event_queue, daemon=True
-        )
+        self._queue_processor = threading.Thread(target=self._process_event_queue, daemon=True)
         self._queue_processor.start()
 
     def stop_collection(self) -> None:
@@ -334,9 +324,7 @@ class MetricsCollector:
         since = time.time() - (since_hours * 3600) if since_hours else None
         return self.store.get_summary(name, labels, since)
 
-    def get_counter_value(
-        self, name: str, labels: Optional[Dict[str, str]] = None
-    ) -> float:
+    def get_counter_value(self, name: str, labels: Optional[Dict[str, str]] = None) -> float:
         """Get current counter value."""
         return self.store.get_counter_value(name, labels)
 
@@ -372,12 +360,8 @@ class MetricsCollector:
 
             # Memory usage
             memory = psutil.virtual_memory()
-            self.record_gauge(
-                "system.memory.usage_percent", memory.percent, unit="percent"
-            )
-            self.record_gauge(
-                "system.memory.available_bytes", memory.available, unit="bytes"
-            )
+            self.record_gauge("system.memory.usage_percent", memory.percent, unit="percent")
+            self.record_gauge("system.memory.available_bytes", memory.available, unit="bytes")
             self.record_gauge("system.memory.used_bytes", memory.used, unit="bytes")
 
             # Disk usage
@@ -391,12 +375,8 @@ class MetricsCollector:
 
             # Process metrics
             process = psutil.Process()
-            self.record_gauge(
-                "process.memory.rss_bytes", process.memory_info().rss, unit="bytes"
-            )
-            self.record_gauge(
-                "process.cpu.usage_percent", process.cpu_percent(), unit="percent"
-            )
+            self.record_gauge("process.memory.rss_bytes", process.memory_info().rss, unit="bytes")
+            self.record_gauge("process.cpu.usage_percent", process.cpu_percent(), unit="percent")
             self.record_gauge("process.threads.count", process.num_threads())
 
             # Python-specific metrics
@@ -436,9 +416,7 @@ class LearningMetricsCollector:
         )
 
         if score is not None:
-            self.metrics.record_histogram(
-                "learning.topic.score", score, labels, "percentage"
-            )
+            self.metrics.record_histogram("learning.topic.score", score, labels, "percentage")
 
     def record_module_completion(
         self, user_id: str, module_id: str, total_time_minutes: float
@@ -451,23 +429,17 @@ class LearningMetricsCollector:
             "learning.module.duration_minutes", total_time_minutes, labels, "minutes"
         )
 
-    def record_achievement_earned(
-        self, user_id: str, achievement_id: str, points: int
-    ) -> None:
+    def record_achievement_earned(self, user_id: str, achievement_id: str, points: int) -> None:
         """Record achievement earned."""
         labels = {"user_id": user_id, "achievement_id": achievement_id}
 
         self.metrics.record_counter("learning.achievement.earned", 1, labels)
-        self.metrics.record_histogram(
-            "learning.achievement.points", points, labels, "points"
-        )
+        self.metrics.record_histogram("learning.achievement.points", points, labels, "points")
 
     def record_streak_update(self, user_id: str, streak_days: int) -> None:
         """Record learning streak update."""
         labels = {"user_id": user_id}
-        self.metrics.record_gauge(
-            "learning.streak.current_days", streak_days, labels, "days"
-        )
+        self.metrics.record_gauge("learning.streak.current_days", streak_days, labels, "days")
 
     def record_code_execution(
         self,
@@ -552,9 +524,7 @@ class ApplicationMetricsCollector:
                 "app.cache.operation_duration_ms", duration_ms, labels, "milliseconds"
             )
 
-    def record_error(
-        self, error_type: str, component: str, severity: str = "error"
-    ) -> None:
+    def record_error(self, error_type: str, component: str, severity: str = "error") -> None:
         """Record application error."""
         labels = {
             "error_type": error_type,
@@ -589,9 +559,7 @@ class ApplicationMetricsCollector:
         self.metrics.record_counter("app.file.operation_count", 1, labels)
 
         if size_bytes is not None:
-            self.metrics.record_histogram(
-                "app.file.size_bytes", size_bytes, labels, "bytes"
-            )
+            self.metrics.record_histogram("app.file.size_bytes", size_bytes, labels, "bytes")
 
         if duration_ms is not None:
             self.metrics.record_histogram(
@@ -635,17 +603,13 @@ class MetricsExporter:
         data = {"timestamp": time.time(), "since_hours": since_hours, "metrics": {}}
 
         for metric_name in self.metrics.get_all_metrics():
-            summary = self.metrics.get_metric_summary(
-                metric_name, since_hours=since_hours
-            )
+            summary = self.metrics.get_metric_summary(metric_name, since_hours=since_hours)
             if summary:
                 data["metrics"][metric_name] = asdict(summary)
 
         return json.dumps(data, indent=2)
 
-    def export_csv(
-        self, metric_name: str, labels: Optional[Dict[str, str]] = None
-    ) -> str:
+    def export_csv(self, metric_name: str, labels: Optional[Dict[str, str]] = None) -> str:
         """Export specific metric events as CSV."""
         events = self.metrics.store.get_events(metric_name, labels)
 
@@ -692,9 +656,7 @@ def collect_metrics(
 
                 # Prepare labels
                 func_labels = (labels or {}).copy()
-                func_labels.update(
-                    {"function": func.__name__, "success": str(success).lower()}
-                )
+                func_labels.update({"function": func.__name__, "success": str(success).lower()})
 
                 if error_type:
                     func_labels["error_type"] = error_type
@@ -704,9 +666,7 @@ def collect_metrics(
                     _default_collector.record_counter(f"{name}.calls", 1, func_labels)
 
                 if record_duration:
-                    _default_collector.record_timer(
-                        f"{name}.duration", duration, func_labels
-                    )
+                    _default_collector.record_timer(f"{name}.duration", duration, func_labels)
 
         return wrapper
 

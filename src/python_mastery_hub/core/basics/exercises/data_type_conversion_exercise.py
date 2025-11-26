@@ -12,9 +12,7 @@ class DataTypeConversionExercise:
 
     def __init__(self):
         self.title = "Data Type Conversion Challenge"
-        self.description = (
-            "Convert between different Python data types safely and effectively"
-        )
+        self.description = "Convert between different Python data types safely and effectively"
         self.difficulty = "easy"
         self.validator = CodeValidator()
         self.runner = ExampleRunner()

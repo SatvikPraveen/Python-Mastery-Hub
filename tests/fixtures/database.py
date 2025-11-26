@@ -69,9 +69,7 @@ def test_database():
 @pytest.fixture
 def db_session(test_database):
     """Create a database session for testing."""
-    TestingSessionLocal = sessionmaker(
-        autocommit=False, autoflush=False, bind=test_database
-    )
+    TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=test_database)
 
     session = TestingSessionLocal()
 

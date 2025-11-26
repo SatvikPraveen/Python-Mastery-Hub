@@ -114,9 +114,7 @@ class BenchmarkRunner:
 
             # Memory monitoring setup
             initial_memory = (
-                psutil.virtual_memory().used / (1024 * 1024)
-                if config.measure_memory
-                else None
+                psutil.virtual_memory().used / (1024 * 1024) if config.measure_memory else None
             )
             cpu_before = psutil.cpu_percent() if config.measure_cpu else None
 
@@ -183,9 +181,7 @@ class BenchmarkRunner:
         # Baseline comparison
         baseline_comparison = None
         if baseline_result:
-            baseline_comparison = self._compare_with_baseline(
-                mean_time, baseline_result
-            )
+            baseline_comparison = self._compare_with_baseline(mean_time, baseline_result)
 
         # Create result
         result = BenchmarkResult(
@@ -221,9 +217,7 @@ class BenchmarkRunner:
 
         return result
 
-    def run_benchmark_suite(
-        self, benchmarks: Dict[str, tuple]
-    ) -> Dict[str, BenchmarkResult]:
+    def run_benchmark_suite(self, benchmarks: Dict[str, tuple]) -> Dict[str, BenchmarkResult]:
         """Run a suite of benchmarks."""
         results = {}
 
@@ -233,13 +227,9 @@ class BenchmarkRunner:
         for name, (config, func, args, kwargs) in benchmarks.items():
             try:
                 if asyncio.iscoroutinefunction(func):
-                    result = asyncio.run(
-                        self.run_benchmark(config, func, *args, **kwargs)
-                    )
+                    result = asyncio.run(self.run_benchmark(config, func, *args, **kwargs))
                 else:
-                    result = asyncio.run(
-                        self.run_benchmark(config, func, *args, **kwargs)
-                    )
+                    result = asyncio.run(self.run_benchmark(config, func, *args, **kwargs))
                 results[name] = result
             except Exception as e:
                 print(f"Benchmark {name} failed: {e}")
@@ -252,9 +242,7 @@ class BenchmarkRunner:
 
         return results
 
-    def compare_results(
-        self, result1: BenchmarkResult, result2: BenchmarkResult
-    ) -> Dict[str, Any]:
+    def compare_results(self, result1: BenchmarkResult, result2: BenchmarkResult) -> Dict[str, Any]:
         """Compare two benchmark results."""
         if result1.name != result2.name:
             raise ValueError("Can only compare results from the same benchmark")
@@ -302,39 +290,27 @@ class BenchmarkRunner:
         """Generate a comprehensive performance report."""
         report_lines = []
         report_lines.append("# Performance Benchmark Report")
-        report_lines.append(
-            f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
-        )
+        report_lines.append(f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         report_lines.append("")
 
         # Summary table
         report_lines.append("## Benchmark Summary")
         report_lines.append("")
-        report_lines.append(
-            "| Benchmark | Mean Time (ms) | Ops/sec | Memory (MB) | Status |"
-        )
-        report_lines.append(
-            "|-----------|----------------|---------|-------------|--------|"
-        )
+        report_lines.append("| Benchmark | Mean Time (ms) | Ops/sec | Memory (MB) | Status |")
+        report_lines.append("|-----------|----------------|---------|-------------|--------|")
 
         for name, result in results.items():
             if result:
                 status = "✓ PASS"
                 if result.baseline_comparison:
-                    regression = result.baseline_comparison.get(
-                        "performance_regression", False
-                    )
+                    regression = result.baseline_comparison.get("performance_regression", False)
                     if regression:
                         status = "⚠ REGRESSION"
 
                 ops_per_sec = (
-                    f"{result.operations_per_second:.2f}"
-                    if result.operations_per_second
-                    else "N/A"
+                    f"{result.operations_per_second:.2f}" if result.operations_per_second else "N/A"
                 )
-                memory = (
-                    f"{result.memory_usage_mb:.2f}" if result.memory_usage_mb else "N/A"
-                )
+                memory = f"{result.memory_usage_mb:.2f}" if result.memory_usage_mb else "N/A"
 
                 report_lines.append(
                     f"| {name} | {result.mean_time * 1000:.2f} | {ops_per_sec} | {memory} | {status} |"
@@ -352,24 +328,16 @@ class BenchmarkRunner:
             if result:
                 report_lines.append(f"### {name}")
                 report_lines.append("")
-                report_lines.append(
-                    f"- **Mean execution time**: {result.mean_time * 1000:.3f} ms"
-                )
+                report_lines.append(f"- **Mean execution time**: {result.mean_time * 1000:.3f} ms")
                 report_lines.append(
                     f"- **Median execution time**: {result.median_time * 1000:.3f} ms"
                 )
-                report_lines.append(
-                    f"- **Standard deviation**: {result.std_dev * 1000:.3f} ms"
-                )
+                report_lines.append(f"- **Standard deviation**: {result.std_dev * 1000:.3f} ms")
                 report_lines.append(
                     f"- **Min/Max time**: {result.min_time * 1000:.3f} / {result.max_time * 1000:.3f} ms"
                 )
-                report_lines.append(
-                    f"- **95th percentile**: {result.percentile_95 * 1000:.3f} ms"
-                )
-                report_lines.append(
-                    f"- **99th percentile**: {result.percentile_99 * 1000:.3f} ms"
-                )
+                report_lines.append(f"- **95th percentile**: {result.percentile_95 * 1000:.3f} ms")
+                report_lines.append(f"- **99th percentile**: {result.percentile_99 * 1000:.3f} ms")
 
                 if result.operations_per_second:
                     report_lines.append(
@@ -380,9 +348,7 @@ class BenchmarkRunner:
                     report_lines.append(
                         f"- **Average memory usage**: {result.memory_usage_mb:.2f} MB"
                     )
-                    report_lines.append(
-                        f"- **Peak memory usage**: {result.peak_memory_mb:.2f} MB"
-                    )
+                    report_lines.append(f"- **Peak memory usage**: {result.peak_memory_mb:.2f} MB")
 
                 if result.baseline_comparison:
                     comp = result.baseline_comparison
@@ -390,9 +356,7 @@ class BenchmarkRunner:
                         f"- **Baseline comparison**: {comp['percent_change']:+.1f}% change"
                     )
                     if comp.get("performance_regression"):
-                        report_lines.append(
-                            "  - ⚠️ **Performance regression detected**"
-                        )
+                        report_lines.append("  - ⚠️ **Performance regression detected**")
 
                 report_lines.append(f"- **Iterations completed**: {result.iterations}")
                 report_lines.append("")
@@ -547,9 +511,7 @@ class BenchmarkRunner:
                     all_times.append(result.mean_time)
 
             if all_times:
-                print(
-                    f"Average execution time: {statistics.mean(all_times) * 1000:.3f} ms"
-                )
+                print(f"Average execution time: {statistics.mean(all_times) * 1000:.3f} ms")
                 print(f"Total execution time: {sum(all_times):.3f} s")
 
         # Check for regressions
@@ -560,9 +522,7 @@ class BenchmarkRunner:
                     regressions.append(name)
 
         if regressions:
-            print(
-                f"\n⚠️  Performance regressions detected in: {', '.join(regressions)}"
-            )
+            print(f"\n⚠️  Performance regressions detected in: {', '.join(regressions)}")
         else:
             print("\n✓ No performance regressions detected")
 
@@ -634,9 +594,7 @@ def create_simple_benchmark_suite() -> Dict[str, tuple]:
             {},
         ),
         "memory_allocation": (
-            BenchmarkConfig(
-                "memory_allocation", "Memory allocation performance", iterations=8
-            ),
+            BenchmarkConfig("memory_allocation", "Memory allocation performance", iterations=8),
             memory_allocation_task,
             (),
             {},

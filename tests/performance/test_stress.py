@@ -74,9 +74,7 @@ class ResourceMonitor:
     def start_monitoring(self, interval_seconds: float = 0.5):
         """Start monitoring system resources."""
         self.monitoring = True
-        self.monitor_thread = threading.Thread(
-            target=self._monitor_loop, args=(interval_seconds,)
-        )
+        self.monitor_thread = threading.Thread(target=self._monitor_loop, args=(interval_seconds,))
         self.monitor_thread.daemon = True
         self.monitor_thread.start()
 
@@ -406,9 +404,7 @@ class StressTestRunner:
         self.resource_monitor = ResourceMonitor()
         self.stress_results = []
 
-    async def run_breaking_point_test(
-        self, config: StressTestConfig
-    ) -> StressTestResult:
+    async def run_breaking_point_test(self, config: StressTestConfig) -> StressTestResult:
         """Find the system breaking point by gradually increasing load."""
         print(f"Starting breaking point test: max {config.max_concurrent_users} users")
 
@@ -431,20 +427,14 @@ class StressTestRunner:
             print(f"Testing with {current_users} concurrent users...")
 
             # Run load test with current user count
-            step_result = await self._run_stress_step(
-                current_users, 30
-            )  # 30 second steps
+            step_result = await self._run_stress_step(current_users, 30)  # 30 second steps
 
             total_operations += step_result["total_operations"]
             successful_operations += step_result["successful_operations"]
             failed_operations += step_result["failed_operations"]
 
             failure_rate = (
-                (
-                    step_result["failed_operations"]
-                    / step_result["total_operations"]
-                    * 100
-                )
+                (step_result["failed_operations"] / step_result["total_operations"] * 100)
                 if step_result["total_operations"] > 0
                 else 0
             )
@@ -504,15 +494,11 @@ class StressTestRunner:
             operations_per_second_peak=0,  # Would calculate from step results
             time_to_break=time_to_break,
             recovery_time=recovery_time,
-            resource_leaks_detected=list(
-                resource_summary.get("leak_details", {}).keys()
-            ),
+            resource_leaks_detected=list(resource_summary.get("leak_details", {}).keys()),
             failure_modes=failure_modes,
         )
 
-    async def _run_stress_step(
-        self, user_count: int, duration_seconds: int
-    ) -> Dict[str, Any]:
+    async def _run_stress_step(self, user_count: int, duration_seconds: int) -> Dict[str, Any]:
         """Run a single stress test step with specified user count."""
         step_start = time.time()
 
@@ -520,9 +506,7 @@ class StressTestRunner:
         user_tasks = []
         for i in range(user_count):
             user_id = f"stress_user_{i}"
-            task = asyncio.create_task(
-                self._stress_user_session(user_id, duration_seconds)
-            )
+            task = asyncio.create_task(self._stress_user_session(user_id, duration_seconds))
             user_tasks.append(task)
 
         # Wait for all tasks to complete or timeout
@@ -570,9 +554,7 @@ class StressTestRunner:
             "duration": time.time() - step_start,
         }
 
-    async def _stress_user_session(
-        self, user_id: str, duration_seconds: int
-    ) -> Dict[str, Any]:
+    async def _stress_user_session(self, user_id: str, duration_seconds: int) -> Dict[str, Any]:
         """Simulate a user session under stress conditions."""
         session_start = time.time()
         successful_ops = 0
@@ -639,8 +621,7 @@ class StressTestRunner:
         api_stats = self.api.get_resource_stats()
 
         return {
-            "connection_pool_exhausted": api_stats["active_connections"]
-            >= 90,  # Near limit
+            "connection_pool_exhausted": api_stats["active_connections"] >= 90,  # Near limit
             "memory_exhausted": api_stats["memory_allocations"] > 400,
             "background_tasks_overload": api_stats["background_tasks"] > 80,
             "file_handles_exhausted": api_stats["file_handles"] > 800,
@@ -670,17 +651,11 @@ class StressTestRunner:
 
         # Test with light load to verify recovery
         try:
-            recovery_result = await self._run_stress_step(
-                5, 10
-            )  # 5 users for 10 seconds
+            recovery_result = await self._run_stress_step(5, 10)  # 5 users for 10 seconds
             recovery_time = time.time() - recovery_start
 
             failure_rate = (
-                (
-                    recovery_result["failed_operations"]
-                    / recovery_result["total_operations"]
-                    * 100
-                )
+                (recovery_result["failed_operations"] / recovery_result["total_operations"] * 100)
                 if recovery_result["total_operations"] > 0
                 else 100
             )
@@ -739,9 +714,7 @@ class TestResourceExhaustion:
         assert result.total_operations > 0
 
         # Check if memory-related issues were detected
-        memory_issues = any(
-            "memory" in leak.lower() for leak in result.resource_leaks_detected
-        )
+        memory_issues = any("memory" in leak.lower() for leak in result.resource_leaks_detected)
         if result.breaking_point_users:
             assert result.peak_memory_usage_mb > 0
 
@@ -815,8 +788,7 @@ class TestResourceExhaustion:
         # If breaking point reached, should be CPU-related
         if result.breaking_point_users:
             cpu_related_failure = any(
-                "overload" in mode.get("primary_error", "").lower()
-                for mode in result.failure_modes
+                "overload" in mode.get("primary_error", "").lower() for mode in result.failure_modes
             )
             # CPU saturation often manifests as timeouts or overload errors
 
@@ -856,11 +828,7 @@ class TestFailureCascades:
             # Test with same load under failure conditions
             cascade_result = await stress_runner.run_breaking_point_test(initial_config)
             cascade_failure_rate = (
-                (
-                    cascade_result.failed_operations
-                    / cascade_result.total_operations
-                    * 100
-                )
+                (cascade_result.failed_operations / cascade_result.total_operations * 100)
                 if cascade_result.total_operations > 0
                 else 0
             )
@@ -868,9 +836,7 @@ class TestFailureCascades:
             print(f"Cascade failure rate: {cascade_failure_rate:.2f}%")
 
             # Failure rate should increase significantly
-            assert (
-                cascade_failure_rate > baseline_failure_rate + 10
-            )  # At least 10% increase
+            assert cascade_failure_rate > baseline_failure_rate + 10  # At least 10% increase
 
             # Check that circuit breaker errors are primary
             circuit_breaker_errors = any(
@@ -1005,9 +971,7 @@ class TestMemoryLeaks:
             print(f"  Allocations per operation: {allocations_per_operation:.3f}")
 
             # Should not be excessive (depends on implementation)
-            assert (
-                allocations_per_operation < 1.0
-            )  # Less than 1 allocation per operation
+            assert allocations_per_operation < 1.0  # Less than 1 allocation per operation
 
         # Test memory cleanup
         pre_cleanup_memory = len(stress_api.memory_pool)

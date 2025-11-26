@@ -69,9 +69,7 @@ class MockLearningPlatform:
         """Reset all platform data."""
         self.__init__()
 
-    async def track_lesson_progress(
-        self, user_id: str, lesson_id: str, progress_data: Dict
-    ):
+    async def track_lesson_progress(self, user_id: str, lesson_id: str, progress_data: Dict):
         """Track user progress through a lesson."""
         key = f"{user_id}_{lesson_id}"
         if key not in self.analytics:
@@ -84,9 +82,7 @@ class MockLearningPlatform:
             }
         )
 
-    async def calculate_knowledge_retention(
-        self, user_id: str, course_id: str
-    ) -> float:
+    async def calculate_knowledge_retention(self, user_id: str, course_id: str) -> float:
         """Calculate knowledge retention score based on quiz performance and review patterns."""
         # Mock calculation based on recent quiz scores and review frequency
         return 0.85  # 85% retention score
@@ -268,9 +264,7 @@ class TestLessonProgression:
         )
 
     @pytest.mark.asyncio
-    async def test_prerequisite_enforcement(
-        self, mock_learning_platform, sample_python_course
-    ):
+    async def test_prerequisite_enforcement(self, mock_learning_platform, sample_python_course):
         """Test that prerequisites are properly enforced."""
         user_id = "user_123"
         course = sample_python_course
@@ -280,15 +274,11 @@ class TestLessonProgression:
         mock_learning_platform.user_progress[user_id] = progress
 
         # Try to access lesson with prerequisites without completing them
-        advanced_lesson = course["lessons"][
-            4
-        ]  # Classes and Objects (has prerequisites)
+        advanced_lesson = course["lessons"][4]  # Classes and Objects (has prerequisites)
 
         # Check if prerequisites are met
         missing_prereqs = [
-            p
-            for p in advanced_lesson.prerequisites
-            if p not in progress.completed_lessons
+            p for p in advanced_lesson.prerequisites if p not in progress.completed_lessons
         ]
 
         if missing_prereqs:
@@ -301,16 +291,12 @@ class TestLessonProgression:
 
         # Now should be able to access the advanced lesson
         missing_prereqs = [
-            p
-            for p in advanced_lesson.prerequisites
-            if p not in progress.completed_lessons
+            p for p in advanced_lesson.prerequisites if p not in progress.completed_lessons
         ]
         assert len(missing_prereqs) == 0
 
     @pytest.mark.asyncio
-    async def test_lesson_content_loading(
-        self, mock_learning_platform, sample_python_course
-    ):
+    async def test_lesson_content_loading(self, mock_learning_platform, sample_python_course):
         """Test different types of lesson content loading."""
         user_id = "user_123"
         course = sample_python_course
@@ -550,9 +536,7 @@ class TestQuizSystem:
         assert len(progress.quiz_attempts[quiz.id]) == 1
 
     @pytest.mark.asyncio
-    async def test_quiz_retake_policy(
-        self, mock_learning_platform, sample_python_course
-    ):
+    async def test_quiz_retake_policy(self, mock_learning_platform, sample_python_course):
         """Test quiz retake policies and attempt limits."""
         user_id = "user_123"
         quiz = sample_python_course["quizzes"][0]
@@ -582,10 +566,7 @@ class TestQuizSystem:
 
             for question in quiz.questions:
                 total_points += question["points"]
-                if (
-                    scenario["answers"].get(question["id"])
-                    == question["correct_answer"]
-                ):
+                if scenario["answers"].get(question["id"]) == question["correct_answer"]:
                     earned_points += question["points"]
 
             score = (earned_points / total_points) * 100
@@ -606,9 +587,7 @@ class TestQuizSystem:
 
         # Verify attempt tracking
         assert len(progress.quiz_attempts[quiz.id]) == 3
-        assert (
-            progress.quiz_attempts[quiz.id][-1]["passed"] is True
-        )  # Last attempt passed
+        assert progress.quiz_attempts[quiz.id][-1]["passed"] is True  # Last attempt passed
 
     @pytest.mark.asyncio
     async def test_timed_quiz_functionality(self, mock_learning_platform):
@@ -649,9 +628,7 @@ class TestQuizSystem:
         await asyncio.sleep(0.1)  # Simulate thinking time
 
         quiz_end_time = datetime.now()
-        time_taken = (
-            quiz_end_time - quiz_start_time
-        ).total_seconds() / 60  # Convert to minutes
+        time_taken = (quiz_end_time - quiz_start_time).total_seconds() / 60  # Convert to minutes
 
         # Check if quiz was completed within time limit
         if time_taken > timed_quiz.time_limit_minutes:
@@ -688,9 +665,7 @@ class TestAdaptiveLearning:
     """Test adaptive learning features and personalization."""
 
     @pytest.mark.asyncio
-    async def test_difficulty_adjustment(
-        self, mock_learning_platform, sample_python_course
-    ):
+    async def test_difficulty_adjustment(self, mock_learning_platform, sample_python_course):
         """Test adaptive difficulty adjustment based on performance."""
         user_id = "user_123"
         course = sample_python_course
@@ -802,10 +777,7 @@ class TestAdaptiveLearning:
                 score += 50
 
             # Avoid topics user is already strong in (unless advanced)
-            if (
-                content["topic"] in user_profile["strong_areas"]
-                and content["difficulty"] != "hard"
-            ):
+            if content["topic"] in user_profile["strong_areas"] and content["difficulty"] != "hard":
                 score -= 20
 
             if score > 20:  # Threshold for recommendation
@@ -841,8 +813,7 @@ class TestAdaptiveLearning:
         assert len(recommendations) > 0
         assert recommendations[0]["score"] >= 50  # Should be weak area content
         assert any(
-            "loops" in rec["reason"] or "functions" in rec["reason"]
-            for rec in recommendations
+            "loops" in rec["reason"] or "functions" in rec["reason"] for rec in recommendations
         )
 
 
@@ -884,16 +855,12 @@ class TestKnowledgeRetention:
         review_schedule = []
 
         for topic_data in learned_topics:
-            intervals = repetition_intervals.get(
-                topic_data["initial_score"], [1, 2, 4, 8, 16]
-            )
+            intervals = repetition_intervals.get(topic_data["initial_score"], [1, 2, 4, 8, 16])
             topic_reviews = []
 
             for i, interval in enumerate(intervals):
                 review_date = topic_data["learned_date"] + timedelta(days=interval)
-                if review_date <= datetime.now() + timedelta(
-                    days=30
-                ):  # Within next 30 days
+                if review_date <= datetime.now() + timedelta(days=30):  # Within next 30 days
                     topic_reviews.append(
                         {
                             "topic": topic_data["topic"],
@@ -960,14 +927,10 @@ class TestKnowledgeRetention:
         if len(performance_history) >= 2:
             initial_score = performance_history[0]["score"]
             latest_score = performance_history[-1]["score"]
-            time_span = (
-                performance_history[-1]["date"] - performance_history[0]["date"]
-            ).days
+            time_span = (performance_history[-1]["date"] - performance_history[0]["date"]).days
 
             if time_span > 0:
-                decay_rate = (
-                    initial_score - latest_score
-                ) / time_span  # Points per day
+                decay_rate = (initial_score - latest_score) / time_span  # Points per day
             else:
                 decay_rate = 0
         else:
@@ -1040,10 +1003,7 @@ class TestLearningAnalytics:
 
         # Generate analytics
         analytics = {
-            "progress_percentage": (
-                len(progress.completed_lessons) / len(course["lessons"])
-            )
-            * 100,
+            "progress_percentage": (len(progress.completed_lessons) / len(course["lessons"])) * 100,
             "average_quiz_score": 91.67,  # (95 + 90 + 80) / 3
             "total_time_spent": sum(progress.time_spent.values()),
             "efficiency_score": 0.85,  # Based on time spent vs estimated
@@ -1119,12 +1079,8 @@ class TestLearningAnalytics:
         ]
 
         # Analyze patterns
-        evening_sessions = [
-            s for s in learning_sessions if s["start_time"].startswith("19")
-        ]
-        morning_sessions = [
-            s for s in learning_sessions if s["start_time"].startswith("0")
-        ]
+        evening_sessions = [s for s in learning_sessions if s["start_time"].startswith("19")]
+        morning_sessions = [s for s in learning_sessions if s["start_time"].startswith("0")]
 
         patterns = {
             "preferred_study_time": "evening"
@@ -1133,12 +1089,10 @@ class TestLearningAnalytics:
             "average_session_duration": sum(s["duration"] for s in learning_sessions)
             / len(learning_sessions),
             "performance_by_time": {
-                "evening": sum(s["performance"] for s in evening_sessions)
-                / len(evening_sessions)
+                "evening": sum(s["performance"] for s in evening_sessions) / len(evening_sessions)
                 if evening_sessions
                 else 0,
-                "morning": sum(s["performance"] for s in morning_sessions)
-                / len(morning_sessions)
+                "morning": sum(s["performance"] for s in morning_sessions) / len(morning_sessions)
                 if morning_sessions
                 else 0,
             },
@@ -1149,13 +1103,8 @@ class TestLearningAnalytics:
 
         # Generate recommendations based on patterns
         recommendations = []
-        if (
-            patterns["performance_by_time"]["evening"]
-            > patterns["performance_by_time"]["morning"]
-        ):
-            recommendations.append(
-                "Schedule study sessions in the evening for better performance"
-            )
+        if patterns["performance_by_time"]["evening"] > patterns["performance_by_time"]["morning"]:
+            recommendations.append("Schedule study sessions in the evening for better performance")
 
         if patterns["average_session_duration"] < patterns["optimal_session_length"]:
             recommendations.append(
@@ -1176,8 +1125,7 @@ class TestLearningAnalytics:
 
         assert patterns["preferred_study_time"] == "evening"
         assert (
-            patterns["performance_by_time"]["evening"]
-            > patterns["performance_by_time"]["morning"]
+            patterns["performance_by_time"]["evening"] > patterns["performance_by_time"]["morning"]
         )
         assert len(recommendations) > 0
 

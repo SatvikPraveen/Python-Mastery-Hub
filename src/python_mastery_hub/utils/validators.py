@@ -38,9 +38,7 @@ class ValidationError(Exception):
 class ValidationRule:
     """Represents a single validation rule."""
 
-    def __init__(
-        self, validator: Callable[[Any], bool], message: str, code: Optional[str] = None
-    ):
+    def __init__(self, validator: Callable[[Any], bool], message: str, code: Optional[str] = None):
         self.validator = validator
         self.message = message
         self.code = code or "invalid"
@@ -133,9 +131,7 @@ class StringValidator(Validator):
         )
         return self
 
-    def matches_pattern(
-        self, pattern: str, message: Optional[str] = None
-    ) -> "StringValidator":
+    def matches_pattern(self, pattern: str, message: Optional[str] = None) -> "StringValidator":
         """Match regex pattern."""
         compiled_pattern = re.compile(pattern)
         self.add_rule(
@@ -194,9 +190,7 @@ class StringValidator(Validator):
 
     def not_empty(self) -> "StringValidator":
         """Must not be empty string."""
-        self.add_rule(
-            lambda x: isinstance(x, str) and x.strip() != "", "Must not be empty"
-        )
+        self.add_rule(lambda x: isinstance(x, str) and x.strip() != "", "Must not be empty")
         return self
 
 
@@ -220,9 +214,7 @@ class NumberValidator(Validator):
         )
         return self
 
-    def between(
-        self, min_val: Union[int, float], max_val: Union[int, float]
-    ) -> "NumberValidator":
+    def between(self, min_val: Union[int, float], max_val: Union[int, float]) -> "NumberValidator":
         """Value within range."""
         self.add_rule(
             lambda x: isinstance(x, (int, float)) and min_val <= x <= max_val,
@@ -232,16 +224,12 @@ class NumberValidator(Validator):
 
     def positive(self) -> "NumberValidator":
         """Must be positive."""
-        self.add_rule(
-            lambda x: isinstance(x, (int, float)) and x > 0, "Must be positive"
-        )
+        self.add_rule(lambda x: isinstance(x, (int, float)) and x > 0, "Must be positive")
         return self
 
     def non_negative(self) -> "NumberValidator":
         """Must be non-negative."""
-        self.add_rule(
-            lambda x: isinstance(x, (int, float)) and x >= 0, "Must be non-negative"
-        )
+        self.add_rule(lambda x: isinstance(x, (int, float)) and x >= 0, "Must be non-negative")
         return self
 
     def is_integer(self) -> "NumberValidator":
@@ -332,9 +320,7 @@ def validate_json(json_str: str) -> bool:
 
 
 # Python Code Validator
-def validate_python_code(
-    code: str, allow_imports: bool = False
-) -> Tuple[bool, Optional[str]]:
+def validate_python_code(code: str, allow_imports: bool = False) -> Tuple[bool, Optional[str]]:
     """
     Validate Python code syntax.
 
@@ -378,9 +364,7 @@ def validate_date_string(date_str: str, format_str: str = "%Y-%m-%d") -> bool:
         return False
 
 
-def validate_datetime_string(
-    datetime_str: str, format_str: str = "%Y-%m-%d %H:%M:%S"
-) -> bool:
+def validate_datetime_string(datetime_str: str, format_str: str = "%Y-%m-%d %H:%M:%S") -> bool:
     """Validate datetime string format."""
     if not isinstance(datetime_str, str):
         return False
@@ -440,9 +424,7 @@ def sanitize_string(value: str, max_length: Optional[int] = None) -> str:
     sanitized = value.strip()
 
     # Remove control characters
-    sanitized = "".join(
-        char for char in sanitized if ord(char) >= 32 or char in "\t\n\r"
-    )
+    sanitized = "".join(char for char in sanitized if ord(char) >= 32 or char in "\t\n\r")
 
     # Truncate if needed
     if max_length and len(sanitized) > max_length:
@@ -573,9 +555,7 @@ def validate_args(**validators):
                     value = bound_args.arguments[arg_name]
                     is_valid, errors = validator.validate(value)
                     if not is_valid:
-                        raise ValidationError(
-                            f"Invalid argument '{arg_name}': {'; '.join(errors)}"
-                        )
+                        raise ValidationError(f"Invalid argument '{arg_name}': {'; '.join(errors)}")
 
             return func(*args, **kwargs)
 
@@ -598,9 +578,7 @@ def get_validation_summary(errors: Dict[str, List[str]]) -> str:
     return "\n".join(summary_lines)
 
 
-def validate_and_raise(
-    validator: Validator, value: Any, field_name: Optional[str] = None
-) -> None:
+def validate_and_raise(validator: Validator, value: Any, field_name: Optional[str] = None) -> None:
     """Validate value and raise ValidationError if invalid."""
     is_valid, errors = validator.validate(value)
     if not is_valid:

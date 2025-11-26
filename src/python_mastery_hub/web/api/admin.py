@@ -159,9 +159,7 @@ async def list_users(
     search: Optional[str] = None,
     is_active: Optional[bool] = None,
     is_verified: Optional[bool] = None,
-    sort_by: str = Query(
-        "created_at", regex="^(created_at|last_login|username|email)$"
-    ),
+    sort_by: str = Query("created_at", regex="^(created_at|last_login|username|email)$"),
     sort_order: str = Query("desc", regex="^(asc|desc)$"),
     current_user: User = Depends(require_admin),
     progress_service: ProgressService = Depends(ProgressService),

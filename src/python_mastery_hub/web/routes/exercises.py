@@ -126,9 +126,7 @@ def detail(exercise_id):
         user_progress = progress_service.get_exercise_progress(user_id, exercise_id)
 
         # Get user's previous submissions
-        submissions = ExerciseSubmission.get_user_submissions(
-            user_id, exercise_id, limit=5
-        )
+        submissions = ExerciseSubmission.get_user_submissions(user_id, exercise_id, limit=5)
 
         # Get hints if user has unlocked them
         hints = []
@@ -153,9 +151,7 @@ def detail(exercise_id):
         learning_objectives = exercise.get("learning_objectives", [])
 
         # Get difficulty progression
-        difficulty_info = Exercise.get_difficulty_info(
-            exercise.get("difficulty", "medium")
-        )
+        difficulty_info = Exercise.get_difficulty_info(exercise.get("difficulty", "medium"))
 
         context = {
             "exercise": exercise,
@@ -211,9 +207,7 @@ def submit_exercise(exercise_id):
         # Calculate score
         total_tests = len(execution_result.get("test_results", []))
         passed_tests = sum(
-            1
-            for result in execution_result.get("test_results", [])
-            if result.get("passed", False)
+            1 for result in execution_result.get("test_results", []) if result.get("passed", False)
         )
 
         score = (passed_tests / total_tests * 100) if total_tests > 0 else 0
@@ -255,9 +249,7 @@ def submit_exercise(exercise_id):
                 # Check for new achievements
                 new_achievements = progress_service.check_achievements(user_id)
 
-                logger.info(
-                    f"User {user_id} completed exercise {exercise_id} with score {score}"
-                )
+                logger.info(f"User {user_id} completed exercise {exercise_id} with score {score}")
 
                 return jsonify(
                     {
@@ -368,9 +360,7 @@ def get_hint(exercise_id):
         hint = exercise_hints[next_hint_index]
 
         # Update progress
-        success = progress_service.unlock_hint(
-            user_id, exercise_id, next_hint_index + 1
-        )
+        success = progress_service.unlock_hint(user_id, exercise_id, next_hint_index + 1)
 
         if success:
             # Deduct points for using hint
@@ -476,9 +466,7 @@ def view_submission_result(submission_id):
             execution_result = json.loads(execution_result)
 
         # Get performance metrics
-        performance_metrics = progress_service.get_submission_performance_metrics(
-            submission_id
-        )
+        performance_metrics = progress_service.get_submission_performance_metrics(submission_id)
 
         # Get improvement suggestions
         suggestions = progress_service.get_improvement_suggestions(submission_id)
@@ -605,9 +593,9 @@ def inject_exercise_data():
             user_id = session["user_id"]
 
             # Add exercise progress summary
-            data[
-                "exercise_progress_summary"
-            ] = progress_service.get_exercise_progress_summary(user_id)
+            data["exercise_progress_summary"] = progress_service.get_exercise_progress_summary(
+                user_id
+            )
 
         except Exception as e:
             logger.error(f"Exercise context processor error: {str(e)}")

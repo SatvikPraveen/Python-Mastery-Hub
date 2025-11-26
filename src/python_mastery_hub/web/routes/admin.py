@@ -148,9 +148,7 @@ def manage_users():
         }
 
         # Get users with pagination
-        users_data = User.get_users_with_filters(
-            filters=filters, page=page, per_page=per_page
-        )
+        users_data = User.get_users_with_filters(filters=filters, page=page, per_page=per_page)
 
         users = users_data["users"]
         pagination = users_data["pagination"]
@@ -381,14 +379,10 @@ def exercise_detail(exercise_id):
         exercise_stats = progress_service.get_exercise_admin_stats(exercise_id)
 
         # Get recent submissions
-        recent_submissions = ExerciseSubmission.get_exercise_submissions(
-            exercise_id, limit=20
-        )
+        recent_submissions = ExerciseSubmission.get_exercise_submissions(exercise_id, limit=20)
 
         # Get submission analytics
-        submission_analytics = progress_service.get_exercise_submission_analytics(
-            exercise_id
-        )
+        submission_analytics = progress_service.get_exercise_submission_analytics(exercise_id)
 
         context = {
             "exercise": exercise,
@@ -435,9 +429,7 @@ def analytics():
         learning_analytics = {
             "progress_patterns": progress_service.get_progress_patterns(period),
             "time_spent_analytics": progress_service.get_time_spent_analytics(period),
-            "module_completion_rates": progress_service.get_module_completion_rates(
-                period
-            ),
+            "module_completion_rates": progress_service.get_module_completion_rates(period),
             "achievement_distribution": progress_service.get_achievement_distribution(),
         }
 
@@ -544,9 +536,7 @@ def export_submissions():
         end_date = request.args.get("end_date")
 
         # Get submissions
-        submissions = ExerciseSubmission.get_submissions_for_export(
-            start_date, end_date
-        )
+        submissions = ExerciseSubmission.get_submissions_for_export(start_date, end_date)
 
         # Create CSV content
         output = io.StringIO()
@@ -583,9 +573,7 @@ def export_submissions():
                     submission.passed_tests,
                     submission.total_tests,
                     submission.is_completed,
-                    submission.submitted_at.isoformat()
-                    if submission.submitted_at
-                    else "",
+                    submission.submitted_at.isoformat() if submission.submitted_at else "",
                     submission.execution_time,
                     submission.memory_usage,
                 ]

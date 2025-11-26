@@ -266,7 +266,9 @@ class QuizEngine:
             colors.print_error("Not enough questions available")
             return
 
-        quiz_questions = random.sample(all_questions, 5)  # nosec B311: random shuffling for quiz selection, not cryptographic
+        quiz_questions = random.sample(
+            all_questions, 5
+        )  # nosec B311: random shuffling for quiz selection, not cryptographic
         await self.run_quiz(quiz_questions, "Mixed Topics", "mixed")
 
     async def module_quiz(self) -> None:
@@ -284,9 +286,7 @@ class QuizEngine:
         print("  0. Back to main menu")
 
         try:
-            choice = input(
-                f"\n{colors.CYAN}Select module (0-{len(modules)}): {colors.RESET}"
-            )
+            choice = input(f"\n{colors.CYAN}Select module (0-{len(modules)}): {colors.RESET}")
             choice = int(choice)
 
             if choice == 0:
@@ -341,12 +341,8 @@ class QuizEngine:
                     return
 
                 # Take up to 10 questions
-                quiz_questions = random.sample(
-                    filtered_questions, min(10, len(filtered_questions))
-                )
-                await self.run_quiz(
-                    quiz_questions, f"{difficulty.title()} Quiz", difficulty
-                )
+                quiz_questions = random.sample(filtered_questions, min(10, len(filtered_questions)))
+                await self.run_quiz(quiz_questions, f"{difficulty.title()} Quiz", difficulty)
             else:
                 colors.print_error("Invalid choice")
 
@@ -376,9 +372,7 @@ class QuizEngine:
         print("  0. Back to main menu")
 
         try:
-            choice = input(
-                f"\n{colors.CYAN}Select topic (0-{len(topic_list)}): {colors.RESET}"
-            )
+            choice = input(f"\n{colors.CYAN}Select topic (0-{len(topic_list)}): {colors.RESET}")
             choice = int(choice)
 
             if choice == 0:
@@ -420,25 +414,21 @@ class QuizEngine:
             colors.print_warning("Not enough advanced questions available")
             return
 
-        print(
-            f"{colors.YELLOW}Warning: This quiz contains advanced Python concepts!{colors.RESET}"
-        )
-        confirm = input(
-            f"{colors.CYAN}Are you ready for the challenge? (y/n): {colors.RESET}"
-        )
+        print(f"{colors.YELLOW}Warning: This quiz contains advanced Python concepts!{colors.RESET}")
+        confirm = input(f"{colors.CYAN}Are you ready for the challenge? (y/n): {colors.RESET}")
 
         if confirm.lower() != "y":
             return
 
         # Take up to 10 advanced questions
-        quiz_questions = random.sample(  # nosec B311: random shuffling for quiz selection, not cryptographic
-            advanced_questions, min(10, len(advanced_questions))
+        quiz_questions = (
+            random.sample(  # nosec B311: random shuffling for quiz selection, not cryptographic
+                advanced_questions, min(10, len(advanced_questions))
+            )
         )
         await self.run_quiz(quiz_questions, "Challenge Quiz", "advanced")
 
-    async def run_quiz(
-        self, questions: List[QuizQuestion], quiz_name: str, category: str
-    ) -> None:
+    async def run_quiz(self, questions: List[QuizQuestion], quiz_name: str, category: str) -> None:
         """Run a quiz with the given questions."""
         self.current_quiz = questions
         self.quiz_start_time = time.time()
@@ -539,9 +529,7 @@ class QuizEngine:
     async def _handle_true_false(self, question: QuizQuestion) -> bool:
         """Handle true/false questions."""
         while True:
-            answer = input(
-                f"\n{colors.CYAN}Your answer (True/False) or 'skip': {colors.RESET}"
-            )
+            answer = input(f"\n{colors.CYAN}Your answer (True/False) or 'skip': {colors.RESET}")
 
             if answer.lower() == "skip":
                 colors.print_warning("Question skipped")
@@ -585,9 +573,7 @@ class QuizEngine:
                     f"{colors.YELLOW}Correct answer: {question.correct_answer + 1}. {correct_option}{colors.RESET}"
                 )
             else:
-                print(
-                    f"{colors.YELLOW}Correct answer: {question.correct_answer}{colors.RESET}"
-                )
+                print(f"{colors.YELLOW}Correct answer: {question.correct_answer}{colors.RESET}")
 
         # Show explanation if available
         if question.explanation:

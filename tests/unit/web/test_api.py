@@ -295,9 +295,7 @@ class TestExerciseAPI:
             "language": "python",
         }
 
-        response = api_client.post(
-            f"/api/exercises/{exercise_id}/submit", submission_data
-        )
+        response = api_client.post(f"/api/exercises/{exercise_id}/submit", submission_data)
 
         assert response.status_code == 200
         data = response.json()
@@ -344,9 +342,7 @@ class TestProgressAPI:
         data = response.json()
 
         basics_progress = data["topics"]["basics"]
-        expected_progress = (
-            basics_progress["completed"] / basics_progress["total"]
-        ) * 100
+        expected_progress = (basics_progress["completed"] / basics_progress["total"]) * 100
         assert abs(basics_progress["progress"] - expected_progress) < 0.1
 
     def test_recent_activity(self, api_client):
@@ -470,9 +466,7 @@ class TestAPIIntegration:
         exercises = exercises_response.json()["exercises"]
 
         # Find first incomplete exercise
-        incomplete_exercise = next(
-            (ex for ex in exercises if not ex["completed"]), None
-        )
+        incomplete_exercise = next((ex for ex in exercises if not ex["completed"]), None)
         assert incomplete_exercise is not None
 
         # Submit solution

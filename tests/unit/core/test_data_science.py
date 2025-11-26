@@ -225,9 +225,7 @@ deep_copy = arr1.copy()
 
         # Test transposing
         assert globals_dict["transposed"].shape == (3, 2)
-        assert np.array_equal(
-            globals_dict["transposed"], globals_dict["transposed_func"]
-        )
+        assert np.array_equal(globals_dict["transposed"], globals_dict["transposed_func"])
 
         # Test concatenation
         assert np.array_equal(globals_dict["concatenated"], [1, 2, 3, 4, 5, 6])
@@ -291,9 +289,7 @@ U, s, Vt = np.linalg.svd(A)
         # Test matrix operations
         expected_matrix_mult = np.array([[19, 22], [43, 50]])
         assert np.array_equal(globals_dict["matrix_mult"], expected_matrix_mult)
-        assert np.array_equal(
-            globals_dict["matrix_mult_operator"], expected_matrix_mult
-        )
+        assert np.array_equal(globals_dict["matrix_mult_operator"], expected_matrix_mult)
 
         # Test matrix properties
         assert abs(globals_dict["determinant"] - (-2.0)) < 1e-10
@@ -1188,9 +1184,7 @@ preprocessing_summary = {
 
         # Test preprocessing results
         summary = globals_dict["preprocessing_summary"]
-        assert (
-            summary["final_missing_values"] == 0
-        )  # No missing values after preprocessing
+        assert summary["final_missing_values"] == 0  # No missing values after preprocessing
         assert (
             summary["final_features"] > summary["initial_features"]
         )  # More features due to encoding
@@ -2287,9 +2281,7 @@ final_results = {
         performance = results["model_performance"]
 
         # Test data processing
-        assert (
-            results["clean_samples"] <= results["original_samples"]
-        )  # Some outliers removed
+        assert results["clean_samples"] <= results["original_samples"]  # Some outliers removed
         assert results["final_samples"] >= 800  # Reasonable data retention
 
         # Test model performance
@@ -2300,9 +2292,7 @@ final_results = {
         # Test feature importance
         top_features = results["top_features"]
         assert len(top_features) == 5  # Top 5 features identified
-        assert all(
-            importance >= 0 for _, importance in top_features
-        )  # Valid importances
+        assert all(importance >= 0 for _, importance in top_features)  # Valid importances
 
         # Test pipeline success
         assert isinstance(results["pipeline_successful"], bool)

@@ -30,9 +30,7 @@ class WeightedGraph:
         """Print graph representation."""
         print("Graph adjacency list:")
         for vertex in sorted(self.vertices):
-            neighbors = [
-                f"{neighbor}({weight})" for neighbor, weight in self.graph[vertex]
-            ]
+            neighbors = [f"{neighbor}({weight})" for neighbor, weight in self.graph[vertex]]
             print(f"  {vertex}: {neighbors}")
 
 
@@ -779,9 +777,7 @@ if __name__ == "__main__":
                     all_passed = False
 
             except Exception as e:
-                feedback.append(
-                    f"✗ Test from {start_vertex} raised exception: {str(e)}"
-                )
+                feedback.append(f"✗ Test from {start_vertex} raised exception: {str(e)}")
                 all_passed = False
 
         return all_passed, feedback

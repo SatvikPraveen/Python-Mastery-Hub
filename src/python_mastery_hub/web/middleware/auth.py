@@ -59,15 +59,11 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -
     if expires_delta:
         expire = datetime.utcnow() + expires_delta
     else:
-        expire = datetime.utcnow() + timedelta(
-            minutes=settings.access_token_expire_minutes
-        )
+        expire = datetime.utcnow() + timedelta(minutes=settings.access_token_expire_minutes)
 
     to_encode.update({"exp": expire, "type": "access"})
 
-    encoded_jwt = jwt.encode(
-        to_encode, settings.secret_key, algorithm=settings.algorithm
-    )
+    encoded_jwt = jwt.encode(to_encode, settings.secret_key, algorithm=settings.algorithm)
 
     return encoded_jwt
 
@@ -83,19 +79,17 @@ def create_refresh_token(data: dict, expires_delta: Optional[timedelta] = None) 
 
     to_encode.update({"exp": expire, "type": "refresh"})
 
-    encoded_jwt = jwt.encode(
-        to_encode, settings.secret_key, algorithm=settings.algorithm
-    )
+    encoded_jwt = jwt.encode(to_encode, settings.secret_key, algorithm=settings.algorithm)
 
     return encoded_jwt
 
 
-def verify_token(token: str, token_type: str = "access") -> dict:  # nosec B107: 'access' is JWT token type identifier, not a credential
+def verify_token(
+    token: str, token_type: str = "access"
+) -> dict:  # nosec B107: 'access' is JWT token type identifier, not a credential
     """Verify and decode a JWT token."""
     try:
-        payload = jwt.decode(
-            token, settings.secret_key, algorithms=[settings.algorithm]
-        )
+        payload = jwt.decode(token, settings.secret_key, algorithms=[settings.algorithm])
 
         # Verify token type
         if payload.get("type") != token_type:
@@ -322,9 +316,7 @@ async def create_user_session(
             "user_id": user.id,
             "device_info": {"user_agent": user_agent, "ip_address": ip_address},
             "remember_me": remember_me,
-            "expires_hours": expires_hours
-            if not remember_me
-            else 168,  # 1 week for remember me
+            "expires_hours": expires_hours if not remember_me else 168,  # 1 week for remember me
         }
 
         # TODO: Save session to database
@@ -384,9 +376,7 @@ async def revoke_session(session_token: str) -> bool:
         return False
 
 
-async def revoke_all_user_sessions(
-    user_id: str, except_session: Optional[str] = None
-) -> int:
+async def revoke_all_user_sessions(user_id: str, except_session: Optional[str] = None) -> int:
     """Revoke all sessions for a user except optionally one."""
     try:
         # TODO: Update all user sessions in database

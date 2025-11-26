@@ -556,9 +556,7 @@ if __name__ == "__main__":
         # Check for complexity and best practices
         complexity_check = self.validator.check_complexity(code)
         if complexity_check["functions"]:
-            complex_functions = [
-                f for f in complexity_check["functions"] if f["complex"]
-            ]
+            complex_functions = [f for f in complexity_check["functions"] if f["complex"]]
             if not complex_functions:
                 feedback.append("✓ Functions have appropriate complexity")
             else:

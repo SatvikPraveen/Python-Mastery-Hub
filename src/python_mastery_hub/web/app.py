@@ -67,9 +67,7 @@ def configure_app(app, config_name):
     """Configure Flask application settings"""
 
     # Base configuration
-    app.config["SECRET_KEY"] = os.environ.get(
-        "SECRET_KEY", "dev-secret-key-change-in-production"
-    )
+    app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev-secret-key-change-in-production")
     app.config["WTF_CSRF_ENABLED"] = True
     app.config["WTF_CSRF_TIME_LIMIT"] = 3600  # 1 hour
 
@@ -81,28 +79,20 @@ def configure_app(app, config_name):
 
     # Database configuration
     if config_name == "production":
-        app.config["DATABASE_URL"] = os.environ.get(
-            "DATABASE_URL", "sqlite:///production.db"
-        )
-        app.config["REDIS_URL"] = os.environ.get(
-            "REDIS_URL", "redis://localhost:6379/0"
-        )
+        app.config["DATABASE_URL"] = os.environ.get("DATABASE_URL", "sqlite:///production.db")
+        app.config["REDIS_URL"] = os.environ.get("REDIS_URL", "redis://localhost:6379/0")
     elif config_name == "testing":
         app.config["DATABASE_URL"] = "sqlite:///:memory:"
         app.config["TESTING"] = True
         app.config["WTF_CSRF_ENABLED"] = False
     else:  # development
-        app.config["DATABASE_URL"] = os.environ.get(
-            "DATABASE_URL", "sqlite:///development.db"
-        )
+        app.config["DATABASE_URL"] = os.environ.get("DATABASE_URL", "sqlite:///development.db")
         app.config["DEBUG"] = True
 
     # Email configuration
     app.config["MAIL_SERVER"] = os.environ.get("MAIL_SERVER", "smtp.gmail.com")
     app.config["MAIL_PORT"] = int(os.environ.get("MAIL_PORT", 587))
-    app.config["MAIL_USE_TLS"] = (
-        os.environ.get("MAIL_USE_TLS", "true").lower() == "true"
-    )
+    app.config["MAIL_USE_TLS"] = os.environ.get("MAIL_USE_TLS", "true").lower() == "true"
     app.config["MAIL_USERNAME"] = os.environ.get("MAIL_USERNAME")
     app.config["MAIL_PASSWORD"] = os.environ.get("MAIL_PASSWORD")
     app.config["MAIL_DEFAULT_SENDER"] = os.environ.get(
@@ -200,9 +190,7 @@ def configure_logging(app):
 
         file_handler = logging.FileHandler("logs/python_mastery_hub.log")
         file_handler.setFormatter(
-            logging.Formatter(
-                "%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]"
-            )
+            logging.Formatter("%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]")
         )
         file_handler.setLevel(logging.INFO)
         app.logger.addHandler(file_handler)

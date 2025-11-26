@@ -141,9 +141,7 @@ def register():
             errors.append("Username must be at least 3 characters long.")
 
         if not re.match(r"^[a-zA-Z0-9_]+$", username):
-            errors.append(
-                "Username can only contain letters, numbers, and underscores."
-            )
+            errors.append("Username can only contain letters, numbers, and underscores.")
 
         if not email or not re.match(r"^[^@]+@[^@]+\.[^@]+$", email):
             errors.append("Please enter a valid email address.")
@@ -183,9 +181,7 @@ def register():
                 return render_template("auth/register.html")
 
             # Create user
-            user = auth_service.create_user(
-                username=username, email=email, password=password
-            )
+            user = auth_service.create_user(username=username, email=email, password=password)
 
             if user:
                 logger.info(f"New user registered: {username} ({email})")
@@ -284,9 +280,7 @@ def edit_profile():
                 errors.append("Username must be at least 3 characters long.")
 
             if not re.match(r"^[a-zA-Z0-9_]+$", username):
-                errors.append(
-                    "Username can only contain letters, numbers, and underscores."
-                )
+                errors.append("Username can only contain letters, numbers, and underscores.")
 
             if not email or not re.match(r"^[^@]+@[^@]+\.[^@]+$", email):
                 errors.append("Please enter a valid email address.")
@@ -437,9 +431,7 @@ def check_username():
         return jsonify({"available": False, "message": "Username is required"})
 
     if len(username) < 3:
-        return jsonify(
-            {"available": False, "message": "Username must be at least 3 characters"}
-        )
+        return jsonify({"available": False, "message": "Username must be at least 3 characters"})
 
     if not re.match(r"^[a-zA-Z0-9_]+$", username):
         return jsonify(
@@ -454,9 +446,7 @@ def check_username():
         return jsonify(
             {
                 "available": not exists,
-                "message": "Username is available"
-                if not exists
-                else "Username is already taken",
+                "message": "Username is available" if not exists else "Username is already taken",
             }
         )
     except Exception as e:
@@ -482,9 +472,7 @@ def check_email():
         return jsonify(
             {
                 "available": not exists,
-                "message": "Email is available"
-                if not exists
-                else "Email is already registered",
+                "message": "Email is available" if not exists else "Email is already registered",
             }
         )
     except Exception as e:

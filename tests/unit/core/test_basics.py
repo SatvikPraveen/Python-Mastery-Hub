@@ -264,9 +264,7 @@ class TestOperatorExercises:
 
         for expression, expected in test_cases:
             result = eval(expression)
-            assert (
-                result == expected
-            ), f"Failed for {expression}: expected {expected}, got {result}"
+            assert result == expected, f"Failed for {expression}: expected {expected}, got {result}"
 
     def test_comparison_operators(self):
         """Test comparison operators."""
@@ -651,9 +649,7 @@ class TestBasicsIntegration:
         assert result["success"] is True
         assert result["score"] == 100
         exercise_service.get_exercise_by_id.assert_called_once_with("ex_sample_001")
-        exercise_service.evaluate_solution.assert_called_once_with(
-            "ex_sample_001", user_solution
-        )
+        exercise_service.evaluate_solution.assert_called_once_with("ex_sample_001", user_solution)
 
 
 if __name__ == "__main__":

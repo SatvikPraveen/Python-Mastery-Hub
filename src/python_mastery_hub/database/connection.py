@@ -79,13 +79,9 @@ class DatabaseManager:
             database_url = get_database_url()
             # Convert to async URL
             if database_url.startswith("postgresql://"):
-                async_url = database_url.replace(
-                    "postgresql://", "postgresql+asyncpg://"
-                )
+                async_url = database_url.replace("postgresql://", "postgresql+asyncpg://")
             elif database_url.startswith("postgresql+psycopg2://"):
-                async_url = database_url.replace(
-                    "postgresql+psycopg2://", "postgresql+asyncpg://"
-                )
+                async_url = database_url.replace("postgresql+psycopg2://", "postgresql+asyncpg://")
             else:
                 async_url = database_url
 
@@ -154,9 +150,7 @@ class DatabaseManager:
             logger.error(f"Database connection check failed: {e}")
             return False
 
-    async def check_async_connection(
-        self, engine: Optional[AsyncEngine] = None
-    ) -> bool:
+    async def check_async_connection(self, engine: Optional[AsyncEngine] = None) -> bool:
         """Check if async database connection is working.
 
         Args:

@@ -155,9 +155,7 @@ class LoggingConfig:
             "simple": logging.Formatter(fmt="%(levelname)s: %(message)s"),
         }
 
-    def _create_console_handler(
-        self, level: int = logging.INFO
-    ) -> logging.StreamHandler:
+    def _create_console_handler(self, level: int = logging.INFO) -> logging.StreamHandler:
         """Create console handler with colored output."""
         handler = logging.StreamHandler(sys.stdout)
         handler.setLevel(level)
@@ -264,9 +262,7 @@ class LoggingConfig:
                     root_logger.addHandler(file_handler)
                     self.handlers["file"] = file_handler
                 except Exception as e:
-                    print(
-                        f"Warning: Failed to create file handler: {e}", file=sys.stderr
-                    )
+                    print(f"Warning: Failed to create file handler: {e}", file=sys.stderr)
 
             # Add error handler
             if error_logging:
@@ -275,9 +271,7 @@ class LoggingConfig:
                     root_logger.addHandler(error_handler)
                     self.handlers["error"] = error_handler
                 except Exception as e:
-                    print(
-                        f"Warning: Failed to create error handler: {e}", file=sys.stderr
-                    )
+                    print(f"Warning: Failed to create error handler: {e}", file=sys.stderr)
 
             # Add debug handler
             if debug_logging:
@@ -286,9 +280,7 @@ class LoggingConfig:
                     root_logger.addHandler(debug_handler)
                     self.handlers["debug"] = debug_handler
                 except Exception as e:
-                    print(
-                        f"Warning: Failed to create debug handler: {e}", file=sys.stderr
-                    )
+                    print(f"Warning: Failed to create debug handler: {e}", file=sys.stderr)
 
             # Add JSON handler
             if json_logging:
@@ -297,9 +289,7 @@ class LoggingConfig:
                     root_logger.addHandler(json_handler)
                     self.handlers["json"] = json_handler
                 except Exception as e:
-                    print(
-                        f"Warning: Failed to create JSON handler: {e}", file=sys.stderr
-                    )
+                    print(f"Warning: Failed to create JSON handler: {e}", file=sys.stderr)
 
             self._configured = True
 
@@ -432,13 +422,9 @@ class LoggingConfig:
             **kwargs,
         }
 
-        perf_logger.info(
-            f"Performance: {operation} took {duration:.3f}s", extra=log_data
-        )
+        perf_logger.info(f"Performance: {operation} took {duration:.3f}s", extra=log_data)
 
-    def log_user_action(
-        self, action: str, user_id: Optional[str] = None, **kwargs
-    ) -> None:
+    def log_user_action(self, action: str, user_id: Optional[str] = None, **kwargs) -> None:
         """
         Log user actions for analytics.
 
@@ -473,16 +459,12 @@ class LoggingConfig:
                 if log_file.stat().st_mtime < cutoff_time:
                     log_file.unlink()
                     cleaned_count += 1
-                    logging.getLogger(__name__).info(
-                        f"Deleted old log file: {log_file}"
-                    )
+                    logging.getLogger(__name__).info(f"Deleted old log file: {log_file}")
             except OSError as e:
                 logging.getLogger(__name__).warning(f"Failed to delete {log_file}: {e}")
 
         if cleaned_count > 0:
-            logging.getLogger(__name__).info(
-                f"Cleaned up {cleaned_count} old log files"
-            )
+            logging.getLogger(__name__).info(f"Cleaned up {cleaned_count} old log files")
 
     def get_handler_status(self) -> Dict[str, Dict[str, Any]]:
         """Get status information for all handlers."""

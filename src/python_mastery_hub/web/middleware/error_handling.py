@@ -44,9 +44,7 @@ class BaseAPIException(Exception):
 class AuthenticationException(BaseAPIException):
     """Authentication related errors."""
 
-    def __init__(
-        self, message: str = "Authentication failed", details: Optional[Dict] = None
-    ):
+    def __init__(self, message: str = "Authentication failed", details: Optional[Dict] = None):
         super().__init__(
             message=message,
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -58,9 +56,7 @@ class AuthenticationException(BaseAPIException):
 class AuthorizationException(BaseAPIException):
     """Authorization related errors."""
 
-    def __init__(
-        self, message: str = "Access forbidden", details: Optional[Dict] = None
-    ):
+    def __init__(self, message: str = "Access forbidden", details: Optional[Dict] = None):
         super().__init__(
             message=message,
             status_code=status.HTTP_403_FORBIDDEN,
@@ -72,9 +68,7 @@ class AuthorizationException(BaseAPIException):
 class ResourceNotFoundException(BaseAPIException):
     """Resource not found errors."""
 
-    def __init__(
-        self, resource: str, identifier: str = "", details: Optional[Dict] = None
-    ):
+    def __init__(self, resource: str, identifier: str = "", details: Optional[Dict] = None):
         message = f"{resource} not found"
         if identifier:
             message += f": {identifier}"
@@ -90,9 +84,7 @@ class ResourceNotFoundException(BaseAPIException):
 class ValidationException(BaseAPIException):
     """Data validation errors."""
 
-    def __init__(
-        self, message: str = "Validation failed", details: Optional[Dict] = None
-    ):
+    def __init__(self, message: str = "Validation failed", details: Optional[Dict] = None):
         super().__init__(
             message=message,
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
@@ -144,9 +136,7 @@ class ServiceUnavailableException(BaseAPIException):
 class CodeExecutionException(BaseAPIException):
     """Code execution related errors."""
 
-    def __init__(
-        self, message: str = "Code execution failed", details: Optional[Dict] = None
-    ):
+    def __init__(self, message: str = "Code execution failed", details: Optional[Dict] = None):
         super().__init__(
             message=message,
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -225,9 +215,7 @@ def create_error_response(
     elif error_response["status_code"] == 401:
         error_response["user_message"] = "Please log in to access this resource."
     elif error_response["status_code"] == 403:
-        error_response[
-            "user_message"
-        ] = "You don't have permission to access this resource."
+        error_response["user_message"] = "You don't have permission to access this resource."
     elif error_response["status_code"] == 429:
         error_response["user_message"] = "Too many requests. Please try again later."
     elif error_response["status_code"] >= 500:
@@ -277,9 +265,7 @@ async def log_error(error: Exception, request: Optional[Request] = None):
         logger.error(f"Unhandled exception: {str(error)}", extra=context, exc_info=True)
 
 
-async def base_api_exception_handler(
-    request: Request, exc: BaseAPIException
-) -> JSONResponse:
+async def base_api_exception_handler(request: Request, exc: BaseAPIException) -> JSONResponse:
     """Handler for custom API exceptions."""
     await log_error(exc, request)
 
@@ -329,15 +315,11 @@ async def validation_exception_handler(
         )
 
     error_response = create_error_response(
-        ValidationException(
-            "Request validation failed", {"validation_errors": validation_errors}
-        ),
+        ValidationException("Request validation failed", {"validation_errors": validation_errors}),
         request,
     )
 
-    return JSONResponse(
-        status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, content=error_response
-    )
+    return JSONResponse(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, content=error_response)
 
 
 async def pydantic_validation_exception_handler(
@@ -358,15 +340,11 @@ async def pydantic_validation_exception_handler(
         )
 
     error_response = create_error_response(
-        ValidationException(
-            "Data validation failed", {"validation_errors": validation_errors}
-        ),
+        ValidationException("Data validation failed", {"validation_errors": validation_errors}),
         request,
     )
 
-    return JSONResponse(
-        status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, content=error_response
-    )
+    return JSONResponse(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, content=error_response)
 
 
 async def generic_exception_handler(request: Request, exc: Exception) -> JSONResponse:
@@ -377,9 +355,7 @@ async def generic_exception_handler(request: Request, exc: Exception) -> JSONRes
         exc, request, include_traceback=settings.environment == "development"
     )
 
-    return JSONResponse(
-        status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, content=error_response
-    )
+    return JSONResponse(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, content=error_response)
 
 
 def setup_error_handlers(app: FastAPI) -> None:
@@ -400,9 +376,7 @@ def setup_error_handlers(app: FastAPI) -> None:
     app.add_exception_handler(HTTPException, http_exception_handler)
     app.add_exception_handler(StarletteHTTPException, starlette_http_exception_handler)
     app.add_exception_handler(RequestValidationError, validation_exception_handler)
-    app.add_exception_handler(
-        PydanticValidationError, pydantic_validation_exception_handler
-    )
+    app.add_exception_handler(PydanticValidationError, pydantic_validation_exception_handler)
 
     # Generic exception handler (catch-all)
     app.add_exception_handler(Exception, generic_exception_handler)
@@ -421,9 +395,7 @@ def setup_error_monitoring_middleware(app: FastAPI) -> None:
             # Monitor for high error rates
             if response.status_code >= 500:
                 # In production, you might want to send alerts here
-                logger.warning(
-                    f"Server error detected: {response.status_code} for {request.url}"
-                )
+                logger.warning(f"Server error detected: {response.status_code} for {request.url}")
 
             return response
 

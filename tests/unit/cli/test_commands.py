@@ -21,9 +21,7 @@ class MockCLICommands:
 
     def setup_commands(self):
         """Setup CLI command structure"""
-        subparsers = self.parser.add_subparsers(
-            dest="command", help="Available commands"
-        )
+        subparsers = self.parser.add_subparsers(dest="command", help="Available commands")
 
         # Start command
         start_parser = subparsers.add_parser("start", help="Start learning session")
@@ -33,9 +31,7 @@ class MockCLICommands:
             default="basics",
             help="Learning topic",
         )
-        start_parser.add_argument(
-            "--level", type=int, default=1, help="Difficulty level"
-        )
+        start_parser.add_argument("--level", type=int, default=1, help="Difficulty level")
 
         # Exercise command
         exercise_parser = subparsers.add_parser("exercise", help="Manage exercises")
@@ -46,9 +42,7 @@ class MockCLICommands:
         # Progress command
         progress_parser = subparsers.add_parser("progress", help="View progress")
         progress_parser.add_argument("--user", help="Username")
-        progress_parser.add_argument(
-            "--detailed", action="store_true", help="Detailed view"
-        )
+        progress_parser.add_argument("--detailed", action="store_true", help="Detailed view")
 
         # Config command
         config_parser = subparsers.add_parser("config", help="Configuration management")
@@ -225,9 +219,7 @@ class TestCLICommands:
 
     def test_config_set_command(self, cli_commands):
         """Test config set command"""
-        args = cli_commands.parse_args(
-            ["config", "set", "--key", "theme", "--value", "light"]
-        )
+        args = cli_commands.parse_args(["config", "set", "--key", "theme", "--value", "light"])
         result = cli_commands.execute_config(args)
 
         assert result["key"] == "theme"
@@ -265,9 +257,7 @@ class TestCLIIntegration:
     def test_full_learning_session_flow(self, cli_commands):
         """Test complete learning session workflow"""
         # Start session
-        start_args = cli_commands.parse_args(
-            ["start", "--topic", "oop", "--level", "2"]
-        )
+        start_args = cli_commands.parse_args(["start", "--topic", "oop", "--level", "2"])
         start_result = cli_commands.execute_start(start_args)
         assert start_result["status"] == "success"
 

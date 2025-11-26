@@ -103,9 +103,7 @@ async def get_email_service() -> EmailService:
 
 
 # Routes
-@router.post(
-    "/register", response_model=UserResponse, status_code=status.HTTP_201_CREATED
-)
+@router.post("/register", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
 @rate_limit(limit=3, window=3600)  # 3 registrations per hour
 async def register(
     user_data: UserCreate,
@@ -171,9 +169,7 @@ async def login(
     """Authenticate user and return tokens."""
     try:
         # Authenticate user
-        user, access_token, refresh_token = await auth_service.authenticate_user(
-            login_data
-        )
+        user, access_token, refresh_token = await auth_service.authenticate_user(login_data)
 
         # Create session
         access_token, refresh_token, session = await create_user_session(
@@ -234,9 +230,7 @@ async def refresh_token(
 ):
     """Refresh access token using refresh token."""
     try:
-        new_access_token = await auth_service.refresh_access_token(
-            refresh_request.refresh_token
-        )
+        new_access_token = await auth_service.refresh_access_token(refresh_request.refresh_token)
 
         return RefreshTokenResponse(
             access_token=new_access_token,
@@ -274,9 +268,7 @@ async def logout(
         response.delete_cookie("access_token")
         response.delete_cookie("refresh_token")
 
-        logger.info(
-            f"User logged out: {current_user.username if current_user else 'unknown'}"
-        )
+        logger.info(f"User logged out: {current_user.username if current_user else 'unknown'}")
 
         return {"message": "Logged out successfully"}
 
@@ -520,9 +512,7 @@ async def revoke_user_session(
         if success:
             return {"message": "Session revoked successfully"}
         else:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND, detail="Session not found"
-            )
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Session not found")
 
     except HTTPException:
         raise
@@ -579,9 +569,7 @@ async def resend_verification_email(
         )
 
         # Send verification email
-        await email_service.send_verification_email(
-            current_user, verification_token.token
-        )
+        await email_service.send_verification_email(current_user, verification_token.token)
 
         return {"message": "Verification email sent successfully"}
 
@@ -606,9 +594,7 @@ async def check_username_availability(username: str):
         return {
             "username": username,
             "available": is_available,
-            "message": "Username is available"
-            if is_available
-            else "Username is already taken",
+            "message": "Username is available" if is_available else "Username is already taken",
         }
 
     except Exception as e:
@@ -630,9 +616,7 @@ async def check_email_availability(email: str):
         return {
             "email": email,
             "available": is_available,
-            "message": "Email is available"
-            if is_available
-            else "Email is already registered",
+            "message": "Email is available" if is_available else "Email is already registered",
         }
 
     except Exception as e:

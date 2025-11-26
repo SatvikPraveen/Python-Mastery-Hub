@@ -165,9 +165,7 @@ def print_performance_comparison(metrics: List[PerformanceMetrics]):
         fastest = sorted_metrics[0]
         slowest = sorted_metrics[-1]
         speedup = slowest.execution_time / fastest.execution_time
-        print(
-            f"\nSpeedup: {speedup:.2f}x ({fastest.approach_name} vs {slowest.approach_name})"
-        )
+        print(f"\nSpeedup: {speedup:.2f}x ({fastest.approach_name} vs {slowest.approach_name})")
 
 
 class ProgressTracker:
@@ -202,9 +200,7 @@ class ProgressTracker:
                 f"({percentage:.1f}%) - ETA: {eta:.1f}s"
             )
         else:
-            print(
-                f"{self.description}: {self.current}/{self.total} ({percentage:.1f}%)"
-            )
+            print(f"{self.description}: {self.current}/{self.total} ({percentage:.1f}%)")
 
 
 class ThreadSafeCounter:
@@ -246,9 +242,7 @@ def simulate_io_operation(duration: float, operation_name: str = "I/O operation"
     return f"Result from {operation_name}"
 
 
-async def simulate_async_io_operation(
-    duration: float, operation_name: str = "async I/O operation"
-):
+async def simulate_async_io_operation(duration: float, operation_name: str = "async I/O operation"):
     """Simulate a non-blocking async I/O operation."""
     print(f"Starting {operation_name} (async wait for {duration}s)")
     await asyncio.sleep(duration)

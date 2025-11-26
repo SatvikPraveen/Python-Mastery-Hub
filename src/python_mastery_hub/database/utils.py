@@ -217,9 +217,7 @@ def get_database_size(engine: Optional[Engine] = None) -> Dict[str, Any]:
         return {"size": "Error", "size_bytes": 0}
 
 
-def backup_database(
-    backup_path: Union[str, Path], engine: Optional[Engine] = None
-) -> bool:
+def backup_database(backup_path: Union[str, Path], engine: Optional[Engine] = None) -> bool:
     """Create a database backup.
 
     Args:
@@ -280,9 +278,7 @@ def backup_database(
                 return False
 
         else:
-            logger.error(
-                f"Backup not supported for database type: {engine.dialect.name}"
-            )
+            logger.error(f"Backup not supported for database type: {engine.dialect.name}")
             return False
 
     except Exception as e:
@@ -290,9 +286,7 @@ def backup_database(
         return False
 
 
-def restore_database(
-    backup_path: Union[str, Path], engine: Optional[Engine] = None
-) -> bool:
+def restore_database(backup_path: Union[str, Path], engine: Optional[Engine] = None) -> bool:
     """Restore database from backup.
 
     Args:
@@ -351,9 +345,7 @@ def restore_database(
             return True
 
         else:
-            logger.error(
-                f"Restore not supported for database type: {engine.dialect.name}"
-            )
+            logger.error(f"Restore not supported for database type: {engine.dialect.name}")
             return False
 
     except Exception as e:
@@ -448,9 +440,7 @@ def get_migration_status(config_path: Optional[str] = None) -> Dict[str, Any]:
 
         return {
             "current_revision": current_revision,
-            "database_url": str(engine.url).replace(
-                f":{engine.url.password}@", ":***@"
-            ),
+            "database_url": str(engine.url).replace(f":{engine.url.password}@", ":***@"),
         }
 
     except Exception as e:
@@ -458,9 +448,7 @@ def get_migration_status(config_path: Optional[str] = None) -> Dict[str, Any]:
         return {"error": str(e)}
 
 
-def execute_sql_file(
-    file_path: Union[str, Path], engine: Optional[Engine] = None
-) -> bool:
+def execute_sql_file(file_path: Union[str, Path], engine: Optional[Engine] = None) -> bool:
     """Execute SQL commands from a file.
 
     Args:
@@ -485,9 +473,7 @@ def execute_sql_file(
 
         with engine.connect() as conn:
             # Split by semicolons and execute each statement
-            statements = [
-                stmt.strip() for stmt in sql_content.split(";") if stmt.strip()
-            ]
+            statements = [stmt.strip() for stmt in sql_content.split(";") if stmt.strip()]
 
             for statement in statements:
                 conn.execute(text(statement))

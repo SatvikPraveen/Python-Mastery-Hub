@@ -59,9 +59,7 @@ class Settings(BaseSettings):
     from_email: str = os.getenv("FROM_EMAIL", "noreply@pythonmasteryhub.com")
 
     # Logging
-    log_level: str = os.getenv(
-        "LOG_LEVEL", "INFO" if environment == "production" else "DEBUG"
-    )
+    log_level: str = os.getenv("LOG_LEVEL", "INFO" if environment == "production" else "DEBUG")
     log_format: str = "json" if environment == "production" else "text"
 
     # Code Execution
@@ -69,15 +67,9 @@ class Settings(BaseSettings):
     max_code_length: int = int(os.getenv("MAX_CODE_LENGTH", 10000))
 
     # Features
-    enable_code_execution: bool = (
-        os.getenv("ENABLE_CODE_EXECUTION", "true").lower() == "true"
-    )
-    enable_progress_tracking: bool = (
-        os.getenv("ENABLE_PROGRESS_TRACKING", "true").lower() == "true"
-    )
-    enable_social_features: bool = (
-        os.getenv("ENABLE_SOCIAL_FEATURES", "true").lower() == "true"
-    )
+    enable_code_execution: bool = os.getenv("ENABLE_CODE_EXECUTION", "true").lower() == "true"
+    enable_progress_tracking: bool = os.getenv("ENABLE_PROGRESS_TRACKING", "true").lower() == "true"
+    enable_social_features: bool = os.getenv("ENABLE_SOCIAL_FEATURES", "true").lower() == "true"
 
     class Config:
         """Pydantic settings configuration."""

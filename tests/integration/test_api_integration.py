@@ -297,22 +297,14 @@ class MockAPIServer:
                         data["progress"] = (data["completed"] / data["total"]) * 100
 
                 # Recalculate overall progress
-                total_completed = sum(
-                    t["completed"] for t in user_progress["topics"].values()
-                )
-                total_exercises = sum(
-                    t["total"] for t in user_progress["topics"].values()
-                )
+                total_completed = sum(t["completed"] for t in user_progress["topics"].values())
+                total_exercises = sum(t["total"] for t in user_progress["topics"].values())
                 user_progress["overall_progress"] = (
-                    (total_completed / total_exercises) * 100
-                    if total_exercises > 0
-                    else 0
+                    (total_completed / total_exercises) * 100 if total_exercises > 0 else 0
                 )
 
                 # Update level
-                user_progress["level"] = min(
-                    user_progress["total_points"] // 100 + 1, 10
-                )
+                user_progress["level"] = min(user_progress["total_points"] // 100 + 1, 10)
 
         return 200, submission
 
@@ -358,9 +350,7 @@ class MockAPIServer:
         profile = {k: v for k, v in user.items() if k != "password_hash"}
 
         # Add statistics
-        user_submissions = [
-            s for s in self.submissions.values() if s["user_id"] == user["id"]
-        ]
+        user_submissions = [s for s in self.submissions.values() if s["user_id"] == user["id"]]
         profile["statistics"] = {
             "total_submissions": len(user_submissions),
             "completed_submissions": len(
@@ -392,9 +382,7 @@ class MockAPIServer:
         self.log_request(method, endpoint, headers, data)
 
         # Check rate limiting
-        allowed, status_code, error_response = self.check_rate_limit(
-            client_ip, endpoint
-        )
+        allowed, status_code, error_response = self.check_rate_limit(client_ip, endpoint)
         if not allowed:
             return status_code, error_response
 
@@ -484,9 +472,7 @@ class TestAPIServerLifecycle:
 
         # Make some requests
         await api_server.process_request("GET", "/api/exercises")
-        await api_server.process_request(
-            "POST", "/api/auth/login", data={"username": "test"}
-        )
+        await api_server.process_request("POST", "/api/auth/login", data={"username": "test"})
 
         # Check logs
         assert len(api_server.request_log) == initial_log_count + 2
@@ -525,9 +511,7 @@ class TestAuthenticationFlow:
         assert status == 201
         assert response["user"]["username"] == "newuser"
         assert response["user"]["email"] == "new@example.com"
-        assert (
-            "password_hash" not in response["user"]
-        )  # Should not expose password hash
+        assert "password_hash" not in response["user"]  # Should not expose password hash
         assert response["message"] == "User created successfully"
 
         # Verify user was created
@@ -641,9 +625,7 @@ class TestAuthenticationFlow:
         assert "Invalid credentials" in response["error"]
 
         # Missing credentials
-        status, response = await api_server.process_request(
-            "POST", "/api/auth/login", data={}
-        )
+        status, response = await api_server.process_request("POST", "/api/auth/login", data={})
         assert status == 400
         assert "Username and password required" in response["error"]
 
@@ -938,16 +920,11 @@ class TestSubmissionWorkflow:
         )
 
         if submission_response["score"] >= 70:
-            assert (
-                updated_progress["topics"]["basics"]["completed"]
-                == initial_completed + 1
-            )
+            assert updated_progress["topics"]["basics"]["completed"] == initial_completed + 1
             assert updated_progress["total_points"] == initial_points + 20
         else:
             # If failing score, progress shouldn't change
-            assert (
-                updated_progress["topics"]["basics"]["completed"] == initial_completed
-            )
+            assert updated_progress["topics"]["basics"]["completed"] == initial_completed
             assert updated_progress["total_points"] == initial_points
 
     @pytest.mark.asyncio
@@ -1012,9 +989,7 @@ class TestProgressAndLeaderboard:
                 {
                     "id": login_response[1]["user"]["id"],
                     "username": f"user{i+1}",
-                    "headers": {
-                        "Authorization": f'Bearer {login_response[1]["token"]}'
-                    },
+                    "headers": {"Authorization": f'Bearer {login_response[1]["token"]}'},
                 }
             )
 
@@ -1129,9 +1104,7 @@ class TestRateLimiting:
             assert status == 200
 
         # Next request should be rate limited
-        status, response = await api_server.process_request(
-            "GET", endpoint, client_ip=client_ip
-        )
+        status, response = await api_server.process_request("GET", endpoint, client_ip=client_ip)
         assert status == 429
         assert "Rate limit exceeded" in response["error"]
 
@@ -1147,15 +1120,11 @@ class TestRateLimiting:
             await api_server.process_request("GET", endpoint, client_ip=client1_ip)
 
         # Client1 should be rate limited
-        status, response = await api_server.process_request(
-            "GET", endpoint, client_ip=client1_ip
-        )
+        status, response = await api_server.process_request("GET", endpoint, client_ip=client1_ip)
         assert status == 429
 
         # Client2 should still work
-        status, response = await api_server.process_request(
-            "GET", endpoint, client_ip=client2_ip
-        )
+        status, response = await api_server.process_request("GET", endpoint, client_ip=client2_ip)
         assert status == 200
 
 
@@ -1211,17 +1180,13 @@ class TestAPIErrorHandling:
         """Test authentication error scenarios"""
         # Invalid token format
         headers = {"Authorization": "InvalidToken"}
-        status, response = await api_server.process_request(
-            "GET", "/api/progress", headers=headers
-        )
+        status, response = await api_server.process_request("GET", "/api/progress", headers=headers)
         assert status == 401
         assert "Authentication required" in response["error"]
 
         # Expired/invalid token
         headers = {"Authorization": "Bearer jwt_token_invalid_session"}
-        status, response = await api_server.process_request(
-            "GET", "/api/progress", headers=headers
-        )
+        status, response = await api_server.process_request("GET", "/api/progress", headers=headers)
         assert status == 401
         assert "Authentication required" in response["error"]
 
@@ -1256,9 +1221,7 @@ class TestConcurrentAPIOperations:
             users.append(
                 {
                     "id": login_response[1]["user"]["id"],
-                    "headers": {
-                        "Authorization": f'Bearer {login_response[1]["token"]}'
-                    },
+                    "headers": {"Authorization": f'Bearer {login_response[1]["token"]}'},
                 }
             )
 
@@ -1273,14 +1236,10 @@ class TestConcurrentAPIOperations:
         # Make concurrent requests from multiple users
         async def make_user_requests(user):
             tasks = [
-                server.process_request(
-                    "GET", "/api/exercises", headers=user["headers"]
-                ),
+                server.process_request("GET", "/api/exercises", headers=user["headers"]),
                 server.process_request("GET", "/api/progress", headers=user["headers"]),
                 server.process_request("GET", "/api/leaderboard"),
-                server.process_request(
-                    "GET", "/api/users/profile", headers=user["headers"]
-                ),
+                server.process_request("GET", "/api/users/profile", headers=user["headers"]),
             ]
             return await asyncio.gather(*tasks)
 

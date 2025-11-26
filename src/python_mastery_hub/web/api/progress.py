@@ -125,16 +125,12 @@ async def get_progress_dashboard(
         progress_summary = await progress_service.get_progress_summary(current_user.id)
 
         # Get recent achievements
-        recent_achievements = (
-            user_progress.achievements[-5:] if user_progress.achievements else []
-        )
+        recent_achievements = user_progress.achievements[-5:] if user_progress.achievements else []
 
         # Generate recommended actions
         recommended_actions = []
         if user_progress.streak.current_streak == 0:
-            recommended_actions.append(
-                "Start a learning streak by completing an exercise today"
-            )
+            recommended_actions.append("Start a learning streak by completing an exercise today")
         elif user_progress.streak.current_streak < 7:
             recommended_actions.append(
                 f"Keep your {user_progress.streak.current_streak}-day streak going!"
@@ -212,9 +208,7 @@ async def update_topic_progress(
 ):
     """Update progress for a specific topic."""
     try:
-        success = await progress_service.update_topic_progress(
-            current_user.id, progress_update
-        )
+        success = await progress_service.update_topic_progress(current_user.id, progress_update)
 
         if success:
             return {
@@ -332,9 +326,7 @@ async def get_leaderboard(
 
         # Add current user's rank if they're not in the top results
         if current_user:
-            user_in_results = any(
-                entry.user_id == current_user.id for entry in leaderboard
-            )
+            user_in_results = any(entry.user_id == current_user.id for entry in leaderboard)
 
             if not user_in_results:
                 # TODO: Get current user's rank
@@ -449,9 +441,7 @@ async def create_learning_goal(
         # TODO: Validate goal parameters and save to database
         # goal_id = await progress_service.create_learning_goal(current_user.id, goal)
 
-        logger.info(
-            f"Learning goal created for user {current_user.username}: {goal.goal_type}"
-        )
+        logger.info(f"Learning goal created for user {current_user.username}: {goal.goal_type}")
 
         return goal
 
@@ -651,9 +641,7 @@ async def export_progress_data(
                 "achievements": [a.dict() for a in user_progress.achievements]
                 if user_progress
                 else [],
-                "modules": [m.dict() for m in user_progress.modules]
-                if user_progress
-                else [],
+                "modules": [m.dict() for m in user_progress.modules] if user_progress else [],
             }
 
         elif format == "csv":

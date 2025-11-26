@@ -190,9 +190,7 @@ class MockPlagiarismDetector:
                         "submission_id": existing.id,
                         "user_id": existing.user_id,
                         "similarity_score": similarity,
-                        "matching_lines": self._find_matching_lines(
-                            submission.code, existing.code
-                        ),
+                        "matching_lines": self._find_matching_lines(submission.code, existing.code),
                     }
                 )
 
@@ -259,9 +257,7 @@ class MockSubmissionPlatform:
         """Reset all platform data."""
         self.__init__()
 
-    async def submit_exercise(
-        self, user_id: str, exercise_id: str, code: str
-    ) -> Submission:
+    async def submit_exercise(self, user_id: str, exercise_id: str, code: str) -> Submission:
         """Submit code for an exercise."""
         submission = Submission(
             id=f"sub_{user_id}_{exercise_id}_{datetime.now().timestamp()}",
@@ -359,18 +355,14 @@ class MockSubmissionPlatform:
         # Calculate percentage score
         max_possible_score = sum(tc.get("weight", 1) for tc in exercise.test_cases)
         percentage_score = (
-            (total_score / max_possible_score * exercise.max_score)
-            if max_possible_score > 0
-            else 0
+            (total_score / max_possible_score * exercise.max_score) if max_possible_score > 0 else 0
         )
 
         return {
             "results": results,
             "score": int(percentage_score),
             "max_score": exercise.max_score,
-            "tests_passed": len(
-                [r for r in results if r["result"] == TestResult.PASSED.value]
-            ),
+            "tests_passed": len([r for r in results if r["result"] == TestResult.PASSED.value]),
             "total_tests": len(results),
         }
 
@@ -380,9 +372,7 @@ class MockSubmissionPlatform:
             return False
 
         if isinstance(actual, (list, tuple)):
-            return len(actual) == len(expected) and all(
-                a == e for a, e in zip(actual, expected)
-            )
+            return len(actual) == len(expected) and all(a == e for a, e in zip(actual, expected))
 
         return actual == expected
 
@@ -487,9 +477,7 @@ def add_numbers(a, b):
 """
 
         # Submit exercise
-        submission = await mock_platform.submit_exercise(
-            user_id, exercise.id, correct_code
-        )
+        submission = await mock_platform.submit_exercise(user_id, exercise.id, correct_code)
 
         assert submission.user_id == user_id
         assert submission.exercise_id == exercise.id
@@ -517,9 +505,7 @@ def add_numbers(a, b)
     return a + b  # Missing colon
 """
 
-        submission = await mock_platform.submit_exercise(
-            user_id, exercise.id, incorrect_code
-        )
+        submission = await mock_platform.submit_exercise(user_id, exercise.id, incorrect_code)
 
         # Mock syntax error detection
         with patch.object(mock_platform.code_executor, "execute_code") as mock_execute:
@@ -534,8 +520,7 @@ def add_numbers(a, b)
             assert result["submission"].status == SubmissionStatus.COMPLETED
             assert result["submission"].score == 0
             assert all(
-                tr["result"] == TestResult.ERROR.value
-                for tr in result["submission"].test_results
+                tr["result"] == TestResult.ERROR.value for tr in result["submission"].test_results
             )
 
     @pytest.mark.asyncio
@@ -562,9 +547,7 @@ def add_numbers(a, b)
         # Try second submission (should be blocked)
         if user_attempts >= exercise.allowed_attempts:
             with pytest.raises(PermissionError, match="Attempt limit exceeded"):
-                raise PermissionError(
-                    f"Attempt limit exceeded for exercise {exercise.id}"
-                )
+                raise PermissionError(f"Attempt limit exceeded for exercise {exercise.id}")
 
         assert user_attempts == 1  # Only one attempt should be recorded
 
@@ -605,9 +588,7 @@ while True:
                 "execution_time": 5.0,
             }
 
-            result = await mock_platform.code_executor.execute_code(
-                infinite_loop_code, timeout=5
-            )
+            result = await mock_platform.code_executor.execute_code(infinite_loop_code, timeout=5)
 
             assert result["status"] == "timeout"
             assert result["execution_time"] >= 5.0
@@ -627,9 +608,7 @@ big_list = [0] * (10**8)  # Try to allocate ~800MB
                 "memory_usage": 1024 * 1024 * 1024,  # 1GB
             }
 
-            result = await mock_platform.code_executor.execute_code(
-                memory_intensive_code
-            )
+            result = await mock_platform.code_executor.execute_code(memory_intensive_code)
 
             assert result["status"] == "error"
             assert "Memory limit exceeded" in result["error"]
@@ -651,9 +630,7 @@ def process_list(data):
     return [x for x in data if x % 2 == 0]  # Return even numbers
 """
 
-        submission = await mock_platform.submit_exercise(
-            user_id, exercise.id, correct_code
-        )
+        submission = await mock_platform.submit_exercise(user_id, exercise.id, correct_code)
 
         # Mock test execution results
         with patch.object(mock_platform.code_executor, "execute_code") as mock_execute:
@@ -668,8 +645,7 @@ def process_list(data):
 
             assert len(result["submission"].test_results) == 3
             assert all(
-                tr["result"] == TestResult.PASSED.value
-                for tr in result["submission"].test_results
+                tr["result"] == TestResult.PASSED.value for tr in result["submission"].test_results
             )
             assert result["submission"].score == exercise.max_score
 
@@ -688,9 +664,7 @@ def add_numbers(a, b):
     return a + b
 """
 
-        submission = await mock_platform.submit_exercise(
-            user_id, exercise.id, partial_code
-        )
+        submission = await mock_platform.submit_exercise(user_id, exercise.id, partial_code)
 
         # Mock test results: 2 pass, 1 fail
         with patch.object(mock_platform.code_executor, "execute_code") as mock_execute:
@@ -734,9 +708,7 @@ class TestPlagiarismDetection:
     """Test plagiarism detection functionality."""
 
     @pytest.mark.asyncio
-    async def test_plagiarism_detection_identical_code(
-        self, mock_platform, sample_exercises
-    ):
+    async def test_plagiarism_detection_identical_code(self, mock_platform, sample_exercises):
         """Test detection of identical code submissions."""
         exercise = sample_exercises[0]
         mock_platform.exercises[exercise.id] = exercise
@@ -748,9 +720,7 @@ def add_numbers(a, b):
     return a + b
 """
 
-        submission1 = await mock_platform.submit_exercise(
-            user1_id, exercise.id, original_code
-        )
+        submission1 = await mock_platform.submit_exercise(user1_id, exercise.id, original_code)
         await mock_platform.evaluate_submission(submission1.id)
 
         # Second user submits identical code
@@ -760,9 +730,7 @@ def add_numbers(a, b):
     return a + b
 """
 
-        submission2 = await mock_platform.submit_exercise(
-            user2_id, exercise.id, identical_code
-        )
+        submission2 = await mock_platform.submit_exercise(user2_id, exercise.id, identical_code)
         result = await mock_platform.evaluate_submission(submission2.id)
 
         assert result["submission"].plagiarism_score > 0.8  # High similarity
@@ -770,9 +738,7 @@ def add_numbers(a, b):
         assert result["submission"].status == SubmissionStatus.PLAGIARISM_DETECTED
 
     @pytest.mark.asyncio
-    async def test_plagiarism_detection_with_minor_changes(
-        self, mock_platform, sample_exercises
-    ):
+    async def test_plagiarism_detection_with_minor_changes(self, mock_platform, sample_exercises):
         """Test detection of plagiarism with minor cosmetic changes."""
         exercise = sample_exercises[0]
         mock_platform.exercises[exercise.id] = exercise
@@ -784,9 +750,7 @@ def add_numbers(a, b):
     return a + b
 """
 
-        submission1 = await mock_platform.submit_exercise(
-            user1_id, exercise.id, original_code
-        )
+        submission1 = await mock_platform.submit_exercise(user1_id, exercise.id, original_code)
         await mock_platform.evaluate_submission(submission1.id)
 
         # Modified submission (cosmetic changes)
@@ -797,9 +761,7 @@ def add_numbers(x, y):  # Changed parameter names
     return x + y
 """
 
-        submission2 = await mock_platform.submit_exercise(
-            user2_id, exercise.id, modified_code
-        )
+        submission2 = await mock_platform.submit_exercise(user2_id, exercise.id, modified_code)
         result = await mock_platform.evaluate_submission(submission2.id)
 
         # Should still detect high similarity despite cosmetic changes
@@ -814,21 +776,15 @@ def add_numbers(x, y):  # Changed parameter names
 
         # There's only one logical way to implement simple addition
         user1_code = "def add_numbers(a, b):\n    return a + b"
-        user2_code = (
-            "def add_numbers(num1, num2):\n    result = num1 + num2\n    return result"
-        )
+        user2_code = "def add_numbers(num1, num2):\n    result = num1 + num2\n    return result"
 
         user1_id = "user_123"
         user2_id = "user_456"
 
-        submission1 = await mock_platform.submit_exercise(
-            user1_id, exercise.id, user1_code
-        )
+        submission1 = await mock_platform.submit_exercise(user1_id, exercise.id, user1_code)
         await mock_platform.evaluate_submission(submission1.id)
 
-        submission2 = await mock_platform.submit_exercise(
-            user2_id, exercise.id, user2_code
-        )
+        submission2 = await mock_platform.submit_exercise(user2_id, exercise.id, user2_code)
         result = await mock_platform.evaluate_submission(submission2.id)
 
         # Different enough implementations should not trigger plagiarism
@@ -863,9 +819,9 @@ def process_list(data):
         reviews_per_student = 2
         for i, reviewer_id in enumerate(users):
             # Get submissions to review (excluding own submission)
-            submissions_to_review = [
-                s for s in submissions if s.user_id != reviewer_id
-            ][:reviews_per_student]
+            submissions_to_review = [s for s in submissions if s.user_id != reviewer_id][
+                :reviews_per_student
+            ]
 
             for submission_to_review in submissions_to_review:
                 review_id = f"review_{reviewer_id}_{submission_to_review.id}"
@@ -883,15 +839,10 @@ def process_list(data):
         expected_reviews = len(users) * reviews_per_student
 
         assert total_reviews == expected_reviews
-        assert all(
-            review["status"] == "assigned"
-            for review in mock_platform.peer_reviews.values()
-        )
+        assert all(review["status"] == "assigned" for review in mock_platform.peer_reviews.values())
 
     @pytest.mark.asyncio
-    async def test_peer_review_submission_and_scoring(
-        self, mock_platform, sample_exercises
-    ):
+    async def test_peer_review_submission_and_scoring(self, mock_platform, sample_exercises):
         """Test peer review submission and scoring process."""
         exercise = sample_exercises[1]
         mock_platform.exercises[exercise.id] = exercise
@@ -953,8 +904,7 @@ def process_list(data):
         weighted_score = (
             (review_data["correctness_score"] / 10) * (rubric["correctness"] / 100)
             + (review_data["code_quality_score"] / 10) * (rubric["code_style"] / 100)
-            + (review_data["efficiency_score"] / 10)
-            * (rubric["algorithm_efficiency"] / 100)
+            + (review_data["efficiency_score"] / 10) * (rubric["algorithm_efficiency"] / 100)
         ) * exercise.max_score
 
         peer_review["calculated_score"] = weighted_score
@@ -1014,9 +964,7 @@ def process_list(data):
                 quality_score += 15
 
             # Consistency with other reviews
-            avg_overall_rating = sum(r["overall_rating"] for r in reviews) / len(
-                reviews
-            )
+            avg_overall_rating = sum(r["overall_rating"] for r in reviews) / len(reviews)
             rating_deviation = abs(review["overall_rating"] - avg_overall_rating)
             if rating_deviation <= 0.5:
                 quality_score += 25
@@ -1024,18 +972,16 @@ def process_list(data):
                 quality_score += 15
 
             # Scoring range factor
-            score_range = max(
+            score_range = max(review["correctness_score"], review["code_quality_score"]) - min(
                 review["correctness_score"], review["code_quality_score"]
-            ) - min(review["correctness_score"], review["code_quality_score"])
+            )
             if score_range <= 2:  # Consistent scoring
                 quality_score += 25
 
             quality_scores.append(quality_score)
 
         # Reviews with low quality scores should be flagged
-        low_quality_reviews = [
-            i for i, score in enumerate(quality_scores) if score < 50
-        ]
+        low_quality_reviews = [i for i, score in enumerate(quality_scores) if score < 50]
 
         assert len(low_quality_reviews) == 1  # Third review should be flagged
         assert quality_scores[2] < 50  # Low time and comment length
@@ -1111,9 +1057,7 @@ def add_numbers(a, b):
     # Solution by {student_id}
     return a + b
 """
-            submission = await mock_platform.submit_exercise(
-                student_id, exercise.id, code
-            )
+            submission = await mock_platform.submit_exercise(student_id, exercise.id, code)
             result = await mock_platform.evaluate_submission(submission.id)
             submissions.append(result["submission"])
 
@@ -1154,9 +1098,7 @@ def add_numbers(a, b):
         assert all(submission.score > 0 for submission in submissions)
 
     @pytest.mark.asyncio
-    async def test_feedback_analytics_and_insights(
-        self, mock_platform, sample_exercises
-    ):
+    async def test_feedback_analytics_and_insights(self, mock_platform, sample_exercises):
         """Test generation of analytics and insights from feedback data."""
         exercise = sample_exercises[1]
         mock_platform.exercises[exercise.id] = exercise
@@ -1172,12 +1114,9 @@ def add_numbers(a, b):
 
         # Calculate analytics
         analytics = {
-            "average_score": sum(f["score"] for f in feedback_data)
-            / len(feedback_data),
-            "average_time_spent": sum(f["time_spent"] for f in feedback_data)
-            / len(feedback_data),
-            "average_attempts": sum(f["attempts"] for f in feedback_data)
-            / len(feedback_data),
+            "average_score": sum(f["score"] for f in feedback_data) / len(feedback_data),
+            "average_time_spent": sum(f["time_spent"] for f in feedback_data) / len(feedback_data),
+            "average_attempts": sum(f["attempts"] for f in feedback_data) / len(feedback_data),
             "average_difficulty": sum(f["difficulty_rating"] for f in feedback_data)
             / len(feedback_data),
             "score_distribution": {
@@ -1296,9 +1235,7 @@ class TestAdvancedFeatures:
         }
 
         assert len(collaborative_submissions) == len(team_members)
-        assert (
-            collaboration_metrics["contribution_balance"] < 3.0
-        )  # Reasonably balanced
+        assert collaboration_metrics["contribution_balance"] < 3.0  # Reasonably balanced
         assert team_submission.id in mock_platform.submissions
 
     @pytest.mark.asyncio

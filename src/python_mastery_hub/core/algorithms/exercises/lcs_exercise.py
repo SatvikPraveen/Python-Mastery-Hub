@@ -687,13 +687,9 @@ if __name__ == "__main__":
                 result = student_lcs_func(X, Y)
 
                 if result == expected:
-                    feedback.append(
-                        f"✓ Test case {i+1} passed: LCS('{X}', '{Y}') = {result}"
-                    )
+                    feedback.append(f"✓ Test case {i+1} passed: LCS('{X}', '{Y}') = {result}")
                 else:
-                    feedback.append(
-                        f"✗ Test case {i+1} failed: expected {expected}, got {result}"
-                    )
+                    feedback.append(f"✗ Test case {i+1} failed: expected {expected}, got {result}")
                     all_passed = False
 
             except Exception as e:

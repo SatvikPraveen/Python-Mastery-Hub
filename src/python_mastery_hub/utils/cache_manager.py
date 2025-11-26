@@ -68,9 +68,7 @@ class MemoryCache:
     ):
         self.max_size = max_size
         self.default_ttl = default_ttl
-        self.max_memory_bytes = (
-            int(max_memory_mb * 1024 * 1024) if max_memory_mb else None
-        )
+        self.max_memory_bytes = int(max_memory_mb * 1024 * 1024) if max_memory_mb else None
 
         self._cache: Dict[str, CacheEntry] = {}
         self._lock = threading.RLock()
@@ -128,10 +126,7 @@ class MemoryCache:
                 self._remove_entry(key)
 
             # Check memory limit
-            if (
-                self.max_memory_bytes
-                and self._total_size + size_bytes > self.max_memory_bytes
-            ):
+            if self.max_memory_bytes and self._total_size + size_bytes > self.max_memory_bytes:
                 self._evict_for_memory(size_bytes)
 
             # Check size limit
@@ -280,8 +275,7 @@ class MemoryCache:
                 return sum(self._estimate_size(item) for item in value)
             elif isinstance(value, dict):
                 return sum(
-                    self._estimate_size(k) + self._estimate_size(v)
-                    for k, v in value.items()
+                    self._estimate_size(k) + self._estimate_size(v) for k, v in value.items()
                 )
             else:
                 # Fallback to pickle size estimation
@@ -524,9 +518,7 @@ class CacheManager:
         self.default_backend = default_backend
 
         # Auto-cleanup thread
-        self._cleanup_thread = threading.Thread(
-            target=self._periodic_cleanup, daemon=True
-        )
+        self._cleanup_thread = threading.Thread(target=self._periodic_cleanup, daemon=True)
         self._cleanup_interval = 300  # 5 minutes
         self._shutdown = threading.Event()
         self._cleanup_thread.start()
@@ -664,9 +656,7 @@ def cached(
             return result
 
         # Add cache control methods
-        wrapper.cache_clear = lambda: cache.expire_by_tags(
-            [f"func:{func.__name__}"], backend
-        )
+        wrapper.cache_clear = lambda: cache.expire_by_tags([f"func:{func.__name__}"], backend)
         wrapper.cache_info = lambda: cache.get_stats()
 
         return wrapper
@@ -717,9 +707,7 @@ def cache_get(key: str, default: Any = None, backend: str = "memory") -> Any:
     return _default_cache_manager.get(key, default, backend)
 
 
-def cache_set(
-    key: str, value: Any, ttl: Optional[float] = None, backend: str = "memory"
-) -> None:
+def cache_set(key: str, value: Any, ttl: Optional[float] = None, backend: str = "memory") -> None:
     """Set value in default cache."""
     _default_cache_manager.set(key, value, ttl, backend=backend)
 

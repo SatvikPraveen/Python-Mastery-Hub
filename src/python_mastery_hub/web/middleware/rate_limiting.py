@@ -52,9 +52,7 @@ class TokenBucket:
 
             # Refill tokens based on time elapsed
             time_passed = (now - self.last_refill).total_seconds()
-            self.tokens = min(
-                self.capacity, self.tokens + (time_passed * self.refill_rate)
-            )
+            self.tokens = min(self.capacity, self.tokens + (time_passed * self.refill_rate))
             self.last_refill = now
 
             # Check if we have enough tokens
@@ -156,9 +154,7 @@ class RateLimiter:
         headers = {
             "X-RateLimit-Limit": str(limit),
             "X-RateLimit-Remaining": str(remaining),
-            "X-RateLimit-Reset": str(
-                int(datetime.now().timestamp()) + limiter.time_until_reset()
-            ),
+            "X-RateLimit-Reset": str(int(datetime.now().timestamp()) + limiter.time_until_reset()),
             "X-RateLimit-Window": str(window),
         }
 
@@ -312,9 +308,7 @@ async def rate_limit_middleware(request: Request, call_next: Callable) -> Respon
         return await call_next(request)
 
 
-def rate_limit(
-    limit: int, window: int, per: str = "ip", key_func: Optional[Callable] = None
-):
+def rate_limit(limit: int, window: int, per: str = "ip", key_func: Optional[Callable] = None):
     """Decorator for applying rate limits to specific endpoints."""
 
     def decorator(func: Callable) -> Callable:

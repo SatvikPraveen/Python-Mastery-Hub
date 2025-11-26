@@ -32,9 +32,7 @@ class MockCLIUtils:
             col_widths = {h: len(str(h)) for h in headers}
             for row in data:
                 for header in headers:
-                    col_widths[header] = max(
-                        col_widths[header], len(str(row.get(header, "")))
-                    )
+                    col_widths[header] = max(col_widths[header], len(str(row.get(header, ""))))
         else:
             col_widths = [
                 max(len(str(headers[i])), max(len(str(row[i])) for row in data))
@@ -51,9 +49,7 @@ class MockCLIUtils:
 
             # Data rows
             for row in data:
-                data_line = " | ".join(
-                    str(row.get(h, "")).ljust(col_widths[h]) for h in headers
-                )
+                data_line = " | ".join(str(row.get(h, "")).ljust(col_widths[h]) for h in headers)
                 lines.append(data_line)
         else:
             # Simple list format
@@ -64,9 +60,7 @@ class MockCLIUtils:
             lines.append("-" * len(header_line))
 
             for row in data:
-                data_line = " | ".join(
-                    str(row[i]).ljust(col_widths[i]) for i in range(len(row))
-                )
+                data_line = " | ".join(str(row[i]).ljust(col_widths[i]) for i in range(len(row)))
                 lines.append(data_line)
 
         return "\n".join(lines)

@@ -61,9 +61,7 @@ class ExerciseRegistry:
         exercise_data.update(
             {
                 "name": name,
-                "metadata": {
-                    k: v for k, v in cls.EXERCISES[name].items() if k != "class"
-                },
+                "metadata": {k: v for k, v in cls.EXERCISES[name].items() if k != "class"},
             }
         )
 
@@ -86,11 +84,7 @@ class ExerciseRegistry:
     @classmethod
     def get_by_difficulty(cls, difficulty: str) -> List[str]:
         """Get exercise names by difficulty level."""
-        return [
-            name
-            for name, info in cls.EXERCISES.items()
-            if info["difficulty"] == difficulty
-        ]
+        return [name for name, info in cls.EXERCISES.items() if info["difficulty"] == difficulty]
 
     @classmethod
     def get_by_topic(cls, topic: str) -> List[str]:

@@ -34,9 +34,7 @@ class Graph:
         """Print graph representation."""
         print("Graph adjacency list:")
         for vertex in sorted(self.vertices):
-            neighbors = [
-                f"{neighbor}({weight})" for neighbor, weight in self.graph[vertex]
-            ]
+            neighbors = [f"{neighbor}({weight})" for neighbor, weight in self.graph[vertex]]
             print(f"  {vertex}: {neighbors}")
 
 

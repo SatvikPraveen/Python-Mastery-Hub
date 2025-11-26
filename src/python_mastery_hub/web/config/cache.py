@@ -126,9 +126,7 @@ class MemoryCache:
             "hits": self.hits,
             "misses": self.misses,
             "hit_rate": round(hit_rate, 2),
-            "memory_usage_estimate": sum(
-                len(str(entry["value"])) for entry in self.cache.values()
-            ),
+            "memory_usage_estimate": sum(len(str(entry["value"])) for entry in self.cache.values()),
         }
 
 
@@ -138,9 +136,7 @@ class RedisCache:
     def __init__(self, redis_client: Redis):
         self.redis = redis_client
         self.prefix = getattr(settings, "cache_key_prefix", "pmh:")
-        self.default_ttl = getattr(
-            settings, "cache_default_ttl", CacheStrategy.TTL_MEDIUM
-        )
+        self.default_ttl = getattr(settings, "cache_default_ttl", CacheStrategy.TTL_MEDIUM)
 
     def _make_key(self, key: str) -> str:
         """Create prefixed cache key."""
@@ -159,7 +155,9 @@ class RedisCache:
             try:
                 return json.loads(data)
             except json.JSONDecodeError:
-                return pickle.loads(data)  # nosec B301: deserializing controlled internal cache data from Redis
+                return pickle.loads(
+                    data
+                )  # nosec B301: deserializing controlled internal cache data from Redis
 
         except Exception as e:
             logger.error(f"Redis get error for key {key}: {e}")
@@ -240,17 +238,14 @@ class RedisCache:
             logger.error(f"Redis increment error for key {key}: {e}")
             return 0
 
-    async def set_hash(
-        self, key: str, mapping: Dict[str, Any], ttl: Optional[int] = None
-    ) -> bool:
+    async def set_hash(self, key: str, mapping: Dict[str, Any], ttl: Optional[int] = None) -> bool:
         """Set hash in Redis."""
         try:
             redis_key = self._make_key(key)
 
             # Convert values to strings for Redis hash
             string_mapping = {
-                k: json.dumps(v) if not isinstance(v, str) else v
-                for k, v in mapping.items()
+                k: json.dumps(v) if not isinstance(v, str) else v for k, v in mapping.items()
             }
 
             await self.redis.hset(redis_key, mapping=string_mapping)
@@ -314,14 +309,10 @@ class CacheManager:
     """Multi-tier cache manager."""
 
     def __init__(self):
-        self.memory_cache = MemoryCache(
-            max_size=getattr(settings, "memory_cache_size", 1000)
-        )
+        self.memory_cache = MemoryCache(max_size=getattr(settings, "memory_cache_size", 1000))
         self.redis_cache: Optional[RedisCache] = None
         self.redis_client: Optional[Redis] = None
-        self.cache_strategy = getattr(
-            settings, "cache_strategy", CacheStrategy.CACHE_ASIDE
-        )
+        self.cache_strategy = getattr(settings, "cache_strategy", CacheStrategy.CACHE_ASIDE)
         self.enable_memory_cache = getattr(settings, "enable_memory_cache", True)
         self.enable_redis_cache = getattr(settings, "enable_redis_cache", True)
 
@@ -331,9 +322,7 @@ class CacheManager:
             if self.enable_redis_cache:
                 await self._initialize_redis()
 
-            logger.info(
-                f"Cache manager initialized with strategy: {self.cache_strategy}"
-            )
+            logger.info(f"Cache manager initialized with strategy: {self.cache_strategy}")
 
         except Exception as e:
             logger.error(f"Failed to initialize cache manager: {e}")
@@ -354,9 +343,7 @@ class CacheManager:
                     password=getattr(settings, "redis_password", None),
                     decode_responses=False,
                     socket_timeout=getattr(settings, "redis_socket_timeout", 5),
-                    socket_connect_timeout=getattr(
-                        settings, "redis_connect_timeout", 5
-                    ),
+                    socket_connect_timeout=getattr(settings, "redis_connect_timeout", 5),
                     retry_on_timeout=True,
                     max_connections=getattr(settings, "redis_max_connections", 50),
                 )
@@ -371,9 +358,7 @@ class CacheManager:
             logger.error(f"Failed to initialize Redis: {e}")
             self.enable_redis_cache = False
 
-    async def get(
-        self, key: str, use_memory: bool = True, use_redis: bool = True
-    ) -> Optional[Any]:
+    async def get(self, key: str, use_memory: bool = True, use_redis: bool = True) -> Optional[Any]:
         """Get value from cache with tier fallback."""
         try:
             # Try memory cache first
@@ -477,9 +462,7 @@ class CacheManager:
                 redis_deleted = await self.redis_cache.clear_pattern(pattern)
                 total_deleted += redis_deleted
 
-            logger.info(
-                f"Cache clear pattern '{pattern}': {total_deleted} keys deleted"
-            )
+            logger.info(f"Cache clear pattern '{pattern}': {total_deleted} keys deleted")
             return total_deleted
 
         except Exception as e:
@@ -688,9 +671,7 @@ class CacheInvalidator:
         self.cache = cache_manager
         self.invalidation_rules: Dict[str, List[str]] = {}
 
-    def add_invalidation_rule(
-        self, trigger_pattern: str, invalidate_patterns: List[str]
-    ) -> None:
+    def add_invalidation_rule(self, trigger_pattern: str, invalidate_patterns: List[str]) -> None:
         """Add cache invalidation rule."""
         self.invalidation_rules[trigger_pattern] = invalidate_patterns
 
@@ -699,15 +680,11 @@ class CacheInvalidator:
         total_invalidated = 0
 
         for trigger_pattern, invalidate_patterns in self.invalidation_rules.items():
-            if trigger_pattern in trigger_key or trigger_key.startswith(
-                trigger_pattern
-            ):
+            if trigger_pattern in trigger_key or trigger_key.startswith(trigger_pattern):
                 for pattern in invalidate_patterns:
                     count = await self.cache.clear_pattern(pattern)
                     total_invalidated += count
-                    logger.info(
-                        f"Invalidated {count} cache entries for pattern: {pattern}"
-                    )
+                    logger.info(f"Invalidated {count} cache entries for pattern: {pattern}")
 
         return total_invalidated
 
@@ -742,9 +719,7 @@ class CacheInvalidator:
             count = await self.cache.clear_pattern(pattern)
             total_invalidated += count
 
-        logger.info(
-            f"Invalidated {total_invalidated} cache entries for exercise {exercise_id}"
-        )
+        logger.info(f"Invalidated {total_invalidated} cache entries for exercise {exercise_id}")
         return total_invalidated
 
 
@@ -768,9 +743,7 @@ class CacheMetrics:
 
         if "redis_cache" in stats:
             redis_stats = stats["redis_cache"]
-            total_ops = redis_stats.get("keyspace_hits", 0) + redis_stats.get(
-                "keyspace_misses", 0
-            )
+            total_ops = redis_stats.get("keyspace_hits", 0) + redis_stats.get("keyspace_misses", 0)
             if total_ops > 0:
                 redis_stats["hit_rate_percent"] = (
                     redis_stats.get("keyspace_hits", 0) / total_ops * 100
@@ -794,9 +767,7 @@ class CacheMetrics:
             if memory["hit_rate"] < 50:
                 recommendations.append("Consider increasing memory cache size or TTL")
             if memory["utilization_percent"] > 90:
-                recommendations.append(
-                    "Memory cache is near capacity, consider increasing size"
-                )
+                recommendations.append("Memory cache is near capacity, consider increasing size")
 
         # Redis cache analysis
         if "redis_cache" in metrics:
@@ -807,7 +778,5 @@ class CacheMetrics:
         return {
             "metrics": metrics,
             "recommendations": recommendations,
-            "overall_health": "good"
-            if len(recommendations) == 0
-            else "needs_attention",
+            "overall_health": "good" if len(recommendations) == 0 else "needs_attention",
         }

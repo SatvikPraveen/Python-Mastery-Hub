@@ -64,16 +64,12 @@ class Subject(ABC):
     """Abstract subject interface."""
 
     @abstractmethod
-    def subscribe(
-        self, observer: Observer, event_type: Optional[EventType] = None
-    ) -> None:
+    def subscribe(self, observer: Observer, event_type: Optional[EventType] = None) -> None:
         """Subscribe an observer to events."""
         pass
 
     @abstractmethod
-    def unsubscribe(
-        self, observer: Observer, event_type: Optional[EventType] = None
-    ) -> None:
+    def unsubscribe(self, observer: Observer, event_type: Optional[EventType] = None) -> None:
         """Unsubscribe an observer from events."""
         pass
 
@@ -92,16 +88,12 @@ class EventPublisher(Subject):
         # TODO: Initialize observer storage
         pass
 
-    def subscribe(
-        self, observer: Observer, event_type: Optional[EventType] = None
-    ) -> None:
+    def subscribe(self, observer: Observer, event_type: Optional[EventType] = None) -> None:
         """Subscribe an observer to specific event types or all events."""
         # TODO: Implement subscription logic
         pass
 
-    def unsubscribe(
-        self, observer: Observer, event_type: Optional[EventType] = None
-    ) -> None:
+    def unsubscribe(self, observer: Observer, event_type: Optional[EventType] = None) -> None:
         """Unsubscribe an observer from specific event types or all events."""
         # TODO: Implement unsubscription logic
         pass
@@ -469,9 +461,7 @@ class EventPublisherSolution(Subject):
         self._observers = {}  # event_type -> list of observers
         self._global_observers = []  # observers for all events
 
-    def subscribe(
-        self, observer: Observer, event_type: Optional[EventType] = None
-    ) -> None:
+    def subscribe(self, observer: Observer, event_type: Optional[EventType] = None) -> None:
         if event_type is None:
             if observer not in self._global_observers:
                 self._global_observers.append(observer)
@@ -481,9 +471,7 @@ class EventPublisherSolution(Subject):
             if observer not in self._observers[event_type]:
                 self._observers[event_type].append(observer)
 
-    def unsubscribe(
-        self, observer: Observer, event_type: Optional[EventType] = None
-    ) -> None:
+    def unsubscribe(self, observer: Observer, event_type: Optional[EventType] = None) -> None:
         if event_type is None:
             if observer in self._global_observers:
                 self._global_observers.remove(observer)
@@ -492,10 +480,7 @@ class EventPublisherSolution(Subject):
                 if observer in observers:
                     observers.remove(observer)
         else:
-            if (
-                event_type in self._observers
-                and observer in self._observers[event_type]
-            ):
+            if event_type in self._observers and observer in self._observers[event_type]:
                 self._observers[event_type].remove(observer)
 
     def notify(self, event: Event) -> None:

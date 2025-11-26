@@ -28,7 +28,9 @@ class Shape(ABC):
 
     def __str__(self) -> str:
         """String representation of the shape."""
-        return f"{self.__class__.__name__}(area={self.area():.2f}, perimeter={self.perimeter():.2f})"
+        return (
+            f"{self.__class__.__name__}(area={self.area():.2f}, perimeter={self.perimeter():.2f})"
+        )
 
 
 # Exercise Classes - IMPLEMENT THESE USING TDD

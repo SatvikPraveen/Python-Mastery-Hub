@@ -66,11 +66,7 @@ class MockHelpers:
         result = dict1.copy()
 
         for key, value in dict2.items():
-            if (
-                key in result
-                and isinstance(result[key], dict)
-                and isinstance(value, dict)
-            ):
+            if key in result and isinstance(result[key], dict) and isinstance(value, dict):
                 result[key] = MockHelpers.deep_merge_dicts(result[key], value)
             else:
                 result[key] = value
@@ -240,9 +236,7 @@ class MockHelpers:
                 now = time.time()
 
                 # Remove old calls outside the time window
-                calls[:] = [
-                    call_time for call_time in calls if now - call_time < time_window
-                ]
+                calls[:] = [call_time for call_time in calls if now - call_time < time_window]
 
                 if len(calls) >= max_calls:
                     raise Exception("Rate limit exceeded")
@@ -263,9 +257,7 @@ class MockHelpers:
         return bool(re.match(pattern, email))
 
     @staticmethod
-    def validate_password(
-        password, min_length=8, require_special=True, require_digits=True
-    ):
+    def validate_password(password, min_length=8, require_special=True, require_digits=True):
         """Validate password strength"""
         import re
 
@@ -758,9 +750,7 @@ class TestUtilityDecorators:
         def processor(batch):
             return [x * 2 for x in batch]
 
-        result = MockHelpers.batch_process(
-            items, batch_size=3, processor_func=processor
-        )
+        result = MockHelpers.batch_process(items, batch_size=3, processor_func=processor)
         expected = [x * 2 for x in range(10)]
 
         assert result == expected
@@ -772,9 +762,7 @@ class TestUtilityDecorators:
         def sum_processor(batch):
             return sum(batch)
 
-        result = MockHelpers.batch_process(
-            items, batch_size=2, processor_func=sum_processor
-        )
+        result = MockHelpers.batch_process(items, batch_size=2, processor_func=sum_processor)
 
         assert result == [3, 7, 11]  # [1+2, 3+4, 5+6]
 
@@ -842,9 +830,7 @@ class TestHelperIntegration:
         processed_data = MockHelpers.batch_process(raw_data, 2, process_batch)
 
         # Remove duplicates based on email
-        unique_data = MockHelpers.remove_duplicates(
-            processed_data, key=lambda x: x["user.email"]
-        )
+        unique_data = MockHelpers.remove_duplicates(processed_data, key=lambda x: x["user.email"])
 
         assert len(unique_data) == 2  # Should have 2 unique users
         assert all("user.name" in item for item in unique_data)
@@ -899,9 +885,7 @@ class TestHelperIntegration:
         final_config = MockHelpers.deep_merge_dicts(base_config, env_config)
 
         # Parse duration
-        timeout_seconds = MockHelpers.parse_duration(
-            final_config["security"]["session_timeout"]
-        )
+        timeout_seconds = MockHelpers.parse_duration(final_config["security"]["session_timeout"])
 
         # Flatten for easy access
         flat_config = MockHelpers.flatten_dict(final_config)

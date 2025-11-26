@@ -48,10 +48,7 @@ class MockUserService:
     async def authenticate_user(self, username, password):
         """Authenticate user credentials"""
         for user in self._users.values():
-            if (
-                user["username"] == username
-                and user["password_hash"] == f"hashed_{password}"
-            ):
+            if user["username"] == username and user["password_hash"] == f"hashed_{password}":
                 user["last_login"] = datetime.now()
                 return user
         return None
@@ -209,9 +206,7 @@ class MockExerciseService:
 
         submission["test_results"] = test_results
         submission["score"] = (
-            sum(1 for result in test_results if result["passed"])
-            / len(test_results)
-            * 100
+            sum(1 for result in test_results if result["passed"]) / len(test_results) * 100
         )
         submission["feedback"] = "Good attempt! Check edge cases."
         submission["status"] = "completed"
@@ -219,14 +214,10 @@ class MockExerciseService:
 
     async def get_user_submissions(self, user_id, exercise_id=None):
         """Get user submissions"""
-        submissions = [
-            sub for sub in self._submissions.values() if sub["user_id"] == user_id
-        ]
+        submissions = [sub for sub in self._submissions.values() if sub["user_id"] == user_id]
 
         if exercise_id:
-            submissions = [
-                sub for sub in submissions if sub["exercise_id"] == exercise_id
-            ]
+            submissions = [sub for sub in submissions if sub["exercise_id"] == exercise_id]
 
         return submissions
 
@@ -253,9 +244,7 @@ class MockExerciseService:
         total_submissions = len(submissions)
         average_score = sum(sub["score"] for sub in submissions) / total_submissions
         completion_rate = (
-            sum(1 for sub in submissions if sub["score"] >= 70)
-            / total_submissions
-            * 100
+            sum(1 for sub in submissions if sub["score"] >= 70) / total_submissions * 100
         )
 
         return {
@@ -294,9 +283,7 @@ class MockProgressService:
         progress = self._progress[user_id]
 
         # Calculate overall progress
-        total_completed = sum(
-            topic["completed"] for topic in progress["topics"].values()
-        )
+        total_completed = sum(topic["completed"] for topic in progress["topics"].values())
         total_exercises = sum(topic["total"] for topic in progress["topics"].values())
         progress["overall_progress"] = (
             (total_completed / total_exercises) * 100 if total_exercises > 0 else 0
@@ -344,9 +331,9 @@ class MockProgressService:
         # Topic completion achievements
         for topic, topic_data in progress["topics"].items():
             achievement_type = f"{topic}_master"
-            if topic_data["completed"] >= topic_data[
-                "total"
-            ] and achievement_type not in [a["type"] for a in achievements]:
+            if topic_data["completed"] >= topic_data["total"] and achievement_type not in [
+                a["type"] for a in achievements
+            ]:
                 achievements.append(
                     {
                         "type": achievement_type,
@@ -393,9 +380,7 @@ class MockNotificationService:
         self._notifications = {}
         self._next_id = 1
 
-    async def send_notification(
-        self, user_id, title, message, notification_type="info"
-    ):
+    async def send_notification(self, user_id, title, message, notification_type="info"):
         """Send notification to user"""
         notification_id = self._next_id
         self._next_id += 1
@@ -472,9 +457,7 @@ class TestUserService:
         await user_service.create_user("testuser", "test1@example.com", "password123")
 
         with pytest.raises(ValueError, match="Username already exists"):
-            await user_service.create_user(
-                "testuser", "test2@example.com", "password456"
-            )
+            await user_service.create_user("testuser", "test2@example.com", "password456")
 
     @pytest.mark.asyncio
     async def test_create_duplicate_email(self, user_service):
@@ -511,9 +494,7 @@ class TestUserService:
     @pytest.mark.asyncio
     async def test_get_user_by_id(self, user_service):
         """Test getting user by ID"""
-        created_user = await user_service.create_user(
-            "testuser", "test@example.com", "password123"
-        )
+        created_user = await user_service.create_user("testuser", "test@example.com", "password123")
         user_id = created_user["id"]
 
         user = await user_service.get_user_by_id(user_id)
@@ -536,9 +517,7 @@ class TestUserService:
     @pytest.mark.asyncio
     async def test_update_user(self, user_service):
         """Test updating user information"""
-        created_user = await user_service.create_user(
-            "testuser", "test@example.com", "password123"
-        )
+        created_user = await user_service.create_user("testuser", "test@example.com", "password123")
         user_id = created_user["id"]
 
         updated_user = await user_service.update_user(
@@ -558,9 +537,7 @@ class TestUserService:
     @pytest.mark.asyncio
     async def test_deactivate_user(self, user_service):
         """Test user deactivation"""
-        created_user = await user_service.create_user(
-            "testuser", "test@example.com", "password123"
-        )
+        created_user = await user_service.create_user("testuser", "test@example.com", "password123")
         user_id = created_user["id"]
 
         result = await user_service.deactivate_user(user_id)
@@ -572,9 +549,7 @@ class TestUserService:
     @pytest.mark.asyncio
     async def test_get_user_stats(self, user_service):
         """Test getting user statistics"""
-        created_user = await user_service.create_user(
-            "testuser", "test@example.com", "password123"
-        )
+        created_user = await user_service.create_user("testuser", "test@example.com", "password123")
         user_id = created_user["id"]
 
         stats = await user_service.get_user_stats(user_id)
@@ -629,15 +604,9 @@ class TestExerciseService:
     async def test_get_exercises_no_filter(self, exercise_service):
         """Test getting exercises without filters"""
         # Create multiple exercises
-        await exercise_service.create_exercise(
-            "Exercise 1", "Desc 1", "beginner", "basics"
-        )
-        await exercise_service.create_exercise(
-            "Exercise 2", "Desc 2", "intermediate", "oop"
-        )
-        await exercise_service.create_exercise(
-            "Exercise 3", "Desc 3", "advanced", "basics"
-        )
+        await exercise_service.create_exercise("Exercise 1", "Desc 1", "beginner", "basics")
+        await exercise_service.create_exercise("Exercise 2", "Desc 2", "intermediate", "oop")
+        await exercise_service.create_exercise("Exercise 3", "Desc 3", "advanced", "basics")
 
         result = await exercise_service.get_exercises()
 
@@ -649,15 +618,9 @@ class TestExerciseService:
     @pytest.mark.asyncio
     async def test_get_exercises_with_topic_filter(self, exercise_service):
         """Test getting exercises with topic filter"""
-        await exercise_service.create_exercise(
-            "Exercise 1", "Desc 1", "beginner", "basics"
-        )
-        await exercise_service.create_exercise(
-            "Exercise 2", "Desc 2", "intermediate", "oop"
-        )
-        await exercise_service.create_exercise(
-            "Exercise 3", "Desc 3", "advanced", "basics"
-        )
+        await exercise_service.create_exercise("Exercise 1", "Desc 1", "beginner", "basics")
+        await exercise_service.create_exercise("Exercise 2", "Desc 2", "intermediate", "oop")
+        await exercise_service.create_exercise("Exercise 3", "Desc 3", "advanced", "basics")
 
         result = await exercise_service.get_exercises(topic="basics")
 
@@ -667,15 +630,9 @@ class TestExerciseService:
     @pytest.mark.asyncio
     async def test_get_exercises_with_difficulty_filter(self, exercise_service):
         """Test getting exercises with difficulty filter"""
-        await exercise_service.create_exercise(
-            "Exercise 1", "Desc 1", "beginner", "basics"
-        )
-        await exercise_service.create_exercise(
-            "Exercise 2", "Desc 2", "intermediate", "oop"
-        )
-        await exercise_service.create_exercise(
-            "Exercise 3", "Desc 3", "beginner", "basics"
-        )
+        await exercise_service.create_exercise("Exercise 1", "Desc 1", "beginner", "basics")
+        await exercise_service.create_exercise("Exercise 2", "Desc 2", "intermediate", "oop")
+        await exercise_service.create_exercise("Exercise 3", "Desc 3", "beginner", "basics")
 
         result = await exercise_service.get_exercises(difficulty="beginner")
 
@@ -795,9 +752,7 @@ class TestProgressService:
         assert initial_progress["topics"]["basics"]["completed"] == 0
 
         # Update progress
-        updated_progress = await progress_service.update_progress(
-            user_id, "basics", 15, 85
-        )
+        updated_progress = await progress_service.update_progress(user_id, "basics", 15, 85)
 
         assert updated_progress["topics"]["basics"]["completed"] == 1
         assert updated_progress["topics"]["basics"]["points"] == 15
@@ -919,9 +874,7 @@ class TestNotificationService:
         # Send multiple notifications
         await notification_service.send_notification(user_id, "Title 1", "Message 1")
         await notification_service.send_notification(user_id, "Title 2", "Message 2")
-        await notification_service.send_notification(
-            456, "Title 3", "Message 3"
-        )  # Different user
+        await notification_service.send_notification(456, "Title 3", "Message 3")  # Different user
 
         notifications = await notification_service.get_user_notifications(user_id)
 
@@ -937,12 +890,8 @@ class TestNotificationService:
         user_id = 123
 
         # Send notifications
-        n1 = await notification_service.send_notification(
-            user_id, "Title 1", "Message 1"
-        )
-        n2 = await notification_service.send_notification(
-            user_id, "Title 2", "Message 2"
-        )
+        n1 = await notification_service.send_notification(user_id, "Title 1", "Message 1")
+        n2 = await notification_service.send_notification(user_id, "Title 2", "Message 2")
 
         # Mark one as read
         await notification_service.mark_as_read(user_id, n1["id"])
@@ -1018,9 +967,7 @@ class TestServiceIntegration:
         notification_service = services["notification"]
 
         # Create user
-        user = await user_service.create_user(
-            "student", "student@example.com", "password123"
-        )
+        user = await user_service.create_user("student", "student@example.com", "password123")
         user_id = user["id"]
 
         # Create exercise
@@ -1034,9 +981,7 @@ class TestServiceIntegration:
         )
 
         # Update progress
-        await progress_service.update_progress(
-            user_id, "basics", 15, submission["score"]
-        )
+        await progress_service.update_progress(user_id, "basics", 15, submission["score"])
 
         # Send achievement notification
         await notification_service.send_notification(
@@ -1059,9 +1004,7 @@ class TestServiceIntegration:
 
         # Create and authenticate user
         await user_service.create_user("testuser", "test@example.com", "password123")
-        authenticated_user = await user_service.authenticate_user(
-            "testuser", "password123"
-        )
+        authenticated_user = await user_service.authenticate_user("testuser", "password123")
 
         assert authenticated_user is not None
         assert authenticated_user["last_login"] is not None
@@ -1133,9 +1076,7 @@ class TestServiceIntegration:
 
         # Get user submissions
         for user_id in user_ids:
-            submissions = await exercise_service.get_user_submissions(
-                user_id, exercise["id"]
-            )
+            submissions = await exercise_service.get_user_submissions(user_id, exercise["id"])
             assert len(submissions) == 1
             assert submissions[0]["exercise_id"] == exercise["id"]
 

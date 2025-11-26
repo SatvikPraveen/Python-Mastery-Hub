@@ -139,25 +139,17 @@ class MockDatabase:
         )
 
         # Create indexes
-        cursor.execute(
-            "CREATE INDEX IF NOT EXISTS idx_users_username ON users(username)"
-        )
+        cursor.execute("CREATE INDEX IF NOT EXISTS idx_users_username ON users(username)")
         cursor.execute("CREATE INDEX IF NOT EXISTS idx_users_email ON users(email)")
-        cursor.execute(
-            "CREATE INDEX IF NOT EXISTS idx_enrollments_user ON enrollments(user_id)"
-        )
+        cursor.execute("CREATE INDEX IF NOT EXISTS idx_enrollments_user ON enrollments(user_id)")
         cursor.execute(
             "CREATE INDEX IF NOT EXISTS idx_enrollments_course ON enrollments(course_id)"
         )
-        cursor.execute(
-            "CREATE INDEX IF NOT EXISTS idx_submissions_user ON submissions(user_id)"
-        )
+        cursor.execute("CREATE INDEX IF NOT EXISTS idx_submissions_user ON submissions(user_id)")
         cursor.execute(
             "CREATE INDEX IF NOT EXISTS idx_submissions_exercise ON submissions(exercise_id)"
         )
-        cursor.execute(
-            "CREATE INDEX IF NOT EXISTS idx_progress_user ON user_progress(user_id)"
-        )
+        cursor.execute("CREATE INDEX IF NOT EXISTS idx_progress_user ON user_progress(user_id)")
 
         conn.commit()
         conn.close()
@@ -299,41 +291,31 @@ class DatabaseBenchmarks:
         try:
             benchmarks = {
                 "simple_select": (
-                    BenchmarkConfig(
-                        "simple_select", "Simple SELECT queries", iterations=100
-                    ),
+                    BenchmarkConfig("simple_select", "Simple SELECT queries", iterations=100),
                     self.benchmark_simple_select,
                     (),
                     {},
                 ),
                 "complex_joins": (
-                    BenchmarkConfig(
-                        "complex_joins", "Complex JOIN queries", iterations=50
-                    ),
+                    BenchmarkConfig("complex_joins", "Complex JOIN queries", iterations=50),
                     self.benchmark_complex_joins,
                     (),
                     {},
                 ),
                 "insert_operations": (
-                    BenchmarkConfig(
-                        "insert_operations", "INSERT operations", iterations=50
-                    ),
+                    BenchmarkConfig("insert_operations", "INSERT operations", iterations=50),
                     self.benchmark_insert_operations,
                     (),
                     {},
                 ),
                 "update_operations": (
-                    BenchmarkConfig(
-                        "update_operations", "UPDATE operations", iterations=50
-                    ),
+                    BenchmarkConfig("update_operations", "UPDATE operations", iterations=50),
                     self.benchmark_update_operations,
                     (),
                     {},
                 ),
                 "delete_operations": (
-                    BenchmarkConfig(
-                        "delete_operations", "DELETE operations", iterations=30
-                    ),
+                    BenchmarkConfig("delete_operations", "DELETE operations", iterations=30),
                     self.benchmark_delete_operations,
                     (),
                     {},
@@ -377,9 +359,7 @@ class DatabaseBenchmarks:
                     {},
                 ),
                 "index_performance": (
-                    BenchmarkConfig(
-                        "index_performance", "Index usage performance", iterations=40
-                    ),
+                    BenchmarkConfig("index_performance", "Index usage performance", iterations=40),
                     self.benchmark_index_performance,
                     (),
                     {},
@@ -584,9 +564,7 @@ class DatabaseBenchmarks:
         # Execute 10 concurrent reads
         with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
             futures = [executor.submit(execute_read_query) for _ in range(10)]
-            results = [
-                future.result() for future in concurrent.futures.as_completed(futures)
-            ]
+            results = [future.result() for future in concurrent.futures.as_completed(futures)]
 
         return sum(results)
 
@@ -612,9 +590,7 @@ class DatabaseBenchmarks:
         # Execute 5 concurrent writes
         with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
             futures = [executor.submit(execute_write_operation, i) for i in range(5)]
-            results = [
-                future.result() for future in concurrent.futures.as_completed(futures)
-            ]
+            results = [future.result() for future in concurrent.futures.as_completed(futures)]
 
         return sum(results)
 
@@ -755,9 +731,7 @@ class DatabaseBenchmarks:
                 iterations=5 if record_count > 1000 else 10,
             )
 
-            benchmark_result = asyncio.run(
-                self.runner.run_benchmark(config, execute_bulk_insert)
-            )
+            benchmark_result = asyncio.run(self.runner.run_benchmark(config, execute_bulk_insert))
 
             results[test_name] = benchmark_result
 
@@ -812,9 +786,7 @@ class DatabaseBenchmarks:
                 iterations=15,
             )
 
-            benchmark_result = asyncio.run(
-                self.runner.run_benchmark(config, execute_scaling_query)
-            )
+            benchmark_result = asyncio.run(self.runner.run_benchmark(config, execute_scaling_query))
 
             results[f"scale_{user_count}"] = benchmark_result
 
@@ -904,9 +876,7 @@ class DatabaseBenchmarks:
                 name=f"connection_{test_name}", description=description, iterations=25
             )
 
-            benchmark_result = asyncio.run(
-                self.runner.run_benchmark(config, benchmark_func)
-            )
+            benchmark_result = asyncio.run(self.runner.run_benchmark(config, benchmark_func))
 
             results[test_name] = benchmark_result
 
@@ -975,12 +945,8 @@ def run_database_benchmarks():
         }
 
         # Generate report
-        report_filename = (
-            f"database_benchmark_report_{'file' if use_file_db else 'memory'}.md"
-        )
-        report = benchmarks.runner.generate_performance_report(
-            all_results, report_filename
-        )
+        report_filename = f"database_benchmark_report_{'file' if use_file_db else 'memory'}.md"
+        report = benchmarks.runner.generate_performance_report(all_results, report_filename)
 
         print(f"\n{db_type} database benchmarks completed!")
         print(f"Total benchmarks run: {len(all_results)}")
@@ -1057,9 +1023,7 @@ def run_database_stress_test():
 
         with concurrent.futures.ThreadPoolExecutor(max_workers=20) as executor:
             futures = [executor.submit(stress_test_operation) for _ in range(20)]
-            results = [
-                future.result() for future in concurrent.futures.as_completed(futures)
-            ]
+            results = [future.result() for future in concurrent.futures.as_completed(futures)]
 
         end_time = time.time()
 

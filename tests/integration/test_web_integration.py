@@ -76,10 +76,7 @@ class MockWebApplication:
     async def authenticate_user(self, username, password):
         """Authenticate user and create session"""
         for user in self.users.values():
-            if (
-                user["username"] == username
-                and user["password_hash"] == f"hashed_{password}"
-            ):
+            if user["username"] == username and user["password_hash"] == f"hashed_{password}":
                 # Create session
                 session_id = f"session_{user['id']}_{int(time.time())}"
                 session = {
@@ -174,9 +171,7 @@ class MockWebApplication:
         progress = self.progress[user_id].copy()
 
         # Calculate overall progress
-        total_completed = sum(
-            topic["completed"] for topic in progress["topics"].values()
-        )
+        total_completed = sum(topic["completed"] for topic in progress["topics"].values())
         total_exercises = sum(topic["total"] for topic in progress["topics"].values())
         progress["overall_progress"] = (
             (total_completed / total_exercises) * 100 if total_exercises > 0 else 0
@@ -668,9 +663,7 @@ class TestExerciseWorkflow:
         client = MockHTTPClient()
 
         # Login first
-        await client.post(
-            "/api/auth/login", {"username": "testuser", "password": "password123"}
-        )
+        await client.post("/api/auth/login", {"username": "testuser", "password": "password123"})
 
         # Submit solution
         submission_response = await client.post(
@@ -698,9 +691,7 @@ class TestProgressTrackingIntegration:
         # Create multiple users
         users = []
         for i in range(3):
-            user = await app.create_user(
-                f"user{i+1}", f"user{i+1}@example.com", "password"
-            )
+            user = await app.create_user(f"user{i+1}", f"user{i+1}@example.com", "password")
             users.append(user)
 
         # Create exercises across different topics
@@ -734,9 +725,7 @@ class TestProgressTrackingIntegration:
         # Complete some exercises
         for i in range(3):
             exercise = exercises[i]
-            await app.submit_solution(
-                user["id"], exercise["id"], "def solution(): pass"
-            )
+            await app.submit_solution(user["id"], exercise["id"], "def solution(): pass")
 
         # Check updated progress
         progress = await app.get_user_progress(user["id"])
@@ -747,12 +736,7 @@ class TestProgressTrackingIntegration:
         basics_completed = progress["topics"]["basics"]["completed"]
         oop_completed = progress["topics"]["oop"]["completed"]
 
-        assert (
-            basics_completed
-            + oop_completed
-            + progress["topics"]["advanced"]["completed"]
-            == 3
-        )
+        assert basics_completed + oop_completed + progress["topics"]["advanced"]["completed"] == 3
 
     @pytest.mark.asyncio
     async def test_leaderboard_integration(self, multi_user_environment):
@@ -765,9 +749,7 @@ class TestProgressTrackingIntegration:
         for i, user in enumerate(users):
             for j in range(user_scores[i]):
                 exercise = exercises[j]
-                await app.submit_solution(
-                    user["id"], exercise["id"], "def solution(): pass"
-                )
+                await app.submit_solution(user["id"], exercise["id"], "def solution(): pass")
 
         # Get leaderboard
         leaderboard = await app.get_leaderboard()
@@ -788,9 +770,7 @@ class TestProgressTrackingIntegration:
         client = MockHTTPClient()
 
         # Login
-        await client.post(
-            "/api/auth/login", {"username": "testuser", "password": "password123"}
-        )
+        await client.post("/api/auth/login", {"username": "testuser", "password": "password123"})
 
         # Get progress
         progress_response = await client.get("/api/progress")
@@ -822,9 +802,7 @@ class TestConcurrentUserOperations:
         # Create multiple users and exercises
         users = []
         for i in range(5):
-            user = await app.create_user(
-                f"concurrent_user{i+1}", f"user{i+1}@test.com", "password"
-            )
+            user = await app.create_user(f"concurrent_user{i+1}", f"user{i+1}@test.com", "password")
             users.append(user)
 
         exercises = []
@@ -952,9 +930,7 @@ class TestErrorHandlingAndRecovery:
         await app.start()
 
         user = await app.create_user("erroruser", "error@test.com", "password")
-        exercise = await app.create_exercise(
-            "Error Test", "Description", "beginner", "basics"
-        )
+        exercise = await app.create_exercise("Error Test", "Description", "beginner", "basics")
 
         yield app, user, exercise
         await app.stop()
@@ -1022,9 +998,7 @@ class TestErrorHandlingAndRecovery:
         assert len(app.exercises) == initial_exercise_count
 
         # Valid operations should still work
-        submission = await app.submit_solution(
-            user["id"], exercise["id"], "def solution(): pass"
-        )
+        submission = await app.submit_solution(user["id"], exercise["id"], "def solution(): pass")
         assert submission["status"] == "completed"
 
 
@@ -1079,18 +1053,14 @@ class TestPerformanceAndScaling:
         await app.start()
 
         user = await app.create_user("speeduser", "speed@test.com", "password")
-        exercise = await app.create_exercise(
-            "Speed Test", "Description", "beginner", "basics"
-        )
+        exercise = await app.create_exercise("Speed Test", "Description", "beginner", "basics")
 
         # Perform many operations quickly
         start_time = time.time()
 
         for i in range(100):
             # Each iteration: submit solution and check progress
-            await app.submit_solution(
-                user["id"], exercise["id"], f"def solution(): return {i}"
-            )
+            await app.submit_solution(user["id"], exercise["id"], f"def solution(): return {i}")
             await app.get_user_progress(user["id"])
 
         total_time = time.time() - start_time
@@ -1128,9 +1098,7 @@ class TestPerformanceAndScaling:
 
             # Submit solutions
             for exercise in temp_exercises:
-                await app.submit_solution(
-                    user["id"], exercise["id"], "def solution(): pass"
-                )
+                await app.submit_solution(user["id"], exercise["id"], "def solution(): pass")
 
             # Clean up (in real app, this might be garbage collection or explicit cleanup)
             # For this test, we'll just verify counts are reasonable

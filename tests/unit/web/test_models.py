@@ -248,12 +248,8 @@ class MockSubmission:
             "code": self.code,
             "language": self.language,
             "status": self.status,
-            "submitted_at": self.submitted_at.isoformat()
-            if self.submitted_at
-            else None,
-            "completed_at": self.completed_at.isoformat()
-            if self.completed_at
-            else None,
+            "submitted_at": self.submitted_at.isoformat() if self.submitted_at else None,
+            "completed_at": self.completed_at.isoformat() if self.completed_at else None,
             "score": self.score,
             "feedback": self.feedback,
             "execution_time": self.execution_time,
@@ -333,9 +329,7 @@ class MockProgress:
         self.exercises_completed += 1
         self.points_earned += exercise_points
         self.last_activity = datetime.now()
-        self.completion_percentage = (
-            self.exercises_completed / self.total_exercises
-        ) * 100
+        self.completion_percentage = (self.exercises_completed / self.total_exercises) * 100
 
         # Update average score (simplified calculation)
         if hasattr(self, "_total_score"):
@@ -353,9 +347,7 @@ class MockProgress:
             "exercises_completed": self.exercises_completed,
             "total_exercises": self.total_exercises,
             "points_earned": self.points_earned,
-            "last_activity": self.last_activity.isoformat()
-            if self.last_activity
-            else None,
+            "last_activity": self.last_activity.isoformat() if self.last_activity else None,
             "completion_percentage": round(self.completion_percentage, 2),
             "average_score": round(self.average_score, 2),
             "streak_days": self.streak_days,
@@ -782,9 +774,7 @@ class TestModelIntegration:
         )
         exercise.add_test_case("input", "output")
 
-        submission = MockSubmission(
-            user_id=1, exercise_id=1, code="valid code", language="python"
-        )
+        submission = MockSubmission(user_id=1, exercise_id=1, code="valid code", language="python")
 
         # All should be valid
         user_valid, _ = user.validate()
@@ -797,12 +787,8 @@ class TestModelIntegration:
         """Test serialization consistency across models"""
         # Create models
         user = MockUser(user_id=1, username="test", email="test@example.com")
-        exercise = MockExercise(
-            exercise_id=1, title="Test Exercise", description="Test"
-        )
-        submission = MockSubmission(
-            submission_id=1, user_id=1, exercise_id=1, code="test"
-        )
+        exercise = MockExercise(exercise_id=1, title="Test Exercise", description="Test")
+        submission = MockSubmission(submission_id=1, user_id=1, exercise_id=1, code="test")
         progress = MockProgress(user_id=1, topic="basics")
 
         # Serialize

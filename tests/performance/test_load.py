@@ -211,9 +211,7 @@ class MockPlatformAPI:
             "timestamp": datetime.now().isoformat(),
         }
 
-    async def _simulate_processing_time(
-        self, operation: str, min_time: float, max_time: float
-    ):
+    async def _simulate_processing_time(self, operation: str, min_time: float, max_time: float):
         """Simulate variable processing time for different operations."""
         base_time = random.uniform(min_time, max_time)
 
@@ -237,8 +235,7 @@ class MockPlatformAPI:
             "total_requests": self.request_count,
             "active_sessions": len(self.active_sessions),
             "database_connections": self.database_connections,
-            "cache_hit_rate": self.cache_hits
-            / max(self.cache_hits + self.cache_misses, 1),
+            "cache_hit_rate": self.cache_hits / max(self.cache_hits + self.cache_misses, 1),
             "cache_hits": self.cache_hits,
             "cache_misses": self.cache_misses,
         }
@@ -252,9 +249,7 @@ class LoadTestRunner:
         self.metrics_collector = SystemMetricsCollector()
         self.results = []
 
-    async def run_user_journey_load_test(
-        self, config: LoadTestConfig
-    ) -> LoadTestResult:
+    async def run_user_journey_load_test(self, config: LoadTestConfig) -> LoadTestResult:
         """Run a complete user journey load test."""
         print(
             f"Starting load test: {config.concurrent_users} users, {config.test_duration_seconds}s duration"
@@ -341,18 +336,14 @@ class LoadTestRunner:
                     elif action == "submit_exercise":
                         exercise_id = f"exercise_{random.randint(1, 50)}"
                         code = self._generate_sample_code()
-                        await self.api.submit_exercise(
-                            user_id, exercise_id, code, token
-                        )
+                        await self.api.submit_exercise(user_id, exercise_id, code, token)
                     elif action == "save_progress":
                         lesson_id = f"lesson_{random.randint(1, 100)}"
                         progress_data = {
                             "completed": True,
                             "score": random.randint(70, 100),
                         }
-                        await self.api.save_progress(
-                            user_id, lesson_id, progress_data, token
-                        )
+                        await self.api.save_progress(user_id, lesson_id, progress_data, token)
 
                     action_time = time.time() - action_start
 
@@ -433,21 +424,13 @@ class LoadTestRunner:
             avg_response_time = statistics.mean(response_times)
             min_response_time = min(response_times)
             max_response_time = max(response_times)
-            percentile_95 = statistics.quantiles(response_times, n=20)[
-                18
-            ]  # 95th percentile
+            percentile_95 = statistics.quantiles(response_times, n=20)[18]  # 95th percentile
         else:
-            avg_response_time = (
-                min_response_time
-            ) = max_response_time = percentile_95 = 0
+            avg_response_time = min_response_time = max_response_time = percentile_95 = 0
 
         duration_seconds = (end_time - start_time).total_seconds()
-        requests_per_second = (
-            total_requests / duration_seconds if duration_seconds > 0 else 0
-        )
-        error_rate = (
-            (failed_requests / total_requests * 100) if total_requests > 0 else 0
-        )
+        requests_per_second = total_requests / duration_seconds if duration_seconds > 0 else 0
+        error_rate = (failed_requests / total_requests * 100) if total_requests > 0 else 0
 
         # Estimate throughput (simplified)
         avg_response_size_kb = 5  # Assume average 5KB response
@@ -503,18 +486,12 @@ class SystemMetricsCollector:
                     cpu_usage_percent=cpu_percent,
                     memory_usage_percent=memory.percent,
                     memory_usage_mb=memory.used / (1024 * 1024),
-                    disk_io_read_mb=disk_io.read_bytes / (1024 * 1024)
-                    if disk_io
-                    else 0,
-                    disk_io_write_mb=disk_io.write_bytes / (1024 * 1024)
-                    if disk_io
-                    else 0,
+                    disk_io_read_mb=disk_io.read_bytes / (1024 * 1024) if disk_io else 0,
+                    disk_io_write_mb=disk_io.write_bytes / (1024 * 1024) if disk_io else 0,
                     network_io_received_mb=network_io.bytes_recv / (1024 * 1024)
                     if network_io
                     else 0,
-                    network_io_sent_mb=network_io.bytes_sent / (1024 * 1024)
-                    if network_io
-                    else 0,
+                    network_io_sent_mb=network_io.bytes_sent / (1024 * 1024) if network_io else 0,
                     timestamp=datetime.now(),
                 )
 
@@ -589,9 +566,7 @@ class TestBasicLoad:
 
         print(f"Light load test results:")
         print(f"  Total requests: {result.total_requests}")
-        print(
-            f"  Success rate: {(result.successful_requests / result.total_requests) * 100:.2f}%"
-        )
+        print(f"  Success rate: {(result.successful_requests / result.total_requests) * 100:.2f}%")
         print(f"  Average response time: {result.average_response_time:.3f}s")
         print(f"  Requests per second: {result.requests_per_second:.2f}")
 
@@ -613,24 +588,18 @@ class TestBasicLoad:
         # Assertions for moderate load
         assert result.error_rate < config.error_rate_threshold
         assert result.average_response_time < (config.max_response_time_ms / 1000)
-        assert (
-            result.successful_requests > result.total_requests * 0.9
-        )  # At least 90% success
+        assert result.successful_requests > result.total_requests * 0.9  # At least 90% success
 
         # Check system performance under moderate load
         system_metrics = load_test_runner.metrics_collector.get_summary()
         if system_metrics:
             assert system_metrics["cpu_usage"]["average"] < 80  # CPU usage under 80%
-            assert (
-                system_metrics["memory_usage"]["average"] < 90
-            )  # Memory usage under 90%
+            assert system_metrics["memory_usage"]["average"] < 90  # Memory usage under 90%
 
         print(f"Moderate load test results:")
         print(f"  Total requests: {result.total_requests}")
         print(f"  Error rate: {result.error_rate:.2f}%")
-        print(
-            f"  95th percentile response time: {result.percentile_95_response_time:.3f}s"
-        )
+        print(f"  95th percentile response time: {result.percentile_95_response_time:.3f}s")
         print(f"  Throughput: {result.throughput_mbps:.2f} Mbps")
 
 
@@ -655,9 +624,7 @@ class TestHighLoad:
         # More lenient assertions for high load
         assert result.error_rate < config.error_rate_threshold
         assert result.average_response_time < (config.max_response_time_ms / 1000)
-        assert (
-            result.successful_requests > result.total_requests * 0.8
-        )  # At least 80% success
+        assert result.successful_requests > result.total_requests * 0.8  # At least 80% success
 
         # Performance degradation is expected under high load
         print(f"High load test results:")
@@ -685,9 +652,7 @@ class TestHighLoad:
             error_rate_threshold=3.0,
         )
 
-        baseline_result = await load_test_runner.run_user_journey_load_test(
-            baseline_config
-        )
+        baseline_result = await load_test_runner.run_user_journey_load_test(baseline_config)
         baseline_response_time = baseline_result.average_response_time
 
         # Create spike load
@@ -740,9 +705,7 @@ class TestSpecificOperations:
                     exercise_id = f"exercise_{random.randint(1, 100)}"
                     code = load_test_runner._generate_sample_code()
 
-                    result = await mock_api.submit_exercise(
-                        user_id, exercise_id, code, token
-                    )
+                    result = await mock_api.submit_exercise(user_id, exercise_id, code, token)
                     end_time = time.time()
 
                     results.append(
@@ -784,9 +747,7 @@ class TestSpecificOperations:
         failed_submissions = [r for r in flat_results if not r["success"]]
 
         success_rate = len(successful_submissions) / len(flat_results) * 100
-        avg_response_time = statistics.mean(
-            [r["response_time"] for r in successful_submissions]
-        )
+        avg_response_time = statistics.mean([r["response_time"] for r in successful_submissions])
         total_duration = end_time - start_time
         submissions_per_second = len(flat_results) / total_duration
 
@@ -846,9 +807,7 @@ class TestSpecificOperations:
             return results
 
         # Execute content requests
-        content_tasks = [
-            request_content_batch(user_id, token) for user_id, token in users
-        ]
+        content_tasks = [request_content_batch(user_id, token) for user_id, token in users]
 
         start_time = time.time()
         all_results = await asyncio.gather(*content_tasks)
@@ -859,9 +818,7 @@ class TestSpecificOperations:
         successful_requests = [r for r in flat_results if r["success"]]
 
         success_rate = len(successful_requests) / len(flat_results) * 100
-        avg_response_time = statistics.mean(
-            [r["response_time"] for r in successful_requests]
-        )
+        avg_response_time = statistics.mean([r["response_time"] for r in successful_requests])
         total_data_mb = sum([r.get("content_size", 0) for r in successful_requests])
 
         print(f"Content delivery load test:")
@@ -900,14 +857,10 @@ class TestSpecificOperations:
                         "attempts": random.randint(1, 3),
                     }
 
-                    result = await mock_api.save_progress(
-                        user_id, lesson_id, progress_data, token
-                    )
+                    result = await mock_api.save_progress(user_id, lesson_id, progress_data, token)
                     end_time = time.time()
 
-                    results.append(
-                        {"success": True, "response_time": end_time - start_time}
-                    )
+                    results.append({"success": True, "response_time": end_time - start_time})
 
                 except Exception as e:
                     end_time = time.time()
@@ -924,9 +877,7 @@ class TestSpecificOperations:
             return results
 
         # Execute progress saving tasks
-        progress_tasks = [
-            save_progress_batch(user_id, token) for user_id, token in users
-        ]
+        progress_tasks = [save_progress_batch(user_id, token) for user_id, token in users]
 
         start_time = time.time()
         all_results = await asyncio.gather(*progress_tasks)
@@ -937,9 +888,7 @@ class TestSpecificOperations:
         successful_saves = [r for r in flat_results if r["success"]]
 
         success_rate = len(successful_saves) / len(flat_results) * 100
-        avg_response_time = statistics.mean(
-            [r["response_time"] for r in successful_saves]
-        )
+        avg_response_time = statistics.mean([r["response_time"] for r in successful_saves])
         saves_per_second = len(flat_results) / (end_time - start_time)
 
         print(f"Database write load test:")
@@ -1004,9 +953,7 @@ class TestStressConditions:
         initial_memory = psutil.virtual_memory().used / (1024 * 1024)
 
         # Execute memory-intensive tasks
-        memory_tasks = [
-            memory_intensive_operation(user_id, token) for user_id, token in users
-        ]
+        memory_tasks = [memory_intensive_operation(user_id, token) for user_id, token in users]
 
         start_time = time.time()
         results = await asyncio.gather(*memory_tasks, return_exceptions=True)
@@ -1017,12 +964,8 @@ class TestStressConditions:
         memory_increase = final_memory - initial_memory
 
         # Analyze results
-        successful_ops = [
-            r for r in results if isinstance(r, dict) and r.get("success")
-        ]
-        failed_ops = [
-            r for r in results if isinstance(r, dict) and not r.get("success")
-        ]
+        successful_ops = [r for r in results if isinstance(r, dict) and r.get("success")]
+        failed_ops = [r for r in results if isinstance(r, dict) and not r.get("success")]
         exceptions = [r for r in results if isinstance(r, Exception)]
 
         success_rate = len(successful_ops) / len(users) * 100
@@ -1098,12 +1041,8 @@ class TestStressConditions:
         end_time = time.time()
 
         # Analyze connection exhaustion results
-        successful_ops = [
-            r for r in results if isinstance(r, dict) and r.get("success")
-        ]
-        failed_ops = [
-            r for r in results if isinstance(r, dict) and not r.get("success")
-        ]
+        successful_ops = [r for r in results if isinstance(r, dict) and r.get("success")]
+        failed_ops = [r for r in results if isinstance(r, dict) and not r.get("success")]
         exceptions = [r for r in results if isinstance(r, Exception)]
 
         success_rate = len(successful_ops) / len(users) * 100
@@ -1114,9 +1053,7 @@ class TestStressConditions:
         print(f"  Failed: {len(failed_ops)}")
         print(f"  Exceptions: {len(exceptions)}")
         print(f"  Success rate: {success_rate:.2f}%")
-        print(
-            f"  Max concurrent connections: {max(len(active_connections), max_connections)}"
-        )
+        print(f"  Max concurrent connections: {max(len(active_connections), max_connections)}")
 
         # System should handle connection exhaustion gracefully
         assert len(successful_ops) <= max_connections  # Can't exceed max connections
@@ -1153,10 +1090,7 @@ class TestStressConditions:
                     else:
                         # Check if service should recover
                         if service in failure_start_times:
-                            if (
-                                time.time() - failure_start_times[service]
-                                > config["recovery_time"]
-                            ):
+                            if time.time() - failure_start_times[service] > config["recovery_time"]:
                                 service_health[service] = True
                                 del failure_start_times[service]
                                 print(f"Service {service} recovered")
@@ -1183,31 +1117,21 @@ class TestStressConditions:
 
                 # Perform various operations
                 for i in range(10):
-                    operation_type = random.choice(
-                        ["courses", "content", "submit", "progress"]
-                    )
+                    operation_type = random.choice(["courses", "content", "submit", "progress"])
 
                     try:
                         if operation_type == "courses" and service_health["database"]:
                             await mock_api.get_user_courses(user_id, token)
                             operations_completed += 1
-                        elif (
-                            operation_type == "content"
-                            and service_health["content_delivery"]
-                        ):
+                        elif operation_type == "content" and service_health["content_delivery"]:
                             await mock_api.get_lesson_content(f"lesson_{i}", token)
                             operations_completed += 1
-                        elif (
-                            operation_type == "submit"
-                            and service_health["code_executor"]
-                        ):
+                        elif operation_type == "submit" and service_health["code_executor"]:
                             await mock_api.submit_exercise(
                                 user_id, f"ex_{i}", "def test(): pass", token
                             )
                             operations_completed += 1
-                        elif (
-                            operation_type == "progress" and service_health["database"]
-                        ):
+                        elif operation_type == "progress" and service_health["database"]:
                             await mock_api.save_progress(
                                 user_id, f"lesson_{i}", {"score": 85}, token
                             )
@@ -1285,9 +1209,7 @@ class TestPerformanceRegression:
             error_rate_threshold=2.0,
         )
 
-        baseline_result = await load_test_runner.run_user_journey_load_test(
-            baseline_config
-        )
+        baseline_result = await load_test_runner.run_user_journey_load_test(baseline_config)
 
         # Store baseline metrics
         baseline_metrics = {
@@ -1301,9 +1223,7 @@ class TestPerformanceRegression:
         await asyncio.sleep(1)
 
         # Current performance test
-        current_result = await load_test_runner.run_user_journey_load_test(
-            baseline_config
-        )
+        current_result = await load_test_runner.run_user_journey_load_test(baseline_config)
 
         current_metrics = {
             "avg_response_time": current_result.average_response_time,
@@ -1316,28 +1236,19 @@ class TestPerformanceRegression:
         regressions = []
 
         # Response time regression (>20% increase)
-        if (
-            current_metrics["avg_response_time"]
-            > baseline_metrics["avg_response_time"] * 1.2
-        ):
+        if current_metrics["avg_response_time"] > baseline_metrics["avg_response_time"] * 1.2:
             regressions.append(
                 f"Average response time increased by {((current_metrics['avg_response_time'] / baseline_metrics['avg_response_time']) - 1) * 100:.1f}%"
             )
 
         # P95 response time regression (>30% increase)
-        if (
-            current_metrics["p95_response_time"]
-            > baseline_metrics["p95_response_time"] * 1.3
-        ):
+        if current_metrics["p95_response_time"] > baseline_metrics["p95_response_time"] * 1.3:
             regressions.append(
                 f"P95 response time increased by {((current_metrics['p95_response_time'] / baseline_metrics['p95_response_time']) - 1) * 100:.1f}%"
             )
 
         # Throughput regression (>15% decrease)
-        if (
-            current_metrics["requests_per_second"]
-            < baseline_metrics["requests_per_second"] * 0.85
-        ):
+        if current_metrics["requests_per_second"] < baseline_metrics["requests_per_second"] * 0.85:
             regressions.append(
                 f"Requests per second decreased by {((baseline_metrics['requests_per_second'] / current_metrics['requests_per_second']) - 1) * 100:.1f}%"
             )
@@ -1349,12 +1260,8 @@ class TestPerformanceRegression:
             )
 
         print(f"Performance regression test:")
-        print(
-            f"  Baseline avg response time: {baseline_metrics['avg_response_time']:.3f}s"
-        )
-        print(
-            f"  Current avg response time: {current_metrics['avg_response_time']:.3f}s"
-        )
+        print(f"  Baseline avg response time: {baseline_metrics['avg_response_time']:.3f}s")
+        print(f"  Current avg response time: {current_metrics['avg_response_time']:.3f}s")
         print(f"  Baseline RPS: {baseline_metrics['requests_per_second']:.2f}")
         print(f"  Current RPS: {current_metrics['requests_per_second']:.2f}")
 
@@ -1372,8 +1279,6 @@ class TestPerformanceRegression:
 
 if __name__ == "__main__":
     # Run load tests with appropriate markers
-    pytest.main(
-        [__file__, "-v", "-m", "not slow", "--tb=short"]  # Skip slow tests by default
-    )
+    pytest.main([__file__, "-v", "-m", "not slow", "--tb=short"])  # Skip slow tests by default
 
     # To run slow tests: pytest tests/performance/test_load.py -v -m slow

@@ -61,9 +61,7 @@ def overview():
         streak_data = progress_service.get_learning_streak(user_id)
 
         # Get recommended exercises
-        recommended_exercises = progress_service.get_recommended_exercises(
-            user_id, limit=5
-        )
+        recommended_exercises = progress_service.get_recommended_exercises(user_id, limit=5)
 
         # Get upcoming goals
         goals = progress_service.get_user_goals(user_id, active_only=True)
@@ -191,9 +189,7 @@ def achievements():
 
             # Add progress data
             achievement["progress"] = achievement_progress.get(achievement["id"], {})
-            achievement["earned"] = achievement["id"] in [
-                a["id"] for a in earned_achievements
-            ]
+            achievement["earned"] = achievement["id"] in [a["id"] for a in earned_achievements]
 
             achievements_by_category[category].append(achievement)
 
@@ -284,9 +280,7 @@ def create_goal():
         # Parse deadline
         if goal_data["deadline"]:
             try:
-                goal_data["deadline"] = datetime.strptime(
-                    goal_data["deadline"], "%Y-%m-%d"
-                ).date()
+                goal_data["deadline"] = datetime.strptime(goal_data["deadline"], "%Y-%m-%d").date()
             except ValueError:
                 flash("Invalid deadline format.", "error")
                 return redirect(url_for("dashboard.goals"))
@@ -477,9 +471,7 @@ def api_update_goal_progress():
             return jsonify({"success": False, "error": "Goal not found"}), 404
 
         # Update progress
-        success = progress_service.update_goal_progress(
-            user_id, goal_id, progress_value
-        )
+        success = progress_service.update_goal_progress(user_id, goal_id, progress_value)
 
         if success:
             return jsonify({"success": True, "message": "Goal progress updated"})
@@ -510,9 +502,7 @@ def inject_dashboard_data():
             data["quick_stats"] = progress_service.get_quick_stats(user_id)
 
             # Add notifications count
-            data["notifications_count"] = progress_service.get_notifications_count(
-                user_id
-            )
+            data["notifications_count"] = progress_service.get_notifications_count(user_id)
 
         except Exception as e:
             logger.error(f"Dashboard context processor error: {str(e)}")

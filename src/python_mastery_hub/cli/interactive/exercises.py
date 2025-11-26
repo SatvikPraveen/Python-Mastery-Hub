@@ -324,9 +324,7 @@ print(result)""",
         colors.print_header(f"{module_name} Exercises")
 
         if not exercises:
-            print(
-                f"{colors.YELLOW}No exercises available for this module yet.{colors.RESET}"
-            )
+            print(f"{colors.YELLOW}No exercises available for this module yet.{colors.RESET}")
             input("Press Enter to continue...")
             return
 
@@ -337,9 +335,7 @@ print(result)""",
 
             print(f"  {i}. {status} {exercise.title}")
             print(f"     {exercise.description}")
-            print(
-                f"     Difficulty: {difficulty_color}{exercise.difficulty.title()}{colors.RESET}"
-            )
+            print(f"     Difficulty: {difficulty_color}{exercise.difficulty.title()}{colors.RESET}")
 
         print(f"  0. Back to modules")
 
@@ -389,9 +385,7 @@ print(result)""",
 
         while True:
             try:
-                command = input(
-                    f"\n{colors.CYAN}Enter command or code: {colors.RESET}"
-                ).strip()
+                command = input(f"\n{colors.CYAN}Enter command or code: {colors.RESET}").strip()
 
                 if command.lower() == "quit":
                     break
@@ -505,9 +499,7 @@ print(result)""",
         hint = exercise.hints[exercise.hints_used]
         exercise.hints_used += 1
 
-        print(
-            f"\n{colors.YELLOW}Hint {exercise.hints_used}/{len(exercise.hints)}:{colors.RESET}"
-        )
+        print(f"\n{colors.YELLOW}Hint {exercise.hints_used}/{len(exercise.hints)}:{colors.RESET}")
         print(f"  {hint}")
 
     def _show_solution(self, exercise: Exercise) -> None:

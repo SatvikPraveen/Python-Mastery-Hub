@@ -40,9 +40,7 @@ class DataExporter:
     def __init__(self, config: Optional[ExportConfig] = None):
         self.config = config or ExportConfig()
 
-    def export(
-        self, data: Dict[str, Any], output_path: Optional[Path] = None
-    ) -> Union[str, bytes]:
+    def export(self, data: Dict[str, Any], output_path: Optional[Path] = None) -> Union[str, bytes]:
         """
         Export data in the specific format.
 
@@ -111,9 +109,7 @@ class CSVExporter(DataExporter):
 
         # Achievements
         if "achievements" in filtered_data:
-            csv_content.append(
-                self._export_achievements_csv(filtered_data["achievements"])
-            )
+            csv_content.append(self._export_achievements_csv(filtered_data["achievements"]))
 
         # Statistics
         if "statistics" in filtered_data:
@@ -121,9 +117,7 @@ class CSVExporter(DataExporter):
 
         # Learning history
         if "learning_history" in filtered_data:
-            csv_content.append(
-                self._export_learning_history_csv(filtered_data["learning_history"])
-            )
+            csv_content.append(self._export_learning_history_csv(filtered_data["learning_history"]))
 
         result = "\n\n".join(csv_content)
 
@@ -199,9 +193,7 @@ class CSVExporter(DataExporter):
                         if topic.get("completion_date")
                         else "",
                         topic.get("time_spent", 0),
-                        f"{topic.get('score', 0)*100:.1f}%"
-                        if topic.get("score")
-                        else "",
+                        f"{topic.get('score', 0)*100:.1f}%" if topic.get("score") else "",
                     ]
                 )
 
@@ -213,9 +205,7 @@ class CSVExporter(DataExporter):
         output.write("# Achievements\n")
 
         writer = csv.writer(output)
-        writer.writerow(
-            ["Name", "Description", "Category", "Tier", "Points", "Earned Date"]
-        )
+        writer.writerow(["Name", "Description", "Category", "Tier", "Points", "Earned Date"])
 
         for achievement in achievements:
             writer.writerow(
@@ -251,17 +241,13 @@ class CSVExporter(DataExporter):
 
         return output.getvalue()
 
-    def _export_learning_history_csv(
-        self, learning_history: List[Dict[str, Any]]
-    ) -> str:
+    def _export_learning_history_csv(self, learning_history: List[Dict[str, Any]]) -> str:
         """Export learning history as CSV."""
         output = io.StringIO()
         output.write("# Learning History\n")
 
         writer = csv.writer(output)
-        writer.writerow(
-            ["Date", "Module", "Topic", "Action", "Duration (minutes)", "Score"]
-        )
+        writer.writerow(["Date", "Module", "Topic", "Action", "Duration (minutes)", "Score"])
 
         for entry in learning_history:
             writer.writerow(
@@ -390,9 +376,7 @@ class HTMLReportExporter(DataExporter):
 
         # Learning history
         if "learning_history" in data:
-            html_parts.append(
-                self._generate_learning_history_html(data["learning_history"])
-            )
+            html_parts.append(self._generate_learning_history_html(data["learning_history"]))
 
         # HTML footer
         html_parts.append(
@@ -522,9 +506,7 @@ class HTMLReportExporter(DataExporter):
 
         return html
 
-    def _generate_learning_history_html(
-        self, learning_history: List[Dict[str, Any]]
-    ) -> str:
+    def _generate_learning_history_html(self, learning_history: List[Dict[str, Any]]) -> str:
         """Generate learning history HTML section."""
         html = "<h2>Recent Learning Activity</h2>"
 
@@ -533,12 +515,12 @@ class HTMLReportExporter(DataExporter):
             return html
 
         # Show only recent 20 entries
-        recent_history = (
-            learning_history[-20:] if len(learning_history) > 20 else learning_history
-        )
+        recent_history = learning_history[-20:] if len(learning_history) > 20 else learning_history
 
         html += "<table>"
-        html += "<tr><th>Date</th><th>Module</th><th>Topic</th><th>Action</th><th>Duration</th></tr>"
+        html += (
+            "<tr><th>Date</th><th>Module</th><th>Topic</th><th>Action</th><th>Duration</th></tr>"
+        )
 
         for entry in recent_history:
             date = self._format_datetime(entry.get("date", ""))
@@ -623,9 +605,7 @@ class ExcelExporter(DataExporter):
 
         # Style headers
         header_font = Font(bold=True)
-        header_fill = PatternFill(
-            start_color="CCE5FF", end_color="CCE5FF", fill_type="solid"
-        )
+        header_fill = PatternFill(start_color="CCE5FF", end_color="CCE5FF", fill_type="solid")
 
         ws["A1"].font = header_font
         ws["B1"].font = header_font
@@ -669,9 +649,7 @@ class ExcelExporter(DataExporter):
             for col, header in enumerate(headers, 1):
                 cell = ws.cell(row=1, column=col, value=header)
                 cell.font = Font(bold=True)
-                cell.fill = PatternFill(
-                    start_color="CCE5FF", end_color="CCE5FF", fill_type="solid"
-                )
+                cell.fill = PatternFill(start_color="CCE5FF", end_color="CCE5FF", fill_type="solid")
 
             # Data
             row = 2
@@ -679,9 +657,7 @@ class ExcelExporter(DataExporter):
                 ws.cell(row=row, column=1, value=module_id.replace("_", " ").title())
                 ws.cell(row=row, column=2, value=module_data.get("completed", 0))
                 ws.cell(row=row, column=3, value=module_data.get("total", 0))
-                ws.cell(
-                    row=row, column=4, value=f"{module_data.get('percentage', 0):.1f}%"
-                )
+                ws.cell(row=row, column=4, value=f"{module_data.get('percentage', 0):.1f}%")
                 ws.cell(row=row, column=5, value=module_data.get("time_spent", 0))
                 row += 1
 
@@ -704,9 +680,7 @@ class ExcelExporter(DataExporter):
         for col, header in enumerate(headers, 1):
             cell = ws.cell(row=1, column=col, value=header)
             cell.font = Font(bold=True)
-            cell.fill = PatternFill(
-                start_color="CCE5FF", end_color="CCE5FF", fill_type="solid"
-            )
+            cell.fill = PatternFill(start_color="CCE5FF", end_color="CCE5FF", fill_type="solid")
 
         # Data
         row = 2
@@ -747,9 +721,7 @@ class ExcelExporter(DataExporter):
 
         # Style headers
         header_font = Font(bold=True)
-        header_fill = PatternFill(
-            start_color="CCE5FF", end_color="CCE5FF", fill_type="solid"
-        )
+        header_fill = PatternFill(start_color="CCE5FF", end_color="CCE5FF", fill_type="solid")
 
         ws["A1"].font = header_font
         ws["B1"].font = header_font
@@ -793,16 +765,12 @@ class ExcelExporter(DataExporter):
         for col, header in enumerate(headers, 1):
             cell = ws.cell(row=1, column=col, value=header)
             cell.font = Font(bold=True)
-            cell.fill = PatternFill(
-                start_color="CCE5FF", end_color="CCE5FF", fill_type="solid"
-            )
+            cell.fill = PatternFill(start_color="CCE5FF", end_color="CCE5FF", fill_type="solid")
 
         # Data
         row = 2
         for entry in learning_history:
-            ws.cell(
-                row=row, column=1, value=self._format_datetime(entry.get("date", ""))
-            )
+            ws.cell(row=row, column=1, value=self._format_datetime(entry.get("date", "")))
             ws.cell(
                 row=row,
                 column=2,
@@ -902,9 +870,7 @@ For questions about your data or this export, contact support@pythonmasteryhub.c
 
 
 # Factory functions
-def create_exporter(
-    format_type: str, config: Optional[ExportConfig] = None
-) -> DataExporter:
+def create_exporter(format_type: str, config: Optional[ExportConfig] = None) -> DataExporter:
     """
     Create exporter for specified format.
 

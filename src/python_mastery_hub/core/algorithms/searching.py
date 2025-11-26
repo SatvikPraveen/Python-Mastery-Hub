@@ -333,9 +333,7 @@ ternary_search(sorted_array, 15)
             "Use interpolation search for uniformly distributed data",
         ]
 
-    def compare_search_performance(
-        self, data_sizes: List[int] = None
-    ) -> Dict[str, Any]:
+    def compare_search_performance(self, data_sizes: List[int] = None) -> Dict[str, Any]:
         """Compare performance of different search algorithms."""
         if data_sizes is None:
             data_sizes = [1000, 10000, 100000]
@@ -404,9 +402,7 @@ ternary_search(sorted_array, 15)
                 return left if arr[left] == target else -1
 
             # Interpolation formula
-            pos = left + ((target - arr[left]) * (right - left)) // (
-                arr[right] - arr[left]
-            )
+            pos = left + ((target - arr[left]) * (right - left)) // (arr[right] - arr[left])
             pos = max(left, min(pos, right))
 
             if arr[pos] == target:

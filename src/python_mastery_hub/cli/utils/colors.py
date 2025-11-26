@@ -129,9 +129,7 @@ def supports_color() -> bool:
     return True
 
 
-def colorize(
-    text: str, color: str, bold: bool = False, bg_color: Optional[str] = None
-) -> str:
+def colorize(text: str, color: str, bold: bool = False, bg_color: Optional[str] = None) -> str:
     """
     Apply color and formatting to text.
 

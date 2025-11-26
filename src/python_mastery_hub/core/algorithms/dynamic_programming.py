@@ -509,9 +509,7 @@ print(f"\\nLIS length (binary search): {length_bs}")
             if n <= 1:
                 result = n
             else:
-                result = fibonacci_memoized(n - 1, memo) + fibonacci_memoized(
-                    n - 2, memo
-                )
+                result = fibonacci_memoized(n - 1, memo) + fibonacci_memoized(n - 2, memo)
             memo[n] = result
             return result
 

@@ -59,9 +59,7 @@ class ProgressTracker:
         }
 
     @staticmethod
-    def calculate_experience_points(
-        score: float, difficulty: str, time_spent: int
-    ) -> int:
+    def calculate_experience_points(score: float, difficulty: str, time_spent: int) -> int:
         """Calculate experience points based on performance."""
         base_points = 100
 
@@ -80,9 +78,7 @@ class ProgressTracker:
         # Time bonus (faster completion gets bonus)
         time_bonus = max(0, (30 - time_spent) / 30) * 0.2  # Up to 20% bonus
 
-        total_points = (
-            base_points * score_multiplier * difficulty_multiplier * (1 + time_bonus)
-        )
+        total_points = base_points * score_multiplier * difficulty_multiplier * (1 + time_bonus)
 
         return int(total_points)
 
@@ -217,15 +213,11 @@ class ProgressService:
             logger.error(f"Error getting user progress: {e}")
             return None
 
-    async def update_topic_progress(
-        self, user_id: str, progress_update: ProgressUpdate
-    ) -> bool:
+    async def update_topic_progress(self, user_id: str, progress_update: ProgressUpdate) -> bool:
         """Update progress for a specific topic."""
         try:
             # Get current progress
-            current_progress = await self.get_topic_progress(
-                user_id, progress_update.topic_id
-            )
+            current_progress = await self.get_topic_progress(user_id, progress_update.topic_id)
 
             # Calculate new values
             new_score = progress_update.score or (
@@ -305,9 +297,7 @@ class ProgressService:
 
         return await self.update_topic_progress(user_id, progress_update)
 
-    async def get_topic_progress(
-        self, user_id: str, topic_id: str
-    ) -> Optional[TopicProgress]:
+    async def get_topic_progress(self, user_id: str, topic_id: str) -> Optional[TopicProgress]:
         """Get progress for a specific topic."""
         try:
             # TODO: Query database
@@ -322,9 +312,7 @@ class ProgressService:
             logger.error(f"Error getting topic progress: {e}")
             return None
 
-    async def get_module_progress(
-        self, user_id: str, module_id: str
-    ) -> Optional[ModuleProgress]:
+    async def get_module_progress(self, user_id: str, module_id: str) -> Optional[ModuleProgress]:
         """Get progress for a specific module."""
         try:
             # TODO: Query database for module and its topics
@@ -388,9 +376,7 @@ class ProgressService:
             # Check each achievement rule
             for achievement_id, rule in self.achievement_rules.items():
                 # Check if user already has this achievement
-                has_achievement = await self._user_has_achievement(
-                    user_id, achievement_id
-                )
+                has_achievement = await self._user_has_achievement(user_id, achievement_id)
                 if has_achievement:
                     continue
 
@@ -605,9 +591,7 @@ class ProgressService:
         # TODO: Implement database query with filters
         return []
 
-    async def get_user_details_for_admin(
-        self, user_id: str
-    ) -> Optional[Dict[str, Any]]:
+    async def get_user_details_for_admin(self, user_id: str) -> Optional[Dict[str, Any]]:
         """Get detailed user info for admin."""
         # TODO: Implement database query
         return None

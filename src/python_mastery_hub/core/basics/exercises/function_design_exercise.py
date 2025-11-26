@@ -13,7 +13,9 @@ class FunctionDesignExercise:
 
     def __init__(self):
         self.title = "Function Design Challenge"
-        self.description = "Design functions for a calculator system with proper parameters and error handling"
+        self.description = (
+            "Design functions for a calculator system with proper parameters and error handling"
+        )
         self.difficulty = "medium"
         self.validator = CodeValidator()
         self.runner = ExampleRunner()

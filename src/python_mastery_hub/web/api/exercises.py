@@ -299,9 +299,7 @@ async def list_exercises(
 
 
 @router.get("/{exercise_id}", response_model=ExerciseInfo)
-async def get_exercise(
-    exercise_id: str, current_user: Optional[User] = Depends(get_current_user)
-):
+async def get_exercise(exercise_id: str, current_user: Optional[User] = Depends(get_current_user)):
     """Get specific exercise details."""
     try:
         if exercise_id not in EXERCISES_DATA:
@@ -354,9 +352,7 @@ async def submit_exercise(
         exercise_data = EXERCISES_DATA[exercise_id]
 
         # Generate submission ID
-        submission_id = (
-            f"{current_user.id}_{exercise_id}_{int(datetime.now().timestamp())}"
-        )
+        submission_id = f"{current_user.id}_{exercise_id}_{int(datetime.now().timestamp())}"
 
         # Execute code and run tests
         test_results = []
@@ -422,10 +418,7 @@ async def submit_exercise(
 
         # Get attempt number
         attempt_number = (
-            await progress_service.get_exercise_attempt_count(
-                current_user.id, exercise_id
-            )
-            + 1
+            await progress_service.get_exercise_attempt_count(current_user.id, exercise_id) + 1
         )
 
         # Save submission
@@ -450,9 +443,7 @@ async def submit_exercise(
                 time_spent=int(execution_time / 60),
             )
 
-        logger.info(
-            f"Exercise submission {submission_id} evaluated: {percentage}% score"
-        )
+        logger.info(f"Exercise submission {submission_id} evaluated: {percentage}% score")
 
         return SubmissionResult(
             submission_id=submission_id,
@@ -503,9 +494,7 @@ async def execute_code(
 
     except Exception as e:
         logger.error(f"Failed to execute code: {e}")
-        return CodeExecutionResult(
-            success=False, output="", error=str(e), execution_time=0.0
-        )
+        return CodeExecutionResult(success=False, output="", error=str(e), execution_time=0.0)
 
 
 @router.get("/{exercise_id}/attempts", response_model=List[ExerciseAttempt])
@@ -516,9 +505,7 @@ async def get_exercise_attempts(
 ):
     """Get user's attempt history for an exercise."""
     try:
-        attempts = await progress_service.get_exercise_attempts(
-            current_user.id, exercise_id
-        )
+        attempts = await progress_service.get_exercise_attempts(current_user.id, exercise_id)
 
         return [
             ExerciseAttempt(
@@ -549,9 +536,7 @@ async def get_exercise_progress(
 ):
     """Get user's progress on a specific exercise."""
     try:
-        progress_data = await progress_service.get_exercise_progress(
-            current_user.id, exercise_id
-        )
+        progress_data = await progress_service.get_exercise_progress(current_user.id, exercise_id)
 
         if not progress_data:
             return ExerciseProgress(

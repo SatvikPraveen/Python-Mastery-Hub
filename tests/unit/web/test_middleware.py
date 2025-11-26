@@ -167,12 +167,8 @@ class MockAuthorizationMiddleware:
             return MockResponse(401, body='{"error": "Authentication required"}')
 
         # Check permissions
-        required_permissions = self._get_required_permissions(
-            request.path, request.method
-        )
-        if required_permissions and not self._has_permission(
-            request.user, required_permissions
-        ):
+        required_permissions = self._get_required_permissions(request.path, request.method)
+        if required_permissions and not self._has_permission(request.user, required_permissions):
             return MockResponse(403, body='{"error": "Insufficient permissions"}')
 
         response = await call_next(request)
@@ -331,12 +327,8 @@ class MockCORSMiddleware:
         if self._is_origin_allowed(origin):
             response.set_header("Access-Control-Allow-Origin", origin or "*")
 
-        response.set_header(
-            "Access-Control-Allow-Methods", ", ".join(self.allowed_methods)
-        )
-        response.set_header(
-            "Access-Control-Allow-Headers", ", ".join(self.allowed_headers)
-        )
+        response.set_header("Access-Control-Allow-Methods", ", ".join(self.allowed_methods))
+        response.set_header("Access-Control-Allow-Headers", ", ".join(self.allowed_headers))
         response.set_header("Access-Control-Max-Age", str(self.max_age))
         response.set_header("Access-Control-Allow-Credentials", "true")
 
@@ -378,9 +370,7 @@ class MockLoggingMiddleware:
             "path": request.path,
             "remote_addr": request.remote_addr,
             "user_agent": request.get_header("user-agent"),
-            "user_id": getattr(request, "user", {}).get("id")
-            if hasattr(request, "user")
-            else None,
+            "user_id": getattr(request, "user", {}).get("id") if hasattr(request, "user") else None,
         }
         self.logs.append(log_entry)
 
@@ -465,9 +455,7 @@ class TestAuthenticationMiddleware:
     async def test_expired_session(self, auth_middleware, mock_next):
         """Test authentication with expired session"""
         user = {"id": 123, "username": "testuser", "role": "student"}
-        session_id = auth_middleware.create_session(
-            user, expires_in_hours=-1
-        )  # Expired
+        session_id = auth_middleware.create_session(user, expires_in_hours=-1)  # Expired
 
         request = MockRequest(session={"session_id": session_id})
 
@@ -601,9 +589,7 @@ class TestRateLimitMiddleware:
         assert "Retry-After" in response.headers
 
     @pytest.mark.asyncio
-    async def test_different_ips_separate_limits(
-        self, rate_limit_middleware, mock_next
-    ):
+    async def test_different_ips_separate_limits(self, rate_limit_middleware, mock_next):
         """Test that different IPs have separate rate limits"""
         request1 = MockRequest(remote_addr="192.168.1.3")
         request2 = MockRequest(remote_addr="192.168.1.4")
@@ -650,21 +636,14 @@ class TestCORSMiddleware:
     @pytest.mark.asyncio
     async def test_preflight_request(self, cors_middleware, mock_next):
         """Test CORS preflight request"""
-        request = MockRequest(
-            method="OPTIONS", headers={"origin": "https://example.com"}
-        )
+        request = MockRequest(method="OPTIONS", headers={"origin": "https://example.com"})
 
         response = await cors_middleware(request, mock_next)
 
         assert response.status_code == 200
         assert response.headers["Access-Control-Allow-Origin"] == "https://example.com"
-        assert (
-            "GET, POST, PUT, DELETE" in response.headers["Access-Control-Allow-Methods"]
-        )
-        assert (
-            "Content-Type, Authorization"
-            in response.headers["Access-Control-Allow-Headers"]
-        )
+        assert "GET, POST, PUT, DELETE" in response.headers["Access-Control-Allow-Methods"]
+        assert "Content-Type, Authorization" in response.headers["Access-Control-Allow-Headers"]
 
     @pytest.mark.asyncio
     async def test_cors_headers_added(self, cors_middleware, mock_next):
@@ -692,16 +671,12 @@ class TestCORSMiddleware:
     async def test_wildcard_origin(self, mock_next):
         """Test wildcard origin"""
         cors_middleware = MockCORSMiddleware(allowed_origins=["*"])
-        request = MockRequest(
-            method="GET", headers={"origin": "https://any-domain.com"}
-        )
+        request = MockRequest(method="GET", headers={"origin": "https://any-domain.com"})
 
         response = await cors_middleware(request, mock_next)
 
         assert response.status_code == 200
-        assert (
-            response.headers["Access-Control-Allow-Origin"] == "https://any-domain.com"
-        )
+        assert response.headers["Access-Control-Allow-Origin"] == "https://any-domain.com"
 
 
 class TestLoggingMiddleware:
@@ -802,8 +777,10 @@ class TestMiddlewareIntegration:
             # Process middleware in reverse order (like a stack)
             for middleware in reversed(middleware_stack):
                 current_handler = handler
-                handler = lambda req, middleware=middleware, next_handler=current_handler: middleware(
-                    req, next_handler
+                handler = (
+                    lambda req, middleware=middleware, next_handler=current_handler: middleware(
+                        req, next_handler
+                    )
                 )
             return await handler(request)
 
@@ -844,8 +821,10 @@ class TestMiddlewareIntegration:
             handler = mock_next
             for middleware in reversed(middleware_stack):
                 current_handler = handler
-                handler = lambda req, middleware=middleware, next_handler=current_handler: middleware(
-                    req, next_handler
+                handler = (
+                    lambda req, middleware=middleware, next_handler=current_handler: middleware(
+                        req, next_handler
+                    )
                 )
             return await handler(request)
 
@@ -876,8 +855,10 @@ class TestMiddlewareIntegration:
             handler = mock_next
             for middleware in reversed(middleware_stack):
                 current_handler = handler
-                handler = lambda req, middleware=middleware, next_handler=current_handler: middleware(
-                    req, next_handler
+                handler = (
+                    lambda req, middleware=middleware, next_handler=current_handler: middleware(
+                        req, next_handler
+                    )
                 )
             return await handler(request)
 

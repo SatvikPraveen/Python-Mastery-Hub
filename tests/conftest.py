@@ -39,9 +39,7 @@ def pytest_configure(config):
     config.addinivalue_line("markers", "performance: mark test as a performance test")
     config.addinivalue_line("markers", "slow: mark test as slow running")
     config.addinivalue_line("markers", "requires_db: mark test as requiring database")
-    config.addinivalue_line(
-        "markers", "requires_web: mark test as requiring web server"
-    )
+    config.addinivalue_line("markers", "requires_web: mark test as requiring web server")
 
 
 # Async test support
@@ -80,9 +78,7 @@ def test_db_engine():
 @pytest.fixture
 def test_db_session(test_db_engine):
     """Create a test database session."""
-    TestingSessionLocal = sessionmaker(
-        autocommit=False, autoflush=False, bind=test_db_engine
-    )
+    TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=test_db_engine)
 
     session = TestingSessionLocal()
     try:

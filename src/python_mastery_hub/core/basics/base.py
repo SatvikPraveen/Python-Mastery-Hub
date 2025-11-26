@@ -34,11 +34,7 @@ class CodeValidator:
 
             for node in ast.walk(tree):
                 if isinstance(node, ast.FunctionDef):
-                    if (
-                        not node.name.islower()
-                        or "_" not in node.name
-                        and len(node.name) > 8
-                    ):
+                    if not node.name.islower() or "_" not in node.name and len(node.name) > 8:
                         issues.append(f"Function '{node.name}' should use snake_case")
 
                 elif isinstance(node, ast.ClassDef):
@@ -49,9 +45,7 @@ class CodeValidator:
                     for target in node.targets:
                         if isinstance(target, ast.Name):
                             if target.id.isupper() and len(target.id) < 3:
-                                issues.append(
-                                    f"Constant '{target.id}' should be descriptive"
-                                )
+                                issues.append(f"Constant '{target.id}' should be descriptive")
 
         except SyntaxError:
             pass  # Syntax issues handled elsewhere
@@ -68,9 +62,7 @@ class CodeValidator:
             for node in ast.walk(tree):
                 if isinstance(node, ast.FunctionDef):
                     # Count statements in function
-                    statements = sum(
-                        1 for _ in ast.walk(node) if isinstance(_, ast.stmt)
-                    )
+                    statements = sum(1 for _ in ast.walk(node) if isinstance(_, ast.stmt))
                     functions.append(
                         {
                             "name": node.name,
@@ -115,9 +107,7 @@ class ExampleRunner:
                 "error": str(e),
             }
 
-    def safe_eval(
-        self, expression: str, context: Dict[str, Any] = None
-    ) -> Dict[str, Any]:
+    def safe_eval(self, expression: str, context: Dict[str, Any] = None) -> Dict[str, Any]:
         """Safely evaluate a Python expression."""
         if context is None:
             context = {}
@@ -128,9 +118,7 @@ class ExampleRunner:
             if any(word in expression for word in forbidden):
                 raise ValueError("Expression contains forbidden operations")
 
-            result = eval(
-                expression, {"__builtins__": {}}, context
-            )  # nosec - restricted builtins
+            result = eval(expression, {"__builtins__": {}}, context)  # nosec - restricted builtins
 
             return {"success": True, "result": result, "error": None}
 
@@ -358,9 +346,7 @@ def create_progress_tracker():
     }
 
 
-def calculate_completion_percentage(
-    tracker: Dict[str, Any], total_topics: int
-) -> float:
+def calculate_completion_percentage(tracker: Dict[str, Any], total_topics: int) -> float:
     """Calculate learning progress percentage."""
     completed = len(tracker.get("completed_topics", []))
     return (completed / total_topics) * 100 if total_topics > 0 else 0

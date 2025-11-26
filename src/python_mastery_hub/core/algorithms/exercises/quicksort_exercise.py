@@ -353,9 +353,7 @@ three_way_result = quicksort_three_way(test_array)
         ]
 
         for case_name, test_data in test_cases:
-            print(
-                f"\n{case_name} Data: {test_data[:10]}{'...' if len(test_data) > 10 else ''}"
-            )
+            print(f"\n{case_name} Data: {test_data[:10]}{'...' if len(test_data) > 10 else ''}")
             stats = quicksort_with_stats(test_data)
 
             print(f"  Comparisons: {stats['comparisons']}")
@@ -467,9 +465,7 @@ if __name__ == "__main__":
                 if result == expected:
                     feedback.append(f"✓ Test case {i+1} passed")
                 else:
-                    feedback.append(
-                        f"✗ Test case {i+1} failed: expected {expected}, got {result}"
-                    )
+                    feedback.append(f"✗ Test case {i+1} failed: expected {expected}, got {result}")
                     all_passed = False
 
             except Exception as e:

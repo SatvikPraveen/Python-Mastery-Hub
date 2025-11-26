@@ -130,9 +130,7 @@ class ParallelDataProcessor:
         self, data: List[Any], chunk_size: Optional[int] = None
     ) -> List[Tuple[int, List[Any]]]:
         """Split data into intelligently sized chunks."""
-        effective_chunk_size = chunk_size or self._calculate_optimal_chunk_size(
-            len(data)
-        )
+        effective_chunk_size = chunk_size or self._calculate_optimal_chunk_size(len(data))
 
         chunks = []
         for i in range(0, len(data), effective_chunk_size):
@@ -223,9 +221,7 @@ class ParallelDataProcessor:
         self, data: List[Any], processor_func: Callable
     ) -> Tuple[List[Any], ProcessingStats]:
         """Process data in parallel with comprehensive monitoring."""
-        print(
-            f"Parallel processing of {len(data):,} items using {self.num_processes} processes..."
-        )
+        print(f"Parallel processing of {len(data):,} items using {self.num_processes} processes...")
 
         start_time = time.time()
 
@@ -233,9 +229,7 @@ class ParallelDataProcessor:
         chunks = self._chunk_data(data)
         chunk_setup_time = time.time() - start_time
 
-        print(
-            f"Data split into {len(chunks)} chunks (setup time: {chunk_setup_time:.3f}s)"
-        )
+        print(f"Data split into {len(chunks)} chunks (setup time: {chunk_setup_time:.3f}s)")
 
         # Process chunks in parallel
         parallel_start = time.time()
@@ -243,9 +237,7 @@ class ParallelDataProcessor:
         with ProcessPoolExecutor(max_workers=self.num_processes) as executor:
             # Submit all chunks
             future_to_chunk = {
-                executor.submit(
-                    self._process_chunk_with_monitoring, chunk, processor_func
-                ): i
+                executor.submit(self._process_chunk_with_monitoring, chunk, processor_func): i
                 for i, chunk in enumerate(chunks)
             }
 
@@ -393,9 +385,7 @@ class ParallelDataProcessor:
         if compare_chunk_sizes:
             self._compare_chunk_sizes(data, processor_func)
 
-    def _print_performance_analysis(
-        self, seq_stats: ProcessingStats, par_stats: ProcessingStats
-    ):
+    def _print_performance_analysis(self, seq_stats: ProcessingStats, par_stats: ProcessingStats):
         """Print detailed performance analysis."""
         speedup = seq_stats.processing_time / par_stats.processing_time
         efficiency = speedup / self.num_processes
@@ -442,12 +432,10 @@ class ParallelDataProcessor:
     def _print_multi_run_analysis(self, all_results: Dict[str, Any]):
         """Print analysis for multiple runs."""
         seq_times = [
-            all_results[f"run_{i}"]["sequential"].processing_time
-            for i in range(len(all_results))
+            all_results[f"run_{i}"]["sequential"].processing_time for i in range(len(all_results))
         ]
         par_times = [
-            all_results[f"run_{i}"]["parallel"].processing_time
-            for i in range(len(all_results))
+            all_results[f"run_{i}"]["parallel"].processing_time for i in range(len(all_results))
         ]
 
         seq_avg = sum(seq_times) / len(seq_times)

@@ -338,9 +338,7 @@ class AsyncRateLimiter:
 
             # Remove expired calls
             self.calls = [
-                call_time
-                for call_time in self.calls
-                if now - call_time < self.time_window
+                call_time for call_time in self.calls if now - call_time < self.time_window
             ]
 
             # Check rate limit
@@ -423,9 +421,7 @@ class AsyncWorkflowCoordinator:
         self.stages[stage_name] = dependencies or []
         self.events[stage_name] = asyncio.Event()
 
-    async def execute_stage(
-        self, stage_name: str, stage_func: callable, *args, **kwargs
-    ):
+    async def execute_stage(self, stage_name: str, stage_func: callable, *args, **kwargs):
         """Execute a workflow stage."""
         # Wait for dependencies
         for dependency in self.stages.get(stage_name, []):

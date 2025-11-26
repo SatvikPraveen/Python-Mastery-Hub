@@ -112,9 +112,7 @@ class MockCLIApplication:
         # Mock exercise data
         all_exercises = []
         topics = [topic] if topic else ["basics", "oop", "advanced"]
-        difficulties = (
-            [difficulty] if difficulty else ["beginner", "intermediate", "advanced"]
-        )
+        difficulties = [difficulty] if difficulty else ["beginner", "intermediate", "advanced"]
 
         exercise_id = 1
         for t in topics:
@@ -432,9 +430,7 @@ class TestCLIConfigurationManagement:
     def test_save_and_load_config(self, cli_app):
         """Test saving and loading configuration"""
         # Create temporary config file
-        with tempfile.NamedTemporaryFile(
-            mode="w", suffix=".json", delete=False
-        ) as config_file:
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as config_file:
             config_path = config_file.name
 
         try:
@@ -508,9 +504,7 @@ class TestCLIErrorHandling:
         cli_app.start_learning_session("basics")
 
         # Create corrupted file (binary content)
-        with tempfile.NamedTemporaryFile(
-            mode="wb", suffix=".py", delete=False
-        ) as temp_file:
+        with tempfile.NamedTemporaryFile(mode="wb", suffix=".py", delete=False) as temp_file:
             temp_file.write(b"\x00\x01\x02\x03")  # Binary content
             corrupted_file = temp_file.name
 
@@ -670,9 +664,7 @@ class TestCLIDataPersistence:
 
     def test_config_file_format(self, cli_app):
         """Test that configuration files are properly formatted JSON"""
-        with tempfile.NamedTemporaryFile(
-            mode="w", suffix=".json", delete=False
-        ) as config_file:
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as config_file:
             config_path = config_file.name
 
         try:
@@ -760,9 +752,7 @@ class TestCLIPerformanceAndScaling:
         assert final_history_length == initial_history_length + 100
 
         # Recent history should be accessible
-        recent_entries = [
-            h for h in cli_app.history[-10:] if h.startswith("LIST_EXERCISES")
-        ]
+        recent_entries = [h for h in cli_app.history[-10:] if h.startswith("LIST_EXERCISES")]
         assert len(recent_entries) == 10
 
 

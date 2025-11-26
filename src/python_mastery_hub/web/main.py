@@ -140,13 +140,9 @@ def create_application() -> FastAPI:
 
     app.include_router(modules_router, prefix="/api/modules", tags=["Learning Modules"])
 
-    app.include_router(
-        progress_router, prefix="/api/progress", tags=["Progress Tracking"]
-    )
+    app.include_router(progress_router, prefix="/api/progress", tags=["Progress Tracking"])
 
-    app.include_router(
-        exercises_router, prefix="/api/exercises", tags=["Code Exercises"]
-    )
+    app.include_router(exercises_router, prefix="/api/exercises", tags=["Code Exercises"])
 
     app.include_router(admin_router, prefix="/api/admin", tags=["Administration"])
 
@@ -224,9 +220,7 @@ def setup_health_endpoints(app: FastAPI):
             if hasattr(request.app.state, "database"):
                 db_stats = await request.app.state.database.get_database_stats()
                 if "pool_stats" in db_stats:
-                    metrics["database_connections_active"] = db_stats["pool_stats"].get(
-                        "size", 0
-                    )
+                    metrics["database_connections_active"] = db_stats["pool_stats"].get("size", 0)
 
             # Get cache stats
             if hasattr(request.app.state, "cache"):

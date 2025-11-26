@@ -253,9 +253,7 @@ class MockDatabase:
     async def get_exercise_by_id(self, exercise_id):
         """Get exercise by ID"""
         cursor = self.connection.cursor()
-        cursor.execute(
-            "SELECT * FROM exercises WHERE id = ? AND is_active = 1", (exercise_id,)
-        )
+        cursor.execute("SELECT * FROM exercises WHERE id = ? AND is_active = 1", (exercise_id,))
         row = cursor.fetchone()
 
         if row:
@@ -320,9 +318,7 @@ class MockDatabase:
 
         return await self.get_submission_by_id(submission_id)
 
-    async def update_submission(
-        self, submission_id, score=None, status=None, feedback=None
-    ):
+    async def update_submission(self, submission_id, score=None, status=None, feedback=None):
         """Update submission with results"""
         cursor = self.connection.cursor()
 
@@ -396,9 +392,7 @@ class MockDatabase:
         cursor = self.connection.cursor()
 
         # Count total exercises for topic
-        cursor.execute(
-            "SELECT COUNT(*) FROM exercises WHERE topic = ? AND is_active = 1", (topic,)
-        )
+        cursor.execute("SELECT COUNT(*) FROM exercises WHERE topic = ? AND is_active = 1", (topic,))
         total_exercises = cursor.fetchone()[0]
 
         cursor.execute(
@@ -419,9 +413,7 @@ class MockDatabase:
             return
 
         topic = exercise["topic"]
-        points = (
-            exercise["points"] if score >= 70 else 0
-        )  # Only award points for passing grade
+        points = exercise["points"] if score >= 70 else 0  # Only award points for passing grade
 
         cursor = self.connection.cursor()
 
@@ -479,9 +471,7 @@ class MockDatabase:
                 "total": topic_data["total_exercises"],
                 "points": topic_data["points_earned"],
                 "progress": (
-                    topic_data["exercises_completed"]
-                    / topic_data["total_exercises"]
-                    * 100
+                    topic_data["exercises_completed"] / topic_data["total_exercises"] * 100
                 )
                 if topic_data["total_exercises"] > 0
                 else 0,
@@ -503,9 +493,7 @@ class MockDatabase:
         cursor = self.connection.cursor()
 
         # Count active exercises for topic
-        cursor.execute(
-            "SELECT COUNT(*) FROM exercises WHERE topic = ? AND is_active = 1", (topic,)
-        )
+        cursor.execute("SELECT COUNT(*) FROM exercises WHERE topic = ? AND is_active = 1", (topic,))
         total_exercises = cursor.fetchone()[0]
 
         # Update all users' progress for this topic
@@ -697,9 +685,7 @@ class TestUserOperations:
         user_id = user["id"]
 
         # Update user
-        updated_user = await db.update_user(
-            user_id, email="new@example.com", role="instructor"
-        )
+        updated_user = await db.update_user(user_id, email="new@example.com", role="instructor")
 
         assert updated_user["email"] == "new@example.com"
         assert updated_user["role"] == "instructor"
@@ -831,9 +817,7 @@ class TestSubmissionOperations:
 
         # Create test user and exercise
         user = await db.create_user("subuser", "sub@example.com", "hash")
-        exercise = await db.create_exercise(
-            "Sub Exercise", "Description", "beginner", "basics", 20
-        )
+        exercise = await db.create_exercise("Sub Exercise", "Description", "beginner", "basics", 20)
 
         yield db, user, exercise
         await db.disconnect()
@@ -906,16 +890,12 @@ class TestSubmissionOperations:
             code="def solution(): return 'correct'",
         )
 
-        await db.update_submission(
-            submission["id"], score=85, status="completed"  # Passing score
-        )
+        await db.update_submission(submission["id"], score=85, status="completed")  # Passing score
 
         # Check updated progress
         updated_progress = await db.get_user_progress(user["id"])
 
-        assert (
-            updated_progress["topics"]["basics"]["completed"] == initial_completed + 1
-        )
+        assert updated_progress["topics"]["basics"]["completed"] == initial_completed + 1
         assert updated_progress["total_points"] == initial_points + exercise["points"]
 
     @pytest.mark.asyncio
@@ -935,9 +915,7 @@ class TestSubmissionOperations:
             code="def solution(): return 'wrong'",
         )
 
-        await db.update_submission(
-            submission["id"], score=45, status="completed"  # Failing score
-        )
+        await db.update_submission(submission["id"], score=45, status="completed")  # Failing score
 
         # Progress should not change
         updated_progress = await db.get_user_progress(user["id"])
@@ -983,9 +961,7 @@ class TestTransactionOperations:
         try:
             # Perform operations within transaction
             user = await db.create_user("transuser", "trans@example.com", "hash")
-            exercise = await db.create_exercise(
-                "Trans Exercise", "Desc", "beginner", "basics"
-            )
+            exercise = await db.create_exercise("Trans Exercise", "Desc", "beginner", "basics")
 
             # Commit transaction
             await db.commit_transaction()
@@ -1167,9 +1143,7 @@ class TestDataIntegrity:
 
         exercises = []
         for i in range(3):
-            exercise = await db.create_exercise(
-                f"Exercise {i}", "Desc", "beginner", "basics", 10
-            )
+            exercise = await db.create_exercise(f"Exercise {i}", "Desc", "beginner", "basics", 10)
             exercises.append(exercise)
 
         # Complete exercises one by one and check progress consistency
@@ -1188,9 +1162,7 @@ class TestDataIntegrity:
     async def test_duplicate_successful_submissions(self, db):
         """Test that duplicate successful submissions don't double-count progress"""
         user = await db.create_user("dupuser", "dup@example.com", "hash")
-        exercise = await db.create_exercise(
-            "Dup Exercise", "Desc", "beginner", "basics", 15
-        )
+        exercise = await db.create_exercise("Dup Exercise", "Desc", "beginner", "basics", 15)
 
         # Submit multiple times
         submission1 = await db.create_submission(user["id"], exercise["id"], "code1")
@@ -1298,12 +1270,8 @@ class TestPerformanceAndScaling:
 
             # Create multiple submissions
             for i in range(5):
-                submission = await db.create_submission(
-                    user["id"], exercise["id"], f"code{i}"
-                )
-                await db.update_submission(
-                    submission["id"], score=80, status="completed"
-                )
+                submission = await db.create_submission(user["id"], exercise["id"], f"code{i}")
+                await db.update_submission(submission["id"], score=80, status="completed")
 
             return user
 
@@ -1423,9 +1391,7 @@ class TestDatabaseMigrationSimulation:
 
         for user in users:
             new_email = f"migrated{user['id']}@newdomain.com"
-            cursor.execute(
-                "UPDATE users SET email = ? WHERE id = ?", (new_email, user["id"])
-            )
+            cursor.execute("UPDATE users SET email = ? WHERE id = ?", (new_email, user["id"]))
 
         db.connection.commit()
 
@@ -1452,12 +1418,8 @@ class TestDatabaseBackupAndRestore:
 
             # Add test data
             user = await db.create_user("backupuser", "backup@example.com", "hash")
-            exercise = await db.create_exercise(
-                "Backup Exercise", "Desc", "beginner", "basics"
-            )
-            submission = await db.create_submission(
-                user["id"], exercise["id"], "backup code"
-            )
+            exercise = await db.create_exercise("Backup Exercise", "Desc", "beginner", "basics")
+            submission = await db.create_submission(user["id"], exercise["id"], "backup code")
 
             await db.disconnect()
 
@@ -1478,9 +1440,7 @@ class TestDatabaseBackupAndRestore:
             assert restored_exercise is not None
             assert restored_exercise["title"] == "Backup Exercise"
 
-            restored_submission = await restore_db.get_submission_by_id(
-                submission["id"]
-            )
+            restored_submission = await restore_db.get_submission_by_id(submission["id"])
             assert restored_submission is not None
             assert restored_submission["code"] == "backup code"
 

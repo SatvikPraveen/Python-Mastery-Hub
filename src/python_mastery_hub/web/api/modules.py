@@ -363,9 +363,7 @@ async def list_modules(
                 continue
 
             # Check if user has access (premium modules)
-            if module_data["is_premium"] and (
-                not current_user or not current_user.is_verified
-            ):
+            if module_data["is_premium"] and (not current_user or not current_user.is_verified):
                 continue
 
             # Convert topics
@@ -398,12 +396,8 @@ async def list_modules(
                 enrolled_count=module_data["enrolled_count"],
                 is_premium=module_data["is_premium"],
                 tags=module_data["tags"],
-                created_at=datetime.fromisoformat(
-                    module_data["created_at"].replace("Z", "+00:00")
-                ),
-                updated_at=datetime.fromisoformat(
-                    module_data["updated_at"].replace("Z", "+00:00")
-                ),
+                created_at=datetime.fromisoformat(module_data["created_at"].replace("Z", "+00:00")),
+                updated_at=datetime.fromisoformat(module_data["updated_at"].replace("Z", "+00:00")),
             )
             modules.append(module)
 
@@ -418,9 +412,7 @@ async def list_modules(
 
 
 @router.get("/{module_id}", response_model=ModuleInfo)
-async def get_module(
-    module_id: str, current_user: Optional[User] = Depends(get_current_user)
-):
+async def get_module(module_id: str, current_user: Optional[User] = Depends(get_current_user)):
     """Get specific module details."""
     try:
         if module_id not in MODULES_DATA:
@@ -432,9 +424,7 @@ async def get_module(
         module_data = MODULES_DATA[module_id]
 
         # Check access for premium modules
-        if module_data["is_premium"] and (
-            not current_user or not current_user.is_verified
-        ):
+        if module_data["is_premium"] and (not current_user or not current_user.is_verified):
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN,
                 detail="Premium module access required",
@@ -470,12 +460,8 @@ async def get_module(
             enrolled_count=module_data["enrolled_count"],
             is_premium=module_data["is_premium"],
             tags=module_data["tags"],
-            created_at=datetime.fromisoformat(
-                module_data["created_at"].replace("Z", "+00:00")
-            ),
-            updated_at=datetime.fromisoformat(
-                module_data["updated_at"].replace("Z", "+00:00")
-            ),
+            created_at=datetime.fromisoformat(module_data["created_at"].replace("Z", "+00:00")),
+            updated_at=datetime.fromisoformat(module_data["updated_at"].replace("Z", "+00:00")),
         )
 
     except HTTPException:
@@ -659,9 +645,7 @@ async def get_module_progress(
 ):
     """Get user's progress in a specific module."""
     try:
-        progress = await progress_service.get_module_progress(
-            current_user.id, module_id
-        )
+        progress = await progress_service.get_module_progress(current_user.id, module_id)
 
         if not progress:
             # Return empty progress if user hasn't started
@@ -843,9 +827,7 @@ async def create_module_review(
             updated_at=datetime.now(),
         )
 
-        logger.info(
-            f"Review created for module {module_id} by user {current_user.username}"
-        )
+        logger.info(f"Review created for module {module_id} by user {current_user.username}")
 
         return review
 
@@ -934,9 +916,7 @@ async def search_modules(
 
         for module_data in MODULES_DATA.values():
             # Skip premium modules for non-verified users
-            if module_data["is_premium"] and (
-                not current_user or not current_user.is_verified
-            ):
+            if module_data["is_premium"] and (not current_user or not current_user.is_verified):
                 continue
 
             # Apply filters

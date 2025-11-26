@@ -294,9 +294,7 @@ class EmailTemplateManager:
         """Get email template by name."""
         return self.templates.get(name)
 
-    def render_template(
-        self, template_name: str, variables: Dict[str, Any]
-    ) -> Dict[str, str]:
+    def render_template(self, template_name: str, variables: Dict[str, Any]) -> Dict[str, str]:
         """Render email template with variables."""
         template = self.get_template(template_name)
         if not template:
@@ -411,9 +409,7 @@ class EmailService:
         self.default_from_email = getattr(
             settings, "default_from_email", "noreply@pythonmasteryhub.com"
         )
-        self.default_from_name = getattr(
-            settings, "default_from_name", "Python Mastery Hub"
-        )
+        self.default_from_name = getattr(settings, "default_from_name", "Python Mastery Hub")
 
         # Email sending statistics
         self.emails_sent = 0
@@ -438,9 +434,7 @@ class EmailService:
         # Add other providers here (SendGrid, AWS SES, etc.)
         else:
             # Default to SMTP
-            return SMTPEmailProvider(
-                {"host": "localhost", "port": 587, "use_tls": True}
-            )
+            return SMTPEmailProvider({"host": "localhost", "port": 587, "use_tls": True})
 
     async def send_email(self, message: EmailMessage) -> bool:
         """Send an email message."""
@@ -476,9 +470,7 @@ class EmailService:
             # Update statistics
             if success:
                 self.emails_sent += 1
-                logger.info(
-                    f"Email sent: {message.subject} to {len(message.to)} recipients"
-                )
+                logger.info(f"Email sent: {message.subject} to {len(message.to)} recipients")
             else:
                 self.emails_failed += 1
                 logger.error(f"Email failed: {message.subject}")
@@ -506,13 +498,9 @@ class EmailService:
 
         return await self.send_email(message)
 
-    async def send_verification_email(
-        self, user: User, verification_token: str
-    ) -> bool:
+    async def send_verification_email(self, user: User, verification_token: str) -> bool:
         """Send email verification email."""
-        verification_url = (
-            f"{settings.frontend_url}/verify-email?token={verification_token}"
-        )
+        verification_url = f"{settings.frontend_url}/verify-email?token={verification_token}"
 
         message = EmailMessage(
             to=[user.email],
@@ -538,9 +526,7 @@ class EmailService:
 
         return await self.send_email(message)
 
-    async def send_achievement_email(
-        self, user: User, achievement: Dict[str, Any]
-    ) -> bool:
+    async def send_achievement_email(self, user: User, achievement: Dict[str, Any]) -> bool:
         """Send achievement notification email."""
         if not user.preferences.email_notifications:
             return True  # User has disabled email notifications
@@ -611,9 +597,7 @@ class EmailService:
 
         return await self.send_email(message)
 
-    async def send_bulk_email(
-        self, recipients: List[str], message: EmailMessage
-    ) -> Dict[str, Any]:
+    async def send_bulk_email(self, recipients: List[str], message: EmailMessage) -> Dict[str, Any]:
         """Send email to multiple recipients."""
         results = {"sent": 0, "failed": 0, "errors": []}
 
@@ -683,9 +667,7 @@ class EmailService:
             success = await self.send_email(test_message)
             return {
                 "success": success,
-                "message": "Test email sent successfully"
-                if success
-                else "Test email failed",
+                "message": "Test email sent successfully" if success else "Test email failed",
                 "timestamp": datetime.now().isoformat(),
             }
 
@@ -705,9 +687,7 @@ class EmailService:
         """Get list of available template names."""
         return list(self.template_manager.templates.keys())
 
-    async def queue_email(
-        self, message: EmailMessage, send_at: Optional[datetime] = None
-    ) -> str:
+    async def queue_email(self, message: EmailMessage, send_at: Optional[datetime] = None) -> str:
         """Queue email for later sending."""
         # TODO: Implement email queue with database storage
         # This would typically store the email in a queue table
@@ -718,9 +698,7 @@ class EmailService:
         queue_id = str(uuid.uuid4())
 
         # For now, just log the queued email
-        logger.info(
-            f"Email queued with ID {queue_id}, scheduled for {send_at or 'immediate'}"
-        )
+        logger.info(f"Email queued with ID {queue_id}, scheduled for {send_at or 'immediate'}")
 
         return queue_id
 

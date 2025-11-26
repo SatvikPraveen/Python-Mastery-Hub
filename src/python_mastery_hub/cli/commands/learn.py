@@ -186,9 +186,7 @@ class LearningModuleManager:
             print(f"{color}🎯 {name}{colors.RESET}")
             print(f"   {description}")
             print(f"   Difficulty: {difficulty} | Time: {time}")
-            print(
-                f"   Command: {colors.GRAY}python-mastery-hub learn {module_id}{colors.RESET}"
-            )
+            print(f"   Command: {colors.GRAY}python-mastery-hub learn {module_id}{colors.RESET}")
             print()
 
     def show_module_details(self, module_id: str) -> None:
@@ -263,28 +261,20 @@ async def start_interactive_learning(module_id: str, args: argparse.Namespace) -
     module = manager.modules[module_id]
     color = module["color"]
 
-    print(
-        f"\n{color}{colors.BOLD}🚀 Starting {module['name']} Learning Session{colors.RESET}\n"
-    )
+    print(f"\n{color}{colors.BOLD}🚀 Starting {module['name']} Learning Session{colors.RESET}\n")
 
     # Interactive menu for topics
     topics = module["topics"]
     while True:
         print(f"{colors.BOLD}Select a topic to explore:{colors.RESET}")
         for i, topic in enumerate(topics, 1):
-            status = (
-                "✅"
-                if manager.progress_calc.is_topic_completed(module_id, topic)
-                else "⭕"
-            )
+            status = "✅" if manager.progress_calc.is_topic_completed(module_id, topic) else "⭕"
             print(f"  {i}. {status} {topic}")
 
         print(f"  0. {colors.RED}Exit{colors.RESET}")
 
         try:
-            choice = input(
-                f"\n{colors.CYAN}Enter your choice (0-{len(topics)}): {colors.RESET}"
-            )
+            choice = input(f"\n{colors.CYAN}Enter your choice (0-{len(topics)}): {colors.RESET}")
             choice = int(choice)
 
             if choice == 0:
@@ -303,9 +293,7 @@ async def start_interactive_learning(module_id: str, args: argparse.Namespace) -
     return 0
 
 
-async def explore_topic(
-    module_id: str, topic: str, module_info: Dict[str, Any]
-) -> None:
+async def explore_topic(module_id: str, topic: str, module_info: Dict[str, Any]) -> None:
     """Explore a specific topic within a module."""
     color = module_info["color"]
 
@@ -330,9 +318,7 @@ async def explore_topic(
     print(f"  0. {colors.YELLOW}← Back to topics{colors.RESET}")
 
     try:
-        choice = input(
-            f"\n{colors.CYAN}Enter your choice (0-{len(options)}): {colors.RESET}"
-        )
+        choice = input(f"\n{colors.CYAN}Enter your choice (0-{len(options)}): {colors.RESET}")
         choice = int(choice)
 
         if choice == 0:
@@ -411,6 +397,4 @@ def setup_parser(parser: argparse.ArgumentParser) -> None:
         help="List topics in the module",
     )
 
-    parser.add_argument(
-        "--interactive", action="store_true", help="Enable interactive mode"
-    )
+    parser.add_argument("--interactive", action="store_true", help="Enable interactive mode")

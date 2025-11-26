@@ -70,9 +70,7 @@ class PasswordPolicy:
 
         # Length check
         if len(password) < self.min_length:
-            issues.append(
-                f"Password must be at least {self.min_length} characters long"
-            )
+            issues.append(f"Password must be at least {self.min_length} characters long")
         elif len(password) >= self.min_length:
             score += 1
 
@@ -128,22 +126,14 @@ class SessionPolicy:
 
     def __init__(self):
         self.session_timeout_minutes = getattr(settings, "session_timeout_minutes", 30)
-        self.remember_me_duration_days = getattr(
-            settings, "remember_me_duration_days", 30
-        )
+        self.remember_me_duration_days = getattr(settings, "remember_me_duration_days", 30)
         self.max_concurrent_sessions = getattr(settings, "max_concurrent_sessions", 5)
-        self.session_cleanup_interval_hours = getattr(
-            settings, "session_cleanup_interval_hours", 1
-        )
+        self.session_cleanup_interval_hours = getattr(settings, "session_cleanup_interval_hours", 1)
         self.force_logout_on_password_change = getattr(
             settings, "force_logout_on_password_change", True
         )
-        self.ip_restriction_enabled = getattr(
-            settings, "session_ip_restriction_enabled", False
-        )
-        self.device_tracking_enabled = getattr(
-            settings, "session_device_tracking_enabled", True
-        )
+        self.ip_restriction_enabled = getattr(settings, "session_ip_restriction_enabled", False)
+        self.device_tracking_enabled = getattr(settings, "session_device_tracking_enabled", True)
 
     @property
     def session_timeout_delta(self) -> timedelta:
@@ -161,22 +151,14 @@ class RateLimitPolicy:
 
     def __init__(self):
         self.login_attempts_per_hour = getattr(settings, "login_attempts_per_hour", 5)
-        self.registration_attempts_per_hour = getattr(
-            settings, "registration_attempts_per_hour", 3
-        )
+        self.registration_attempts_per_hour = getattr(settings, "registration_attempts_per_hour", 3)
         self.password_reset_attempts_per_hour = getattr(
             settings, "password_reset_attempts_per_hour", 3
         )
         self.api_requests_per_minute = getattr(settings, "api_requests_per_minute", 100)
-        self.code_execution_per_minute = getattr(
-            settings, "code_execution_per_minute", 10
-        )
-        self.lockout_duration_minutes = getattr(
-            settings, "account_lockout_duration_minutes", 15
-        )
-        self.progressive_delays = getattr(
-            settings, "rate_limit_progressive_delays", True
-        )
+        self.code_execution_per_minute = getattr(settings, "code_execution_per_minute", 10)
+        self.lockout_duration_minutes = getattr(settings, "account_lockout_duration_minutes", 15)
+        self.progressive_delays = getattr(settings, "rate_limit_progressive_delays", True)
 
 
 class EncryptionManager:
@@ -266,9 +248,7 @@ class SecurityHeaders:
 
         # Add HSTS in production
         if self.environment == "production":
-            headers[
-                "Strict-Transport-Security"
-            ] = "max-age=31536000; includeSubDomains; preload"
+            headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains; preload"
 
         # Content Security Policy
         csp_directives = [
@@ -302,27 +282,17 @@ class SecurityConfig:
         # Additional security settings
         self.require_https = getattr(settings, "require_https", True)
         self.secure_cookies = getattr(settings, "secure_cookies", True)
-        self.csrf_protection_enabled = getattr(
-            settings, "csrf_protection_enabled", True
-        )
-        self.two_factor_auth_enabled = getattr(
-            settings, "two_factor_auth_enabled", False
-        )
-        self.email_verification_required = getattr(
-            settings, "email_verification_required", True
-        )
-        self.admin_approval_required = getattr(
-            settings, "admin_approval_required", False
-        )
+        self.csrf_protection_enabled = getattr(settings, "csrf_protection_enabled", True)
+        self.two_factor_auth_enabled = getattr(settings, "two_factor_auth_enabled", False)
+        self.email_verification_required = getattr(settings, "email_verification_required", True)
+        self.admin_approval_required = getattr(settings, "admin_approval_required", False)
 
         # Security monitoring
         self.failed_login_threshold = getattr(settings, "failed_login_threshold", 5)
         self.suspicious_activity_detection = getattr(
             settings, "suspicious_activity_detection", True
         )
-        self.security_logging_enabled = getattr(
-            settings, "security_logging_enabled", True
-        )
+        self.security_logging_enabled = getattr(settings, "security_logging_enabled", True)
         self.audit_trail_enabled = getattr(settings, "audit_trail_enabled", True)
 
     def validate_configuration(self) -> Dict[str, Any]:
@@ -487,9 +457,7 @@ class SecurityAudit:
         audit_results["findings"].extend(findings)
 
         # Generate recommendations based on findings
-        audit_results["recommendations"] = self._generate_recommendations(
-            audit_results["findings"]
-        )
+        audit_results["recommendations"] = self._generate_recommendations(audit_results["findings"])
 
         return audit_results
 
@@ -635,9 +603,7 @@ class SecurityAudit:
         warning_count = len([f for f in findings if f["type"] == "warning"])
 
         if error_count > 0:
-            recommendations.append(
-                f"Address {error_count} critical security issues immediately"
-            )
+            recommendations.append(f"Address {error_count} critical security issues immediately")
 
         if warning_count > 0:
             recommendations.append(f"Review {warning_count} security warnings")

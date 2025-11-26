@@ -210,33 +210,25 @@ print(f"JSON length: {len(json_data)}")
         """Run all code execution benchmarks."""
         benchmarks = {
             "parse_performance": (
-                BenchmarkConfig(
-                    "code_parsing", "AST parsing performance", iterations=100
-                ),
+                BenchmarkConfig("code_parsing", "AST parsing performance", iterations=100),
                 self.benchmark_code_parsing,
                 (),
                 {},
             ),
             "compile_performance": (
-                BenchmarkConfig(
-                    "code_compilation", "Code compilation performance", iterations=50
-                ),
+                BenchmarkConfig("code_compilation", "Code compilation performance", iterations=50),
                 self.benchmark_code_compilation,
                 (),
                 {},
             ),
             "execution_simple": (
-                BenchmarkConfig(
-                    "simple_execution", "Simple code execution", iterations=50
-                ),
+                BenchmarkConfig("simple_execution", "Simple code execution", iterations=50),
                 self.benchmark_simple_execution,
                 (),
                 {},
             ),
             "execution_complex": (
-                BenchmarkConfig(
-                    "complex_execution", "Complex code execution", iterations=20
-                ),
+                BenchmarkConfig("complex_execution", "Complex code execution", iterations=20),
                 self.benchmark_complex_execution,
                 (),
                 {},
@@ -253,25 +245,19 @@ print(f"JSON length: {len(json_data)}")
                 {},
             ),
             "concurrent_execution": (
-                BenchmarkConfig(
-                    "concurrent_execution", "Concurrent code execution", iterations=10
-                ),
+                BenchmarkConfig("concurrent_execution", "Concurrent code execution", iterations=10),
                 self.benchmark_concurrent_execution,
                 (),
                 {},
             ),
             "sandbox_overhead": (
-                BenchmarkConfig(
-                    "sandbox_overhead", "Sandboxed execution overhead", iterations=25
-                ),
+                BenchmarkConfig("sandbox_overhead", "Sandboxed execution overhead", iterations=25),
                 self.benchmark_sandbox_overhead,
                 (),
                 {},
             ),
             "error_handling": (
-                BenchmarkConfig(
-                    "error_handling", "Error handling performance", iterations=40
-                ),
+                BenchmarkConfig("error_handling", "Error handling performance", iterations=40),
                 self.benchmark_error_handling,
                 (),
                 {},
@@ -368,9 +354,7 @@ del matrix
         # Execute 5 codes concurrently
         with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
             futures = [executor.submit(execute_single) for _ in range(5)]
-            results = [
-                future.result() for future in concurrent.futures.as_completed(futures)
-            ]
+            results = [future.result() for future in concurrent.futures.as_completed(futures)]
 
         return len([r for r in results if r and not r.error_occurred])
 
@@ -601,9 +585,7 @@ values_sum = sum(filtered.values())
 
             def execute_feature():
                 result = self._execute_code_safely(code)
-                return (
-                    result.execution_time if result and not result.error_occurred else 0
-                )
+                return result.execution_time if result and not result.error_occurred else 0
 
             config = BenchmarkConfig(
                 name=f"feature_{feature_name}",
@@ -611,9 +593,7 @@ values_sum = sum(filtered.values())
                 iterations=50,
             )
 
-            benchmark_result = asyncio.run(
-                self.runner.run_benchmark(config, execute_feature)
-            )
+            benchmark_result = asyncio.run(self.runner.run_benchmark(config, execute_feature))
 
             results[feature_name] = benchmark_result
 

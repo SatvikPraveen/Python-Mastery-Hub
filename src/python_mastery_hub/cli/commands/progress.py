@@ -184,21 +184,13 @@ class ProgressManager:
             }
 
         # Overall statistics
-        overall_percentage = (
-            (completed_topics / total_topics * 100) if total_topics > 0 else 0
-        )
+        overall_percentage = (completed_topics / total_topics * 100) if total_topics > 0 else 0
 
         print(f"{colors.BOLD}Overall Statistics{colors.RESET}")
         print("=" * 70)
-        print(
-            f"Modules Completed: {colors.GREEN}{completed_modules}{colors.RESET}/{total_modules}"
-        )
-        print(
-            f"Topics Completed:  {colors.GREEN}{completed_topics}{colors.RESET}/{total_topics}"
-        )
-        print(
-            f"Total Time:        {colors.CYAN}{total_hours}{colors.RESET} hours estimated"
-        )
+        print(f"Modules Completed: {colors.GREEN}{completed_modules}{colors.RESET}/{total_modules}")
+        print(f"Topics Completed:  {colors.GREEN}{completed_topics}{colors.RESET}/{total_topics}")
+        print(f"Total Time:        {colors.CYAN}{total_hours}{colors.RESET} hours estimated")
         print(
             f"Remaining Time:    {colors.YELLOW}{estimated_remaining}{colors.RESET} hours estimated"
         )
@@ -208,9 +200,7 @@ class ProgressManager:
         print()
 
         # Overall progress bar
-        progress_bar.show_progress(
-            completed_topics, total_topics, "Overall Progress", 60
-        )
+        progress_bar.show_progress(completed_topics, total_topics, "Overall Progress", 60)
         print()
 
         # Module-by-module breakdown
@@ -270,9 +260,7 @@ class ProgressManager:
         total_topics = len(module_info["topics"])
         percentage = (completed_count / total_topics * 100) if total_topics > 0 else 0
 
-        progress_bar.show_progress(
-            completed_count, total_topics, f"{name} Progress", 50
-        )
+        progress_bar.show_progress(completed_count, total_topics, f"{name} Progress", 50)
 
         print(f"\n{colors.BOLD}Progress Summary:{colors.RESET}")
         print(
@@ -329,15 +317,9 @@ class ProgressManager:
 
         # Time-based statistics
         colors.print_subheader("Time Statistics")
-        print(
-            f"Total Learning Days: {colors.CYAN}{stats.get('total_days', 0)}{colors.RESET}"
-        )
-        print(
-            f"Current Streak: {colors.GREEN}{stats.get('current_streak', 0)}{colors.RESET} days"
-        )
-        print(
-            f"Longest Streak: {colors.YELLOW}{stats.get('longest_streak', 0)}{colors.RESET} days"
-        )
+        print(f"Total Learning Days: {colors.CYAN}{stats.get('total_days', 0)}{colors.RESET}")
+        print(f"Current Streak: {colors.GREEN}{stats.get('current_streak', 0)}{colors.RESET} days")
+        print(f"Longest Streak: {colors.YELLOW}{stats.get('longest_streak', 0)}{colors.RESET} days")
         print(
             f"Average Daily Progress: {colors.BLUE}{stats.get('avg_daily_progress', 0):.1f}{colors.RESET} topics"
         )
@@ -353,9 +335,7 @@ class ProgressManager:
             total = module_stat.get("total", 0)
             percentage = (completed / total * 100) if total > 0 else 0
 
-            print(
-                f"{module_name:<25} {completed:2d}/{total:<2d} topics ({percentage:5.1f}%)"
-            )
+            print(f"{module_name:<25} {completed:2d}/{total:<2d} topics ({percentage:5.1f}%)")
 
         print()
 
@@ -400,9 +380,7 @@ class ProgressManager:
             if current_streak > 10:
                 fire_icons += f" (+{current_streak - 10})"
 
-            print(
-                f"Current Streak: {colors.GREEN}{fire_icons}{colors.RESET} {current_streak} days"
-            )
+            print(f"Current Streak: {colors.GREEN}{fire_icons}{colors.RESET} {current_streak} days")
         else:
             print(f"Current Streak: {colors.GRAY}0 days{colors.RESET}")
 
@@ -413,9 +391,7 @@ class ProgressManager:
         if current_streak == 0:
             print(f"\n{colors.CYAN}Start your learning streak today!{colors.RESET}")
         elif current_streak < 7:
-            print(
-                f"\n{colors.CYAN}Keep going! You're building a great habit!{colors.RESET}"
-            )
+            print(f"\n{colors.CYAN}Keep going! You're building a great habit!{colors.RESET}")
         elif current_streak < 30:
             print(f"\n{colors.GREEN}Amazing! You're on fire!{colors.RESET}")
         else:
@@ -448,9 +424,7 @@ class ProgressManager:
 
         print()
 
-    def export_progress(
-        self, format_type: str = "json", output_file: Optional[str] = None
-    ) -> None:
+    def export_progress(self, format_type: str = "json", output_file: Optional[str] = None) -> None:
         """
         Export progress data to file.
 
@@ -508,12 +482,8 @@ class ProgressManager:
 
             for module_id, module_info in self.modules.items():
                 for topic in module_info["topics"]:
-                    is_completed = self.progress_calc.is_topic_completed(
-                        module_id, topic
-                    )
-                    completion_date = self.progress_calc.get_topic_completion_date(
-                        module_id, topic
-                    )
+                    is_completed = self.progress_calc.is_topic_completed(module_id, topic)
+                    completion_date = self.progress_calc.get_topic_completion_date(module_id, topic)
 
                     writer.writerow(
                         [
@@ -651,22 +621,14 @@ def setup_parser(parser: argparse.ArgumentParser) -> None:
     show_parser = subparsers.add_parser("show", help="Show overall progress summary")
 
     # Module-specific progress
-    module_parser = subparsers.add_parser(
-        "module", help="Show progress for specific module"
-    )
-    module_parser.add_argument(
-        "module_id", help="Module identifier (basics, oop, advanced, etc.)"
-    )
+    module_parser = subparsers.add_parser("module", help="Show progress for specific module")
+    module_parser.add_argument("module_id", help="Module identifier (basics, oop, advanced, etc.)")
 
     # Achievements
-    achievements_parser = subparsers.add_parser(
-        "achievements", help="Show achievements and badges"
-    )
+    achievements_parser = subparsers.add_parser("achievements", help="Show achievements and badges")
 
     # Statistics
-    stats_parser = subparsers.add_parser(
-        "stats", help="Show detailed learning statistics"
-    )
+    stats_parser = subparsers.add_parser("stats", help="Show detailed learning statistics")
 
     # Export
     export_parser = subparsers.add_parser("export", help="Export progress data")
@@ -680,12 +642,8 @@ def setup_parser(parser: argparse.ArgumentParser) -> None:
     export_parser.add_argument("--output", "-o", help="Output file path")
 
     # Reset
-    reset_parser = subparsers.add_parser(
-        "reset", help="Reset progress (with confirmation)"
-    )
-    reset_parser.add_argument(
-        "module_id", nargs="?", help="Module to reset (omit to reset all)"
-    )
+    reset_parser = subparsers.add_parser("reset", help="Reset progress (with confirmation)")
+    reset_parser.add_argument("module_id", nargs="?", help="Module to reset (omit to reset all)")
 
     # Global options
     parser.add_argument(

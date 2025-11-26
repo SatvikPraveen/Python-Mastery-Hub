@@ -53,9 +53,7 @@ class InputValidator:
         ]
 
         if not module_id:
-            raise ValidationError(
-                "Module ID cannot be empty", suggestions=valid_modules[:3]
-            )
+            raise ValidationError("Module ID cannot be empty", suggestions=valid_modules[:3])
 
         module_id = module_id.lower().strip()
 
@@ -78,9 +76,7 @@ class InputValidator:
         if module_id not in valid_modules:
             # Find closest matches
             suggestions = InputValidator._find_closest_matches(module_id, valid_modules)
-            raise ValidationError(
-                f"Unknown module: '{module_id}'", suggestions=suggestions
-            )
+            raise ValidationError(f"Unknown module: '{module_id}'", suggestions=suggestions)
 
         return module_id
 
@@ -156,9 +152,7 @@ class InputValidator:
         valid_exercises = module_exercises.get(module_id, [])
 
         if exercise_name not in valid_exercises:
-            suggestions = InputValidator._find_closest_matches(
-                exercise_name, valid_exercises
-            )
+            suggestions = InputValidator._find_closest_matches(exercise_name, valid_exercises)
             raise ValidationError(
                 f"Unknown exercise: '{exercise_name}' for module '{module_id}'",
                 suggestions=suggestions,
@@ -349,9 +343,7 @@ class InputValidator:
         return float_value
 
     @staticmethod
-    def validate_choice(
-        value: str, choices: List[str], case_sensitive: bool = False
-    ) -> str:
+    def validate_choice(value: str, choices: List[str], case_sensitive: bool = False) -> str:
         """
         Validate choice from a list of options.
 
@@ -456,9 +448,7 @@ class InputValidator:
             )
 
     @staticmethod
-    def _find_closest_matches(
-        target: str, options: List[str], max_matches: int = 3
-    ) -> List[str]:
+    def _find_closest_matches(target: str, options: List[str], max_matches: int = 3) -> List[str]:
         """
         Find closest string matches using simple similarity.
 
@@ -487,9 +477,7 @@ class InputValidator:
 
             return common / total if total > 0 else 0.0
 
-        similarities = [
-            (option, simple_similarity(target, option)) for option in options
-        ]
+        similarities = [(option, simple_similarity(target, option)) for option in options]
         similarities.sort(key=lambda x: x[1], reverse=True)
 
         # Return options with similarity > 0.3
@@ -527,9 +515,7 @@ def prompt_with_validation(
             colors.print_error(str(e))
 
             if show_suggestions and e.suggestions:
-                print(
-                    f"{colors.YELLOW}Suggestions: {', '.join(e.suggestions)}{colors.RESET}"
-                )
+                print(f"{colors.YELLOW}Suggestions: {', '.join(e.suggestions)}{colors.RESET}")
 
             if attempt < max_attempts - 1:
                 print(
@@ -586,9 +572,7 @@ def integer_validator(min_val: int = None, max_val: int = None) -> Callable[[str
     return validator
 
 
-def choice_validator(
-    choices: List[str], case_sensitive: bool = False
-) -> Callable[[str], str]:
+def choice_validator(choices: List[str], case_sensitive: bool = False) -> Callable[[str], str]:
     """Convenience function for choice validation."""
 
     def validator(value: str) -> str:

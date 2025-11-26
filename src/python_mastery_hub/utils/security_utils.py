@@ -95,9 +95,7 @@ class PasswordManager:
             True if password matches, False otherwise
         """
         try:
-            return bcrypt.checkpw(
-                password.encode("utf-8"), hashed_password.encode("utf-8")
-            )
+            return bcrypt.checkpw(password.encode("utf-8"), hashed_password.encode("utf-8"))
         except Exception as e:
             logger.warning(f"Password verification error: {e}")
             return False
@@ -216,9 +214,7 @@ class TokenManager:
     def __init__(self, secret_key: str):
         self.secret_key = secret_key.encode("utf-8")
 
-    def generate_token(
-        self, payload: Dict[str, Any], expires_in_hours: int = 24
-    ) -> str:
+    def generate_token(self, payload: Dict[str, Any], expires_in_hours: int = 24) -> str:
         """
         Generate a secure token with payload.
 
@@ -235,14 +231,10 @@ class TokenManager:
 
         # Encode payload
         payload_json = json.dumps(payload, sort_keys=True)
-        payload_b64 = base64.urlsafe_b64encode(payload_json.encode("utf-8")).decode(
-            "utf-8"
-        )
+        payload_b64 = base64.urlsafe_b64encode(payload_json.encode("utf-8")).decode("utf-8")
 
         # Generate signature
-        signature = hmac.new(
-            self.secret_key, payload_b64.encode("utf-8"), hashlib.sha256
-        ).digest()
+        signature = hmac.new(self.secret_key, payload_b64.encode("utf-8"), hashlib.sha256).digest()
         signature_b64 = base64.urlsafe_b64encode(signature).decode("utf-8")
 
         return f"{payload_b64}.{signature_b64}"
@@ -317,9 +309,7 @@ class InputSanitizer:
             return ""
 
         # Remove null bytes and control characters
-        sanitized = "".join(
-            char for char in text if ord(char) >= 32 or char in "\t\n\r"
-        )
+        sanitized = "".join(char for char in text if ord(char) >= 32 or char in "\t\n\r")
 
         # Strip whitespace
         sanitized = sanitized.strip()
@@ -386,9 +376,7 @@ class InputSanitizer:
 
         # Limit length
         if len(sanitized) > 255:
-            name, ext = (
-                sanitized.rsplit(".", 1) if "." in sanitized else (sanitized, "")
-            )
+            name, ext = sanitized.rsplit(".", 1) if "." in sanitized else (sanitized, "")
             name = name[: 250 - len(ext)]
             sanitized = f"{name}.{ext}" if ext else name
 
@@ -486,9 +474,7 @@ class RateLimiter:
         self._attempts: Dict[str, List[float]] = {}
         self._lock = {}
 
-    def is_rate_limited(
-        self, identifier: str, max_attempts: int, window_minutes: int
-    ) -> bool:
+    def is_rate_limited(self, identifier: str, max_attempts: int, window_minutes: int) -> bool:
         """
         Check if identifier is rate limited.
 

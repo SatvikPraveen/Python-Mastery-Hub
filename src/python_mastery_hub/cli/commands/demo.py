@@ -228,18 +228,14 @@ class DemoRunner:
             logger.error(f"Demo execution failed: {e}")
             colors.print_error(f"Demo failed to run: {e}")
 
-    async def _load_demo_content(
-        self, module_id: str, demo_name: str
-    ) -> List[CodeDemo]:
+    async def _load_demo_content(self, module_id: str, demo_name: str) -> List[CodeDemo]:
         """Load demonstration content from module."""
         try:
             # Try to import the demo module
             if module_id == "advanced":
                 module_path = f"python_mastery_hub.core.advanced.{demo_name}"
             else:
-                module_path = (
-                    f"python_mastery_hub.core.{module_id}.examples.{demo_name}"
-                )
+                module_path = f"python_mastery_hub.core.{module_id}.examples.{demo_name}"
 
             demo_module = importlib.import_module(module_path)
 
@@ -516,9 +512,7 @@ print()
             colors.print_code_block(demo.code)
 
             if interactive:
-                choice = input(
-                    f"{colors.CYAN}Run this code? (y/n/q): {colors.RESET}"
-                ).lower()
+                choice = input(f"{colors.CYAN}Run this code? (y/n/q): {colors.RESET}").lower()
                 if choice == "q":
                     break
                 elif choice == "n":
@@ -529,14 +523,10 @@ print()
             await self._execute_code_safely(demo.code)
 
             if i < len(demos):
-                input(
-                    f"\n{colors.GRAY}Press Enter to continue to next part...{colors.RESET}"
-                )
+                input(f"\n{colors.GRAY}Press Enter to continue to next part...{colors.RESET}")
                 print()
 
-    async def _run_step_by_step_demo(
-        self, demos: List[CodeDemo], interactive: bool
-    ) -> None:
+    async def _run_step_by_step_demo(self, demos: List[CodeDemo], interactive: bool) -> None:
         """Run demonstration step by step."""
         for demo in demos:
             colors.print_subheader(f"Step-by-Step: {demo.name}")
@@ -643,12 +633,7 @@ async def execute(args: argparse.Namespace) -> int:
             return 0
 
         # Run specific demo
-        if (
-            hasattr(args, "module")
-            and hasattr(args, "demo")
-            and args.module
-            and args.demo
-        ):
+        if hasattr(args, "module") and hasattr(args, "demo") and args.module and args.demo:
             interactive = getattr(args, "interactive", False)
             step_by_step = getattr(args, "step_by_step", False)
 
@@ -672,9 +657,7 @@ async def execute(args: argparse.Namespace) -> int:
 
 def setup_parser(parser: argparse.ArgumentParser) -> None:
     """Setup the demo command parser."""
-    parser.add_argument(
-        "module", nargs="?", help="Module to demo (basics, oop, advanced, etc.)"
-    )
+    parser.add_argument("module", nargs="?", help="Module to demo (basics, oop, advanced, etc.)")
 
     parser.add_argument("demo", nargs="?", help="Specific demo to run")
 
@@ -690,6 +673,4 @@ def setup_parser(parser: argparse.ArgumentParser) -> None:
         "--interactive", "-i", action="store_true", help="Run demo in interactive mode"
     )
 
-    parser.add_argument(
-        "--step-by-step", "-s", action="store_true", help="Run demo step by step"
-    )
+    parser.add_argument("--step-by-step", "-s", action="store_true", help="Run demo step by step")

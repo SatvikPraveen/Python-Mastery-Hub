@@ -126,9 +126,7 @@ results, total_time = asyncio.run(run_concurrent_tasks())
         exec(code, globals_dict)
 
         assert len(globals_dict["results"]) == 3
-        assert (
-            globals_dict["total_time"] < 0.5
-        )  # Should be much less than 0.3s (3 * 0.1s)
+        assert globals_dict["total_time"] < 0.5  # Should be much less than 0.3s (3 * 0.1s)
 
     @pytest.mark.asyncio
     async def test_async_with_exception_handling(self):
@@ -928,10 +926,7 @@ async_time = asyncio.run(run_async())
         assert async_result["success"] is True
 
         # Async should generally be faster for I/O bound tasks
-        if (
-            "sync_time" in sync_result["globals"]
-            and "async_time" in async_result["globals"]
-        ):
+        if "sync_time" in sync_result["globals"] and "async_time" in async_result["globals"]:
             sync_time = sync_result["globals"]["sync_time"]
             async_time = async_result["globals"]["async_time"]
             assert async_time < sync_time

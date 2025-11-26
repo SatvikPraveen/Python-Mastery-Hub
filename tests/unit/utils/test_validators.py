@@ -18,18 +18,12 @@ class MockValidators:
     @staticmethod
     def validate_required(value, field_name="field"):
         """Validate that a value is not empty"""
-        if (
-            value is None
-            or value == ""
-            or (isinstance(value, (list, dict)) and len(value) == 0)
-        ):
+        if value is None or value == "" or (isinstance(value, (list, dict)) and len(value) == 0):
             return False, f"{field_name} is required"
         return True, None
 
     @staticmethod
-    def validate_string(
-        value, min_length=None, max_length=None, pattern=None, field_name="field"
-    ):
+    def validate_string(value, min_length=None, max_length=None, pattern=None, field_name="field"):
         """Validate string with length and pattern constraints"""
         if not isinstance(value, str):
             return False, f"{field_name} must be a string"
@@ -218,9 +212,7 @@ class MockValidators:
                     is_valid, error = validator(value[key], f"{field_name}.{key}")
                     if not is_valid:
                         return False, error
-                elif (
-                    hasattr(validator, "__name__") and "required" in validator.__name__
-                ):
+                elif hasattr(validator, "__name__") and "required" in validator.__name__:
                     return False, f"{field_name}.{key} is required"
 
         return True, None
@@ -336,9 +328,7 @@ class MockValidationSchema:
                 if validator_name == "required":
                     continue
 
-                validator_func = getattr(
-                    MockValidators, f"validate_{validator_name}", None
-                )
+                validator_func = getattr(MockValidators, f"validate_{validator_name}", None)
                 if validator_func:
                     if isinstance(validator_args, dict):
                         field_valid, error = validator_func(
@@ -349,9 +339,7 @@ class MockValidationSchema:
                             value, *validator_args, field_name=field_path
                         )
                     else:
-                        field_valid, error = validator_func(
-                            value, field_name=field_path
-                        )
+                        field_valid, error = validator_func(value, field_name=field_path)
 
                     if not field_valid:
                         self.errors.append(error)
@@ -417,27 +405,21 @@ class TestStringValidation:
 
     def test_validate_string_max_length(self):
         """Test string validation with maximum length"""
-        is_valid, error = MockValidators.validate_string(
-            "very long string", max_length=5
-        )
+        is_valid, error = MockValidators.validate_string("very long string", max_length=5)
         assert is_valid is False
         assert "at most 5 characters" in error
 
     def test_validate_string_pattern_match(self):
         """Test string validation with pattern that matches"""
         pattern = r"^\d{3}-\d{3}-\d{4}$"  # Phone pattern
-        is_valid, error = MockValidators.validate_string(
-            "123-456-7890", pattern=pattern
-        )
+        is_valid, error = MockValidators.validate_string("123-456-7890", pattern=pattern)
         assert is_valid is True
         assert error is None
 
     def test_validate_string_pattern_no_match(self):
         """Test string validation with pattern that doesn't match"""
         pattern = r"^\d{3}-\d{3}-\d{4}$"  # Phone pattern
-        is_valid, error = MockValidators.validate_string(
-            "invalid-phone", pattern=pattern
-        )
+        is_valid, error = MockValidators.validate_string("invalid-phone", pattern=pattern)
         assert is_valid is False
         assert "format is invalid" in error
 
@@ -550,16 +532,12 @@ class TestNumberValidation:
         assert is_valid is True
 
         # Below minimum
-        is_valid, error = MockValidators.validate_number(
-            -10, min_value=0, max_value=100
-        )
+        is_valid, error = MockValidators.validate_number(-10, min_value=0, max_value=100)
         assert is_valid is False
         assert "at least 0" in error
 
         # Above maximum
-        is_valid, error = MockValidators.validate_number(
-            150, min_value=0, max_value=100
-        )
+        is_valid, error = MockValidators.validate_number(150, min_value=0, max_value=100)
         assert is_valid is False
         assert "at most 100" in error
 
@@ -710,9 +688,7 @@ class TestListValidation:
     def test_validate_list_length_constraints(self):
         """Test list validation with length constraints"""
         # Valid length
-        is_valid, error = MockValidators.validate_list(
-            [1, 2, 3], min_length=2, max_length=5
-        )
+        is_valid, error = MockValidators.validate_list([1, 2, 3], min_length=2, max_length=5)
         assert is_valid is True
 
         # Too short
@@ -951,9 +927,7 @@ class TestValidationIntegration:
 
             # Validate required fields
             for field in ["username", "email", "password"]:
-                is_valid, error = MockValidators.validate_required(
-                    data.get(field), field
-                )
+                is_valid, error = MockValidators.validate_required(data.get(field), field)
                 if not is_valid:
                     errors.append(error)
 
@@ -977,9 +951,7 @@ class TestValidationIntegration:
 
             # Validate password
             if "password" in data:
-                is_valid, error = MockValidators.validate_password_strength(
-                    data["password"]
-                )
+                is_valid, error = MockValidators.validate_password_strength(data["password"])
                 if not is_valid:
                     errors.append(error)
 
@@ -1025,9 +997,7 @@ class TestValidationIntegration:
 
             # Validate HTTP method
             valid_methods = ["GET", "POST", "PUT", "DELETE", "PATCH"]
-            is_valid, error = MockValidators.validate_choice(
-                method, valid_methods, "method"
-            )
+            is_valid, error = MockValidators.validate_choice(method, valid_methods, "method")
             if not is_valid:
                 errors.append(error)
 
@@ -1041,18 +1011,14 @@ class TestValidationIntegration:
             # Validate Content-Type for requests with body
             if method in ["POST", "PUT", "PATCH"] and data:
                 content_type = headers.get("Content-Type") if headers else None
-                is_valid, error = MockValidators.validate_required(
-                    content_type, "Content-Type"
-                )
+                is_valid, error = MockValidators.validate_required(content_type, "Content-Type")
                 if not is_valid:
                     errors.append(error)
 
             # Validate Authorization header for protected endpoints
             if path.startswith("/api/protected/"):
                 auth_header = headers.get("Authorization") if headers else None
-                is_valid, error = MockValidators.validate_required(
-                    auth_header, "Authorization"
-                )
+                is_valid, error = MockValidators.validate_required(auth_header, "Authorization")
                 if not is_valid:
                     errors.append(error)
                 elif not auth_header.startswith("Bearer "):
@@ -1288,18 +1254,14 @@ class TestValidationPerformance:
 
     def test_validation_with_nested_structures(self):
         """Test validation with deeply nested data structures"""
-        nested_data = {
-            "level1": {"level2": {"level3": {"level4": {"value": "deep_value"}}}}
-        }
+        nested_data = {"level1": {"level2": {"level3": {"level4": {"value": "deep_value"}}}}}
 
         # Validate the nested structure exists
         assert "level1" in nested_data
         assert "level2" in nested_data["level1"]
         assert "level3" in nested_data["level1"]["level2"]
         assert "level4" in nested_data["level1"]["level2"]["level3"]
-        assert (
-            nested_data["level1"]["level2"]["level3"]["level4"]["value"] == "deep_value"
-        )
+        assert nested_data["level1"]["level2"]["level3"]["level4"]["value"] == "deep_value"
 
     def test_validation_edge_cases(self):
         """Test validation with edge cases and boundary values"""
@@ -1352,6 +1314,4 @@ class TestValidationPerformance:
 
             assert is_valid is False
             assert expected_error_text in error.lower()
-            assert (
-                error.strip() != ""
-            )  # Error message should not be empty or just whitespace
+            assert error.strip() != ""  # Error message should not be empty or just whitespace

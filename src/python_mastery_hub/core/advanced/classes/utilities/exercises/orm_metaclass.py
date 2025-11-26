@@ -14,9 +14,7 @@ class ORMMetaclassExercise:
 
     def __init__(self):
         self.title = "ORM Table Creator"
-        self.description = (
-            "Create a metaclass that automatically generates database table schemas"
-        )
+        self.description = "Create a metaclass that automatically generates database table schemas"
         self.difficulty = "expert"
 
     def get_instructions(self) -> str:

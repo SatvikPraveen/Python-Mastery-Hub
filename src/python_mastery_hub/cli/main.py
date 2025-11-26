@@ -115,9 +115,7 @@ def path(
 
 
 @app.command()
-def explore(
-    module_name: str = typer.Argument(..., help="Name of the module to explore")
-) -> None:
+def explore(module_name: str = typer.Argument(..., help="Name of the module to explore")) -> None:
     """🔍 Explore a specific learning module with examples."""
 
     try:
@@ -134,9 +132,7 @@ def explore(
 
     except ValueError as e:
         console.print(f"[red]Error: {e}[/red]")
-        console.print(
-            "Use [cyan]python-mastery-hub list[/cyan] to see available modules."
-        )
+        console.print("Use [cyan]python-mastery-hub list[/cyan] to see available modules.")
 
 
 @app.command()

@@ -322,9 +322,7 @@ def list_modules():
             module_data["user_progress"] = module_progress
 
             # Check prerequisites
-            module_data[
-                "prerequisites_met"
-            ] = progress_service.check_module_prerequisites(
+            module_data["prerequisites_met"] = progress_service.check_module_prerequisites(
                 user_id, module_data.get("prerequisites", [])
             )
 
@@ -333,23 +331,17 @@ def list_modules():
         # Sort modules
         if sort_by == "difficulty":
             difficulty_order = {"beginner": 1, "intermediate": 2, "advanced": 3}
-            filtered_modules.sort(
-                key=lambda x: difficulty_order.get(x["difficulty"], 2)
-            )
+            filtered_modules.sort(key=lambda x: difficulty_order.get(x["difficulty"], 2))
         elif sort_by == "title":
             filtered_modules.sort(key=lambda x: x["title"])
         elif sort_by == "progress":
             filtered_modules.sort(
-                key=lambda x: x.get("user_progress", {}).get(
-                    "completion_percentage", 0
-                ),
+                key=lambda x: x.get("user_progress", {}).get("completion_percentage", 0),
                 reverse=True,
             )
 
         # Get learning path recommendation
-        recommended_next = progress_service.get_recommended_next_module(
-            user_id, MODULES_DATA
-        )
+        recommended_next = progress_service.get_recommended_next_module(user_id, MODULES_DATA)
 
         # Get overall statistics
         module_stats = progress_service.get_module_stats(user_id, MODULES_DATA)
@@ -405,25 +397,19 @@ def module_detail(module_id):
             for prereq_id in module.get("prerequisites", []):
                 if prereq_id in MODULES_DATA:
                     prereq = MODULES_DATA[prereq_id].copy()
-                    prereq["progress"] = progress_service.get_module_progress(
-                        user_id, prereq_id
-                    )
+                    prereq["progress"] = progress_service.get_module_progress(user_id, prereq_id)
                     prerequisite_modules.append(prereq)
             module["prerequisite_modules"] = prerequisite_modules
 
         # Get lesson progress for each lesson
         for lesson in module["lessons"]:
-            lesson_progress = progress_service.get_lesson_progress(
-                user_id, lesson["id"]
-            )
+            lesson_progress = progress_service.get_lesson_progress(user_id, lesson["id"])
             lesson["user_progress"] = lesson_progress
 
             # Get exercise progress for each exercise in the lesson
             lesson["exercise_progress"] = []
             for exercise_id in lesson.get("exercises", []):
-                exercise_progress = progress_service.get_exercise_progress(
-                    user_id, exercise_id
-                )
+                exercise_progress = progress_service.get_exercise_progress(user_id, exercise_id)
                 lesson["exercise_progress"].append(
                     {"id": exercise_id, "progress": exercise_progress}
                 )
@@ -436,9 +422,7 @@ def module_detail(module_id):
             if lesson.get("user_progress", {}).get("is_completed", False)
         )
 
-        total_exercises = sum(
-            len(lesson.get("exercises", [])) for lesson in module["lessons"]
-        )
+        total_exercises = sum(len(lesson.get("exercises", [])) for lesson in module["lessons"])
         completed_exercises = 0
         for lesson in module["lessons"]:
             for exercise_progress in lesson.get("exercise_progress", []):
@@ -456,9 +440,7 @@ def module_detail(module_id):
                 break
 
         # Get module achievements
-        module_achievements = progress_service.get_module_achievements(
-            user_id, module_id
-        )
+        module_achievements = progress_service.get_module_achievements(user_id, module_id)
 
         context = {
             "module": module,
@@ -526,19 +508,13 @@ def lesson_detail(module_id, lesson_id):
             for exercise_id in lesson["exercises"]:
                 exercise = Exercise.get_by_id(exercise_id)
                 if exercise:
-                    exercise_progress = progress_service.get_exercise_progress(
-                        user_id, exercise_id
-                    )
+                    exercise_progress = progress_service.get_exercise_progress(user_id, exercise_id)
                     exercise["user_progress"] = exercise_progress
                     lesson_exercises.append(exercise)
 
         # Get previous and next lessons
-        lesson_index = next(
-            i for i, l in enumerate(module["lessons"]) if l["id"] == lesson_id
-        )
-        previous_lesson = (
-            module["lessons"][lesson_index - 1] if lesson_index > 0 else None
-        )
+        lesson_index = next(i for i, l in enumerate(module["lessons"]) if l["id"] == lesson_id)
+        previous_lesson = module["lessons"][lesson_index - 1] if lesson_index > 0 else None
         next_lesson = (
             module["lessons"][lesson_index + 1]
             if lesson_index < len(module["lessons"]) - 1
@@ -593,12 +569,8 @@ def complete_lesson(module_id, lesson_id):
         all_exercises_completed = True
         if lesson.get("exercises"):
             for exercise_id in lesson["exercises"]:
-                exercise_progress = progress_service.get_exercise_progress(
-                    user_id, exercise_id
-                )
-                if not exercise_progress or not exercise_progress.get(
-                    "is_completed", False
-                ):
+                exercise_progress = progress_service.get_exercise_progress(user_id, exercise_id)
+                if not exercise_progress or not exercise_progress.get("is_completed", False):
                     all_exercises_completed = False
                     break
 
@@ -618,21 +590,15 @@ def complete_lesson(module_id, lesson_id):
 
         if success:
             # Award points for lesson completion
-            points_awarded = progress_service.award_lesson_completion_points(
-                user_id, lesson_id
-            )
+            points_awarded = progress_service.award_lesson_completion_points(user_id, lesson_id)
 
             # Check for module completion
-            module_completed = progress_service.check_module_completion(
-                user_id, module_id
-            )
+            module_completed = progress_service.check_module_completion(user_id, module_id)
 
             # Check for new achievements
             new_achievements = progress_service.check_achievements(user_id)
 
-            logger.info(
-                f"User {user_id} completed lesson {lesson_id} in module {module_id}"
-            )
+            logger.info(f"User {user_id} completed lesson {lesson_id} in module {module_id}")
 
             return jsonify(
                 {
@@ -681,9 +647,7 @@ def enroll_module(module_id):
 
         if success:
             logger.info(f"User {user_id} enrolled in module {module_id}")
-            return jsonify(
-                {"success": True, "message": "Successfully enrolled in module"}
-            )
+            return jsonify({"success": True, "message": "Successfully enrolled in module"})
         else:
             return (
                 jsonify({"success": False, "error": "Failed to enroll in module"}),
@@ -781,9 +745,7 @@ def inject_module_data():
             user_id = session["user_id"]
 
             # Add overall module progress
-            data[
-                "overall_module_progress"
-            ] = progress_service.get_overall_module_progress(user_id)
+            data["overall_module_progress"] = progress_service.get_overall_module_progress(user_id)
 
             # Add available modules count
             data["total_modules"] = len(MODULES_DATA)

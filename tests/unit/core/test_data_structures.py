@@ -297,10 +297,7 @@ bob_role = company.get("employees", {}).get("engineering", {}).get("Bob", {}).ge
 
         assert globals_dict["alice_salary"] == 90000
         assert globals_dict["locations_count"] == 3
-        assert (
-            globals_dict["company"]["employees"]["engineering"]["Alice"]["salary"]
-            == 95000
-        )
+        assert globals_dict["company"]["employees"]["engineering"]["Alice"]["salary"] == 95000
         assert globals_dict["bob_role"] == "Junior Developer"
         assert "hr" in globals_dict["company"]["employees"]
 

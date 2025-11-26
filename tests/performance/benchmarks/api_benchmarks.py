@@ -234,9 +234,7 @@ class MockAPIServer:
                     "id": i,
                     "title": f"Python Course {i}",
                     "description": f"Description for course {i}",
-                    "difficulty": random.choice(
-                        ["beginner", "intermediate", "advanced"]
-                    ),
+                    "difficulty": random.choice(["beginner", "intermediate", "advanced"]),
                     "enrolled_count": random.randint(10, 500),
                 }
                 for i in range(1, random.randint(20, 100))
@@ -331,41 +329,31 @@ class APIBenchmarks:
         """Run all API benchmarks."""
         benchmarks = {
             "health_check": (
-                BenchmarkConfig(
-                    "health_check", "Health check endpoint", iterations=100
-                ),
+                BenchmarkConfig("health_check", "Health check endpoint", iterations=100),
                 self.benchmark_health_check,
                 (),
                 {},
             ),
             "authentication": (
-                BenchmarkConfig(
-                    "authentication", "Authentication performance", iterations=50
-                ),
+                BenchmarkConfig("authentication", "Authentication performance", iterations=50),
                 self.benchmark_authentication,
                 (),
                 {},
             ),
             "user_operations": (
-                BenchmarkConfig(
-                    "user_operations", "User CRUD operations", iterations=40
-                ),
+                BenchmarkConfig("user_operations", "User CRUD operations", iterations=40),
                 self.benchmark_user_operations,
                 (),
                 {},
             ),
             "course_listing": (
-                BenchmarkConfig(
-                    "course_listing", "Course listing performance", iterations=60
-                ),
+                BenchmarkConfig("course_listing", "Course listing performance", iterations=60),
                 self.benchmark_course_listing,
                 (),
                 {},
             ),
             "code_submission": (
-                BenchmarkConfig(
-                    "code_submission", "Code submission performance", iterations=20
-                ),
+                BenchmarkConfig("code_submission", "Code submission performance", iterations=20),
                 self.benchmark_code_submission,
                 (),
                 {},
@@ -379,17 +367,13 @@ class APIBenchmarks:
                 {},
             ),
             "payload_sizes": (
-                BenchmarkConfig(
-                    "payload_sizes", "Different payload sizes", iterations=30
-                ),
+                BenchmarkConfig("payload_sizes", "Different payload sizes", iterations=30),
                 self.benchmark_payload_sizes,
                 (),
                 {},
             ),
             "error_handling": (
-                BenchmarkConfig(
-                    "error_handling", "Error response handling", iterations=40
-                ),
+                BenchmarkConfig("error_handling", "Error response handling", iterations=40),
                 self.benchmark_error_handling,
                 (),
                 {},
@@ -413,9 +397,7 @@ class APIBenchmarks:
             "password": "password123",
         }
 
-        login_response = await self.mock_server.handle_request(
-            "POST", "/auth/login", login_data
-        )
+        login_response = await self.mock_server.handle_request("POST", "/auth/login", login_data)
 
         if login_response["status_code"] == 200:
             token = login_response["data"]["token"]
@@ -442,17 +424,13 @@ class APIBenchmarks:
             "password": "password123",
         }
 
-        create_response = await self.mock_server.handle_request(
-            "POST", "/users/", create_data
-        )
+        create_response = await self.mock_server.handle_request("POST", "/users/", create_data)
         if create_response["status_code"] == 201:
             operations_completed += 1
             user_id = create_response["data"]["id"]
 
             # Get user
-            get_response = await self.mock_server.handle_request(
-                "GET", f"/users/{user_id}/profile"
-            )
+            get_response = await self.mock_server.handle_request("GET", f"/users/{user_id}/profile")
             if get_response["status_code"] == 200:
                 operations_completed += 1
 
@@ -493,9 +471,7 @@ print(f"Result: {result}")
             "language": "python",
         }
 
-        response = await self.mock_server.handle_request(
-            "POST", "/submissions/", submission_data
-        )
+        response = await self.mock_server.handle_request("POST", "/submissions/", submission_data)
 
         if response["status_code"] == 200:
             return response["data"]["score"]
@@ -578,9 +554,7 @@ print(f"Result: {result}")
             async def execute_response_pattern():
                 if config["type"] == "small_json":
                     # Small JSON response
-                    response = await self.mock_server.handle_request(
-                        "GET", "/users/1/profile"
-                    )
+                    response = await self.mock_server.handle_request("GET", "/users/1/profile")
                 elif config["type"] == "large_json":
                     # Large JSON response (course list)
                     response = await self.mock_server.handle_request("GET", "/courses/")
@@ -591,9 +565,7 @@ print(f"Result: {result}")
                     )
                 else:  # nested_objects
                     # Nested object response
-                    response = await self.mock_server.handle_request(
-                        "GET", "/users/1/progress"
-                    )
+                    response = await self.mock_server.handle_request("GET", "/users/1/progress")
 
                 return len(json.dumps(response["data"]).encode("utf-8"))
 
@@ -640,18 +612,14 @@ print(f"Result: {result}")
                     await asyncio.sleep(0.010)  # External validation
 
                 # Simulate authenticated request
-                response = await self.mock_server.handle_request(
-                    "GET", "/users/profile"
-                )
+                response = await self.mock_server.handle_request("GET", "/users/profile")
                 return response["status_code"]
 
             config = BenchmarkConfig(
                 name=f"auth_{pattern_name}", description=description, iterations=50
             )
 
-            benchmark_result = asyncio.run(
-                self.runner.run_benchmark(config, execute_auth_pattern)
-            )
+            benchmark_result = asyncio.run(self.runner.run_benchmark(config, execute_auth_pattern))
 
             results[pattern_name] = benchmark_result
 
@@ -710,9 +678,7 @@ print(f"Result: {result}")
                 iterations=10 if concurrent_users > 50 else 15,
             )
 
-            benchmark_result = asyncio.run(
-                self.runner.run_benchmark(config, execute_scaling_test)
-            )
+            benchmark_result = asyncio.run(self.runner.run_benchmark(config, execute_scaling_test))
 
             results[f"scale_{concurrent_users}"] = benchmark_result
 
@@ -794,9 +760,7 @@ def run_api_benchmarks():
     }
 
     # Generate comprehensive report
-    report = benchmarks.runner.generate_performance_report(
-        all_results, "api_benchmark_report.md"
-    )
+    report = benchmarks.runner.generate_performance_report(all_results, "api_benchmark_report.md")
 
     print(f"\nAPI benchmarks completed!")
     print(f"Total benchmarks run: {len(all_results)}")
@@ -805,9 +769,7 @@ def run_api_benchmarks():
     if main_results:
         health_check_result = main_results.get("health_check")
         if health_check_result:
-            print(
-                f"Health check avg response time: {health_check_result.mean_time * 1000:.3f} ms"
-            )
+            print(f"Health check avg response time: {health_check_result.mean_time * 1000:.3f} ms")
 
         auth_result = main_results.get("authentication")
         if auth_result:
@@ -815,9 +777,7 @@ def run_api_benchmarks():
 
         submission_result = main_results.get("code_submission")
         if submission_result:
-            print(
-                f"Code submission avg time: {submission_result.mean_time * 1000:.3f} ms"
-            )
+            print(f"Code submission avg time: {submission_result.mean_time * 1000:.3f} ms")
 
     return all_results
 
@@ -843,13 +803,9 @@ def run_api_stress_test():
                     operation_type = random.choice(["health", "courses", "submit"])
 
                     if operation_type == "health":
-                        response = await benchmarks.mock_server.handle_request(
-                            "GET", "/health"
-                        )
+                        response = await benchmarks.mock_server.handle_request("GET", "/health")
                     elif operation_type == "courses":
-                        response = await benchmarks.mock_server.handle_request(
-                            "GET", "/courses/"
-                        )
+                        response = await benchmarks.mock_server.handle_request("GET", "/courses/")
                     else:  # submit
                         response = await benchmarks.mock_server.handle_request(
                             "POST",

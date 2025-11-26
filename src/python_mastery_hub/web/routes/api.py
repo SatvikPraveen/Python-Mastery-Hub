@@ -291,17 +291,13 @@ def before_api_request():
     Process requests before they reach API endpoints
     """
     # Log API requests
-    logger.info(
-        f"API Request: {request.method} {request.path} from {request.remote_addr}"
-    )
+    logger.info(f"API Request: {request.method} {request.path} from {request.remote_addr}")
 
     # Set CORS headers for API requests
     if request.method == "OPTIONS":
         response = jsonify({})
         response.headers["Access-Control-Allow-Origin"] = "*"
-        response.headers[
-            "Access-Control-Allow-Methods"
-        ] = "GET, POST, PUT, DELETE, OPTIONS"
+        response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
         response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
         return response
 

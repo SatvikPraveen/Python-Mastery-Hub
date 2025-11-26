@@ -110,9 +110,7 @@ def get_learning_path(difficulty: str = "all") -> List[str]:
     }
 
     if difficulty not in paths:
-        raise ValueError(
-            f"Invalid difficulty: {difficulty}. Options: {list(paths.keys())}"
-        )
+        raise ValueError(f"Invalid difficulty: {difficulty}. Options: {list(paths.keys())}")
 
     return paths[difficulty]
 

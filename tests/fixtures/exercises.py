@@ -779,17 +779,11 @@ def create_test_exercise(difficulty="beginner", **kwargs):
         "topic_id": "topic_basics",
         "difficulty": difficulty,
         "order_index": 1,
-        "points": {"beginner": 10, "intermediate": 20, "advanced": 40}.get(
-            difficulty, 10
-        ),
-        "estimated_time": {"beginner": 5, "intermediate": 10, "advanced": 20}.get(
-            difficulty, 5
-        ),
+        "points": {"beginner": 10, "intermediate": 20, "advanced": 40}.get(difficulty, 10),
+        "estimated_time": {"beginner": 5, "intermediate": 10, "advanced": 20}.get(difficulty, 5),
         "template_code": "# Your code here\n",
         "solution_code": "pass",
-        "test_cases": [
-            {"description": "Basic test", "test_code": "assert True", "points": 10}
-        ],
+        "test_cases": [{"description": "Basic test", "test_code": "assert True", "points": 10}],
         "hints": [],
         "tags": [difficulty, "test"],
         "is_active": True,

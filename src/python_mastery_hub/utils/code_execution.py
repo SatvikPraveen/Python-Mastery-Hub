@@ -261,9 +261,7 @@ class SafeCodeExecutor:
         self.max_output_length = max_output_length
         self.security_checker = SecurityChecker(strict_mode)
 
-    def execute(
-        self, code: str, context: Optional[Dict[str, Any]] = None
-    ) -> ExecutionResult:
+    def execute(self, code: str, context: Optional[Dict[str, Any]] = None) -> ExecutionResult:
         """
         Execute Python code safely.
 
@@ -438,9 +436,7 @@ class SafeCodeExecutor:
 
                 # Truncate output if too long
                 if len(output) > self.max_output_length:
-                    output = (
-                        output[: self.max_output_length] + "\n... (output truncated)"
-                    )
+                    output = output[: self.max_output_length] + "\n... (output truncated)"
 
                 result_queue.put(
                     ExecutionResult(
@@ -620,9 +616,7 @@ class TestRunner:
                 results["errors"] += 1
 
         results["success_rate"] = (
-            results["passed"] / results["total_tests"]
-            if results["total_tests"] > 0
-            else 0
+            results["passed"] / results["total_tests"] if results["total_tests"] > 0 else 0
         )
 
         return results
@@ -667,9 +661,7 @@ class TestRunner:
                         test_result["status"] = "passed"
                     else:
                         test_result["status"] = "failed"
-                        test_result[
-                            "error"
-                        ] = f"Expected {expected}, got {result.return_value}"
+                        test_result["error"] = f"Expected {expected}, got {result.return_value}"
                 else:
                     # No expected value, just check if it ran without error
                     test_result["status"] = "passed"
@@ -683,9 +675,7 @@ class TestRunner:
     def _compare_results(self, actual: Any, expected: Any) -> bool:
         """Compare actual and expected results."""
         try:
-            if isinstance(expected, (list, tuple)) and isinstance(
-                actual, (list, tuple)
-            ):
+            if isinstance(expected, (list, tuple)) and isinstance(actual, (list, tuple)):
                 return list(actual) == list(expected)
             elif isinstance(expected, dict) and isinstance(actual, dict):
                 return actual == expected

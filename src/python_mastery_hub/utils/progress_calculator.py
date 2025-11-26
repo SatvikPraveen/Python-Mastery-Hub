@@ -194,9 +194,7 @@ class ProgressCalculator:
                 start_date,
                 last_completion,
             ) = row
-            percentage = (
-                (completed_topics / total_topics * 100) if total_topics > 0 else 0
-            )
+            percentage = (completed_topics / total_topics * 100) if total_topics > 0 else 0
 
             return {
                 "module_id": module_id,
@@ -295,9 +293,7 @@ class ProgressCalculator:
         if self.achievement_engine:
             self._check_achievements(module_id, topic_name, is_first_topic)
 
-    def get_topic_completion_date(
-        self, module_id: str, topic_name: str
-    ) -> Optional[str]:
+    def get_topic_completion_date(self, module_id: str, topic_name: str) -> Optional[str]:
         """Get the completion date for a topic."""
         with sqlite3.connect(self.db_path) as conn:
             cursor = conn.cursor()
@@ -469,9 +465,7 @@ class ProgressCalculator:
             """
             )
 
-            activity = {
-                day: 0 for day in ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
-            }
+            activity = {day: 0 for day in ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]}
             for row in cursor.fetchall():
                 if row[0]:  # day_of_week is not None
                     activity[row[0]] = row[1]
@@ -530,12 +524,8 @@ class ProgressCalculator:
         with sqlite3.connect(self.db_path) as conn:
             cursor = conn.cursor()
 
-            cursor.execute(
-                "DELETE FROM topic_progress WHERE module_id = ?", (module_id,)
-            )
-            cursor.execute(
-                "DELETE FROM learning_sessions WHERE module_id = ?", (module_id,)
-            )
+            cursor.execute("DELETE FROM topic_progress WHERE module_id = ?", (module_id,))
+            cursor.execute("DELETE FROM learning_sessions WHERE module_id = ?", (module_id,))
 
             conn.commit()
 

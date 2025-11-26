@@ -65,9 +65,7 @@ class SafeFileHandler:
         if self.backup_dir:
             self.backup_dir.mkdir(parents=True, exist_ok=True)
 
-    def read_text_file(
-        self, file_path: Union[str, Path], encoding: str = "utf-8"
-    ) -> str:
+    def read_text_file(self, file_path: Union[str, Path], encoding: str = "utf-8") -> str:
         """
         Safely read text file with error handling.
 
@@ -218,9 +216,7 @@ class SafeFileHandler:
 
     def _atomic_write_binary(self, path: Path, content: bytes) -> None:
         """Perform atomic binary file write."""
-        with tempfile.NamedTemporaryFile(
-            mode="wb", dir=path.parent, delete=False
-        ) as temp_file:
+        with tempfile.NamedTemporaryFile(mode="wb", dir=path.parent, delete=False) as temp_file:
             temp_path = Path(temp_file.name)
             try:
                 temp_file.write(content)
@@ -254,9 +250,7 @@ class SafeFileHandler:
             logger.warning(f"Failed to create backup of {file_path}: {e}")
             return file_path
 
-    def delete_file(
-        self, file_path: Union[str, Path], create_backup: bool = True
-    ) -> None:
+    def delete_file(self, file_path: Union[str, Path], create_backup: bool = True) -> None:
         """
         Safely delete file with optional backup.
 
@@ -366,9 +360,7 @@ class JSONFileHandler(SafeFileHandler):
             create_backup: Whether to create backup
         """
         try:
-            content = json.dumps(
-                data, indent=indent, sort_keys=sort_keys, ensure_ascii=False
-            )
+            content = json.dumps(data, indent=indent, sort_keys=sort_keys, ensure_ascii=False)
             self.write_text_file(file_path, content, create_backup=create_backup)
 
         except TypeError as e:
@@ -681,9 +673,7 @@ class DirectoryHandler:
                     should_remove = False
 
                     if older_than_days is not None:
-                        file_age_days = (current_time - file_path.stat().st_mtime) / (
-                            24 * 3600
-                        )
+                        file_age_days = (current_time - file_path.stat().st_mtime) / (24 * 3600)
                         should_remove = file_age_days > older_than_days
                     else:
                         should_remove = True
@@ -840,9 +830,7 @@ def temporary_file(suffix: str = "", prefix: str = "tmp", dir: Optional[Path] = 
     """
     temp_file = None
     try:
-        temp_file = tempfile.NamedTemporaryFile(
-            suffix=suffix, prefix=prefix, dir=dir, delete=False
-        )
+        temp_file = tempfile.NamedTemporaryFile(suffix=suffix, prefix=prefix, dir=dir, delete=False)
         temp_path = Path(temp_file.name)
         temp_file.close()
 
@@ -857,9 +845,7 @@ def temporary_file(suffix: str = "", prefix: str = "tmp", dir: Optional[Path] = 
 
 
 @contextmanager
-def temporary_directory(
-    suffix: str = "", prefix: str = "tmp", dir: Optional[Path] = None
-):
+def temporary_directory(suffix: str = "", prefix: str = "tmp", dir: Optional[Path] = None):
     """
     Context manager for temporary directories.
 
@@ -883,9 +869,7 @@ def temporary_directory(
             try:
                 shutil.rmtree(temp_path)
             except Exception as e:
-                logger.warning(
-                    f"Failed to cleanup temporary directory {temp_path}: {e}"
-                )
+                logger.warning(f"Failed to cleanup temporary directory {temp_path}: {e}")
 
 
 # Global instances for convenience
@@ -902,9 +886,7 @@ def read_text(file_path: Union[str, Path], encoding: str = "utf-8") -> str:
     return safe_file_handler.read_text_file(file_path, encoding)
 
 
-def write_text(
-    file_path: Union[str, Path], content: str, encoding: str = "utf-8"
-) -> None:
+def write_text(file_path: Union[str, Path], content: str, encoding: str = "utf-8") -> None:
     """Write text file."""
     safe_file_handler.write_text_file(file_path, content, encoding)
 
@@ -929,9 +911,7 @@ def write_yaml(file_path: Union[str, Path], data: Any) -> None:
     yaml_handler.write_yaml(file_path, data)
 
 
-def read_csv(
-    file_path: Union[str, Path], has_header: bool = True
-) -> List[Dict[str, str]]:
+def read_csv(file_path: Union[str, Path], has_header: bool = True) -> List[Dict[str, str]]:
     """Read CSV file."""
     return csv_handler.read_csv(file_path, has_header)
 

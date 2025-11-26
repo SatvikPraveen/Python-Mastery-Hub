@@ -237,9 +237,7 @@ class SessionManager:
                     session.close()
                     session = self.create_session()
                 else:
-                    logger.error(
-                        f"Database operation failed after {max_retries + 1} attempts"
-                    )
+                    logger.error(f"Database operation failed after {max_retries + 1} attempts")
                     raise last_exception
 
         raise last_exception
