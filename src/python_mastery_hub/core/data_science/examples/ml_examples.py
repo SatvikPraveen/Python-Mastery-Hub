@@ -3,7 +3,7 @@ Machine learning examples for the Data Science module.
 Covers classification, regression, clustering, and model evaluation.
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 class MLExamples:

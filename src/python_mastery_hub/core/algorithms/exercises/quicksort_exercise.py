@@ -4,7 +4,8 @@ QuickSort Exercise - Comprehensive implementation with multiple strategies and a
 
 import random
 import time
-from typing import List, Tuple, Callable
+from typing import Callable, List, Tuple
+
 from ..base import AlgorithmDemo
 
 

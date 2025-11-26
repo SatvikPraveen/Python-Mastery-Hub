@@ -5,10 +5,7 @@ Contains all command implementations for the Python Mastery Hub CLI.
 Each command module provides specific functionality with argument parsing and execution.
 """
 
-from . import learn
-from . import progress
-from . import test
-from . import demo
+from . import demo, learn, progress, test
 
 # Export command modules
 __all__ = [

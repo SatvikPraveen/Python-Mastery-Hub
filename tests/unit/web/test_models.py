@@ -4,11 +4,12 @@ Test module for web application models.
 Tests data models, validation, serialization, and database interactions.
 """
 
-import pytest
-from datetime import datetime, timedelta
-from unittest.mock import Mock, patch
-from typing import Dict, List, Optional
 import json
+from datetime import datetime, timedelta
+from typing import Dict, List, Optional
+from unittest.mock import Mock, patch
+
+import pytest
 
 
 class MockUser:

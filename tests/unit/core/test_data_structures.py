@@ -1,24 +1,25 @@
 # tests/unit/core/test_data_structures.py
 # Unit tests for data structures concepts and exercises
 
-import pytest
-from unittest.mock import Mock, AsyncMock
-from collections import deque, defaultdict, Counter, OrderedDict
-from typing import List, Dict, Set, Tuple, Optional, Any
-import heapq
 import bisect
+import heapq
+from collections import Counter, OrderedDict, defaultdict, deque
+from typing import Any, Dict, List, Optional, Set, Tuple
+from unittest.mock import AsyncMock, Mock
+
+import pytest
 
 # Import modules under test (adjust based on your actual structure)
 try:
     from src.core.data_structures import (
-        ListExercise,
         DictExercise,
-        SetExercise,
-        TupleExercise,
-        StackExercise,
-        QueueExercise,
-        TreeExercise,
         GraphExercise,
+        ListExercise,
+        QueueExercise,
+        SetExercise,
+        StackExercise,
+        TreeExercise,
+        TupleExercise,
     )
     from src.core.evaluators import DataStructureEvaluator
 except ImportError:

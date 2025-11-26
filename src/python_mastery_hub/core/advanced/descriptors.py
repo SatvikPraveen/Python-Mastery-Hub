@@ -2,7 +2,8 @@
 Descriptor examples and demonstrations for the Advanced Python module.
 """
 
-from typing import Dict, List, Any, Type, Optional
+from typing import Any, Dict, List, Optional, Type
+
 from .base import TopicDemo
 
 

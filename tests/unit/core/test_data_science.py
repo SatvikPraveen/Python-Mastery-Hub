@@ -1,18 +1,19 @@
 # tests/unit/core/test_data_science.py
 # Unit tests for data science concepts and exercises
 
-import pytest
+import csv
+import json
+import os
+import tempfile
+import warnings
+from datetime import datetime, timedelta
+from io import StringIO
+from unittest.mock import MagicMock, Mock, patch
+
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-from unittest.mock import Mock, patch, MagicMock
-from io import StringIO
-import tempfile
-import os
-import json
-import csv
-from datetime import datetime, timedelta
-import warnings
+import pytest
 
 # Suppress warnings for cleaner test output
 warnings.filterwarnings("ignore")
@@ -20,11 +21,11 @@ warnings.filterwarnings("ignore")
 # Import modules under test (adjust based on your actual structure)
 try:
     from src.core.data_science import (
-        NumpyExercise,
-        PandasExercise,
-        MatplotlibExercise,
         DataAnalysisExercise,
         MachineLearningExercise,
+        MatplotlibExercise,
+        NumpyExercise,
+        PandasExercise,
         StatisticsExercise,
     )
     from src.core.evaluators import DataScienceEvaluator

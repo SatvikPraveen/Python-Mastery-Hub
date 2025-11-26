@@ -4,10 +4,11 @@ Configuration management for Python Mastery Hub.
 Handles environment-specific settings and application configuration.
 """
 
+import os
 from functools import lru_cache
 from typing import Literal
+
 from pydantic_settings import BaseSettings
-import os
 
 
 class Settings(BaseSettings):

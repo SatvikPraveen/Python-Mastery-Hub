@@ -7,16 +7,17 @@ Handles API endpoints for code exercises, submissions, evaluation,
 and interactive coding challenges with real-time feedback.
 """
 
-from typing import List, Dict, Any, Optional
 from datetime import datetime
+from typing import Any, Dict, List, Optional
+
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel, validator
 
+from python_mastery_hub.utils.logging_config import get_logger
 from python_mastery_hub.web.middleware.auth import get_current_user
 from python_mastery_hub.web.models.user import User
 from python_mastery_hub.web.services.code_executor import CodeExecutor
 from python_mastery_hub.web.services.progress_service import ProgressService
-from python_mastery_hub.utils.logging_config import get_logger
 
 logger = get_logger(__name__)
 router = APIRouter()

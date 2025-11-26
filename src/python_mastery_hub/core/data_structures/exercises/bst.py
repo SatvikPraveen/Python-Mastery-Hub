@@ -2,7 +2,7 @@
 Binary Search Tree implementation exercise for the Data Structures module.
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 class BSTExercise:

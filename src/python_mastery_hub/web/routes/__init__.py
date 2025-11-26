@@ -6,12 +6,13 @@ Centralizes all route blueprints for the Python Mastery Hub web application
 """
 
 from flask import Blueprint
+
+from .admin import admin_bp
+from .api import api_bp
 from .auth import auth_bp
 from .dashboard import dashboard_bp
 from .exercises import exercises_bp
 from .modules import modules_bp
-from .admin import admin_bp
-from .api import api_bp
 
 
 def register_blueprints(app):

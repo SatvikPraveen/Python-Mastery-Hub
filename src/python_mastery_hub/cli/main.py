@@ -5,14 +5,14 @@ Provides a comprehensive command-line interface for exploring Python concepts,
 running examples, and practicing with interactive exercises.
 """
 
-import typer
-from typing import Optional
-from rich.console import Console
-from rich.table import Table
-
 # Add src to path for imports
 import sys
 from pathlib import Path
+from typing import Optional
+
+import typer
+from rich.console import Console
+from rich.table import Table
 
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 

@@ -2,7 +2,8 @@
 Base classes and utilities for the Algorithms module.
 """
 
-from typing import Dict, List, Any
+from typing import Any, Dict, List
+
 from python_mastery_hub.core import LearningModule
 
 
@@ -19,11 +20,11 @@ class Algorithms(LearningModule):
     def _setup_module(self) -> None:
         """Setup examples and exercises for algorithms."""
         # Import demonstrations lazily to avoid circular imports
-        from .sorting import SortingAlgorithms
-        from .searching import SearchingAlgorithms
+        from .algorithmic_patterns import AlgorithmicPatterns
         from .dynamic_programming import DynamicProgramming
         from .graph_algorithms import GraphAlgorithms
-        from .algorithmic_patterns import AlgorithmicPatterns
+        from .searching import SearchingAlgorithms
+        from .sorting import SortingAlgorithms
 
         # Initialize demonstrations
         self.sorting_demo = SortingAlgorithms()

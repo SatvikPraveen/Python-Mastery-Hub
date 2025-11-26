@@ -1,19 +1,20 @@
 # tests/unit/core/test_basics.py
 # Unit tests for basic Python concepts and exercises
 
-import pytest
 import asyncio
-from unittest.mock import Mock, AsyncMock, patch
 from datetime import datetime, timedelta
+from unittest.mock import AsyncMock, Mock, patch
+
+import pytest
 
 # Import modules under test (adjust based on your actual structure)
 try:
     from src.core.basics import (
-        VariableExercise,
+        BasicIOExercise,
         DataTypeExercise,
         OperatorExercise,
-        BasicIOExercise,
         StringExercise,
+        VariableExercise,
     )
     from src.core.evaluators import BasicPythonEvaluator
     from src.models.exercise import Exercise

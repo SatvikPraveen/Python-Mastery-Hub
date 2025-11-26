@@ -3,12 +3,13 @@
 """Database session management for Python Mastery Hub."""
 
 import logging
-from typing import Optional, Generator, AsyncGenerator, Any, Dict
-from contextlib import contextmanager, asynccontextmanager
-from sqlalchemy.orm import Session
-from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.exc import SQLAlchemyError, DisconnectionError
+from contextlib import asynccontextmanager, contextmanager
+from typing import Any, AsyncGenerator, Dict, Generator, Optional
+
 from sqlalchemy import event
+from sqlalchemy.exc import DisconnectionError, SQLAlchemyError
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import Session
 
 from .connection import get_database_manager
 

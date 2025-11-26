@@ -3,7 +3,7 @@ Shape Calculator exercise for the OOP module.
 Create a polymorphic shape system with area and perimeter calculations.
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 def get_shape_calculator_exercise() -> Dict[str, Any]:

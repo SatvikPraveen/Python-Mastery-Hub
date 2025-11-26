@@ -3,7 +3,7 @@ Custom data structures examples for the Data Structures module.
 Covers linked lists, stacks, queues, and other fundamental structures.
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 class CustomExamples:

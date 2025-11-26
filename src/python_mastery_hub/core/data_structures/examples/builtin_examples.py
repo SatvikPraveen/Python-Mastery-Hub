@@ -3,7 +3,7 @@ Built-in collections examples for the Data Structures module.
 Covers lists, dictionaries, sets, and tuples.
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 class BuiltinExamples:

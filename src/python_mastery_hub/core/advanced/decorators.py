@@ -3,10 +3,11 @@ Decorator examples and demonstrations for the Advanced Python module.
 """
 
 import functools
-import time
 import inspect
 import threading
-from typing import Dict, List, Any, Callable, Optional
+import time
+from typing import Any, Callable, Dict, List, Optional
+
 from .base import TopicDemo
 
 

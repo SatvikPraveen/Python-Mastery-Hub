@@ -5,9 +5,7 @@ Interactive components for the Python Mastery Hub CLI including
 REPL, exercise runners, and interactive quizzes.
 """
 
-from . import repl
-from . import exercises
-from . import quiz
+from . import exercises, quiz, repl
 
 # Export interactive modules
 __all__ = [

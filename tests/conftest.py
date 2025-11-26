@@ -1,24 +1,25 @@
 # tests/conftest.py
 # Pytest configuration file with shared fixtures and settings
 
-import pytest
 import asyncio
-import tempfile
 import shutil
+import tempfile
 from pathlib import Path
-from unittest.mock import Mock, AsyncMock
+from unittest.mock import AsyncMock, Mock
+
+import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import StaticPool
 
 # Import your application modules (adjust imports based on your actual structure)
 try:
-    from src.database.models import Base
-    from src.database.connection import get_database_session
-    from src.web.app import create_app
-    from src.core.user_manager import UserManager
     from src.core.exercise_engine import ExerciseEngine
     from src.core.progress_tracker import ProgressTracker
+    from src.core.user_manager import UserManager
+    from src.database.connection import get_database_session
+    from src.database.models import Base
+    from src.web.app import create_app
 except ImportError:
     # Fallback for when modules don't exist yet
     Base = None
@@ -384,8 +385,9 @@ def assert_response_time(func, max_time=1.0):
 
 def assert_memory_usage(func, max_memory_mb=100):
     """Assert that a function doesn't exceed memory usage."""
-    import psutil
     import os
+
+    import psutil
 
     process = psutil.Process(os.getpid())
     initial_memory = process.memory_info().rss / 1024 / 1024  # MB

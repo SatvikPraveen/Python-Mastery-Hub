@@ -3,7 +3,7 @@ Inheritance examples for the OOP module.
 Demonstrates single inheritance, multiple inheritance, and method resolution order.
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 def get_inheritance_examples() -> Dict[str, Any]:

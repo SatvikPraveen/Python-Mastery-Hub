@@ -2,7 +2,7 @@
 Data Types Concepts - Numbers, strings, booleans, and collections.
 """
 
-from typing import Dict, Any, List
+from typing import Any, Dict, List
 
 
 class DataTypesConcepts:

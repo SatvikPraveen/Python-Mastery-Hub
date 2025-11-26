@@ -5,26 +5,27 @@ Admin Panel Routes
 Handles administrative functions including user management, exercise management, and analytics
 """
 
-from flask import (
-    Blueprint,
-    render_template,
-    request,
-    jsonify,
-    session,
-    flash,
-    redirect,
-    url_for,
-    abort,
-)
-from functools import wraps
-from datetime import datetime, timedelta
-import logging
 import csv
 import io
+import logging
+from datetime import datetime, timedelta
+from functools import wraps
 
-from ..models.user import User
+from flask import (
+    Blueprint,
+    abort,
+    flash,
+    jsonify,
+    redirect,
+    render_template,
+    request,
+    session,
+    url_for,
+)
+
 from ..models.exercise import Exercise, ExerciseSubmission
 from ..models.progress import UserProgress
+from ..models.user import User
 from ..services.auth_service import AuthService
 from ..services.progress_service import ProgressService
 from .auth import login_required

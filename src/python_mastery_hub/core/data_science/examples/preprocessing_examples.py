@@ -3,7 +3,7 @@ Data preprocessing examples for the Data Science module.
 Covers data cleaning, feature scaling, encoding, and dimensionality reduction.
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 class PreprocessingExamples:

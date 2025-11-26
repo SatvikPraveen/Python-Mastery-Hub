@@ -8,6 +8,7 @@ allowing controlled access from different domains and origins.
 """
 
 from typing import List, Union
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.trustedhost import TrustedHostMiddleware

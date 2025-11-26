@@ -3,7 +3,7 @@ Advanced unittest exercise for the Testing module.
 Build a comprehensive test suite for a book library system.
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 def get_unittest_exercise() -> Dict[str, Any]:

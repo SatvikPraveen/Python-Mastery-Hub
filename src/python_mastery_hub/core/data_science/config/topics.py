@@ -2,7 +2,7 @@
 Topic configuration and metadata for the Data Science module.
 """
 
-from typing import Dict, List, Any
+from typing import Any, Dict, List
 
 TOPICS_CONFIG: Dict[str, Dict[str, Any]] = {
     "numpy_fundamentals": {

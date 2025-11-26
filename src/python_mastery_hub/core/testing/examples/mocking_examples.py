@@ -3,7 +3,7 @@ Mocking examples for the Testing module.
 Comprehensive examples of unittest.mock and testing with mocks.
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 def get_mocking_examples() -> Dict[str, Any]:

@@ -3,7 +3,7 @@ Advanced collections examples for the Data Structures module.
 Covers collections module specialized containers.
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 class AdvancedExamples:

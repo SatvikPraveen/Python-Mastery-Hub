@@ -5,25 +5,26 @@ Exercise Routes
 Handles exercise listing, detail view, submission, and results
 """
 
-from flask import (
-    Blueprint,
-    render_template,
-    request,
-    jsonify,
-    session,
-    flash,
-    redirect,
-    url_for,
-    abort,
-)
-from datetime import datetime
 import json
 import logging
+from datetime import datetime
+
+from flask import (
+    Blueprint,
+    abort,
+    flash,
+    jsonify,
+    redirect,
+    render_template,
+    request,
+    session,
+    url_for,
+)
 
 from ..models.exercise import Exercise, ExerciseSubmission
+from ..services.auth_service import AuthService
 from ..services.code_executor import CodeExecutor
 from ..services.progress_service import ProgressService
-from ..services.auth_service import AuthService
 from .auth import login_required
 
 # Create Blueprint

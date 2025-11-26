@@ -5,10 +5,11 @@ Provides comprehensive input validation and sanitization functions
 for CLI applications with user-friendly error messages and suggestions.
 """
 
-import re
 import ast
-from typing import Any, List, Optional, Union, Callable, Dict, Tuple
+import re
 from pathlib import Path
+from typing import Any, Callable, Dict, List, Optional, Tuple, Union
+
 import email_validator
 
 from .colors import colors

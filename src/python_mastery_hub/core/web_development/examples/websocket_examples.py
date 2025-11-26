@@ -4,7 +4,7 @@ WebSocket Examples for Web Development Learning.
 Real-time communication with WebSocket implementation.
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 def get_websocket_examples() -> Dict[str, Any]:

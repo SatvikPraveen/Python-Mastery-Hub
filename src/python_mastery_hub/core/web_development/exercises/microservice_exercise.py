@@ -5,7 +5,7 @@ Design and implement a microservices system with FastAPI, service communication,
 distributed data management, and resilience patterns.
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 def get_exercise() -> Dict[str, Any]:

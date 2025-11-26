@@ -7,27 +7,27 @@ Handles user progress tracking, analytics, achievements, and learning
 path recommendations across the platform.
 """
 
-from typing import Dict, List, Optional, Any, Tuple
-from datetime import datetime, timedelta
-from collections import defaultdict
 import json
+from collections import defaultdict
+from datetime import datetime, timedelta
+from typing import Any, Dict, List, Optional, Tuple
 
+from python_mastery_hub.core.config import get_settings
+from python_mastery_hub.utils.logging_config import get_logger
 from python_mastery_hub.web.models.progress import (
-    UserProgress,
-    ModuleProgress,
-    TopicProgress,
     Achievement,
-    ProgressStatus,
-    LearningStreak,
-    StudySession,
-    ProgressUpdate,
-    ProgressSummary,
     LeaderboardEntry,
+    LearningStreak,
+    ModuleProgress,
     ProgressAnalytics,
+    ProgressStatus,
+    ProgressSummary,
+    ProgressUpdate,
+    StudySession,
+    TopicProgress,
+    UserProgress,
 )
 from python_mastery_hub.web.models.user import User
-from python_mastery_hub.utils.logging_config import get_logger
-from python_mastery_hub.core.config import get_settings
 
 logger = get_logger(__name__)
 settings = get_settings()

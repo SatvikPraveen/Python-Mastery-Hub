@@ -5,9 +5,9 @@ This module handles the pedagogical aspects of the exercise system, including
 skill progression tracking, prerequisite validation, and adaptive learning paths.
 """
 
-from typing import Dict, List, Any, Optional, Set
-from enum import Enum
 import time
+from enum import Enum
+from typing import Any, Dict, List, Optional, Set
 
 
 class SkillLevel(Enum):

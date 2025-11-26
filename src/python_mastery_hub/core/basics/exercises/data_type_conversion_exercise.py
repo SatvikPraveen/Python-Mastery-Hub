@@ -2,7 +2,8 @@
 Data Type Conversion Exercise - Practice converting between different Python data types.
 """
 
-from typing import Dict, Any, List, Union
+from typing import Any, Dict, List, Union
+
 from ..base import CodeValidator, ExampleRunner
 
 

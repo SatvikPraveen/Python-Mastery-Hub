@@ -6,12 +6,12 @@ Students will test event-driven systems, subscription mechanisms, and notificati
 Focus on testing behavior, state changes, and interaction between components.
 """
 
-import unittest
-from unittest.mock import Mock, MagicMock, patch, call
-from abc import ABC, abstractmethod
-from typing import List, Dict, Any, Optional
-from enum import Enum
 import time
+import unittest
+from abc import ABC, abstractmethod
+from enum import Enum
+from typing import Any, Dict, List, Optional
+from unittest.mock import MagicMock, Mock, call, patch
 
 
 class EventType(Enum):

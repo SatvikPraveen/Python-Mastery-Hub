@@ -1,21 +1,22 @@
 # tests/unit/core/test_algorithms.py
 # Unit tests for algorithms concepts and exercises
 
-import pytest
-import time
 import random
-from unittest.mock import Mock, AsyncMock
-from typing import List, Dict, Set, Tuple, Optional, Any
+import time
+from typing import Any, Dict, List, Optional, Set, Tuple
+from unittest.mock import AsyncMock, Mock
+
+import pytest
 
 # Import modules under test (adjust based on your actual structure)
 try:
     from src.core.algorithms import (
-        SortingExercise,
-        SearchingExercise,
-        RecursionExercise,
         DynamicProgrammingExercise,
         GraphAlgorithmExercise,
         GreedyAlgorithmExercise,
+        RecursionExercise,
+        SearchingExercise,
+        SortingExercise,
     )
     from src.core.evaluators import AlgorithmEvaluator
 except ImportError:

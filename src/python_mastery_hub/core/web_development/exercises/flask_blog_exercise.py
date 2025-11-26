@@ -5,7 +5,7 @@ Build a complete blog application with Flask, SQLAlchemy, templates,
 and user authentication using traditional web development patterns.
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 def get_exercise() -> Dict[str, Any]:

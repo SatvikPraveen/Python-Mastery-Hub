@@ -4,25 +4,27 @@ Stress testing for the Python learning platform.
 Tests system behavior beyond normal operating conditions to identify
 breaking points, resource leaks, and failure modes.
 """
-import pytest
 import asyncio
-import time
-import statistics
 import random
+import statistics
+import time
+
+import pytest
 
 pytestmark = pytest.mark.performance
-import psutil
 import gc
+import hashlib
+import json
+import queue
 import threading
 import weakref
-from datetime import datetime, timedelta
-from unittest.mock import Mock, patch, AsyncMock
-from typing import Dict, List, Any, Optional, Tuple, Set
-from dataclasses import dataclass, field
 from concurrent.futures import ThreadPoolExecutor, as_completed
-import queue
-import json
-import hashlib
+from dataclasses import dataclass, field
+from datetime import datetime, timedelta
+from typing import Any, Dict, List, Optional, Set, Tuple
+from unittest.mock import AsyncMock, Mock, patch
+
+import psutil
 
 
 @dataclass

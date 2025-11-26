@@ -7,14 +7,15 @@ Manages security settings, encryption keys, password policies,
 session management, and security-related configurations.
 """
 
-import secrets
+import base64
 import hashlib
-from typing import Dict, List, Optional, Any
+import secrets
 from datetime import timedelta
+from typing import Any, Dict, List, Optional
+
 from cryptography.fernet import Fernet
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
-import base64
 
 from python_mastery_hub.core.config import get_settings
 from python_mastery_hub.utils.logging_config import get_logger

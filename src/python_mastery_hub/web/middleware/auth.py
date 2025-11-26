@@ -7,17 +7,18 @@ Handles JWT token validation, user authentication, and authorization
 for protected routes.
 """
 
-from typing import Optional
 from datetime import datetime, timedelta
-from fastapi import Depends, HTTPException, status, Request
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from typing import Optional
+
 import jwt
+from fastapi import Depends, HTTPException, Request, status
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from passlib.context import CryptContext
 
-from python_mastery_hub.web.models.user import User, UserRole
-from python_mastery_hub.web.models.session import UserSession, SessionStatus
-from python_mastery_hub.utils.logging_config import get_logger
 from python_mastery_hub.core.config import get_settings
+from python_mastery_hub.utils.logging_config import get_logger
+from python_mastery_hub.web.models.session import SessionStatus, UserSession
+from python_mastery_hub.web.models.user import User, UserRole
 
 logger = get_logger(__name__)
 settings = get_settings()

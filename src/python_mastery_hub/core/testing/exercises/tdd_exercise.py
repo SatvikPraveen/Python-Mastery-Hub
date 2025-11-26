@@ -3,7 +3,7 @@ TDD (Test-Driven Development) exercise for the Testing module.
 Build a calculator using the Red-Green-Refactor cycle.
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 def get_tdd_exercise() -> Dict[str, Any]:

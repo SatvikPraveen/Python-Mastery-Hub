@@ -3,7 +3,7 @@ Pandas examples for the Data Science module.
 Covers DataFrame operations, data manipulation, and time series analysis.
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 class PandasExamples:

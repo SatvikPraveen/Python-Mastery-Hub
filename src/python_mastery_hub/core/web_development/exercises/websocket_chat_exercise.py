@@ -5,7 +5,7 @@ Build a real-time chat application using WebSockets with rooms, message history,
 and user presence management.
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 def get_exercise() -> Dict[str, Any]:

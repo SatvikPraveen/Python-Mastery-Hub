@@ -4,8 +4,9 @@ Basic async/await concepts for the async programming module.
 
 import asyncio
 import time
-from typing import Dict, List, Any
-from .base import AsyncDemo, TimingContextManager, AsyncTimingContextManager
+from typing import Any, Dict, List
+
+from .base import AsyncDemo, AsyncTimingContextManager, TimingContextManager
 
 
 class AsyncBasics(AsyncDemo):

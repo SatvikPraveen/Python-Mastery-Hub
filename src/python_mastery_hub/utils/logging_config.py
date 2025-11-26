@@ -6,15 +6,15 @@ Provides consistent logging configuration across the entire application.
 Supports different log levels, formatters, and output destinations.
 """
 
+import json
 import logging
 import logging.handlers
-import sys
 import os
-from pathlib import Path
-from typing import Optional, Dict, Any
-from datetime import datetime
-import json
+import sys
 import threading
+from datetime import datetime
+from pathlib import Path
+from typing import Any, Dict, Optional
 
 
 class ColoredFormatter(logging.Formatter):

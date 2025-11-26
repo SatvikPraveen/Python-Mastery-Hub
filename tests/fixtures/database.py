@@ -1,18 +1,19 @@
 # tests/fixtures/database.py
 # Database-related test fixtures
 
-import pytest
 import asyncio
+from contextlib import contextmanager
 from datetime import datetime, timedelta
+
+import pytest
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import StaticPool
-from contextlib import contextmanager
 
 # Import your database models (adjust based on your actual structure)
 try:
-    from src.database.models import Base, User, Exercise, UserProgress, Topic, Hint
     from src.database.connection import DatabaseManager
+    from src.database.models import Base, Exercise, Hint, Topic, User, UserProgress
 except ImportError:
     # Mock classes for when actual models don't exist
     class Base:
@@ -100,7 +101,7 @@ def clean_database(db_session):
 @pytest.fixture
 async def async_db_session(test_database):
     """Create an async database session for testing."""
-    from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
+    from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 
     # Create async engine (you might need to adjust the URL format)
     async_engine = create_async_engine("sqlite+aiosqlite:///:memory:", echo=False)
@@ -369,7 +370,7 @@ def database_snapshot(session):
 @pytest.fixture
 def mock_database_manager():
     """Create a mock database manager for unit tests."""
-    from unittest.mock import Mock, AsyncMock
+    from unittest.mock import AsyncMock, Mock
 
     manager = Mock(spec=DatabaseManager)
     manager.get_session = Mock()

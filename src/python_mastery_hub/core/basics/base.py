@@ -2,10 +2,10 @@
 Base utilities and common functionality for the Python Basics module.
 """
 
-from typing import Any, Dict, List, Union, Callable
-import sys
-import inspect
 import ast
+import inspect
+import sys
+from typing import Any, Callable, Dict, List, Union
 
 
 class CodeValidator:
@@ -93,8 +93,8 @@ class ExampleRunner:
 
     def capture_output(self, func: Callable, *args, **kwargs) -> Dict[str, Any]:
         """Capture function output and return value."""
-        import io
         import contextlib
+        import io
 
         # Capture stdout
         stdout_buffer = io.StringIO()

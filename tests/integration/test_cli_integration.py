@@ -4,18 +4,19 @@ Integration tests for CLI functionality.
 Tests complete CLI workflows, command interactions, and system integration.
 """
 
-import pytest
+import json
 import os
 import tempfile
-import json
 import time
 
+import pytest
+
 pytestmark = pytest.mark.integration
-from datetime import datetime
-from unittest.mock import Mock, patch, MagicMock
-from io import StringIO
 import subprocess
 import sys
+from datetime import datetime
+from io import StringIO
+from unittest.mock import MagicMock, Mock, patch
 
 
 class MockCLIApplication:

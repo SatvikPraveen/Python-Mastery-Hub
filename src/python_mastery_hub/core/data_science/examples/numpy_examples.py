@@ -3,7 +3,7 @@ NumPy examples for the Data Science module.
 Covers array operations, mathematical computing, and linear algebra.
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 class NumpyExamples:

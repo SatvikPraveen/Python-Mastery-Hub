@@ -7,8 +7,8 @@ advanced Python concepts through practical, hands-on projects.
 
 from .caching_director import CachingDecoratorExercise
 from .file_pipeline import FilePipelineExercise
-from .transaction_manager import TransactionManagerExercise
 from .orm_metaclass import ORMMetaclassExercise
+from .transaction_manager import TransactionManagerExercise
 
 __all__ = [
     "CachingDecoratorExercise",

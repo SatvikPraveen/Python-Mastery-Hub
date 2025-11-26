@@ -7,37 +7,38 @@ Handles user authentication, registration, password management,
 session management, and security-related operations.
 """
 
-import secrets
 import hashlib
-from typing import Optional, Dict, Any, Tuple
+import secrets
 from datetime import datetime, timedelta
-from email_validator import validate_email, EmailNotValidError
+from typing import Any, Dict, Optional, Tuple
 
-from python_mastery_hub.web.models.user import (
-    User,
-    UserCreate,
-    UserLogin,
-    UserUpdate,
-    PasswordReset,
-    PasswordResetConfirm,
-    UserRole,
-)
-from python_mastery_hub.web.models.session import UserSession, AuthToken, TokenType
+from email_validator import EmailNotValidError, validate_email
+
+from python_mastery_hub.core.config import get_settings
+from python_mastery_hub.utils.logging_config import get_logger
 from python_mastery_hub.web.middleware.auth import (
-    hash_password,
-    verify_password,
     create_access_token,
     create_refresh_token,
+    hash_password,
+    verify_password,
     verify_token,
 )
 from python_mastery_hub.web.middleware.error_handling import (
     AuthenticationException,
-    ValidationException,
     BusinessLogicException,
     ResourceNotFoundException,
+    ValidationException,
 )
-from python_mastery_hub.utils.logging_config import get_logger
-from python_mastery_hub.core.config import get_settings
+from python_mastery_hub.web.models.session import AuthToken, TokenType, UserSession
+from python_mastery_hub.web.models.user import (
+    PasswordReset,
+    PasswordResetConfirm,
+    User,
+    UserCreate,
+    UserLogin,
+    UserRole,
+    UserUpdate,
+)
 
 logger = get_logger(__name__)
 settings = get_settings()

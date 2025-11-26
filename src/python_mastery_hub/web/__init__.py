@@ -5,7 +5,8 @@ FastAPI-based web application providing REST API and web interface
 for the Python learning platform.
 """
 
-from .main import app, create_application as create_app
+from .main import app
+from .main import create_application as create_app
 
 __version__ = "1.0.0"
 __description__ = "Python Mastery Hub Web Application"

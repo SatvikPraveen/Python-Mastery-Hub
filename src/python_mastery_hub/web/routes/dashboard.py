@@ -5,23 +5,24 @@ Dashboard Routes
 Handles dashboard overview, progress tracking, and achievements
 """
 
+import logging
+from datetime import datetime, timedelta
+
 from flask import (
     Blueprint,
+    flash,
+    jsonify,
+    redirect,
     render_template,
     request,
-    jsonify,
     session,
-    flash,
-    redirect,
     url_for,
 )
-from datetime import datetime, timedelta
-import logging
 
-from ..models.user import User
 from ..models.progress import UserProgress
-from ..services.progress_service import ProgressService
+from ..models.user import User
 from ..services.auth_service import AuthService
+from ..services.progress_service import ProgressService
 from .auth import login_required
 
 # Create Blueprint

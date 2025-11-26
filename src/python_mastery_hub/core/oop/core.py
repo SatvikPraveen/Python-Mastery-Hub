@@ -2,19 +2,19 @@
 Core OOP learning module class and main functionality.
 """
 
-from typing import Dict, List, Any
+from typing import Any, Dict, List
+
 from python_mastery_hub.core import LearningModule
 
 from .examples.classes_examples import get_classes_examples
+from .examples.design_patterns_examples import get_design_patterns_examples
+from .examples.encapsulation_examples import get_encapsulation_examples
 from .examples.inheritance_examples import get_inheritance_examples
 from .examples.polymorphism_examples import get_polymorphism_examples
-from .examples.encapsulation_examples import get_encapsulation_examples
-from .examples.design_patterns_examples import get_design_patterns_examples
-
-from .exercises.library_exercise import get_library_exercise
 from .exercises.employee_hierarchy_exercise import get_employee_hierarchy_exercise
-from .exercises.shape_calculator_exercise import get_shape_calculator_exercise
+from .exercises.library_exercise import get_library_exercise
 from .exercises.observer_pattern_exercise import get_observer_pattern_exercise
+from .exercises.shape_calculator_exercise import get_shape_calculator_exercise
 
 
 class OOPConcepts(LearningModule):

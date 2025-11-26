@@ -4,15 +4,16 @@ Integration tests for API functionality.
 Tests complete API workflows, endpoint interactions, and system integration.
 """
 
-import pytest
-import json
 import asyncio
+import json
 import time
 from datetime import datetime, timedelta
 
+import pytest
+
 pytestmark = pytest.mark.integration
-from unittest.mock import Mock, patch, AsyncMock
-from typing import Dict, List, Any
+from typing import Any, Dict, List
+from unittest.mock import AsyncMock, Mock, patch
 
 
 class MockAPIServer:

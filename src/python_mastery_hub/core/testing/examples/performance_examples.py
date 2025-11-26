@@ -3,7 +3,7 @@ Performance testing examples for the Testing module.
 Demonstrates testing code speed, memory usage, and scalability.
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 def get_performance_examples() -> Dict[str, Any]:

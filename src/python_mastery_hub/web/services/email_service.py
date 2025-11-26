@@ -9,20 +9,21 @@ for user communications, verification, and marketing.
 
 import smtplib
 import ssl
-from typing import Dict, List, Optional, Any, Union
 from dataclasses import dataclass
 from datetime import datetime
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
-from email.mime.base import MIMEBase
 from email import encoders
-from pathlib import Path
-import jinja2
+from email.mime.base import MIMEBase
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 from enum import Enum
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Union
 
-from python_mastery_hub.web.models.user import User
-from python_mastery_hub.utils.logging_config import get_logger
+import jinja2
+
 from python_mastery_hub.core.config import get_settings
+from python_mastery_hub.utils.logging_config import get_logger
+from python_mastery_hub.web.models.user import User
 
 logger = get_logger(__name__)
 settings = get_settings()

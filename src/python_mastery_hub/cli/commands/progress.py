@@ -8,13 +8,13 @@ Provides detailed analytics and achievement tracking.
 import argparse
 import json
 from datetime import datetime, timedelta
-from typing import Dict, List, Any, Optional
 from pathlib import Path
+from typing import Any, Dict, List, Optional
 
 from python_mastery_hub.cli.utils import colors, progress_bar
-from python_mastery_hub.utils.progress_calculator import ProgressCalculator
 from python_mastery_hub.utils.achievement_engine import AchievementEngine
 from python_mastery_hub.utils.logging_config import get_logger
+from python_mastery_hub.utils.progress_calculator import ProgressCalculator
 
 logger = get_logger(__name__)
 

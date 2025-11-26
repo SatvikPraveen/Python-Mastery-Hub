@@ -6,8 +6,8 @@ from scratch using the Red-Green-Refactor cycle. Students will write
 failing tests first, then implement minimal code to pass.
 """
 
-import unittest
 import math
+import unittest
 from abc import ABC, abstractmethod
 from typing import Union
 

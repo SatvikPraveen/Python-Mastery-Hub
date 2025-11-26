@@ -3,10 +3,11 @@ Multiprocessing concepts for the async programming module.
 """
 
 import multiprocessing as mp
-import time
 import os
-from typing import Dict, List, Any, Optional
+import time
 from concurrent.futures import ProcessPoolExecutor
+from typing import Any, Dict, List, Optional
+
 from .base import AsyncDemo, simulate_cpu_work
 
 

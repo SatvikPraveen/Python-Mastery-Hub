@@ -5,7 +5,7 @@ Complete REST API implementation with filtering, pagination, and validation.
 Organized from basic to advanced concepts with multiple approaches.
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 def get_rest_api_examples() -> Dict[str, Any]:

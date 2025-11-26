@@ -1,24 +1,25 @@
 # tests/unit/core/test_advanced.py
 # Unit tests for advanced Python concepts and exercises
 
-import pytest
 import asyncio
 import inspect
-from unittest.mock import Mock, AsyncMock, patch
-from contextlib import contextmanager
-from typing import List, Dict, Any, Optional
-from functools import wraps
 import threading
 import time
+from contextlib import contextmanager
+from functools import wraps
+from typing import Any, Dict, List, Optional
+from unittest.mock import AsyncMock, Mock, patch
+
+import pytest
 
 # Import modules under test (adjust based on your actual structure)
 try:
     from src.core.advanced import (
+        ConcurrencyExercise,
+        ContextManagerExercise,
         DecoratorExercise,
         GeneratorExercise,
-        ContextManagerExercise,
         MetaclassExercise,
-        ConcurrencyExercise,
     )
     from src.core.evaluators import AdvancedPythonEvaluator
 except ImportError:

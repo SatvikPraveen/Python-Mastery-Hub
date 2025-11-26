@@ -7,12 +7,12 @@ functionality across all learning modules and topics.
 """
 
 import json
+import logging
 import sqlite3
+from dataclasses import asdict, dataclass
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Dict, List, Optional, Any, Tuple, TYPE_CHECKING
-from dataclasses import dataclass, asdict
-import logging
+from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple
 
 # Avoid circular imports
 if TYPE_CHECKING:

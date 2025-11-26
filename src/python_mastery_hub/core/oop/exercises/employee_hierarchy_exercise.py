@@ -3,7 +3,7 @@ Employee Hierarchy exercise for the OOP module.
 Design an inheritance-based employee management system.
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 def get_employee_hierarchy_exercise() -> Dict[str, Any]:

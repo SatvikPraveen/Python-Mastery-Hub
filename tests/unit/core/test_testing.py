@@ -1,24 +1,25 @@
 # tests/unit/core/test_testing.py
 # Unit tests for testing concepts and exercises
 
-import pytest
-import unittest
-from unittest.mock import Mock, patch, MagicMock, call
 import doctest
 import io
 import sys
-from contextlib import redirect_stdout, redirect_stderr
+import unittest
+from contextlib import redirect_stderr, redirect_stdout
+from unittest.mock import MagicMock, Mock, call, patch
+
+import pytest
 
 # Import modules under test (adjust based on your actual structure)
 try:
+    from src.core.evaluators import TestingEvaluator
     from src.core.testing import (
-        UnitTestingExercise,
         IntegrationTestingExercise,
         MockingExercise,
-        TestDrivenDevelopmentExercise,
         TestCoverageExercise,
+        TestDrivenDevelopmentExercise,
+        UnitTestingExercise,
     )
-    from src.core.evaluators import TestingEvaluator
 except ImportError:
     # Mock classes for when actual modules don't exist
     class UnitTestingExercise:

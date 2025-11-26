@@ -5,26 +5,28 @@ Comprehensive coverage of data science with Python including NumPy, Pandas,
 Matplotlib, Seaborn, Scikit-learn, and statistical analysis.
 """
 
-from typing import Dict, List, Any
+from typing import Any, Dict, List
+
 from python_mastery_hub.core import LearningModule
+
+from .config.topics import TOPICS_CONFIG
+from .examples.ml_examples import MLExamples
 
 # Import example modules
 from .examples.numpy_examples import NumpyExamples
 from .examples.pandas_examples import PandasExamples
-from .examples.visualization_examples import VisualizationExamples
-from .examples.statistics_examples import StatisticsExamples
-from .examples.ml_examples import MLExamples
 from .examples.preprocessing_examples import PreprocessingExamples
+from .examples.statistics_examples import StatisticsExamples
+from .examples.visualization_examples import VisualizationExamples
+from .exercises.dashboard import DashboardExercise
 
 # Import exercise modules
 from .exercises.data_analysis import DataAnalysisExercise
 from .exercises.ml_pipeline import MLPipelineExercise
-from .exercises.dashboard import DashboardExercise
+from .utils.best_practices import BEST_PRACTICES
 
 # Import utilities
 from .utils.explanations import EXPLANATIONS
-from .utils.best_practices import BEST_PRACTICES
-from .config.topics import TOPICS_CONFIG
 
 
 class DataScience(LearningModule):

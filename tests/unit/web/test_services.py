@@ -4,11 +4,12 @@ Test module for web application services.
 Tests business logic, service layer functionality, and data processing.
 """
 
-import pytest
-from datetime import datetime, timedelta
-from unittest.mock import Mock, patch, MagicMock
-from typing import Dict, List, Optional
 import asyncio
+from datetime import datetime, timedelta
+from typing import Dict, List, Optional
+from unittest.mock import MagicMock, Mock, patch
+
+import pytest
 
 
 class MockUserService:

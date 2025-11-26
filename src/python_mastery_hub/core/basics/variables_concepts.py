@@ -2,7 +2,7 @@
 Variables Concepts - Variable assignment, scope, and naming conventions.
 """
 
-from typing import Dict, Any, List
+from typing import Any, Dict, List
 
 
 class VariablesConcepts:

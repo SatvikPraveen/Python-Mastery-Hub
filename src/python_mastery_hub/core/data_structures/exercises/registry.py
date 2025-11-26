@@ -2,10 +2,11 @@
 Exercise registry and management for the Data Structures module.
 """
 
-from typing import Dict, List, Any
-from .linkedlist import LinkedListExercise
+from typing import Any, Dict, List
+
 from .bst import BSTExercise
 from .cache import CacheExercise
+from .linkedlist import LinkedListExercise
 
 
 class ExerciseRegistry:

@@ -6,7 +6,7 @@ that demonstrates memory-efficient data processing patterns.
 """
 
 import re
-from typing import Iterator, Callable, Any, Dict, List
+from typing import Any, Callable, Dict, Iterator, List
 
 
 class FilePipelineExercise:

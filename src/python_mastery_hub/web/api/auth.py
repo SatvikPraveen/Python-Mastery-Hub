@@ -7,40 +7,41 @@ Handles user authentication, registration, password management,
 email verification, and session management endpoints.
 """
 
-from typing import Dict, Any
 from datetime import datetime, timedelta
-from fastapi import APIRouter, Depends, HTTPException, status, Request, Response
+from typing import Any, Dict
+
+from fastapi import APIRouter, Depends, HTTPException, Request, Response, status
 from fastapi.security import HTTPBearer
 from pydantic import BaseModel
 
+from python_mastery_hub.core.config import get_settings
+from python_mastery_hub.utils.logging_config import get_logger
+from python_mastery_hub.web.middleware.auth import (
+    create_user_session,
+    get_current_user,
+    require_authenticated_user,
+    revoke_all_user_sessions,
+    revoke_session,
+)
+from python_mastery_hub.web.middleware.error_handling import (
+    AuthenticationException,
+    BusinessLogicException,
+    ValidationException,
+)
+from python_mastery_hub.web.middleware.rate_limiting import rate_limit
+from python_mastery_hub.web.models.session import SessionListItem, UserSession
 from python_mastery_hub.web.models.user import (
+    EmailVerification,
+    PasswordReset,
+    PasswordResetConfirm,
     User,
     UserCreate,
     UserLogin,
-    UserUpdate,
     UserResponse,
-    PasswordReset,
-    PasswordResetConfirm,
-    EmailVerification,
-)
-from python_mastery_hub.web.models.session import UserSession, SessionListItem
-from python_mastery_hub.web.middleware.auth import (
-    get_current_user,
-    require_authenticated_user,
-    create_user_session,
-    revoke_session,
-    revoke_all_user_sessions,
-)
-from python_mastery_hub.web.middleware.rate_limiting import rate_limit
-from python_mastery_hub.web.middleware.error_handling import (
-    AuthenticationException,
-    ValidationException,
-    BusinessLogicException,
+    UserUpdate,
 )
 from python_mastery_hub.web.services.auth_service import AuthService
 from python_mastery_hub.web.services.email_service import EmailService
-from python_mastery_hub.utils.logging_config import get_logger
-from python_mastery_hub.core.config import get_settings
 
 logger = get_logger(__name__)
 settings = get_settings()

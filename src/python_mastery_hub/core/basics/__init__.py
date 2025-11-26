@@ -5,12 +5,12 @@ This module provides interactive learning for Python basics including variables,
 data types, control flow, functions, and error handling.
 """
 
-from .variables_concepts import VariablesConcepts
-from .data_types_concepts import DataTypesConcepts
-from .control_flow_concepts import ControlFlowConcepts
-from .functions_concepts import FunctionsConcepts
-from .error_handling_concepts import ErrorHandlingConcepts
 from .. import LearningModule
+from .control_flow_concepts import ControlFlowConcepts
+from .data_types_concepts import DataTypesConcepts
+from .error_handling_concepts import ErrorHandlingConcepts
+from .functions_concepts import FunctionsConcepts
+from .variables_concepts import VariablesConcepts
 
 
 # Main module class that aggregates all concepts

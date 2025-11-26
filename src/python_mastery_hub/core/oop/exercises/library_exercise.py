@@ -3,7 +3,7 @@ Library System exercise for the OOP module.
 Build a comprehensive library management system using classes and objects.
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 def get_library_exercise() -> Dict[str, Any]:

@@ -7,30 +7,31 @@ Handles user progress tracking, achievements, analytics, and
 learning analytics endpoints.
 """
 
-from typing import List, Dict, Any, Optional
 from datetime import datetime, timedelta
-from fastapi import APIRouter, Depends, HTTPException, status, Query
+from typing import Any, Dict, List, Optional
+
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from pydantic import BaseModel
 
+from python_mastery_hub.utils.logging_config import get_logger
 from python_mastery_hub.web.middleware.auth import (
     get_current_user,
     require_authenticated_user,
 )
-from python_mastery_hub.web.models.user import User
 from python_mastery_hub.web.models.progress import (
-    UserProgress,
-    ModuleProgress,
-    TopicProgress,
     Achievement,
-    ProgressSummary,
     LeaderboardEntry,
-    ProgressAnalytics,
     LearningStreak,
-    StudySession,
+    ModuleProgress,
+    ProgressAnalytics,
+    ProgressSummary,
     ProgressUpdate,
+    StudySession,
+    TopicProgress,
+    UserProgress,
 )
+from python_mastery_hub.web.models.user import User
 from python_mastery_hub.web.services.progress_service import ProgressService
-from python_mastery_hub.utils.logging_config import get_logger
 
 logger = get_logger(__name__)
 router = APIRouter()

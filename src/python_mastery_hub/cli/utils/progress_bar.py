@@ -5,12 +5,12 @@ Provides various progress visualization components for terminal output.
 Supports different styles and animations for progress tracking.
 """
 
-import time
 import sys
-from typing import Optional, List, Dict, Any
+import time
 from math import ceil
+from typing import Any, Dict, List, Optional
 
-from .colors import Colors, supports_color, get_progress_color, get_terminal_width
+from .colors import Colors, get_progress_color, get_terminal_width, supports_color
 
 
 class ProgressBar:

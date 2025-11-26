@@ -3,7 +3,7 @@ Integration testing examples for the Testing module.
 Demonstrates testing components working together with real dependencies.
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 def get_integration_examples() -> Dict[str, Any]:

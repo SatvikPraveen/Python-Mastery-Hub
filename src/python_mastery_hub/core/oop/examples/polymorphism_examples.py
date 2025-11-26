@@ -3,9 +3,9 @@ Polymorphism examples for the OOP module.
 Demonstrates method overriding, duck typing, and interface-based polymorphism.
 """
 
-from typing import Dict, Any
-from abc import ABC, abstractmethod
 import math
+from abc import ABC, abstractmethod
+from typing import Any, Dict
 
 
 def get_polymorphism_examples() -> Dict[str, Any]:

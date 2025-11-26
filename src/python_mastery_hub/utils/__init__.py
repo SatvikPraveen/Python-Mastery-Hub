@@ -11,124 +11,115 @@ Optional modules require additional dependencies:
 - data_exporters: Excel support requires 'openpyxl' (pip install openpyxl)
 """
 
-# Core utilities - always available
-from .progress_calculator import (
-    ProgressCalculator,
-    TopicProgress,
-    ModuleProgress,
-    LearningSession,
-)
-
 from .achievement_engine import (
-    AchievementEngine,
     Achievement,
     AchievementCategory,
+    AchievementEngine,
     AchievementTier,
 )
-
-from .logging_config import (
-    setup_logging,
-    get_logger,
-    set_log_level,
-    log_performance,
-    log_user_action,
-    create_module_logger,
-    PerformanceLogger,
-    timed_operation,
-    cleanup_old_logs,
-    get_logging_status,
-)
-
-from .validators import (
-    ValidationError,
-    Validator,
-    StringValidator,
-    NumberValidator,
-    FormValidator,
-    validate_email,
-    validate_url,
-    validate_python_code,
-    sanitize_string,
-    string_validator,
-    number_validator,
-    email_validator,
-)
-
-from .formatters import (
-    TextFormatter,
-    ColorCodes,
-    formatter,
-    format_duration,
-    format_time_ago,
-    format_percentage,
-    format_progress_bar,
-    format_table,
-    format_json,
-)
-
-from .file_handlers import (
-    SafeFileHandler,
-    JSONFileHandler,
-    YAMLFileHandler,
-    CSVFileHandler,
-    ConfigFileHandler,
-    DirectoryHandler,
-    FileError,
-    read_text,
-    write_text,
-    read_json,
-    write_json,
-    read_yaml,
-    write_yaml,
-    read_csv,
-    write_csv,
-)
-
-from .code_execution import (
-    SafeCodeExecutor,
-    CodeValidator,
-    TestRunner,
-    ExecutionResult,
-    ExecutionError,
-    SecurityViolation,
-    execute_code,
-    validate_code,
-    run_code_tests,
-)
-
-from .email_templates import (
-    EmailTemplateManager,
-    EmailRenderer,
-    EmailTemplate,
-    EmailPreferences,
-    create_email_manager,
-    render_welcome_email,
-    render_achievement_email,
-)
-
 from .cache_manager import (
     CacheManager,
-    MemoryCache,
     FileCache,
-    cached,
-    get_cache,
+    MemoryCache,
+    cache_clear,
+    cache_delete,
     cache_get,
     cache_set,
-    cache_delete,
-    cache_clear,
     cache_stats,
+    cached,
+    get_cache,
 )
-
+from .code_execution import (
+    CodeValidator,
+    ExecutionError,
+    ExecutionResult,
+    SafeCodeExecutor,
+    SecurityViolation,
+    TestRunner,
+    execute_code,
+    run_code_tests,
+    validate_code,
+)
+from .data_exporters import CSVExporter, DataExporter
+from .data_exporters import ExportConfig as DataExportConfig
 from .data_exporters import (
-    DataExporter,
-    CSVExporter,
-    JSONExporter,
     HTMLReportExporter,
+    JSONExporter,
     ZipExporter,
-    ExportConfig as DataExportConfig,
     create_exporter,
     export_learning_data,
     get_supported_formats,
+)
+from .email_templates import (
+    EmailPreferences,
+    EmailRenderer,
+    EmailTemplate,
+    EmailTemplateManager,
+    create_email_manager,
+    render_achievement_email,
+    render_welcome_email,
+)
+from .file_handlers import (
+    ConfigFileHandler,
+    CSVFileHandler,
+    DirectoryHandler,
+    FileError,
+    JSONFileHandler,
+    SafeFileHandler,
+    YAMLFileHandler,
+    read_csv,
+    read_json,
+    read_text,
+    read_yaml,
+    write_csv,
+    write_json,
+    write_text,
+    write_yaml,
+)
+from .formatters import (
+    ColorCodes,
+    TextFormatter,
+    format_duration,
+    format_json,
+    format_percentage,
+    format_progress_bar,
+    format_table,
+    format_time_ago,
+    formatter,
+)
+from .logging_config import (
+    PerformanceLogger,
+    cleanup_old_logs,
+    create_module_logger,
+    get_logger,
+    get_logging_status,
+    log_performance,
+    log_user_action,
+    set_log_level,
+    setup_logging,
+    timed_operation,
+)
+
+# Core utilities - always available
+from .progress_calculator import (
+    LearningSession,
+    ModuleProgress,
+    ProgressCalculator,
+    TopicProgress,
+)
+from .validators import (
+    FormValidator,
+    NumberValidator,
+    StringValidator,
+    ValidationError,
+    Validator,
+    email_validator,
+    number_validator,
+    sanitize_string,
+    string_validator,
+    validate_email,
+    validate_python_code,
+    validate_url,
 )
 
 # Core exports - always available

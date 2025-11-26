@@ -4,7 +4,8 @@ Graph algorithms demonstrations for the Algorithms module.
 
 import heapq
 from collections import defaultdict, deque
-from typing import Dict, List, Any, Optional, Tuple, Set
+from typing import Any, Dict, List, Optional, Set, Tuple
+
 from .base import AlgorithmDemo
 
 

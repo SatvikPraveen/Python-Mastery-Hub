@@ -1,21 +1,22 @@
 # tests/unit/core/test_oop.py
 # Unit tests for Object-Oriented Programming concepts and exercises
 
-import pytest
 import inspect
-from unittest.mock import Mock, AsyncMock, patch
 from datetime import datetime
+from unittest.mock import AsyncMock, Mock, patch
+
+import pytest
 
 # Import modules under test (adjust based on your actual structure)
 try:
+    from src.core.evaluators import OOPEvaluator
     from src.core.oop import (
+        AbstractionExercise,
         ClassExercise,
+        EncapsulationExercise,
         InheritanceExercise,
         PolymorphismExercise,
-        EncapsulationExercise,
-        AbstractionExercise,
     )
-    from src.core.evaluators import OOPEvaluator
     from src.models.exercise import Exercise
 except ImportError:
     # Mock classes for when actual modules don't exist

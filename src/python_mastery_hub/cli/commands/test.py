@@ -9,15 +9,15 @@ import argparse
 import asyncio
 import importlib
 import sys
-from pathlib import Path
-from typing import Dict, List, Any, Optional, Tuple
-from datetime import datetime
 import traceback
+from datetime import datetime
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Tuple
 
 from python_mastery_hub.cli.utils import colors, progress_bar
-from python_mastery_hub.utils.progress_calculator import ProgressCalculator
 from python_mastery_hub.utils.achievement_engine import AchievementEngine
-from python_mastery_hub.utils.logging_config import get_logger, PerformanceLogger
+from python_mastery_hub.utils.logging_config import PerformanceLogger, get_logger
+from python_mastery_hub.utils.progress_calculator import ProgressCalculator
 
 logger = get_logger(__name__)
 

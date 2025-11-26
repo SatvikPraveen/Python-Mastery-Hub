@@ -1,24 +1,25 @@
 # tests/unit/core/test_web_dev.py
 # Unit tests for web development concepts and exercises
 
-import pytest
 import json
-from unittest.mock import Mock, patch, MagicMock
-from datetime import datetime
-import tempfile
 import os
+import tempfile
+from datetime import datetime
+from unittest.mock import MagicMock, Mock, patch
+
+import pytest
 
 # Import modules under test (adjust based on your actual structure)
 try:
+    from src.core.evaluators import WebDevEvaluator
     from src.core.web_dev import (
-        FlaskExercise,
-        FastAPIExercise,
-        HTMLExercise,
         CSSExercise,
+        FastAPIExercise,
+        FlaskExercise,
+        HTMLExercise,
         JavaScriptExercise,
         RESTAPIExercise,
     )
-    from src.core.evaluators import WebDevEvaluator
 except ImportError:
     # Mock classes for when actual modules don't exist
     class FlaskExercise:

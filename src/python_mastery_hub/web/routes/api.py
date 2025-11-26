@@ -5,14 +5,15 @@ API Blueprint Registration
 Centralizes all API endpoints from different modules and provides unified API routing
 """
 
-from flask import Blueprint, jsonify, request
 import logging
 
+from flask import Blueprint, jsonify, request
+
+from ..api.admin import admin_api
 from ..api.auth import auth_api
 from ..api.exercises import exercises_api
 from ..api.modules import modules_api
 from ..api.progress import progress_api
-from ..api.admin import admin_api
 
 # Create main API Blueprint
 api_bp = Blueprint("api", __name__)

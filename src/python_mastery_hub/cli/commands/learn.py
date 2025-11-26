@@ -6,22 +6,21 @@ Provides command-line access to all learning modules with interactive features.
 
 import argparse
 import asyncio
-from typing import List, Dict, Any
 from pathlib import Path
-
-from python_mastery_hub.core.basics import base as basics_base
-from python_mastery_hub.core.oop import core as oop_core
-from python_mastery_hub.core.advanced import base as advanced_base
-from python_mastery_hub.core.data_structures import config as ds_config
-from python_mastery_hub.core.algorithms import base as algo_base
-from python_mastery_hub.core.async_programming import base as async_base
-from python_mastery_hub.core.web_development import core as web_core
-from python_mastery_hub.core.data_science import config as ds_science_config
-from python_mastery_hub.core.testing import core as testing_core
+from typing import Any, Dict, List
 
 from python_mastery_hub.cli.utils import colors, progress_bar
-from python_mastery_hub.utils.progress_calculator import ProgressCalculator
+from python_mastery_hub.core.advanced import base as advanced_base
+from python_mastery_hub.core.algorithms import base as algo_base
+from python_mastery_hub.core.async_programming import base as async_base
+from python_mastery_hub.core.basics import base as basics_base
+from python_mastery_hub.core.data_science import config as ds_science_config
+from python_mastery_hub.core.data_structures import config as ds_config
+from python_mastery_hub.core.oop import core as oop_core
+from python_mastery_hub.core.testing import core as testing_core
+from python_mastery_hub.core.web_development import core as web_core
 from python_mastery_hub.utils.logging_config import get_logger
+from python_mastery_hub.utils.progress_calculator import ProgressCalculator
 
 logger = get_logger(__name__)
 

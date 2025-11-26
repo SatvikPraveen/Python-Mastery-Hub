@@ -7,19 +7,19 @@ time limits, and security restrictions for educational purposes.
 """
 
 import ast
-import sys
 import io
-import traceback
-import time
+import logging
+import queue
 import signal
 import subprocess
+import sys
 import tempfile
-from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple, Set, Union
-from contextlib import contextmanager, redirect_stdout, redirect_stderr
 import threading
-import queue
-import logging
+import time
+import traceback
+from contextlib import contextmanager, redirect_stderr, redirect_stdout
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Set, Tuple, Union
 
 logger = logging.getLogger(__name__)
 

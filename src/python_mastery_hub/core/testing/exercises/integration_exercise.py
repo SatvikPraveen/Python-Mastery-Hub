@@ -5,14 +5,14 @@ Comprehensive exercise for testing database operations, API integrations,
 and real-world testing scenarios with proper setup and teardown.
 """
 
-import unittest
+import json
+import os
 import sqlite3
 import tempfile
-import os
-import json
 import time
+import unittest
 from contextlib import contextmanager
-from typing import Optional, List, Dict, Any
+from typing import Any, Dict, List, Optional
 from unittest.mock import Mock, patch
 
 

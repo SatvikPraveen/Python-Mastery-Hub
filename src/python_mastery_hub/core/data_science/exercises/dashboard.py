@@ -2,7 +2,7 @@
 Interactive Dashboard Exercise for the Data Science module.
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 class DashboardExercise:

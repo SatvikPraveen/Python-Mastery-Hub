@@ -4,21 +4,23 @@ Core Testing class implementation.
 Main class for the Testing learning module with setup and topic management.
 """
 
-from typing import Dict, List, Any
+from typing import Any, Dict, List
+
 from python_mastery_hub.core import LearningModule
+
 from .examples import (
-    get_unittest_examples,
-    get_pytest_examples,
-    get_mocking_examples,
-    get_tdd_examples,
     get_integration_examples,
+    get_mocking_examples,
     get_performance_examples,
+    get_pytest_examples,
+    get_tdd_examples,
+    get_unittest_examples,
 )
 from .exercises import (
-    get_unittest_exercise,
-    get_tdd_exercise,
-    get_mocking_exercise,
     get_integration_exercise,
+    get_mocking_exercise,
+    get_tdd_exercise,
+    get_unittest_exercise,
 )
 
 

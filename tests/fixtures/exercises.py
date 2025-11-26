@@ -1,18 +1,19 @@
 # tests/fixtures/exercises.py
 # Exercise-related test fixtures
 
-import pytest
 import json
 from datetime import datetime, timedelta
-from unittest.mock import Mock, AsyncMock
-from typing import List, Dict, Any
+from typing import Any, Dict, List
+from unittest.mock import AsyncMock, Mock
+
+import pytest
 
 # Import your exercise models and services (adjust based on your actual structure)
 try:
-    from src.models.exercise import Exercise, TestCase, Hint, Topic
-    from src.services.exercise_service import ExerciseService
-    from src.core.exercise_engine import ExerciseEngine
     from src.core.code_evaluator import CodeEvaluator
+    from src.core.exercise_engine import ExerciseEngine
+    from src.models.exercise import Exercise, Hint, TestCase, Topic
+    from src.services.exercise_service import ExerciseService
 except ImportError:
     # Mock classes for when actual models don't exist
     class Exercise:

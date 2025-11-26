@@ -6,20 +6,19 @@ inheritance, polymorphism, encapsulation, and design patterns.
 """
 
 from .. import LearningModule
-
 from .core import OOPConcepts
 from .examples import (
     get_classes_examples,
+    get_design_patterns_examples,
+    get_encapsulation_examples,
     get_inheritance_examples,
     get_polymorphism_examples,
-    get_encapsulation_examples,
-    get_design_patterns_examples,
 )
 from .exercises import (
-    get_library_exercise,
     get_employee_hierarchy_exercise,
-    get_shape_calculator_exercise,
+    get_library_exercise,
     get_observer_pattern_exercise,
+    get_shape_calculator_exercise,
 )
 
 

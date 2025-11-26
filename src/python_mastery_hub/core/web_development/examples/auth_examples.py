@@ -4,7 +4,7 @@ Authentication and Security Examples for Web Development.
 Demonstrates JWT authentication, OAuth2, password hashing, and security best practices.
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 class AuthExamples:

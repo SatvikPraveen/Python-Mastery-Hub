@@ -2,7 +2,8 @@
 Base classes and utilities for the Advanced Python module.
 """
 
-from typing import Dict, List, Any
+from typing import Any, Dict, List
+
 from python_mastery_hub.core import LearningModule
 
 
@@ -19,11 +20,11 @@ class AdvancedConcepts(LearningModule):
     def _setup_module(self) -> None:
         """Setup examples and exercises for advanced Python concepts."""
         # Import demonstrations lazily to avoid circular imports
-        from .decorators import DecoratorsDemo
-        from .generators import GeneratorsDemo
         from .context_managers import ContextManagersDemo
-        from .metaclasses import MetaclassesDemo
+        from .decorators import DecoratorsDemo
         from .descriptors import DescriptorsDemo
+        from .generators import GeneratorsDemo
+        from .metaclasses import MetaclassesDemo
 
         # Initialize demonstrations
         self.decorators_demo = DecoratorsDemo()

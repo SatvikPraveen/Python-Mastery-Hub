@@ -6,20 +6,21 @@ Provides comprehensive metrics collection for monitoring application performance
 user engagement, learning analytics, and system health indicators.
 """
 
-import time
-import threading
-import queue
-from datetime import datetime, timedelta
-from typing import Dict, List, Optional, Any, Callable, Union
-from pathlib import Path
-from dataclasses import dataclass, asdict, field
-from collections import defaultdict, deque
 import json
-import statistics
 import logging
-from contextlib import contextmanager
-import psutil
+import queue
+import statistics
 import sys
+import threading
+import time
+from collections import defaultdict, deque
+from contextlib import contextmanager
+from dataclasses import asdict, dataclass, field
+from datetime import datetime, timedelta
+from pathlib import Path
+from typing import Any, Callable, Dict, List, Optional, Union
+
+import psutil
 
 logger = logging.getLogger(__name__)
 

@@ -8,23 +8,23 @@ including sandboxing, resource limits, and result processing.
 """
 
 import asyncio
-import subprocess
-import tempfile
 import os
-import signal
 import resource
+import signal
+import subprocess
 import sys
+import tempfile
 import traceback
-from typing import Optional, Dict, Any, List, Union
-from datetime import datetime
-from pathlib import Path
 from dataclasses import dataclass
+from datetime import datetime
 from enum import Enum
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Union
 
-from python_mastery_hub.web.models.exercise import ProgrammingLanguage
-from python_mastery_hub.web.middleware.error_handling import CodeExecutionException
-from python_mastery_hub.utils.logging_config import get_logger
 from python_mastery_hub.core.config import get_settings
+from python_mastery_hub.utils.logging_config import get_logger
+from python_mastery_hub.web.middleware.error_handling import CodeExecutionException
+from python_mastery_hub.web.models.exercise import ProgrammingLanguage
 
 logger = get_logger(__name__)
 settings = get_settings()
@@ -188,13 +188,13 @@ class SecurityManager:
         }
 
         # Add safe modules
-        import math
-        import random
+        import collections
         import datetime
         import json
+        import math
+        import random
         import re
         import string
-        import collections
 
         restricted_globals.update(
             {

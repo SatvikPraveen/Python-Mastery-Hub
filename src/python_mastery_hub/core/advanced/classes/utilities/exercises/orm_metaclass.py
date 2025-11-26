@@ -6,7 +6,7 @@ database table schemas and ORM functionality.
 """
 
 import re
-from typing import Dict, Any, Type, Optional, List
+from typing import Any, Dict, List, Optional, Type
 
 
 class ORMMetaclassExercise:

@@ -5,9 +5,9 @@ This module provides programming exercises for mastering data structures concept
 Each exercise includes instructions, starter code, hints, and complete solutions.
 """
 
-from .linkedlist import LinkedListExercise
 from .bst import BSTExercise
 from .cache import CacheExercise
+from .linkedlist import LinkedListExercise
 from .registry import ExerciseRegistry
 
 

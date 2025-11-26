@@ -5,23 +5,24 @@ Module Routes
 Handles learning module listing, individual module pages, and module progress
 """
 
+import logging
+from datetime import datetime
+
 from flask import (
     Blueprint,
+    abort,
+    flash,
+    jsonify,
+    redirect,
     render_template,
     request,
-    jsonify,
     session,
-    flash,
-    redirect,
     url_for,
-    abort,
 )
-from datetime import datetime
-import logging
 
 from ..models.user import User
-from ..services.progress_service import ProgressService
 from ..services.auth_service import AuthService
+from ..services.progress_service import ProgressService
 from .auth import login_required
 
 # Create Blueprint

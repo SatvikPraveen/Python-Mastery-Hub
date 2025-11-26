@@ -4,12 +4,13 @@ Test module for web application middleware.
 Tests authentication, authorization, request processing, and security middleware.
 """
 
-import pytest
 import json
 import time
 from datetime import datetime, timedelta
-from unittest.mock import Mock, patch, MagicMock
 from typing import Dict, List, Optional
+from unittest.mock import MagicMock, Mock, patch
+
+import pytest
 
 
 class MockRequest:

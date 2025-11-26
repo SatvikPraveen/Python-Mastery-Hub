@@ -2,7 +2,8 @@
 Variable Assignment Exercise - Practice variable creation and manipulation.
 """
 
-from typing import Dict, Any, List
+from typing import Any, Dict, List
+
 from ..base import CodeValidator, ExampleRunner
 
 

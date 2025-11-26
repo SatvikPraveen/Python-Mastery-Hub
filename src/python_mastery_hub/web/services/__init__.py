@@ -7,10 +7,10 @@ Contains service layer components for business logic, authentication,
 code execution, progress tracking, and external integrations.
 """
 
-from .auth_service import AuthService, TokenService, PasswordService
-from .code_executor import CodeExecutor, ExecutionResult, CodeExecutionError
+from .auth_service import AuthService, PasswordService, TokenService
+from .code_executor import CodeExecutionError, CodeExecutor, ExecutionResult
+from .email_service import EmailProvider, EmailService, EmailTemplate
 from .progress_service import ProgressService, ProgressTracker
-from .email_service import EmailService, EmailTemplate, EmailProvider
 
 __all__ = [
     # Authentication services

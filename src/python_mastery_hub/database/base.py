@@ -2,15 +2,16 @@
 
 """Database base configuration for Python Mastery Hub."""
 
-import os
 import logging
+import os
 from typing import Optional
 from urllib.parse import urlparse, urlunparse
-from sqlalchemy import create_engine, Engine
+
+from pydantic import BaseSettings, validator
+from sqlalchemy import Engine, create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import DeclarativeBase
-from sqlalchemy.pool import QueuePool, NullPool
-from pydantic import BaseSettings, validator
+from sqlalchemy.pool import NullPool, QueuePool
 
 logger = logging.getLogger(__name__)
 

@@ -7,19 +7,19 @@ Implements rate limiting for API endpoints to prevent abuse and ensure
 fair usage across users.
 """
 
-from typing import Dict, Optional, Callable, Any
-from datetime import datetime, timedelta
 import asyncio
-from collections import defaultdict, deque
-from functools import wraps
 import hashlib
+from collections import defaultdict, deque
+from datetime import datetime, timedelta
+from functools import wraps
+from typing import Any, Callable, Dict, Optional
 
-from fastapi import Request, Response, HTTPException, status
+from fastapi import HTTPException, Request, Response, status
 from fastapi.responses import JSONResponse
 
-from python_mastery_hub.web.models.user import User
-from python_mastery_hub.utils.logging_config import get_logger
 from python_mastery_hub.core.config import get_settings
+from python_mastery_hub.utils.logging_config import get_logger
+from python_mastery_hub.web.models.user import User
 
 logger = get_logger(__name__)
 settings = get_settings()

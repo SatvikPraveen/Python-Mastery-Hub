@@ -5,8 +5,8 @@ Comprehensive coverage of concurrent.futures, ThreadPoolExecutor, ProcessPoolExe
 and advanced parallel processing patterns.
 """
 
-from typing import Dict, Any, List, Callable
 import json
+from typing import Any, Callable, Dict, List
 
 
 class ConcurrentFuturesConcepts:

@@ -5,23 +5,24 @@ Tests REST API endpoints, authentication, request/response handling,
 and various API usage patterns under different load conditions.
 """
 import asyncio
-import aiohttp
-import time
+import concurrent.futures
 import json
 import random
-import string
-from typing import Dict, List, Any, Optional, Tuple
-from dataclasses import dataclass
-import concurrent.futures
-from urllib.parse import urljoin
 import ssl
+import string
+import time
+from dataclasses import dataclass
+from typing import Any, Dict, List, Optional, Tuple
+from urllib.parse import urljoin
+
+import aiohttp
 import certifi
 
 from .benchmark_runner import (
-    BenchmarkRunner,
     BenchmarkConfig,
-    benchmark,
+    BenchmarkRunner,
     async_benchmark,
+    benchmark,
 )
 
 

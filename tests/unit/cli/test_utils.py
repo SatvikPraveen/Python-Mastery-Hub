@@ -4,14 +4,15 @@ Test module for CLI utility functions.
 Tests formatting, file handling, configuration management, and helper functions.
 """
 
-import pytest
-import os
 import json
-import tempfile
+import os
 import shutil
+import tempfile
 from datetime import datetime, timedelta
-from unittest.mock import Mock, patch, mock_open
 from pathlib import Path
+from unittest.mock import Mock, mock_open, patch
+
+import pytest
 
 
 class MockCLIUtils:

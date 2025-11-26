@@ -3,11 +3,12 @@ Context manager examples and demonstrations for the Advanced Python module.
 """
 
 import contextlib
-import tempfile
-import sys
 import io
+import sys
+import tempfile
 import time
-from typing import Dict, List, Any, Iterator, Generator
+from typing import Any, Dict, Generator, Iterator, List
+
 from .base import TopicDemo
 
 

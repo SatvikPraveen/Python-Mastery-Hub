@@ -3,7 +3,7 @@ Performance analysis examples for the Data Structures module.
 Covers time complexity, benchmarking, and optimization strategies.
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 class PerformanceExamples:

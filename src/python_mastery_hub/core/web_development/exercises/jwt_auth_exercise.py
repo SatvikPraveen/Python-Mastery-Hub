@@ -5,7 +5,7 @@ Implement a secure JWT-based authentication system with registration,
 login, token refresh, and protected endpoints.
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 def get_exercise() -> Dict[str, Any]:

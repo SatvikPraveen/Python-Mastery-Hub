@@ -4,22 +4,24 @@ Web Development Learning Module Core.
 Main WebDevelopment class with minimal orchestration logic.
 """
 
-from typing import Dict, List, Any
+from typing import Any, Dict, List
+
 from python_mastery_hub.core import LearningModule
+
 from .examples import (
-    flask_examples,
+    database_examples,
     fastapi_examples,
+    flask_examples,
     rest_api_examples,
     websocket_examples,
-    database_examples,
 )
 from .examples.auth_examples import AuthExamples
 from .exercises import (
+    flask_blog_exercise,
+    jwt_auth_exercise,
+    microservice_exercise,
     rest_api_exercise,
     websocket_chat_exercise,
-    jwt_auth_exercise,
-    flask_blog_exercise,
-    microservice_exercise,
 )
 
 

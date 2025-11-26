@@ -2,11 +2,11 @@
 Common utilities and base classes for the async programming module.
 """
 
-import time
 import asyncio
 import threading
-from typing import Dict, List, Any, Optional, Callable, Awaitable
+import time
 from dataclasses import dataclass
+from typing import Any, Awaitable, Callable, Dict, List, Optional
 
 
 @dataclass

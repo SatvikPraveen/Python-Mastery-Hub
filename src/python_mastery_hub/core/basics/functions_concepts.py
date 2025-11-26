@@ -2,7 +2,7 @@
 Functions Concepts - Function definition, parameters, and advanced features.
 """
 
-from typing import Dict, Any, List, Callable, Union
+from typing import Any, Callable, Dict, List, Union
 
 
 class FunctionsConcepts:

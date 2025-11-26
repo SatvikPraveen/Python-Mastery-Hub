@@ -8,13 +8,14 @@ and database-related settings across different environments.
 """
 
 import asyncio
-from typing import Optional, Dict, Any, AsyncGenerator
 from contextlib import asynccontextmanager
+from typing import Any, AsyncGenerator, Dict, Optional
+
 import asyncpg
 from asyncpg import Pool
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker
-from sqlalchemy.orm import declarative_base
 from sqlalchemy import text
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
+from sqlalchemy.orm import declarative_base
 
 from python_mastery_hub.core.config import get_settings
 from python_mastery_hub.utils.logging_config import get_logger

@@ -7,13 +7,13 @@ Tracks milestones and provides rewards for learning progress.
 """
 
 import json
-import sqlite3
-from datetime import datetime, timedelta
-from pathlib import Path
-from typing import Dict, List, Optional, Any, TYPE_CHECKING
-from dataclasses import dataclass, asdict
-from enum import Enum
 import logging
+import sqlite3
+from dataclasses import asdict, dataclass
+from datetime import datetime, timedelta
+from enum import Enum
+from pathlib import Path
+from typing import TYPE_CHECKING, Any, Dict, List, Optional
 
 # Avoid circular imports
 if TYPE_CHECKING:

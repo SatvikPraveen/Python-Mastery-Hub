@@ -4,11 +4,12 @@ Test module for web API functionality.
 Tests API endpoints, request/response handling, authentication, and error handling.
 """
 
-import pytest
 import json
 from datetime import datetime, timedelta
-from unittest.mock import Mock, patch, MagicMock
-from typing import Dict, List, Any
+from typing import Any, Dict, List
+from unittest.mock import MagicMock, Mock, patch
+
+import pytest
 
 
 class MockAPIResponse:

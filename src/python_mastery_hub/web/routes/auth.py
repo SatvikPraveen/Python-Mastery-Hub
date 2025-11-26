@@ -5,23 +5,24 @@ Authentication Routes
 Handles user authentication, registration, and profile management
 """
 
+import logging
+import re
+from functools import wraps
+
 from flask import (
     Blueprint,
+    flash,
+    jsonify,
+    redirect,
     render_template,
     request,
-    flash,
-    redirect,
-    url_for,
     session,
-    jsonify,
+    url_for,
 )
 from werkzeug.security import check_password_hash, generate_password_hash
-from functools import wraps
-import re
-import logging
 
-from ..models.user import User
 from ..models.session import UserSession
+from ..models.user import User
 from ..services.auth_service import AuthService
 from ..services.email_service import EmailService
 

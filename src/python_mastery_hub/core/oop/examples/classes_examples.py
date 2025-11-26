@@ -3,7 +3,7 @@ Classes and Objects examples for the OOP module.
 Demonstrates fundamental class definition, instantiation, and object usage.
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 def get_classes_examples() -> Dict[str, Any]:

@@ -7,14 +7,14 @@ and examples across all learning modules with live execution and explanations.
 
 import argparse
 import asyncio
-import importlib
-import sys
-import io
 import contextlib
-from pathlib import Path
-from typing import Dict, List, Any, Optional, Callable
-from datetime import datetime
+import importlib
 import inspect
+import io
+import sys
+from datetime import datetime
+from pathlib import Path
+from typing import Any, Callable, Dict, List, Optional
 
 from python_mastery_hub.cli.utils import colors, progress_bar
 from python_mastery_hub.utils.logging_config import get_logger

@@ -6,13 +6,12 @@ dynamic programming, graph algorithms, and algorithmic thinking patterns.
 """
 
 from .. import LearningModule
-
+from .algorithmic_patterns import AlgorithmicPatterns
 from .base import Algorithms
-from .sorting import SortingAlgorithms
-from .searching import SearchingAlgorithms
 from .dynamic_programming import DynamicProgramming
 from .graph_algorithms import GraphAlgorithms
-from .algorithmic_patterns import AlgorithmicPatterns
+from .searching import SearchingAlgorithms
+from .sorting import SortingAlgorithms
 
 __all__ = [
     "Algorithms",

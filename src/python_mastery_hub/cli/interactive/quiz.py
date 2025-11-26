@@ -9,14 +9,14 @@ import argparse
 import asyncio
 import random
 import time
-from typing import Dict, List, Any, Optional, Union
-from datetime import datetime
 from dataclasses import dataclass
+from datetime import datetime
+from typing import Any, Dict, List, Optional, Union
 
 from python_mastery_hub.cli.utils import colors, progress_bar
-from python_mastery_hub.utils.progress_calculator import ProgressCalculator
 from python_mastery_hub.utils.achievement_engine import AchievementEngine
 from python_mastery_hub.utils.logging_config import get_logger
+from python_mastery_hub.utils.progress_calculator import ProgressCalculator
 
 logger = get_logger(__name__)
 

@@ -4,7 +4,7 @@ Database Integration Examples for Web Development Learning.
 SQLAlchemy ORM with FastAPI integration examples.
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 def get_database_examples() -> Dict[str, Any]:

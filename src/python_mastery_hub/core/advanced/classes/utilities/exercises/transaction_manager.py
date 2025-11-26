@@ -8,7 +8,7 @@ management with rollback, commit, and nested transaction support.
 import threading
 import time
 from contextlib import contextmanager
-from typing import Optional, Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 
 class TransactionManagerExercise:

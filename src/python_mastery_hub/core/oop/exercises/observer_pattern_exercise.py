@@ -3,7 +3,7 @@ Observer Pattern exercise for the OOP module.
 Implement a comprehensive news publisher-subscriber system using the Observer pattern.
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 def get_observer_pattern_exercise() -> Dict[str, Any]:

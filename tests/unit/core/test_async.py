@@ -1,23 +1,24 @@
 # tests/unit/core/test_async.py
 # Unit tests for asynchronous programming concepts and exercises
 
-import pytest
 import asyncio
-import time
-import aiohttp
-from unittest.mock import Mock, AsyncMock, patch
-from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
-import threading
 import multiprocessing
+import threading
+import time
+from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
+from unittest.mock import AsyncMock, Mock, patch
+
+import aiohttp
+import pytest
 
 # Import modules under test (adjust based on your actual structure)
 try:
     from src.core.async_programming import (
         AsyncBasicsExercise,
-        ConcurrencyExercise,
         AsyncIOExercise,
-        ThreadingExercise,
+        ConcurrencyExercise,
         MultiprocessingExercise,
+        ThreadingExercise,
     )
     from src.core.evaluators import AsyncEvaluator
 except ImportError:

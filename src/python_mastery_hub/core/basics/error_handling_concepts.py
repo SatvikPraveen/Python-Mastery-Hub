@@ -2,9 +2,9 @@
 Error Handling Concepts - Exception handling, custom exceptions, and debugging.
 """
 
-from typing import Dict, Any, List
 import logging
 import traceback
+from typing import Any, Dict, List
 
 
 class ErrorHandlingConcepts:

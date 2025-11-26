@@ -3,7 +3,7 @@ Mocking exercise for the Testing module.
 Test an API client with comprehensive mocking techniques.
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 def get_mocking_exercise() -> Dict[str, Any]:

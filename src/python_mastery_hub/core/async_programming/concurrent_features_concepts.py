@@ -3,10 +3,11 @@ Concurrent futures concepts for the async programming module.
 """
 
 import concurrent.futures
-import time
 import random
-from typing import Dict, List, Any, Optional, Callable
-from .base import AsyncDemo, simulate_io_operation, simulate_cpu_work
+import time
+from typing import Any, Callable, Dict, List, Optional
+
+from .base import AsyncDemo, simulate_cpu_work, simulate_io_operation
 
 
 class ConcurrentFuturesConcepts(AsyncDemo):

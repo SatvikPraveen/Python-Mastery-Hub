@@ -9,8 +9,8 @@ error handling, and other cross-cutting concerns.
 
 from .auth import get_current_user, require_admin, verify_token
 from .cors import setup_cors
-from .rate_limiting import RateLimiter, rate_limit
 from .error_handling import setup_error_handlers
+from .rate_limiting import RateLimiter, rate_limit
 
 __all__ = [
     # Authentication middleware

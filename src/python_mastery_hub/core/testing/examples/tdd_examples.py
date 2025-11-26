@@ -3,7 +3,7 @@ TDD (Test-Driven Development) examples for the Testing module.
 Demonstrates the Red-Green-Refactor cycle with practical examples.
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 def get_tdd_examples() -> Dict[str, Any]:

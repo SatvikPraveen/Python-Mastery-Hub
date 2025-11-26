@@ -5,9 +5,7 @@ Common utilities for the Python Mastery Hub CLI including
 colors, progress bars, and input validation.
 """
 
-from . import colors
-from . import progress_bar
-from . import input_validation
+from . import colors, input_validation, progress_bar
 
 # Export utility modules
 __all__ = [
@@ -19,30 +17,28 @@ __all__ = [
 # Convenience imports for common utilities
 from .colors import (
     Colors,
+    print_code_block,
+    print_error,
     print_header,
+    print_info,
     print_subheader,
     print_success,
-    print_error,
     print_warning,
-    print_info,
-    print_code_block,
 )
-
-from .progress_bar import (
-    ProgressBar,
-    SpinnerProgress,
-    show_progress,
-    show_module_progress,
-    animated_loading,
-)
-
 from .input_validation import (
     InputValidator,
     ValidationError,
-    prompt_with_validation,
-    validate_and_suggest,
-    module_validator,
+    choice_validator,
     exercise_validator,
     integer_validator,
-    choice_validator,
+    module_validator,
+    prompt_with_validation,
+    validate_and_suggest,
+)
+from .progress_bar import (
+    ProgressBar,
+    SpinnerProgress,
+    animated_loading,
+    show_module_progress,
+    show_progress,
 )

@@ -6,13 +6,12 @@ context managers, generators, metaclasses, and descriptors.
 """
 
 from .. import LearningModule
-
 from .base import AdvancedConcepts
-from .decorators import DecoratorsDemo
-from .generators import GeneratorsDemo
 from .context_managers import ContextManagersDemo
-from .metaclasses import MetaclassesDemo
+from .decorators import DecoratorsDemo
 from .descriptors import DescriptorsDemo
+from .generators import GeneratorsDemo
+from .metaclasses import MetaclassesDemo
 
 __all__ = [
     "AdvancedConcepts",

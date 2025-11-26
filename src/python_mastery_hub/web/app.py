@@ -5,19 +5,20 @@ Flask Application Factory for Python Mastery Hub
 Creates and configures the Flask application with all components
 """
 
-import os
 import logging
+import os
 from datetime import timedelta
-from flask import Flask, render_template, session, redirect, url_for, flash, request
 
+from flask import Flask, flash, redirect, render_template, request, session, url_for
+
+from .config.cache import init_cache
 from .config.database import init_db
 from .config.security import configure_security
-from .config.cache import init_cache
-from .routes import register_blueprints
 from .middleware.auth import init_auth_middleware
 from .middleware.cors import init_cors
-from .middleware.rate_limiting import init_rate_limiting
 from .middleware.error_handling import init_error_handlers
+from .middleware.rate_limiting import init_rate_limiting
+from .routes import register_blueprints
 
 
 def create_app(config_name="development"):

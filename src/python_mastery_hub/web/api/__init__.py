@@ -4,11 +4,7 @@ API Package - REST API Endpoints
 Contains all API route definitions for the Python Mastery Hub web application.
 """
 
-from . import auth
-from . import modules
-from . import progress
-from . import exercises
-from . import admin
+from . import admin, auth, exercises, modules, progress
 
 # Export API routers
 __all__ = [

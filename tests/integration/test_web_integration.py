@@ -4,16 +4,18 @@ Integration tests for web application functionality.
 Tests complete web workflows, API interactions, and system integration.
 """
 
-import pytest
+import asyncio
 import json
 import time
-import asyncio
 from datetime import datetime, timedelta
 
+import pytest
+
 pytestmark = pytest.mark.integration
-from unittest.mock import Mock, patch, AsyncMock
+from typing import Any, Dict, List
+from unittest.mock import AsyncMock, Mock, patch
+
 import aiohttp
-from typing import Dict, List, Any
 
 
 class MockWebApplication:

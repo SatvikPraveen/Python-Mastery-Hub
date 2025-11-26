@@ -2,8 +2,9 @@
 Control Flow Exercise - Practice logical decision making and iteration patterns.
 """
 
-from typing import Dict, Any, List
 import random
+from typing import Any, Dict, List
+
 from ..base import CodeValidator, ExampleRunner
 
 

@@ -4,10 +4,11 @@ Test module for CLI interactive functionality.
 Tests interactive prompts, user input handling, and session management.
 """
 
-import pytest
-from unittest.mock import Mock, patch, MagicMock, call
-from io import StringIO
 import sys
+from io import StringIO
+from unittest.mock import MagicMock, Mock, call, patch
+
+import pytest
 
 
 class MockInteractiveCLI:

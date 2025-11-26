@@ -2,9 +2,10 @@
 Searching algorithms demonstrations for the Algorithms module.
 """
 
-import time
 import random
-from typing import Dict, List, Any, Optional
+import time
+from typing import Any, Dict, List, Optional
+
 from .base import AlgorithmDemo
 
 

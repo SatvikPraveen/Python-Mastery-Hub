@@ -3,8 +3,8 @@ Design Patterns examples for the OOP module.
 Demonstrates common Gang of Four patterns and Python-specific patterns.
 """
 
-from typing import Dict, Any
 from abc import ABC, abstractmethod
+from typing import Any, Dict
 
 
 def get_design_patterns_examples() -> Dict[str, Any]:

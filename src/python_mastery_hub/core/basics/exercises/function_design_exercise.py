@@ -2,8 +2,9 @@
 Function Design Exercise - Create well-structured functions with proper parameters and documentation.
 """
 
-from typing import Dict, Any, List, Union, Optional, Callable
 import math
+from typing import Any, Callable, Dict, List, Optional, Union
+
 from ..base import CodeValidator, ExampleRunner
 
 

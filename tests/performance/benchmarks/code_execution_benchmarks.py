@@ -5,26 +5,27 @@ Tests various aspects of code execution including parsing, compilation,
 execution time, and resource usage.
 """
 import ast
-import compile
-import exec
-import time
-import sys
-import io
-import contextlib
-import tempfile
-import subprocess
-import threading
-import queue
-from typing import Dict, List, Any, Optional, Tuple
-from dataclasses import dataclass
 import asyncio
 import concurrent.futures
+import contextlib
+import io
+import queue
+import subprocess
+import sys
+import tempfile
+import threading
+import time
+from dataclasses import dataclass
+from typing import Any, Dict, List, Optional, Tuple
+
+import compile
+import exec
 
 from .benchmark_runner import (
-    BenchmarkRunner,
     BenchmarkConfig,
-    benchmark,
+    BenchmarkRunner,
     async_benchmark,
+    benchmark,
 )
 
 

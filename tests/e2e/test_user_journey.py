@@ -3,12 +3,13 @@
 End-to-end tests for complete user journeys.
 Tests realistic user workflows from registration to course completion.
 """
-import pytest
 import asyncio
 import time
 from datetime import datetime, timedelta
-from unittest.mock import Mock, patch, AsyncMock
-from typing import Dict, List, Any, Optional
+from typing import Any, Dict, List, Optional
+from unittest.mock import AsyncMock, Mock, patch
+
+import pytest
 
 
 class MockPlatform:

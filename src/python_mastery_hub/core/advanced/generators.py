@@ -3,7 +3,8 @@ Generator examples and demonstrations for the Advanced Python module.
 """
 
 import itertools
-from typing import Dict, List, Any, Iterator, Callable
+from typing import Any, Callable, Dict, Iterator, List
+
 from .base import TopicDemo
 
 

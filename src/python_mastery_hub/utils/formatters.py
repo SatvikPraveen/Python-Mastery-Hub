@@ -7,12 +7,12 @@ Handles text formatting, table generation, progress bars, and rich text output.
 """
 
 import json
-import re
-from datetime import datetime, timedelta
-from typing import Any, Dict, List, Optional, Union, Tuple
-from pathlib import Path
-import textwrap
 import logging
+import re
+import textwrap
+from datetime import datetime, timedelta
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Tuple, Union
 
 logger = logging.getLogger(__name__)
 

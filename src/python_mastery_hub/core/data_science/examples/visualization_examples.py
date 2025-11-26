@@ -3,7 +3,7 @@ Data visualization examples for the Data Science module.
 Covers Matplotlib and Seaborn plotting capabilities.
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 class VisualizationExamples:

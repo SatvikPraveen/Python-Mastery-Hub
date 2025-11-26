@@ -3,7 +3,8 @@ Dynamic programming algorithms demonstrations for the Algorithms module.
 """
 
 import time
-from typing import Dict, List, Any, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
+
 from .base import AlgorithmDemo
 
 

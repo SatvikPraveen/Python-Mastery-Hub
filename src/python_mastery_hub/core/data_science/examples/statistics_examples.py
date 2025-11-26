@@ -3,7 +3,7 @@ Statistical analysis examples for the Data Science module.
 Covers descriptive statistics, hypothesis testing, and correlation analysis.
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 class StatisticsExamples:
@@ -15,7 +15,7 @@ Statistical analysis examples for the Data Science module.
 Covers descriptive statistics, hypothesis testing, and correlation analysis.
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 class StatisticsExamples:

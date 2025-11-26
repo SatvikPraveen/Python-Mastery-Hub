@@ -4,11 +4,12 @@ Test module for CLI command functionality.
 Tests command parsing, validation, and execution.
 """
 
-import pytest
 import sys
-from io import StringIO
-from unittest.mock import Mock, patch, MagicMock
 from argparse import ArgumentParser, Namespace
+from io import StringIO
+from unittest.mock import MagicMock, Mock, patch
+
+import pytest
 
 
 class MockCLICommands:

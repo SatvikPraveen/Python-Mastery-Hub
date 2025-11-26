@@ -2,11 +2,12 @@
 Threading concepts for the async programming module.
 """
 
-import threading
-import time
 import queue
 import random
-from typing import Dict, List, Any, Optional
+import threading
+import time
+from typing import Any, Dict, List, Optional
+
 from .base import AsyncDemo, ThreadSafeCounter, simulate_io_operation
 
 

@@ -2,9 +2,10 @@
 Sorting algorithms demonstrations for the Algorithms module.
 """
 
-import time
 import random
-from typing import Dict, List, Any
+import time
+from typing import Any, Dict, List
+
 from .base import AlgorithmDemo
 
 

@@ -5,11 +5,11 @@ This module provides a sophisticated caching decorator exercise that demonstrate
 advanced decorator patterns with TTL, size limits, and thread safety.
 """
 
-import time
 import functools
 import threading
+import time
 from collections import OrderedDict
-from typing import Any, Callable, Optional, Dict, Tuple
+from typing import Any, Callable, Dict, Optional, Tuple
 
 
 class CachingDecoratorExercise:

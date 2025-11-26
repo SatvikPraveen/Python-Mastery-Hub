@@ -6,10 +6,10 @@ where different data structures provide optimal solutions. Each example
 shows practical implementation patterns and performance considerations.
 """
 
-from collections import defaultdict, Counter, deque, OrderedDict
 import heapq
 import time
-from typing import Dict, List, Any, Tuple, Optional
+from collections import Counter, OrderedDict, defaultdict, deque
+from typing import Any, Dict, List, Optional, Tuple
 
 
 class ApplicationsExamples:

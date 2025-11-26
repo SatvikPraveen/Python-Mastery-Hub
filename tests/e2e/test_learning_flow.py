@@ -4,13 +4,14 @@ End-to-end tests for learning flow functionality.
 Tests the complete learning experience including lesson progression,
 interactive exercises, quizzes, and knowledge retention tracking.
 """
-import pytest
 import asyncio
 import json
-from datetime import datetime, timedelta
-from unittest.mock import Mock, patch, AsyncMock
-from typing import Dict, List, Any, Optional
 from dataclasses import dataclass, field
+from datetime import datetime, timedelta
+from typing import Any, Dict, List, Optional
+from unittest.mock import AsyncMock, Mock, patch
+
+import pytest
 
 
 @dataclass

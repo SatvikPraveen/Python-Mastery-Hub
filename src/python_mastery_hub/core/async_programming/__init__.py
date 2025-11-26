@@ -5,17 +5,17 @@ Comprehensive coverage of async/await, asyncio, concurrent programming,
 threading, multiprocessing, and performance optimization techniques.
 """
 
+from .. import LearningModule
 from .async_basics import AsyncBasics
 from .asyncio_patterns import AsyncioPatterns
-from .threading_concepts import ThreadingConcepts
-from .multiprocessing_concepts import MultiprocessingConcepts
 from .concurrent_futures_concepts import ConcurrentFuturesConcepts
 from .exercises import (
     AsyncScraperExercise,
-    ProducerConsumerExercise,
     ParallelProcessorExercise,
+    ProducerConsumerExercise,
 )
-from .. import LearningModule
+from .multiprocessing_concepts import MultiprocessingConcepts
+from .threading_concepts import ThreadingConcepts
 
 
 # Main module class that coordinates all components

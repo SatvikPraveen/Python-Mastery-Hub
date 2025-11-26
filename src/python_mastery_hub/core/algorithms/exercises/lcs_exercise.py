@@ -3,7 +3,8 @@ Longest Common Subsequence (LCS) Exercise - Comprehensive implementation with mu
 """
 
 import time
-from typing import List, Tuple, Dict, Optional
+from typing import Dict, List, Optional, Tuple
+
 from ..base import AlgorithmDemo
 
 

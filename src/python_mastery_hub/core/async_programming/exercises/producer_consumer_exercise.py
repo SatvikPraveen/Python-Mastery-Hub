@@ -2,12 +2,13 @@
 Producer-Consumer Threading Exercise - Implement thread-safe producer-consumer system.
 """
 
-import threading
 import queue
-import time
 import random
-from typing import Dict, List, Any, Optional
+import threading
+import time
 from dataclasses import dataclass
+from typing import Any, Dict, List, Optional
+
 from ..base import AsyncDemo, ThreadSafeCounter
 
 

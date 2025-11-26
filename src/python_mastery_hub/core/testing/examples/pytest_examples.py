@@ -3,7 +3,7 @@ pytest examples for the Testing module.
 Comprehensive examples of pytest framework features.
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 def get_pytest_examples() -> Dict[str, Any]:

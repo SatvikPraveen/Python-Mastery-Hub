@@ -4,24 +4,24 @@ Database performance benchmarks for the Python learning platform.
 Tests database operations including queries, inserts, updates, and
 connection management under various load conditions.
 """
-import sqlite3
 import asyncio
-import time
+import concurrent.futures
 import random
+import sqlite3
 import string
+import tempfile
 import threading
-from typing import Dict, List, Any, Optional, Tuple
+import time
+from contextlib import contextmanager
 from dataclasses import dataclass
 from pathlib import Path
-import tempfile
-import concurrent.futures
-from contextlib import contextmanager
+from typing import Any, Dict, List, Optional, Tuple
 
 from .benchmark_runner import (
-    BenchmarkRunner,
     BenchmarkConfig,
-    benchmark,
+    BenchmarkRunner,
     async_benchmark,
+    benchmark,
 )
 
 

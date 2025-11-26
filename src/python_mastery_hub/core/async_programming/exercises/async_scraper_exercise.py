@@ -3,10 +3,12 @@ Async Web Scraper Exercise - Build an efficient async web scraper with rate limi
 """
 
 import asyncio
-import aiohttp
 import time
-from typing import List, Dict, Any, Optional
 from dataclasses import dataclass
+from typing import Any, Dict, List, Optional
+
+import aiohttp
+
 from ..base import AsyncDemo
 
 

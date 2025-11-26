@@ -7,15 +7,16 @@ Handles admin panel endpoints for user management, content administration,
 system monitoring, and analytics.
 """
 
-from typing import List, Dict, Any, Optional
 from datetime import datetime, timedelta
-from fastapi import APIRouter, Depends, HTTPException, status, Query
+from typing import Any, Dict, List, Optional
+
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from pydantic import BaseModel, validator
 
+from python_mastery_hub.utils.logging_config import get_logger
 from python_mastery_hub.web.middleware.auth import get_current_user, require_admin
 from python_mastery_hub.web.models.user import User
 from python_mastery_hub.web.services.progress_service import ProgressService
-from python_mastery_hub.utils.logging_config import get_logger
 
 logger = get_logger(__name__)
 router = APIRouter()

@@ -5,25 +5,27 @@ Comprehensive coverage of Python data structures including built-in collections,
 custom implementations, and advanced data structure concepts.
 """
 
-from typing import Dict, List, Any
+from typing import Any, Dict, List
+
 from python_mastery_hub.core import LearningModule
+
+from .config.topics import TOPICS_CONFIG
+from .examples.advanced_examples import AdvancedExamples
+from .examples.applications_examples import ApplicationsExamples
 
 # Import example modules
 from .examples.builtin_examples import BuiltinExamples
-from .examples.advanced_examples import AdvancedExamples
 from .examples.custom_examples import CustomExamples
 from .examples.performance_examples import PerformanceExamples
-from .examples.applications_examples import ApplicationsExamples
-
-# Import exercise modules
-from .exercises.linkedlist import LinkedListExercise
 from .exercises.bst import BSTExercise
 from .exercises.cache import CacheExercise
 
+# Import exercise modules
+from .exercises.linkedlist import LinkedListExercise
+from .utils.best_practices import BEST_PRACTICES
+
 # Import utilities
 from .utils.explanations import EXPLANATIONS
-from .utils.best_practices import BEST_PRACTICES
-from .config.topics import TOPICS_CONFIG
 
 
 class DataStructures(LearningModule):

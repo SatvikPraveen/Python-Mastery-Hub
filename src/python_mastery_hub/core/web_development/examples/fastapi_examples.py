@@ -4,7 +4,7 @@ FastAPI Examples for Web Development Learning.
 Comprehensive FastAPI examples from basic to advanced concepts.
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 def get_fastapi_basics() -> Dict[str, Any]:

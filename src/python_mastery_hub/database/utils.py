@@ -2,24 +2,25 @@
 
 """Database utilities for Python Mastery Hub."""
 
-import os
-import sys
 import logging
+import os
 import subprocess
+import sys
 from datetime import datetime
-from typing import Optional, Dict, Any, List, Union
 from pathlib import Path
-from sqlalchemy import Engine, MetaData, Table, text, inspect
-from sqlalchemy.orm import Session
-from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession
-from alembic.config import Config
+from typing import Any, Dict, List, Optional, Union
+
 from alembic import command
-from alembic.runtime.migration import MigrationContext
+from alembic.config import Config
 from alembic.operations import Operations
+from alembic.runtime.migration import MigrationContext
+from sqlalchemy import Engine, MetaData, Table, inspect, text
+from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession
+from sqlalchemy.orm import Session
 
 from .base import Base, get_database_url, settings
 from .connection import get_database_manager
-from .session import get_session, get_async_session
+from .session import get_async_session, get_session
 
 logger = logging.getLogger(__name__)
 

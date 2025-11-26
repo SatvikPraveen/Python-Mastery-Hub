@@ -6,17 +6,17 @@ Provides utilities for exporting user progress, statistics, and achievements
 in different formats including CSV, JSON, PDF reports, and Excel files.
 """
 
+import base64
 import csv
-import json
 import io
+import json
+import logging
+import tempfile
+import zipfile
+from dataclasses import asdict, dataclass
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Dict, List, Optional, Any, Union, BinaryIO
-import logging
-from dataclasses import dataclass, asdict
-import base64
-import zipfile
-import tempfile
+from typing import Any, BinaryIO, Dict, List, Optional, Union
 
 logger = logging.getLogger(__name__)
 
@@ -568,7 +568,7 @@ class ExcelExporter(DataExporter):
         """Export data to Excel format."""
         try:
             import openpyxl
-            from openpyxl.styles import Font, PatternFill, Alignment
+            from openpyxl.styles import Alignment, Font, PatternFill
         except ImportError:
             raise ImportError(
                 "openpyxl is required for Excel export. Install with: pip install openpyxl"
@@ -611,7 +611,7 @@ class ExcelExporter(DataExporter):
         """Add user information sheet."""
         try:
             import openpyxl
-            from openpyxl.styles import Font, PatternFill, Alignment
+            from openpyxl.styles import Alignment, Font, PatternFill
         except ImportError:
             return
 
@@ -650,7 +650,7 @@ class ExcelExporter(DataExporter):
         """Add progress sheet."""
         try:
             import openpyxl
-            from openpyxl.styles import Font, PatternFill, Alignment
+            from openpyxl.styles import Alignment, Font, PatternFill
         except ImportError:
             return
 
@@ -693,7 +693,7 @@ class ExcelExporter(DataExporter):
         """Add achievements sheet."""
         try:
             import openpyxl
-            from openpyxl.styles import Font, PatternFill, Alignment
+            from openpyxl.styles import Alignment, Font, PatternFill
         except ImportError:
             return
 
@@ -735,7 +735,7 @@ class ExcelExporter(DataExporter):
         """Add statistics sheet."""
         try:
             import openpyxl
-            from openpyxl.styles import Font, PatternFill, Alignment
+            from openpyxl.styles import Alignment, Font, PatternFill
         except ImportError:
             return
 
@@ -782,7 +782,7 @@ class ExcelExporter(DataExporter):
         """Add learning history sheet."""
         try:
             import openpyxl
-            from openpyxl.styles import Font, PatternFill, Alignment
+            from openpyxl.styles import Alignment, Font, PatternFill
         except ImportError:
             return
 

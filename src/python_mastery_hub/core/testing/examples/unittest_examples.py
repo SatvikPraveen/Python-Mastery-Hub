@@ -3,7 +3,7 @@ unittest examples for the Testing module.
 Comprehensive examples of Python's unittest framework.
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 def get_unittest_examples() -> Dict[str, Any]:

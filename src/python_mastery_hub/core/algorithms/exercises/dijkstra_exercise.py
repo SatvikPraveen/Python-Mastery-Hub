@@ -4,8 +4,9 @@ Dijkstra's Algorithm Exercise - Comprehensive implementation with analysis and v
 
 import heapq
 import time
-from typing import Dict, List, Tuple, Optional, Set
 from collections import defaultdict
+from typing import Dict, List, Optional, Set, Tuple
+
 from ..base import AlgorithmDemo
 
 

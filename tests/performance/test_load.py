@@ -4,24 +4,26 @@ Load testing for the Python learning platform.
 Tests system performance under various load conditions including
 concurrent users, high request volumes, and resource-intensive operations.
 """
-import pytest
 import asyncio
-import aiohttp
-import time
 import statistics
+import time
+
+import aiohttp
+import pytest
 
 pytestmark = pytest.mark.performance
-import random
-import json
-from datetime import datetime, timedelta
-from unittest.mock import Mock, patch, AsyncMock
-from typing import Dict, List, Any, Optional, Tuple
-from dataclasses import dataclass, field
-from concurrent.futures import ThreadPoolExecutor, as_completed
-import threading
-import queue
-import psutil
 import gc
+import json
+import queue
+import random
+import threading
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from dataclasses import dataclass, field
+from datetime import datetime, timedelta
+from typing import Any, Dict, List, Optional, Tuple
+from unittest.mock import AsyncMock, Mock, patch
+
+import psutil
 
 
 @dataclass

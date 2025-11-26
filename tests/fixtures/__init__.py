@@ -13,8 +13,8 @@ All fixtures can be imported directly from this package for convenience.
 """
 
 from .database import *
-from .users import *
 from .exercises import *
+from .users import *
 
 __all__ = [
     # Database fixtures

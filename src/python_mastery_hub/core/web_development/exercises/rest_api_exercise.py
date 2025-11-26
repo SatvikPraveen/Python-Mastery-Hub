@@ -5,7 +5,7 @@ Build a complete REST API with advanced features including CRUD operations,
 filtering, pagination, validation, and error handling.
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 def get_exercise() -> Dict[str, Any]:

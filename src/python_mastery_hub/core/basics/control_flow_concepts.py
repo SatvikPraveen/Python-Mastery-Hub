@@ -2,7 +2,7 @@
 Control Flow Concepts - Conditionals, loops, and comprehensions.
 """
 
-from typing import Dict, Any, List
+from typing import Any, Dict, List
 
 
 class ControlFlowConcepts:

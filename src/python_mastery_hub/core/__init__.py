@@ -5,9 +5,9 @@ This package contains all the interactive learning modules covering different
 aspects of Python programming from basics to advanced topics.
 """
 
-from typing import Dict, List, Type, Any
-from abc import ABC, abstractmethod
 import logging
+from abc import ABC, abstractmethod
+from typing import Any, Dict, List, Type
 
 logger = logging.getLogger(__name__)
 
@@ -50,16 +50,17 @@ class LearningModule(ABC):
         }
 
 
-# Import all learning modules
-from python_mastery_hub.core.basics import BasicsConcepts
-from python_mastery_hub.core.oop import OOPConcepts
 from python_mastery_hub.core.advanced import AdvancedConcepts
-from python_mastery_hub.core.data_structures import DataStructures
 from python_mastery_hub.core.algorithms import Algorithms
 from python_mastery_hub.core.async_programming import AsyncProgramming
-from python_mastery_hub.core.web_development import WebDevelopment
+
+# Import all learning modules
+from python_mastery_hub.core.basics import BasicsConcepts
 from python_mastery_hub.core.data_science import DataScience
+from python_mastery_hub.core.data_structures import DataStructures
+from python_mastery_hub.core.oop import OOPConcepts
 from python_mastery_hub.core.testing import TestingConcepts
+from python_mastery_hub.core.web_development import WebDevelopment
 
 # Registry of all available modules
 MODULE_REGISTRY: Dict[str, Type[LearningModule]] = {

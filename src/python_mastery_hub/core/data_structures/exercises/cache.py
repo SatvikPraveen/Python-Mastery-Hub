@@ -6,11 +6,11 @@ cache system that demonstrates the combination of multiple data structures to ac
 optimal performance characteristics.
 """
 
-from collections import OrderedDict
-import time
-import threading
 import sys
-from typing import Any, Optional, Dict, List, Tuple
+import threading
+import time
+from collections import OrderedDict
+from typing import Any, Dict, List, Optional, Tuple
 
 
 class CacheExercise:

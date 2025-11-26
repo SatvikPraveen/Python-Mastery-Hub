@@ -3,17 +3,18 @@
 Core benchmark runner for the Python learning platform.
 Provides infrastructure for running, measuring, and comparing performance benchmarks.
 """
-import time
-import statistics
-import json
-import hashlib
 import asyncio
-from datetime import datetime, timedelta
-from typing import Dict, List, Any, Optional, Callable, Union
-from dataclasses import dataclass, field, asdict
-from pathlib import Path
-import psutil
 import gc
+import hashlib
+import json
+import statistics
+import time
+from dataclasses import asdict, dataclass, field
+from datetime import datetime, timedelta
+from pathlib import Path
+from typing import Any, Callable, Dict, List, Optional, Union
+
+import psutil
 
 
 @dataclass

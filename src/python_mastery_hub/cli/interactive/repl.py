@@ -6,17 +6,17 @@ code suggestions, and contextual help for educational purposes.
 """
 
 import argparse
+import ast
 import asyncio
-import sys
 import code
+import contextlib
+import inspect
+import io
 import readline
 import rlcompleter
-import io
-import contextlib
-from typing import Dict, List, Any, Optional, Callable
-import inspect
-import ast
+import sys
 import textwrap
+from typing import Any, Callable, Dict, List, Optional
 
 from python_mastery_hub.cli.utils import colors
 from python_mastery_hub.utils.logging_config import get_logger

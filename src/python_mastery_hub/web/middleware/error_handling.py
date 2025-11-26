@@ -8,17 +8,17 @@ custom exception handlers, logging, and user-friendly error responses.
 """
 
 import traceback
-from typing import Dict, Any, Optional, Union
 from datetime import datetime
+from typing import Any, Dict, Optional, Union
 
-from fastapi import FastAPI, Request, HTTPException, status
-from fastapi.responses import JSONResponse
+from fastapi import FastAPI, HTTPException, Request, status
 from fastapi.exceptions import RequestValidationError, ValidationError
-from starlette.exceptions import HTTPException as StarletteHTTPException
+from fastapi.responses import JSONResponse
 from pydantic import ValidationError as PydanticValidationError
+from starlette.exceptions import HTTPException as StarletteHTTPException
 
-from python_mastery_hub.utils.logging_config import get_logger
 from python_mastery_hub.core.config import get_settings
+from python_mastery_hub.utils.logging_config import get_logger
 
 logger = get_logger(__name__)
 settings = get_settings()

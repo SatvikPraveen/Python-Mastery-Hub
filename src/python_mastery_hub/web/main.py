@@ -9,30 +9,32 @@ Configures FastAPI app, middleware, routes, and startup/shutdown events.
 
 import asyncio
 from contextlib import asynccontextmanager
+
+import uvicorn
 from fastapi import FastAPI, Request, Response
+from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from fastapi.responses import JSONResponse
-import uvicorn
 
-# Import routers
-from python_mastery_hub.web.api.auth import router as auth_router
-from python_mastery_hub.web.api.modules import router as modules_router
-from python_mastery_hub.web.api.progress import router as progress_router
-from python_mastery_hub.web.api.exercises import router as exercises_router
-from python_mastery_hub.web.api.admin import router as admin_router
-
-# Import middleware and config
-from python_mastery_hub.web.middleware.cors import setup_all_middleware
-from python_mastery_hub.web.middleware.rate_limiting import rate_limit_middleware
-from python_mastery_hub.web.middleware.error_handling import setup_error_handlers
-from python_mastery_hub.web.config.database import get_database
-from python_mastery_hub.web.config.cache import get_cache_manager
-from python_mastery_hub.web.config.security import get_security_config
+from python_mastery_hub.core.config import get_settings
 
 # Import utilities
 from python_mastery_hub.utils.logging_config import get_logger
-from python_mastery_hub.core.config import get_settings
+from python_mastery_hub.web.api.admin import router as admin_router
+
+# Import routers
+from python_mastery_hub.web.api.auth import router as auth_router
+from python_mastery_hub.web.api.exercises import router as exercises_router
+from python_mastery_hub.web.api.modules import router as modules_router
+from python_mastery_hub.web.api.progress import router as progress_router
+from python_mastery_hub.web.config.cache import get_cache_manager
+from python_mastery_hub.web.config.database import get_database
+from python_mastery_hub.web.config.security import get_security_config
+
+# Import middleware and config
+from python_mastery_hub.web.middleware.cors import setup_all_middleware
+from python_mastery_hub.web.middleware.error_handling import setup_error_handlers
+from python_mastery_hub.web.middleware.rate_limiting import rate_limit_middleware
 
 logger = get_logger(__name__)
 settings = get_settings()

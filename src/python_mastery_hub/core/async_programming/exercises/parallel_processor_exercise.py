@@ -2,15 +2,17 @@
 Parallel Data Processing Exercise - Build multiprocessing data processing pipeline.
 """
 
-import multiprocessing as mp
-import time
 import math
-import random
-import psutil
+import multiprocessing as mp
 import os
-from typing import List, Any, Callable, Optional, Tuple, Dict
+import random
+import time
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from dataclasses import dataclass, field
+from typing import Any, Callable, Dict, List, Optional, Tuple
+
+import psutil
+
 from ..base import AsyncDemo
 
 

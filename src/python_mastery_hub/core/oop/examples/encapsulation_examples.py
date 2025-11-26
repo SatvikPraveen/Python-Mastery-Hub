@@ -3,7 +3,7 @@ Encapsulation examples for the OOP module.
 Demonstrates access control, data hiding, and property usage.
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 def get_encapsulation_examples() -> Dict[str, Any]:

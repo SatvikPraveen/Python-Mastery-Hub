@@ -1,18 +1,19 @@
 # tests/fixtures/users.py
 # User-related test fixtures
 
-import pytest
-from datetime import datetime, timedelta
-from unittest.mock import Mock, AsyncMock
 import hashlib
 import uuid
+from datetime import datetime, timedelta
+from unittest.mock import AsyncMock, Mock
+
+import pytest
 
 # Import your user models and services (adjust based on your actual structure)
 try:
+    from src.core.user_manager import UserManager
     from src.models.user import User
     from src.services.auth import AuthService
     from src.services.user_service import UserService
-    from src.core.user_manager import UserManager
 except ImportError:
     # Mock classes for when actual models don't exist
     class User:

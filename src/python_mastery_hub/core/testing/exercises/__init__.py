@@ -2,10 +2,10 @@
 Testing exercises module exports.
 """
 
-from .unittest_exercise import get_unittest_exercise
-from .tdd_exercise import get_tdd_exercise
-from .mocking_exercise import get_mocking_exercise
 from .integration_exercise import get_integration_exercise
+from .mocking_exercise import get_mocking_exercise
+from .tdd_exercise import get_tdd_exercise
+from .unittest_exercise import get_unittest_exercise
 
 __all__ = [
     "get_unittest_exercise",

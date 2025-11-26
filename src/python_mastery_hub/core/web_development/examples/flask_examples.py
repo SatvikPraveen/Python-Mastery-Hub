@@ -4,7 +4,7 @@ Flask Examples for Web Development Learning.
 Comprehensive Flask examples from basic to advanced concepts.
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 def get_flask_basics() -> Dict[str, Any]:

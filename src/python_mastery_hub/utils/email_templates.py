@@ -7,12 +7,12 @@ welcome emails, progress reports, achievement notifications, and reminders.
 """
 
 import json
-from datetime import datetime, timedelta
-from typing import Dict, List, Optional, Any, Union, Tuple
-from pathlib import Path
-from string import Template
 import logging
 from dataclasses import dataclass
+from datetime import datetime, timedelta
+from pathlib import Path
+from string import Template
+from typing import Any, Dict, List, Optional, Tuple, Union
 
 logger = logging.getLogger(__name__)
 

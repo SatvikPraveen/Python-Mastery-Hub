@@ -4,16 +4,17 @@ End-to-end tests for exercise submission and evaluation system.
 Tests code submission, automated testing, plagiarism detection,
 peer review, and instructor feedback workflows.
 """
-import pytest
-import asyncio
 import ast
-import hashlib
+import asyncio
 import difflib
-from datetime import datetime, timedelta
-from unittest.mock import Mock, patch, AsyncMock, MagicMock
-from typing import Dict, List, Any, Optional, Tuple
+import hashlib
 from dataclasses import dataclass, field
+from datetime import datetime, timedelta
 from enum import Enum
+from typing import Any, Dict, List, Optional, Tuple
+from unittest.mock import AsyncMock, MagicMock, Mock, patch
+
+import pytest
 
 
 class SubmissionStatus(Enum):
