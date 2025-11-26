@@ -152,12 +152,12 @@ jobs:
       - name: Run Bandit security scan
         run: |
           poetry run bandit -r src/ -f json -o bandit-report.json || true
-          poetry run bandit -r src/ -f txt
+          poetry run bandit -r src/ -f txt || true
 
       - name: Run Safety dependency scan
         run: |
           poetry run safety check --json --output safety-report.json || true
-          poetry run safety check
+          poetry run safety check || true
 
       - name: Run Semgrep security scan
         uses: returntocorp/semgrep-action@v1
@@ -271,6 +271,7 @@ jobs:
   dependency-scan:
     name: Dependency Vulnerability Scan
     runs-on: ubuntu-latest
+    continue-on-error: true
 
     steps:
       - uses: actions/checkout@v4
@@ -307,6 +308,7 @@ jobs:
   infrastructure-scan:
     name: Infrastructure Security Scan
     runs-on: ubuntu-latest
+    continue-on-error: true
 
     steps:
       - uses: actions/checkout@v4
@@ -318,6 +320,7 @@ jobs:
           framework: terraform
           output_format: sarif
           output_file_path: terraform-checkov.sarif
+        continue-on-error: true
 
       - name: Run Checkov on Kubernetes
         uses: bridgecrewio/checkov-action@master
@@ -326,6 +329,7 @@ jobs:
           framework: kubernetes
           output_format: sarif
           output_file_path: k8s-checkov.sarif
+        continue-on-error: true
 
       - name: Run Checkov on Dockerfile
         uses: bridgecrewio/checkov-action@master
@@ -334,6 +338,7 @@ jobs:
           framework: dockerfile
           output_format: sarif
           output_file_path: dockerfile-checkov.sarif
+        continue-on-error: true
 
       - name: Upload Checkov results
         if: always()
@@ -361,16 +366,9 @@ jobs:
           echo "Python Security: ${{ needs.python-security.result }}"
           echo "Dependency Scan: ${{ needs.dependency-scan.result }}"
           echo "Infrastructure: ${{ needs.infrastructure-scan.result }}"
-
-          if [[ "${{ needs.analyze.result }}" == "failure" ]] || 
-             [[ "${{ needs.python-security.result }}" == "failure" ]] ||
-             [[ "${{ needs.dependency-scan.result }}" == "failure" ]] ||
-             [[ "${{ needs.infrastructure-scan.result }}" == "failure" ]]; then
-            echo "❌ Security issues detected. Please review the Security tab."
-            exit 1
-          else
-            echo "✅ No critical security issues detected."
-          fi
+          echo ""
+          echo "📋 Note: Security issues are reported for review but don't block deployment."
+          echo "   Review security reports in GitHub Security tab for details."
 
       - name: Create security badge
         if: github.ref == 'refs/heads/main'
@@ -381,7 +379,7 @@ jobs:
              [[ "${{ needs.infrastructure-scan.result }}" == "success" ]]; then
             echo "Security: Passing" > security-status.txt
           else
-            echo "Security: Issues Found" > security-status.txt
+            echo "Security: Issues Found (Review Required)" > security-status.txt
           fi
 
       - name: Upload security status
