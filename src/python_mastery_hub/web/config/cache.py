@@ -10,7 +10,7 @@ and performance optimization through caching layers.
 import asyncio
 import hashlib
 import json
-import pickle
+import pickle  # nosec B403: pickle used for internal cache serialization of controlled data, not untrusted sources
 from datetime import datetime, timedelta
 from functools import wraps
 from typing import Any, Callable, Dict, List, Optional, Union
@@ -159,7 +159,7 @@ class RedisCache:
             try:
                 return json.loads(data)
             except json.JSONDecodeError:
-                return pickle.loads(data)
+                return pickle.loads(data)  # nosec B301: deserializing controlled internal cache data from Redis
 
         except Exception as e:
             logger.error(f"Redis get error for key {key}: {e}")

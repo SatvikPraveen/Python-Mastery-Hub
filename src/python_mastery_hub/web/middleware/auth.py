@@ -90,7 +90,7 @@ def create_refresh_token(data: dict, expires_delta: Optional[timedelta] = None) 
     return encoded_jwt
 
 
-def verify_token(token: str, token_type: str = "access") -> dict:
+def verify_token(token: str, token_type: str = "access") -> dict:  # nosec B107: 'access' is JWT token type identifier, not a credential
     """Verify and decode a JWT token."""
     try:
         payload = jwt.decode(

@@ -266,7 +266,7 @@ class QuizEngine:
             colors.print_error("Not enough questions available")
             return
 
-        quiz_questions = random.sample(all_questions, 5)
+        quiz_questions = random.sample(all_questions, 5)  # nosec B311: random shuffling for quiz selection, not cryptographic
         await self.run_quiz(quiz_questions, "Mixed Topics", "mixed")
 
     async def module_quiz(self) -> None:
@@ -431,7 +431,7 @@ class QuizEngine:
             return
 
         # Take up to 10 advanced questions
-        quiz_questions = random.sample(
+        quiz_questions = random.sample(  # nosec B311: random shuffling for quiz selection, not cryptographic
             advanced_questions, min(10, len(advanced_questions))
         )
         await self.run_quiz(quiz_questions, "Challenge Quiz", "advanced")

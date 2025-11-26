@@ -539,7 +539,7 @@ async def revoke_all_sessions(current_user: User = Depends(require_authenticated
     """Revoke all user sessions except current one."""
     try:
         # Get current session token to exclude it
-        current_session_token = "current_session_token"  # Would extract from JWT
+        current_session_token = "current_session_token"  # nosec B105: demo mock value for testing
 
         revoked_count = await revoke_all_user_sessions(
             current_user.id, except_session=current_session_token

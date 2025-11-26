@@ -317,7 +317,7 @@ def run_dev_server():
     """Run development server with auto-reload."""
     uvicorn.run(
         "python_mastery_hub.web.main:app",
-        host="0.0.0.0",
+        host="0.0.0.0",  # nosec B104: intentional for Docker container and development deployment
         port=8000,
         reload=True,
         log_level="info",
@@ -330,7 +330,7 @@ def run_prod_server():
     """Run production server."""
     uvicorn.run(
         "python_mastery_hub.web.main:app",
-        host="0.0.0.0",
+        host="0.0.0.0",  # nosec B104: intentional for Docker container and production deployment
         port=8000,
         workers=4,
         log_level="warning",
