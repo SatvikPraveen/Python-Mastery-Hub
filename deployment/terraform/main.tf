@@ -664,6 +664,22 @@ resource "aws_s3_bucket_public_access_block" "logs_replica" {
   restrict_public_buckets = true
 }
 
+resource "aws_s3_bucket_encryption" "logs_replica" {
+  provider = aws.secondary
+  bucket   = aws_s3_bucket.logs_replica.id
+
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm = "aws:kms"
+        # Note: Using default service key as cross-region KMS key usage has limitations
+        # For production, consider creating region-specific KMS keys
+      }
+      bucket_key_enabled = true
+    }
+  }
+}
+
 # Replication configuration for logs
 resource "aws_s3_bucket_replication_configuration" "logs" {
   depends_on = [aws_s3_bucket_versioning.logs]
