@@ -745,6 +745,39 @@ resource "aws_s3_bucket_public_access_block" "backups_replica" {
   restrict_public_buckets = true
 }
 
+resource "aws_s3_bucket_lifecycle_configuration" "backups_replica" {
+  provider = aws.secondary
+  bucket   = aws_s3_bucket.backups_replica.id
+
+  rule {
+    id     = "backup_lifecycle_replica"
+    status = "Enabled"
+
+    abort_incomplete_multipart_upload {
+      days_after_initiation = 7
+    }
+
+    transition {
+      days          = 30
+      storage_class = "STANDARD_INFREQUENT_ACCESS"
+    }
+
+    transition {
+      days          = 90
+      storage_class = "GLACIER"
+    }
+
+    transition {
+      days          = 365
+      storage_class = "DEEP_ARCHIVE"
+    }
+
+    expiration {
+      days = var.backup_retention_days
+    }
+  }
+}
+
 # Replication configuration for backups
 resource "aws_s3_bucket_replication_configuration" "backups" {
   depends_on = [aws_s3_bucket_versioning.backups]
