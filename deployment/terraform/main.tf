@@ -141,6 +141,7 @@ resource "aws_security_group" "database" {
   vpc_id      = module.vpc.vpc_id
 
   ingress {
+    description     = "PostgreSQL from EKS cluster"
     from_port       = 5432
     to_port         = 5432
     protocol        = "tcp"
@@ -148,9 +149,10 @@ resource "aws_security_group" "database" {
   }
 
   egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
+    description = "Allow specific outbound traffic"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
@@ -165,6 +167,7 @@ resource "aws_security_group" "redis" {
   vpc_id      = module.vpc.vpc_id
 
   ingress {
+    description     = "Redis from EKS cluster"
     from_port       = 6379
     to_port         = 6379
     protocol        = "tcp"
@@ -172,9 +175,10 @@ resource "aws_security_group" "redis" {
   }
 
   egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
+    description = "Allow specific outbound traffic"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
@@ -189,6 +193,7 @@ resource "aws_security_group" "eks_cluster" {
   vpc_id      = module.vpc.vpc_id
 
   ingress {
+    description = "HTTPS from VPC"
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
@@ -196,9 +201,10 @@ resource "aws_security_group" "eks_cluster" {
   }
 
   egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
+    description = "Allow specific outbound traffic"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
@@ -293,6 +299,13 @@ resource "aws_s3_bucket" "app_storage" {
   })
 }
 
+resource "aws_s3_bucket_logging" "app_storage" {
+  bucket = aws_s3_bucket.app_storage.id
+
+  target_bucket = aws_s3_bucket.logs.id
+  target_prefix = "app-storage-logs/"
+}
+
 resource "aws_s3_bucket_versioning" "app_storage" {
   bucket = aws_s3_bucket.app_storage.id
   versioning_configuration {
@@ -306,14 +319,42 @@ resource "aws_s3_bucket_encryption" "app_storage" {
   server_side_encryption_configuration {
     rule {
       apply_server_side_encryption_by_default {
-        sse_algorithm = "AES256"
+        sse_algorithm     = "aws:kms"
+        kms_master_key_id = aws_kms_key.main.arn
       }
+      bucket_key_enabled = true
     }
   }
 }
 
 resource "aws_s3_bucket_public_access_block" "app_storage" {
   bucket = aws_s3_bucket.app_storage.id
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
+
+# S3 bucket for logging
+resource "aws_s3_bucket" "logs" {
+  bucket = "${local.cluster_name}-logs"
+
+  tags = merge(local.common_tags, {
+    Name = "${local.cluster_name}-logs"
+    Type = "Logging"
+  })
+}
+
+resource "aws_s3_bucket_versioning" "logs" {
+  bucket = aws_s3_bucket.logs.id
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
+resource "aws_s3_bucket_public_access_block" "logs" {
+  bucket = aws_s3_bucket.logs.id
 
   block_public_acls       = true
   block_public_policy     = true
@@ -331,11 +372,41 @@ resource "aws_s3_bucket" "backups" {
   })
 }
 
+resource "aws_s3_bucket_logging" "backups" {
+  bucket = aws_s3_bucket.backups.id
+
+  target_bucket = aws_s3_bucket.logs.id
+  target_prefix = "backups-logs/"
+}
+
 resource "aws_s3_bucket_versioning" "backups" {
   bucket = aws_s3_bucket.backups.id
   versioning_configuration {
     status = "Enabled"
   }
+}
+
+resource "aws_s3_bucket_encryption" "backups" {
+  bucket = aws_s3_bucket.backups.id
+
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm     = "aws:kms"
+        kms_master_key_id = aws_kms_key.main.arn
+      }
+      bucket_key_enabled = true
+    }
+  }
+}
+
+resource "aws_s3_bucket_public_access_block" "backups" {
+  bucket = aws_s3_bucket.backups.id
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
 }
 
 resource "aws_s3_bucket_lifecycle_configuration" "backups" {
@@ -344,6 +415,10 @@ resource "aws_s3_bucket_lifecycle_configuration" "backups" {
   rule {
     id     = "backup_lifecycle"
     status = "Enabled"
+
+    abort_incomplete_multipart_upload {
+      days_after_initiation = 7
+    }
 
     transition {
       days          = 30
@@ -458,7 +533,14 @@ resource "aws_lb" "main" {
   security_groups    = [aws_security_group.alb.id]
   subnets            = module.vpc.public_subnets
 
-  enable_deletion_protection = var.environment == "production"
+  enable_deletion_protection       = true
+  enable_drop_invalid_header_fields = true
+
+  access_logs {
+    bucket  = aws_s3_bucket.logs.id
+    prefix  = "alb-logs"
+    enabled = true
+  }
 
   tags = merge(local.common_tags, {
     Name = "${local.cluster_name}-alb"
@@ -471,6 +553,7 @@ resource "aws_security_group" "alb" {
   vpc_id      = module.vpc.vpc_id
 
   ingress {
+    description = "HTTP from anywhere"
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
@@ -478,6 +561,7 @@ resource "aws_security_group" "alb" {
   }
 
   ingress {
+    description = "HTTPS from anywhere"
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
@@ -485,10 +569,19 @@ resource "aws_security_group" "alb" {
   }
 
   egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    description = "Allow HTTPS outbound to VPC"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = [local.vpc_cidr]
+  }
+
+  egress {
+    description = "Allow HTTP outbound to VPC"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = [local.vpc_cidr]
   }
 
   tags = merge(local.common_tags, {
@@ -503,6 +596,43 @@ resource "aws_route53_zone" "main" {
 
   tags = merge(local.common_tags, {
     Name = var.domain_name
+  })
+}
+
+# Route53 DNSSEC signing
+resource "aws_route53_key_signing_key" "main" {
+  count                             = var.create_route53_zone ? 1 : 0
+  hosted_zone_id             = aws_route53_zone.main[0].zone_id
+  key_management_service_arn = aws_kms_key.main.arn
+  name                       = "${local.cluster_name}-dnssec"
+  status                     = "ACTIVE"
+
+  depends_on = [aws_route53_zone.main]
+}
+
+resource "aws_route53_hosted_zone_dnssec" "main" {
+  count          = var.create_route53_zone ? 1 : 0
+  hosted_zone_id = aws_route53_key_signing_key.main[0].hosted_zone_id
+  signing_status = "SIGNING"
+
+  depends_on = [aws_route53_key_signing_key.main]
+}
+
+# Route53 DNS query logging
+resource "aws_route53_query_logging_config" "main" {
+  count                    = var.create_route53_zone ? 1 : 0
+  zone_id                  = aws_route53_zone.main[0].zone_id
+  cloudwatch_log_group_arn = "${aws_cloudwatch_log_group.route53_logs[0].arn}:*"
+}
+
+resource "aws_cloudwatch_log_group" "route53_logs" {
+  count             = var.create_route53_zone ? 1 : 0
+  name              = "/aws/route53/${local.cluster_name}"
+  retention_in_days = 365
+  kms_key_id        = aws_kms_key.main.arn
+
+  tags = merge(local.common_tags, {
+    Name = "${local.cluster_name}-route53-logs"
   })
 }
 
@@ -751,6 +881,40 @@ resource "aws_wafv2_web_acl" "main" {
   })
 }
 
+# WAF Logging
+resource "aws_wafv2_web_acl_logging_configuration" "main" {
+  count                   = var.enable_waf ? 1 : 0
+  resource_arn            = aws_wafv2_web_acl.main[0].arn
+  log_destination_configs = ["${aws_cloudwatch_log_group.waf_logs[0].arn}:*"]
+
+  logging_filter {
+    default_behavior = "KEEP"
+
+    filter {
+      behavior   = "KEEP"
+      condition {
+        action_condition {
+          action = "BLOCK"
+        }
+      }
+      requirement = "MEETS_ANY"
+    }
+  }
+
+  depends_on = [aws_wafv2_web_acl.main]
+}
+
+resource "aws_cloudwatch_log_group" "waf_logs" {
+  count             = var.enable_waf ? 1 : 0
+  name              = "/aws/waf/${local.cluster_name}"
+  retention_in_days = 365
+  kms_key_id        = aws_kms_key.main.arn
+
+  tags = merge(local.common_tags, {
+    Name = "${local.cluster_name}-waf-logs"
+  })
+}
+
 # KMS Key for encryption
 resource "aws_kms_key" "main" {
   description             = "KMS key for ${local.cluster_name}"
@@ -848,7 +1012,7 @@ resource "aws_secretsmanager_secret_version" "app_secrets" {
 # CloudWatch Log Groups
 resource "aws_cloudwatch_log_group" "app_logs" {
   name              = "/aws/myapp/${local.cluster_name}"
-  retention_in_days = var.log_retention_days
+  retention_in_days = max(var.log_retention_days, 365)
   kms_key_id        = aws_kms_key.main.arn
 
   tags = merge(local.common_tags, {
