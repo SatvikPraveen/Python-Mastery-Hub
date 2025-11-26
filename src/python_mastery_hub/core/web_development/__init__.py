@@ -5,6 +5,8 @@ Comprehensive coverage of web development with Python including Flask, FastAPI,
 REST APIs, WebSockets, authentication, database integration, and deployment.
 """
 
+from .. import LearningModule
+
 from .core import WebDevelopment
 from .examples import (
     flask_examples,

@@ -10,15 +10,18 @@ from .data_types_concepts import DataTypesConcepts
 from .control_flow_concepts import ControlFlowConcepts
 from .functions_concepts import FunctionsConcepts
 from .error_handling_concepts import ErrorHandlingConcepts
+from .. import LearningModule
 
 # Main module class that aggregates all concepts
-class BasicsConcepts:
+class BasicsConcepts(LearningModule):
     """Interactive learning module for Python basics."""
     
     def __init__(self):
-        self.name = "Python Basics"
-        self.description = "Comprehensive coverage of Python fundamentals"
-        self.difficulty = "beginner"
+        super().__init__(
+            name="Python Basics",
+            description="Comprehensive coverage of Python fundamentals",
+            difficulty="beginner"
+        )
         
         # Initialize concept modules
         self.variables = VariablesConcepts()
@@ -26,6 +29,10 @@ class BasicsConcepts:
         self.control_flow = ControlFlowConcepts()
         self.functions = FunctionsConcepts()
         self.error_handling = ErrorHandlingConcepts()
+    
+    def _setup_module(self) -> None:
+        """Setup the learning module."""
+        pass  # Topics are already set up in __init__
     
     def get_topics(self):
         """Return list of available topics."""

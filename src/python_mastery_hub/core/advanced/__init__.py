@@ -5,6 +5,8 @@ Comprehensive coverage of advanced Python features including decorators,
 context managers, generators, metaclasses, and descriptors.
 """
 
+from .. import LearningModule
+
 from .base import AdvancedConcepts
 from .decorators import DecoratorsDemo
 from .generators import GeneratorsDemo

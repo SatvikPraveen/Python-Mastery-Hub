@@ -272,7 +272,7 @@ def api_call(endpoint: str):
     
     def _setup_exercises(self) -> None:
         """Setup decorator exercises."""
-        from .exercises.caching_decorator import CachingDecoratorExercise
+        from .classes.utilities.exercises.caching_director import CachingDecoratorExercise
         
         caching_exercise = CachingDecoratorExercise()
         

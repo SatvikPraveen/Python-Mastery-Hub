@@ -8,7 +8,7 @@ welcome emails, progress reports, achievement notifications, and reminders.
 
 import json
 from datetime import datetime, timedelta
-from typing import Dict, List, Optional, Any, Union
+from typing import Dict, List, Optional, Any, Union, Tuple
 from pathlib import Path
 from string import Template
 import logging

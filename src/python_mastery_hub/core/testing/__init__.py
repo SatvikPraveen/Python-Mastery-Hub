@@ -5,7 +5,9 @@ This module provides comprehensive coverage of testing in Python including
 unittest, pytest, mocking, TDD, integration testing, and performance testing.
 """
 
-from .core import Testing
+from .. import LearningModule
+
+from .core import TestingConcepts
 from .examples import (
     get_unittest_examples,
     get_pytest_examples,
@@ -22,7 +24,7 @@ from .exercises import (
 )
 
 __all__ = [
-    "Testing",
+    "TestingConcepts",
     # Examples
     "get_unittest_examples",
     "get_pytest_examples", 

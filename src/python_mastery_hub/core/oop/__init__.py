@@ -5,6 +5,8 @@ This module provides comprehensive coverage of OOP concepts including classes,
 inheritance, polymorphism, encapsulation, and design patterns.
 """
 
+from .. import LearningModule
+
 from .core import OOPConcepts
 from .examples import (
     get_classes_examples,

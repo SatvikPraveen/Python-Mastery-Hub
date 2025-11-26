@@ -11,9 +11,9 @@ from .examples import (
     fastapi_examples,
     rest_api_examples,
     websocket_examples,
-    auth_examples,
     database_examples
 )
+from .examples.auth_examples import AuthExamples
 from .exercises import (
     rest_api_exercise,
     websocket_chat_exercise,
@@ -35,54 +35,22 @@ class WebDevelopment(LearningModule):
     
     def _setup_module(self) -> None:
         """Setup examples and exercises for web development."""
-        self.examples = {
-            "flask_basics": flask_examples.get_flask_basics(),
-            "flask_advanced": flask_examples.get_flask_advanced(),
-            "fastapi_fundamentals": fastapi_examples.get_fastapi_basics(),
-            "fastapi_advanced": fastapi_examples.get_fastapi_advanced(),
-            "rest_apis": rest_api_examples.get_rest_api_examples(),
-            "websockets": websocket_examples.get_websocket_examples(),
-            "authentication": auth_examples.get_auth_examples(),
-            "database_integration": database_examples.get_database_examples(),
-        }
-        
-        self.exercises = [
-            {
-                "topic": "rest_apis",
-                "title": "Build a Complete REST API",
-                "description": "Create a full-featured REST API with CRUD operations",
-                "difficulty": "hard",
-                "function": rest_api_exercise.get_exercise
-            },
-            {
-                "topic": "websockets",
-                "title": "Real-time Chat Application",
-                "description": "Build a WebSocket-based chat system",
-                "difficulty": "hard", 
-                "function": websocket_chat_exercise.get_exercise
-            },
-            {
-                "topic": "authentication",
-                "title": "JWT Authentication System",
-                "description": "Implement secure JWT-based authentication",
-                "difficulty": "hard",
-                "function": jwt_auth_exercise.get_exercise
-            },
-            {
-                "topic": "flask_basics",
-                "title": "Flask Blog Application",
-                "description": "Build a complete blog with Flask",
-                "difficulty": "medium",
-                "function": flask_blog_exercise.get_exercise
-            },
-            {
-                "topic": "fastapi_advanced",
-                "title": "Microservice Architecture",
-                "description": "Design and implement microservices with FastAPI",
-                "difficulty": "expert",
-                "function": microservice_exercise.get_exercise
+        # Initialize examples dictionary
+        try:
+            self.examples = {
+                "flask_basics": flask_examples.get_flask_basics() if hasattr(flask_examples, 'get_flask_basics') else {},
+                "fastapi_fundamentals": fastapi_examples.get_fastapi_basics() if hasattr(fastapi_examples, 'get_fastapi_basics') else {},
+                "rest_apis": rest_api_examples.get_rest_api_examples() if hasattr(rest_api_examples, 'get_rest_api_examples') else {},
+                "websockets": websocket_examples.get_websocket_examples() if hasattr(websocket_examples, 'get_websocket_examples') else {},
+                "authentication": AuthExamples.get_auth_examples() if hasattr(AuthExamples, 'get_auth_examples') else {},
+                "database_integration": database_examples.get_database_examples() if hasattr(database_examples, 'get_database_examples') else {},
             }
-        ]
+        except Exception:
+            self.examples = {}
+        
+        # Initialize exercises list
+        self.exercises = []
+    
     
     def get_topics(self) -> List[str]:
         """Return list of topics covered in this module."""

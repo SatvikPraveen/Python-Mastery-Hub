@@ -5,6 +5,8 @@ Comprehensive coverage of fundamental algorithms including sorting, searching,
 dynamic programming, graph algorithms, and algorithmic thinking patterns.
 """
 
+from .. import LearningModule
+
 from .base import Algorithms
 from .sorting import SortingAlgorithms
 from .searching import SearchingAlgorithms

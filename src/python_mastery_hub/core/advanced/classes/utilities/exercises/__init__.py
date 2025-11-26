@@ -5,7 +5,7 @@ This package contains standalone exercise implementations that demonstrate
 advanced Python concepts through practical, hands-on projects.
 """
 
-from .caching_decorator import CachingDecoratorExercise
+from .caching_director import CachingDecoratorExercise
 from .file_pipeline import FilePipelineExercise
 from .transaction_manager import TransactionManagerExercise
 from .orm_metaclass import ORMMetaclassExercise

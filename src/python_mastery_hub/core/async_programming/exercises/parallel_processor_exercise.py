@@ -11,6 +11,7 @@ import os
 from typing import List, Any, Callable, Optional, Tuple, Dict
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from dataclasses import dataclass, field
+from ..base import AsyncDemo
 
 
 @dataclass
@@ -517,3 +518,67 @@ def demo_parallel_processing():
 
 if __name__ == "__main__":
     demo_parallel_processing()
+
+
+class ParallelProcessorExercise(AsyncDemo):
+    """Exercise for building parallel data processing pipelines."""
+    
+    def __init__(self):
+        super().__init__("Parallel Processor Exercise")
+        self._setup_examples()
+    
+    def _setup_examples(self) -> None:
+        """Setup examples for parallel processing."""
+        self.examples = {
+            "basic_parallel_processing": {
+                "explanation": "Basic parallel processing with ProcessPoolExecutor",
+                "code": '''from concurrent.futures import ProcessPoolExecutor
+import os
+
+def square_number(n):
+    return n * n
+
+with ProcessPoolExecutor(max_workers=4) as executor:
+    numbers = range(1, 11)
+    results = executor.map(square_number, numbers)
+    print(list(results))
+''',
+                "output": "[1, 4, 9, 16, 25, 36, 49, 64, 81, 100]"
+            },
+            "process_management": {
+                "explanation": "Managing processes with multiprocessing",
+                "code": '''import multiprocessing
+import os
+
+def worker(name):
+    print(f"Worker {name} in process {os.getpid()}")
+
+if __name__ == "__main__":
+    processes = []
+    for i in range(3):
+        p = multiprocessing.Process(target=worker, args=(f"Process-{i}",))
+        processes.append(p)
+        p.start()
+    
+    for p in processes:
+        p.join()
+''',
+                "output": "Worker Process-0 in process [PID]\\nWorker Process-1 in process [PID]\\nWorker Process-2 in process [PID]"
+            }
+        }
+    
+    def get_explanation(self) -> str:
+        """Get explanation for parallel processing exercise."""
+        return "Learn to build efficient parallel data processing pipelines using multiprocessing and concurrent.futures"
+    
+    def get_best_practices(self) -> List[str]:
+        """Get best practices for parallel processing."""
+        return [
+            "Use ProcessPoolExecutor for CPU-bound tasks",
+            "Use ThreadPoolExecutor for I/O-bound tasks",
+            "Always use context managers for proper cleanup",
+            "Set appropriate number of workers",
+            "Handle exceptions in parallel code properly",
+            "Monitor process resource usage",
+            "Use appropriate data structures for inter-process communication"
+        ]

@@ -6,7 +6,6 @@ import time
 import asyncio
 import threading
 from typing import Dict, List, Any, Optional, Callable, Awaitable
-from abc import ABC, abstractmethod
 from dataclasses import dataclass
 
 
@@ -23,16 +22,16 @@ class PerformanceMetrics:
                 f"{self.throughput:.1f} items/sec, {self.resource_usage}")
 
 
-class AsyncDemo(ABC):
+class AsyncDemo:
     """Base class for async programming demonstrations."""
     
     def __init__(self, name: str):
         self.name = name
         self.examples = {}
+        self._setup_examples()
     
-    @abstractmethod
     def _setup_examples(self) -> None:
-        """Setup examples for this demo."""
+        """Setup examples for this demo. Override in subclasses."""
         pass
     
     def demonstrate(self) -> Dict[str, Any]:
@@ -44,15 +43,13 @@ class AsyncDemo(ABC):
             "best_practices": self.get_best_practices()
         }
     
-    @abstractmethod
     def get_explanation(self) -> str:
         """Get explanation for this concept."""
-        pass
+        return "No explanation provided"
     
-    @abstractmethod
     def get_best_practices(self) -> List[str]:
         """Get best practices for this concept."""
-        pass
+        return []
 
 
 class TimingContextManager:

@@ -22,7 +22,7 @@ from .exercises import (
 )
 
 
-class Testing(LearningModule):
+class TestingConcepts(LearningModule):
     """Interactive learning module for Testing in Python."""
     
     def __init__(self):

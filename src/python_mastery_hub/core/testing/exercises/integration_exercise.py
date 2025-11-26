@@ -547,6 +547,62 @@ def run_integration_tests():
     return result
 
 
+def get_integration_exercise() -> Dict[str, Any]:
+    """
+    Get the integration testing exercise.
+    
+    Returns a dictionary containing the exercise specification, instructions,
+    starter code, and solution.
+    """
+    return {
+        "title": "Integration Testing Exercise",
+        "description": "Comprehensive exercise for testing database operations, API integrations, and real-world testing scenarios",
+        "difficulty": "hard",
+        "topics": ["integration testing", "database testing", "mocking", "fixtures", "test setup/teardown"],
+        "objectives": [
+            "Set up integration test fixtures and teardown",
+            "Test database operations with real transactions",
+            "Mock external services in integration tests",
+            "Handle test data and cleanup",
+            "Test error scenarios and edge cases",
+            "Verify end-to-end workflows"
+        ],
+        "test_classes": [
+            "TestUserRepositoryIntegration",
+            "TestUserServiceIntegration", 
+            "TestDatabasePerformance",
+            "TestErrorHandling",
+            "TestUserRepositoryIntegrationSolution"
+        ],
+        "key_concepts": [
+            "Test fixtures and setup/teardown",
+            "Mock objects for external dependencies",
+            "SQLite in-memory databases for testing",
+            "Context managers for resource management",
+            "Integration test patterns"
+        ],
+        "starter_code": """
+# TODO: Implement integration tests
+class TestUserRepositoryIntegration(unittest.TestCase):
+    def setUp(self):
+        # TODO: Setup test database and fixtures
+        pass
+    
+    def test_create_and_retrieve_user(self):
+        # TODO: Test creating and retrieving a user
+        pass
+""",
+        "how_to_run": "python -m pytest integration_exercise.py -v",
+        "hints": [
+            "Use setUp() and tearDown() for test fixture management",
+            "Create a temporary SQLite database for each test",
+            "Mock external services like email notifications",
+            "Test the complete workflow from creation to retrieval",
+            "Verify database state after operations"
+        ]
+    }
+
+
 if __name__ == '__main__':
     print("Integration Testing Exercise")
     print("=" * 50)

@@ -15,15 +15,18 @@ from .exercises import (
     ProducerConsumerExercise, 
     ParallelProcessorExercise
 )
+from .. import LearningModule
 
 # Main module class that coordinates all components
-class AsyncProgramming:
+class AsyncProgramming(LearningModule):
     """Interactive learning module for Asynchronous Programming."""
     
     def __init__(self):
-        self.name = "Asynchronous Programming"
-        self.description = "Master async/await, concurrency, threading, and parallel processing"
-        self.difficulty = "advanced"
+        super().__init__(
+            name="Asynchronous Programming",
+            description="Master async/await, concurrency, threading, and parallel processing",
+            difficulty="advanced"
+        )
         
         # Initialize sub-modules
         self.async_basics = AsyncBasics()
@@ -39,6 +42,9 @@ class AsyncProgramming:
             "parallel_processor": ParallelProcessorExercise()
         }
     
+    def _setup_module(self) -> None:
+        """Setup the learning module."""
+        pass  # Sub-modules are already initialized in __init__
     def get_topics(self):
         """Return list of available topics."""
         return [
