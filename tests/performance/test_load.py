@@ -9,6 +9,8 @@ import asyncio
 import aiohttp
 import time
 import statistics
+
+pytestmark = pytest.mark.performance
 import random
 import json
 from datetime import datetime, timedelta

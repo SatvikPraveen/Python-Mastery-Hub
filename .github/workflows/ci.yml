@@ -244,7 +244,7 @@ jobs:
         run: poetry install --no-interaction
 
       - name: Run benchmark tests
-        run: poetry run pytest tests/ -v --benchmark-only --benchmark-json=benchmark-results.json
+        run: poetry run pytest tests/performance/ -v -m performance --benchmark-json=benchmark-results.json
 
       - name: Upload benchmark results
         uses: actions/upload-artifact@v4

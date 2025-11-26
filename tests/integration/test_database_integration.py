@@ -9,6 +9,8 @@ import asyncio
 import sqlite3
 import tempfile
 import os
+
+pytestmark = pytest.mark.integration
 from datetime import datetime, timedelta
 from unittest.mock import Mock, patch
 from typing import Dict, List, Any, Optional

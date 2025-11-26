@@ -9,6 +9,8 @@ import json
 import asyncio
 import time
 from datetime import datetime, timedelta
+
+pytestmark = pytest.mark.integration
 from unittest.mock import Mock, patch, AsyncMock
 from typing import Dict, List, Any
 

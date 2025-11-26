@@ -9,6 +9,8 @@ import asyncio
 import time
 import statistics
 import random
+
+pytestmark = pytest.mark.performance
 import psutil
 import gc
 import threading

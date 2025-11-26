@@ -9,6 +9,8 @@ import os
 import tempfile
 import json
 import time
+
+pytestmark = pytest.mark.integration
 from datetime import datetime
 from unittest.mock import Mock, patch, MagicMock
 from io import StringIO
