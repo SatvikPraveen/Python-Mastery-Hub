@@ -8,12 +8,12 @@ import asyncio
 import json
 import time
 from datetime import datetime, timedelta
+from typing import Any, Dict, List
+from unittest.mock import AsyncMock, Mock, patch
 
 import pytest
 
 pytestmark = pytest.mark.integration
-from typing import Any, Dict, List
-from unittest.mock import AsyncMock, Mock, patch
 
 
 class MockAPIServer:

@@ -6,14 +6,14 @@ Tests complete CLI workflows, command interactions, and system integration.
 
 import json
 import os
+import subprocess
+import sys
 import tempfile
 import time
 
 import pytest
 
 pytestmark = pytest.mark.integration
-import subprocess
-import sys
 from datetime import datetime
 from io import StringIO
 from unittest.mock import MagicMock, Mock, patch

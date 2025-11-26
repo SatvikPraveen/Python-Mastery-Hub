@@ -5,24 +5,24 @@ Tests system behavior beyond normal operating conditions to identify
 breaking points, resource leaks, and failure modes.
 """
 import asyncio
-import random
-import statistics
-import time
-
-import pytest
-
-pytestmark = pytest.mark.performance
 import gc
 import hashlib
 import json
 import queue
+import random
+import statistics
 import threading
+import time
 import weakref
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta
 from typing import Any, Dict, List, Optional, Set, Tuple
 from unittest.mock import AsyncMock, Mock, patch
+
+import pytest
+
+pytestmark = pytest.mark.performance
 
 import psutil
 

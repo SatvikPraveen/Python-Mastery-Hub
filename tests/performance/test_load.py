@@ -5,20 +5,20 @@ Tests system performance under various load conditions including
 concurrent users, high request volumes, and resource-intensive operations.
 """
 import asyncio
+import gc
+import json
+import queue
+import random
 import statistics
+import threading
 import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from dataclasses import dataclass, field
 
 import aiohttp
 import pytest
 
 pytestmark = pytest.mark.performance
-import gc
-import json
-import queue
-import random
-import threading
-from concurrent.futures import ThreadPoolExecutor, as_completed
-from dataclasses import dataclass, field
 from datetime import datetime, timedelta
 from typing import Any, Dict, List, Optional, Tuple
 from unittest.mock import AsyncMock, Mock, patch
