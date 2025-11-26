@@ -162,13 +162,12 @@ jobs:
       - name: Run Semgrep security scan
         uses: returntocorp/semgrep-action@v1
         with:
-          config: >-
+          config: >
             p/security-audit
             p/secrets
             p/python
             p/django
             p/flask
-          generateSarif: "1"
 
       - name: Check for hardcoded secrets
         run: |

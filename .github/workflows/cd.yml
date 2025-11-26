@@ -424,10 +424,8 @@ jobs:
         with:
           status: ${{ job.status }}
           channel: "#deployments"
-          webhook_url: ${{ secrets.SLACK_WEBHOOK }}
+          webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
           text: |
             Deployment to ${{ needs.setup.outputs.environment }} ${{ job.status }}
             Version: ${{ needs.setup.outputs.version }}
             Commit: ${{ github.sha }}
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
