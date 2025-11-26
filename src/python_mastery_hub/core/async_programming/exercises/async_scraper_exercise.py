@@ -13,6 +13,7 @@ from ..base import AsyncDemo
 @dataclass
 class ScrapingStats:
     """Statistics for scraping operations."""
+
     total_requests: int = 0
     successful_requests: int = 0
     failed_requests: int = 0
@@ -22,34 +23,34 @@ class ScrapingStats:
 
 class AsyncRateLimiter:
     """Rate limiter for controlling request frequency."""
-    
+
     def __init__(self, rate: float):
         self.rate = rate  # requests per second
         self.last_request = 0.0
         self.lock = asyncio.Lock()
-    
+
     async def acquire(self):
         """Acquire permission to make a request."""
         async with self.lock:
             now = time.time()
             time_since_last = now - self.last_request
-            
+
             if time_since_last < self.rate:
                 sleep_time = self.rate - time_since_last
                 await asyncio.sleep(sleep_time)
-            
+
             self.last_request = time.time()
 
 
 class AsyncScraperExercise(AsyncDemo):
     """Exercise for building an async web scraper."""
-    
+
     def __init__(self):
         super().__init__("Async Web Scraper Exercise")
         self.instructions = self._get_instructions()
         self.starter_code = self._get_starter_code()
         self.solution = self._get_solution()
-    
+
     def _get_instructions(self) -> Dict[str, Any]:
         """Get exercise instructions."""
         return {
@@ -59,10 +60,10 @@ class AsyncScraperExercise(AsyncDemo):
                 "Implement async HTTP client with session management",
                 "Add rate limiting to respect server resources",
                 "Include retry logic for failed requests",
-                "Handle different types of errors gracefully", 
+                "Handle different types of errors gracefully",
                 "Create progress tracking and statistics",
                 "Implement concurrent request limiting",
-                "Add response validation and filtering"
+                "Add response validation and filtering",
             ],
             "requirements": [
                 "Must use aiohttp for HTTP requests",
@@ -71,12 +72,12 @@ class AsyncScraperExercise(AsyncDemo):
                 "Track detailed statistics",
                 "Handle timeouts and connection errors",
                 "Support custom headers and user agents",
-                "Validate response content before processing"
+                "Validate response content before processing",
             ],
             "difficulty": "Advanced",
-            "estimated_time": "2-3 hours"
+            "estimated_time": "2-3 hours",
         }
-    
+
     def _get_starter_code(self) -> str:
         """Get starter code template."""
         return '''
@@ -150,7 +151,7 @@ async def main():
 if __name__ == "__main__":
     asyncio.run(main())
 '''
-    
+
     def _get_solution(self) -> str:
         """Get complete solution."""
         return '''
@@ -487,7 +488,7 @@ if __name__ == "__main__":
     # Run the demo
     asyncio.run(demo_custom_scraping())
 '''
-    
+
     def get_explanation(self) -> str:
         """Get explanation for the exercise."""
         return (
@@ -496,26 +497,26 @@ if __name__ == "__main__":
             "retries, and concurrent request management. You'll learn to use aiohttp "
             "effectively while respecting server resources and handling edge cases."
         )
-    
+
     def get_best_practices(self) -> List[str]:
         """Get best practices for async web scraping."""
         return [
             "Always use rate limiting to avoid overwhelming servers",
             "Implement exponential backoff for retries",
-            "Use appropriate timeouts for different types of requests", 
+            "Use appropriate timeouts for different types of requests",
             "Handle different HTTP status codes appropriately",
             "Validate response content before processing",
             "Use connection pooling for efficiency",
             "Implement proper session management",
             "Track detailed statistics for monitoring",
             "Respect robots.txt and server policies",
-            "Use appropriate User-Agent headers"
+            "Use appropriate User-Agent headers",
         ]
-    
+
     def validate_solution(self, solution_code: str) -> List[str]:
         """Validate student solution."""
         feedback = []
-        
+
         # Check for key components
         required_components = [
             ("aiohttp", "Must use aiohttp for HTTP requests"),
@@ -524,13 +525,13 @@ if __name__ == "__main__":
             ("retry", "Must implement retry logic"),
             ("semaphore", "Must limit concurrent requests"),
             ("__aenter__", "Must implement async context manager"),
-            ("stats", "Must track statistics")
+            ("stats", "Must track statistics"),
         ]
-        
+
         for component, message in required_components:
             if component.lower() in solution_code.lower():
                 feedback.append(f"✓ {message}")
             else:
                 feedback.append(f"✗ {message}")
-        
+
         return feedback

@@ -177,9 +177,8 @@ class TestSortingPerformance(PerformanceTestCase):
 if __name__ == '__main__':
     unittest.main(verbosity=2)
 ''',
-            "explanation": "Basic performance testing with timing assertions and algorithm benchmarking"
+            "explanation": "Basic performance testing with timing assertions and algorithm benchmarking",
         },
-        
         "memory_performance": {
             "code": '''
 import unittest
@@ -267,9 +266,8 @@ class MemoryPerformanceTest(unittest.TestCase):
 if __name__ == '__main__':
     unittest.main(verbosity=2)
 ''',
-            "explanation": "Memory performance testing comparing different data structures and operations"
+            "explanation": "Memory performance testing comparing different data structures and operations",
         },
-        
         "scalability_testing": {
             "code": '''
 import unittest
@@ -459,6 +457,6 @@ class TestPerformanceMonitoring(unittest.TestCase):
 if __name__ == '__main__':
     unittest.main(verbosity=2)
 ''',
-            "explanation": "Scalability testing and load simulation to verify performance under different conditions"
-        }
+            "explanation": "Scalability testing and load simulation to verify performance under different conditions",
+        },
     }

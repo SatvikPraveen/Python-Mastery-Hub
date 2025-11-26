@@ -8,7 +8,8 @@ from typing import Dict, Any
 
 class StatisticsExamples:
     """Statistical analysis examples and demonstrations."""
-    
+
+
 """
 Statistical analysis examples for the Data Science module.
 Covers descriptive statistics, hypothesis testing, and correlation analysis.
@@ -19,7 +20,7 @@ from typing import Dict, Any
 
 class StatisticsExamples:
     """Statistical analysis examples and demonstrations."""
-    
+
     @staticmethod
     def get_descriptive_statistics() -> Dict[str, Any]:
         """Get descriptive statistics examples."""
@@ -82,9 +83,9 @@ def descriptive_statistics_demo():
 if __name__ == "__main__":
     descriptive_statistics_demo()
 ''',
-            "explanation": "Descriptive statistics provide essential summaries of data distributions and characteristics"
+            "explanation": "Descriptive statistics provide essential summaries of data distributions and characteristics",
         }
-    
+
     @staticmethod
     def get_hypothesis_testing() -> Dict[str, Any]:
         """Get hypothesis testing examples."""
@@ -155,9 +156,9 @@ def hypothesis_testing_demo():
 if __name__ == "__main__":
     hypothesis_testing_demo()
 ''',
-            "explanation": "Hypothesis testing provides methods for making statistical inferences about populations"
+            "explanation": "Hypothesis testing provides methods for making statistical inferences about populations",
         }
-    
+
     @staticmethod
     def get_correlation_analysis() -> Dict[str, Any]:
         """Get correlation analysis examples."""
@@ -217,9 +218,9 @@ def correlation_analysis_demo():
 if __name__ == "__main__":
     correlation_analysis_demo()
 ''',
-            "explanation": "Correlation analysis measures the strength and direction of relationships between variables"
+            "explanation": "Correlation analysis measures the strength and direction of relationships between variables",
         }
-    
+
     @staticmethod
     def get_confidence_intervals() -> Dict[str, Any]:
         """Get confidence intervals examples."""
@@ -282,9 +283,9 @@ def confidence_intervals_demo():
 if __name__ == "__main__":
     confidence_intervals_demo()
 ''',
-            "explanation": "Confidence intervals provide ranges of plausible values for population parameters"
+            "explanation": "Confidence intervals provide ranges of plausible values for population parameters",
         }
-    
+
     @staticmethod
     def get_normality_testing() -> Dict[str, Any]:
         """Get normality testing examples."""
@@ -363,5 +364,5 @@ def normality_testing_demo():
 if __name__ == "__main__":
     normality_testing_demo()
 ''',
-            "explanation": "Normality testing determines whether data follows a normal distribution"
+            "explanation": "Normality testing determines whether data follows a normal distribution",
         }

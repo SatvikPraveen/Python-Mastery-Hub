@@ -12,7 +12,7 @@ from . import input_validation
 # Export utility modules
 __all__ = [
     "colors",
-    "progress_bar", 
+    "progress_bar",
     "input_validation",
 ]
 
@@ -25,7 +25,7 @@ from .colors import (
     print_error,
     print_warning,
     print_info,
-    print_code_block
+    print_code_block,
 )
 
 from .progress_bar import (
@@ -33,7 +33,7 @@ from .progress_bar import (
     SpinnerProgress,
     show_progress,
     show_module_progress,
-    animated_loading
+    animated_loading,
 )
 
 from .input_validation import (
@@ -44,5 +44,5 @@ from .input_validation import (
     module_validator,
     exercise_validator,
     integer_validator,
-    choice_validator
+    choice_validator,
 )

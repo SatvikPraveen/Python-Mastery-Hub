@@ -125,9 +125,8 @@ class TestBasicMocking(unittest.TestCase):
 if __name__ == '__main__':
     unittest.main(verbosity=2)
 ''',
-            "explanation": "Basic mocking with Mock objects, return values, and side effects"
+            "explanation": "Basic mocking with Mock objects, return values, and side effects",
         },
-        
         "patch_decorator": {
             "code": '''
 import unittest
@@ -217,9 +216,8 @@ class TestPatchingDecorator(unittest.TestCase):
 if __name__ == '__main__':
     unittest.main(verbosity=2)
 ''',
-            "explanation": "Using patch decorators to mock external dependencies like HTTP requests"
+            "explanation": "Using patch decorators to mock external dependencies like HTTP requests",
         },
-        
         "advanced_mocking": {
             "code": '''
 import unittest
@@ -339,6 +337,6 @@ class TestAdvancedMocking(unittest.TestCase):
 if __name__ == '__main__':
     unittest.main(verbosity=2)
 ''',
-            "explanation": "Advanced mocking techniques including specs, magic methods, file operations, and call tracking"
-        }
+            "explanation": "Advanced mocking techniques including specs, magic methods, file operations, and call tracking",
+        },
     }

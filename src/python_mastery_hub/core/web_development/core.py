@@ -11,7 +11,7 @@ from .examples import (
     fastapi_examples,
     rest_api_examples,
     websocket_examples,
-    database_examples
+    database_examples,
 )
 from .examples.auth_examples import AuthExamples
 from .exercises import (
@@ -19,64 +19,75 @@ from .exercises import (
     websocket_chat_exercise,
     jwt_auth_exercise,
     flask_blog_exercise,
-    microservice_exercise
+    microservice_exercise,
 )
 
 
 class WebDevelopment(LearningModule):
     """Interactive learning module for Web Development with Python."""
-    
+
     def __init__(self):
         super().__init__(
             name="Web Development",
             description="Master web development with Flask, FastAPI, REST APIs, and more",
-            difficulty="intermediate"
+            difficulty="intermediate",
         )
-    
+
     def _setup_module(self) -> None:
         """Setup examples and exercises for web development."""
         # Initialize examples dictionary
         try:
             self.examples = {
-                "flask_basics": flask_examples.get_flask_basics() if hasattr(flask_examples, 'get_flask_basics') else {},
-                "fastapi_fundamentals": fastapi_examples.get_fastapi_basics() if hasattr(fastapi_examples, 'get_fastapi_basics') else {},
-                "rest_apis": rest_api_examples.get_rest_api_examples() if hasattr(rest_api_examples, 'get_rest_api_examples') else {},
-                "websockets": websocket_examples.get_websocket_examples() if hasattr(websocket_examples, 'get_websocket_examples') else {},
-                "authentication": AuthExamples.get_auth_examples() if hasattr(AuthExamples, 'get_auth_examples') else {},
-                "database_integration": database_examples.get_database_examples() if hasattr(database_examples, 'get_database_examples') else {},
+                "flask_basics": flask_examples.get_flask_basics()
+                if hasattr(flask_examples, "get_flask_basics")
+                else {},
+                "fastapi_fundamentals": fastapi_examples.get_fastapi_basics()
+                if hasattr(fastapi_examples, "get_fastapi_basics")
+                else {},
+                "rest_apis": rest_api_examples.get_rest_api_examples()
+                if hasattr(rest_api_examples, "get_rest_api_examples")
+                else {},
+                "websockets": websocket_examples.get_websocket_examples()
+                if hasattr(websocket_examples, "get_websocket_examples")
+                else {},
+                "authentication": AuthExamples.get_auth_examples()
+                if hasattr(AuthExamples, "get_auth_examples")
+                else {},
+                "database_integration": database_examples.get_database_examples()
+                if hasattr(database_examples, "get_database_examples")
+                else {},
             }
         except Exception:
             self.examples = {}
-        
+
         # Initialize exercises list
         self.exercises = []
-    
-    
+
     def get_topics(self) -> List[str]:
         """Return list of topics covered in this module."""
         return [
-            "flask_basics", 
+            "flask_basics",
             "flask_advanced",
-            "fastapi_fundamentals", 
+            "fastapi_fundamentals",
             "fastapi_advanced",
-            "rest_apis", 
-            "websockets", 
-            "authentication", 
-            "database_integration"
+            "rest_apis",
+            "websockets",
+            "authentication",
+            "database_integration",
         ]
-    
+
     def demonstrate(self, topic: str) -> Dict[str, Any]:
         """Demonstrate a specific topic with examples."""
         if topic not in self.examples:
             raise ValueError(f"Topic '{topic}' not found in web development module")
-        
+
         return {
             "topic": topic,
             "examples": self.examples[topic],
             "explanation": self._get_topic_explanation(topic),
             "best_practices": self._get_best_practices(topic),
         }
-    
+
     def _get_topic_explanation(self, topic: str) -> str:
         """Get detailed explanation for a topic."""
         explanations = {
@@ -87,10 +98,10 @@ class WebDevelopment(LearningModule):
             "rest_apis": "REST APIs provide a standardized way to create web services with proper HTTP methods and status codes",
             "websockets": "WebSockets enable real-time bidirectional communication between client and server",
             "authentication": "JWT authentication provides secure, stateless user authentication for web APIs",
-            "database_integration": "SQLAlchemy ORM provides powerful database integration with models and relationships"
+            "database_integration": "SQLAlchemy ORM provides powerful database integration with models and relationships",
         }
         return explanations.get(topic, "No explanation available")
-    
+
     def _get_best_practices(self, topic: str) -> List[str]:
         """Get best practices for a topic."""
         practices = {
@@ -99,56 +110,56 @@ class WebDevelopment(LearningModule):
                 "Implement proper error handling with custom error pages",
                 "Use environment variables for configuration",
                 "Implement CSRF protection for forms",
-                "Use proper session management"
+                "Use proper session management",
             ],
             "flask_advanced": [
                 "Use application factories for better testing",
                 "Implement proper logging and monitoring",
                 "Use Flask-Migrate for database migrations",
                 "Implement caching for better performance",
-                "Use proper testing strategies"
+                "Use proper testing strategies",
             ],
             "fastapi_fundamentals": [
                 "Use Pydantic models for request/response validation",
                 "Implement proper dependency injection",
                 "Use async/await for I/O operations",
                 "Document your API with proper descriptions",
-                "Handle exceptions with custom exception handlers"
+                "Handle exceptions with custom exception handlers",
             ],
             "fastapi_advanced": [
                 "Use background tasks for async operations",
                 "Implement proper middleware for cross-cutting concerns",
                 "Use dependency injection for database connections",
                 "Implement proper error handling strategies",
-                "Use proper testing with TestClient"
+                "Use proper testing with TestClient",
             ],
             "rest_apis": [
                 "Follow RESTful conventions for URL design",
                 "Use appropriate HTTP status codes",
                 "Implement proper pagination for list endpoints",
                 "Version your APIs appropriately",
-                "Provide comprehensive error messages"
+                "Provide comprehensive error messages",
             ],
             "websockets": [
                 "Implement proper connection management",
                 "Handle disconnections gracefully",
                 "Use heartbeat/ping for connection health",
                 "Implement proper message queuing",
-                "Scale WebSocket connections with Redis or message brokers"
+                "Scale WebSocket connections with Redis or message brokers",
             ],
             "authentication": [
                 "Use strong secret keys and rotate them regularly",
                 "Implement proper token expiration",
                 "Use refresh tokens for long-lived sessions",
                 "Hash passwords with strong algorithms",
-                "Implement rate limiting for auth endpoints"
+                "Implement rate limiting for auth endpoints",
             ],
             "database_integration": [
                 "Use database migrations for schema changes",
                 "Implement proper connection pooling",
                 "Use database indexes for performance",
                 "Handle database transactions properly",
-                "Implement proper error handling for database operations"
-            ]
+                "Implement proper error handling for database operations",
+            ],
         }
         return practices.get(topic, [])

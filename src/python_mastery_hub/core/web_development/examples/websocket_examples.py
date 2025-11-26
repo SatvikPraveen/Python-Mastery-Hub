@@ -332,6 +332,6 @@ if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
 ''',
-            "explanation": "Real-time WebSocket chat with connection management and room support"
+            "explanation": "Real-time WebSocket chat with connection management and room support",
         }
     }

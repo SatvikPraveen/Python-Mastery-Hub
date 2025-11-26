@@ -11,12 +11,14 @@ from typing import Dict, Any, Type, Optional, List
 
 class ORMMetaclassExercise:
     """Exercise for creating an ORM metaclass that generates database schemas."""
-    
+
     def __init__(self):
         self.title = "ORM Table Creator"
-        self.description = "Create a metaclass that automatically generates database table schemas"
+        self.description = (
+            "Create a metaclass that automatically generates database table schemas"
+        )
         self.difficulty = "expert"
-    
+
     def get_instructions(self) -> str:
         """Return exercise instructions."""
         return """
@@ -31,20 +33,20 @@ class ORMMetaclassExercise:
         7. Maintain a registry of all model classes
         8. Provide introspection capabilities
         """
-    
+
     def get_tasks(self) -> List[str]:
         """Return list of specific tasks."""
         return [
             "Create a metaclass that analyzes class attributes",
-            "Generate SQL CREATE TABLE statements automatically", 
+            "Generate SQL CREATE TABLE statements automatically",
             "Add field validation and type mapping",
             "Implement automatic primary key and relationship handling",
             "Add methods for basic CRUD operations",
             "Maintain a registry of model classes",
             "Support field constraints and validation",
-            "Provide model introspection capabilities"
+            "Provide model introspection capabilities",
         ]
-    
+
     def get_starter_code(self) -> str:
         """Return starter code template."""
         return '''
@@ -72,7 +74,7 @@ class Model(metaclass=ModelMeta):
     """Base model class."""
     pass
 '''
-    
+
     def get_solution(self) -> str:
         """Return complete solution."""
         return '''
@@ -630,40 +632,40 @@ def test_orm_metaclass():
 if __name__ == "__main__":
     test_orm_metaclass()
 '''
-    
+
     def get_test_cases(self) -> List[Dict[str, str]]:
         """Return test cases for validation."""
         return [
             {
                 "name": "Metaclass field detection",
-                "test": "Verify metaclass correctly identifies and processes field types"
+                "test": "Verify metaclass correctly identifies and processes field types",
             },
             {
-                "name": "SQL schema generation", 
-                "test": "Verify CREATE TABLE statements are generated correctly"
+                "name": "SQL schema generation",
+                "test": "Verify CREATE TABLE statements are generated correctly",
             },
             {
                 "name": "Field validation",
-                "test": "Verify field constraints and validation work properly"
+                "test": "Verify field constraints and validation work properly",
             },
             {
                 "name": "CRUD operations",
-                "test": "Verify INSERT, UPDATE SQL generation works"
+                "test": "Verify INSERT, UPDATE SQL generation works",
             },
             {
                 "name": "Model registry",
-                "test": "Verify models are registered and accessible"
+                "test": "Verify models are registered and accessible",
             },
             {
                 "name": "Primary key handling",
-                "test": "Verify automatic primary key creation"
+                "test": "Verify automatic primary key creation",
             },
             {
                 "name": "Foreign key relationships",
-                "test": "Verify foreign key constraints are generated"
+                "test": "Verify foreign key constraints are generated",
             },
             {
                 "name": "Model introspection",
-                "test": "Verify model metadata and field access work"
-            }
+                "test": "Verify model metadata and field access work",
+            },
         ]

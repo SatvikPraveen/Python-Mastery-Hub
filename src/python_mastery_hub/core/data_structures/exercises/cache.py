@@ -15,7 +15,7 @@ from typing import Any, Optional, Dict, List, Tuple
 
 class CacheExercise:
     """LRU Cache system implementation exercise."""
-    
+
     @staticmethod
     def get_exercise() -> Dict[str, Any]:
         """Get the complete LRU Cache implementation exercise."""
@@ -44,7 +44,7 @@ This exercise demonstrates practical application of:
                 "Add TTL (Time To Live) functionality for automatic expiration",
                 "Provide comprehensive cache statistics and monitoring",
                 "Create thread-safe version for concurrent access",
-                "Practice memory management and resource optimization"
+                "Practice memory management and resource optimization",
             ],
             "tasks": [
                 {
@@ -58,14 +58,14 @@ This exercise demonstrates practical application of:
                         "delete(key) - remove specific key",
                         "clear() - remove all entries",
                         "Maintain O(1) complexity for all operations",
-                        "Handle edge cases (empty cache, capacity of 1, etc.)"
+                        "Handle edge cases (empty cache, capacity of 1, etc.)",
                     ],
                     "hints": [
                         "OrderedDict maintains insertion order automatically",
                         "Use move_to_end() to mark items as recently used",
                         "Check capacity before adding new items",
-                        "Remove from the beginning for LRU eviction"
-                    ]
+                        "Remove from the beginning for LRU eviction",
+                    ],
                 },
                 {
                     "step": 2,
@@ -76,14 +76,14 @@ This exercise demonstrates practical application of:
                         "Calculate hit rate and other performance metrics",
                         "Monitor cache size and capacity utilization",
                         "Provide detailed statistics reporting",
-                        "Track operation counts (puts, deletes, etc.)"
+                        "Track operation counts (puts, deletes, etc.)",
                     ],
                     "hints": [
                         "Use a dictionary to store various counters",
                         "Update counters in each operation",
                         "Calculate derived metrics like hit rate",
-                        "Include timestamp information for monitoring"
-                    ]
+                        "Include timestamp information for monitoring",
+                    ],
                 },
                 {
                     "step": 3,
@@ -94,14 +94,14 @@ This exercise demonstrates practical application of:
                         "Store timestamps for each cache entry",
                         "Automatic expiration of old entries",
                         "Cleanup mechanism for expired entries",
-                        "Handle TTL in get/put operations"
+                        "Handle TTL in get/put operations",
                     ],
                     "hints": [
                         "Use time.time() for timestamps",
                         "Store timestamps in a separate dictionary",
                         "Check expiration before returning values",
-                        "Clean up expired entries periodically"
-                    ]
+                        "Clean up expired entries periodically",
+                    ],
                 },
                 {
                     "step": 4,
@@ -112,14 +112,14 @@ This exercise demonstrates practical application of:
                         "Peek operation (get without affecting LRU order)",
                         "Bulk operations (get_many, put_many)",
                         "Cache warming and preloading capabilities",
-                        "Iterator support for cache contents"
+                        "Iterator support for cache contents",
                     ],
                     "hints": [
                         "Use sys.getsizeof() for memory estimation",
                         "Implement __contains__, __len__, __iter__",
                         "Consider using weak references for large objects",
-                        "Add methods that don't affect LRU order"
-                    ]
+                        "Add methods that don't affect LRU order",
+                    ],
                 },
                 {
                     "step": 5,
@@ -130,15 +130,15 @@ This exercise demonstrates practical application of:
                         "Concurrent access monitoring and statistics",
                         "Performance optimization for multi-threaded use",
                         "Deadlock prevention and proper lock management",
-                        "Per-thread operation tracking"
+                        "Per-thread operation tracking",
                     ],
                     "hints": [
                         "Use threading.RLock() for reentrant locks",
                         "Apply locks consistently across all operations",
                         "Track which threads are accessing the cache",
-                        "Consider lock granularity for performance"
-                    ]
-                }
+                        "Consider lock granularity for performance",
+                    ],
+                },
             ],
             "starter_code": CacheExercise._get_starter_code(),
             "test_cases": CacheExercise._get_test_cases(),
@@ -148,10 +148,10 @@ This exercise demonstrates practical application of:
                 "Add cache persistence to disk",
                 "Implement distributed cache with consistent hashing",
                 "Add cache warming from database/API",
-                "Implement write-through and write-back policies"
-            ]
+                "Implement write-through and write-back policies",
+            ],
         }
-    
+
     @staticmethod
     def _get_starter_code() -> str:
         """Get the starter code template."""
@@ -280,7 +280,7 @@ if __name__ == "__main__":
     time.sleep(1.1)
     print(f"Get 'temp' after expiration: {ttl_cache.get('temp')}")
 '''
-    
+
     @staticmethod
     def _get_test_cases() -> List[Dict[str, Any]]:
         """Get comprehensive test cases."""
@@ -303,7 +303,7 @@ assert cache.get('d') is None
 cache.put('d', 4)  # Should evict least recently used
 assert len(cache) == 3
 """,
-                "expected_behavior": "Cache maintains capacity and provides correct values"
+                "expected_behavior": "Cache maintains capacity and provides correct values",
             },
             {
                 "name": "LRU Eviction",
@@ -325,7 +325,7 @@ assert cache.get('b') is None  # Evicted
 assert cache.get('c') == 3  # Still there
 assert cache.get('d') == 4  # Newly added
 """,
-                "expected_behavior": "Least recently used items are evicted first"
+                "expected_behavior": "Least recently used items are evicted first",
             },
             {
                 "name": "TTL Expiration",
@@ -342,7 +342,7 @@ time.sleep(0.15)  # Wait for expiration
 
 assert cache.get('temp') is None  # Should be expired
 """,
-                "expected_behavior": "Items expire after TTL duration"
+                "expected_behavior": "Items expire after TTL duration",
             },
             {
                 "name": "Statistics Tracking",
@@ -365,7 +365,7 @@ assert stats['misses'] >= 1
 assert 'hit_rate' in stats
 assert stats['current_size'] == 2
 """,
-                "expected_behavior": "Statistics accurately track cache operations"
+                "expected_behavior": "Statistics accurately track cache operations",
             },
             {
                 "name": "Thread Safety",
@@ -395,10 +395,10 @@ for t in threads:
 
 assert all(results)  # All operations should succeed
 """,
-                "expected_behavior": "Cache handles concurrent access correctly"
-            }
+                "expected_behavior": "Cache handles concurrent access correctly",
+            },
         ]
-    
+
     @staticmethod
     def _get_solution() -> str:
         """Get the complete solution implementation."""
@@ -1038,6 +1038,7 @@ if __name__ == "__main__":
     # Run the comprehensive test suite
     run_comprehensive_tests()
 '''
+
 
 def get_exercise():
     """Get the cache exercise."""

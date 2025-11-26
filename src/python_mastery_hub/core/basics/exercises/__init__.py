@@ -9,7 +9,7 @@ from .function_design_exercise import FunctionDesignExercise
 
 __all__ = [
     "VariableAssignmentExercise",
-    "DataTypeConversionExercise", 
+    "DataTypeConversionExercise",
     "ControlFlowExercise",
-    "FunctionDesignExercise"
+    "FunctionDesignExercise",
 ]

@@ -107,9 +107,8 @@ if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
 ''',
-            "explanation": "Basic CRUD API demonstrating fundamental REST operations with simple validation"
+            "explanation": "Basic CRUD API demonstrating fundamental REST operations with simple validation",
         },
-        
         "intermediate_api_with_validation": {
             "code": '''
 from fastapi import FastAPI, HTTPException, status, Query
@@ -342,9 +341,8 @@ if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
 ''',
-            "explanation": "Intermediate API with advanced validation, enums, relationships, and filtering"
+            "explanation": "Intermediate API with advanced validation, enums, relationships, and filtering",
         },
-        
         "advanced_api_with_pagination": {
             "code": '''
 from fastapi import FastAPI, HTTPException, status, Query, Depends
@@ -738,9 +736,8 @@ if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
 ''',
-            "explanation": "Advanced API with comprehensive pagination, filtering, sorting, analytics, and dependency injection"
+            "explanation": "Advanced API with comprehensive pagination, filtering, sorting, analytics, and dependency injection",
         },
-        
         "flask_rest_comparison": {
             "code": '''
 from flask import Flask, request, jsonify
@@ -923,6 +920,6 @@ if __name__ == '__main__':
     
     app.run(debug=True)
 ''',
-            "explanation": "Flask REST API implementation using Flask-RESTful for comparison with FastAPI patterns"
-        }
+            "explanation": "Flask REST API implementation using Flask-RESTful for comparison with FastAPI patterns",
+        },
     }

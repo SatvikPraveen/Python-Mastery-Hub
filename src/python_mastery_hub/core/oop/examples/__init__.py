@@ -9,9 +9,9 @@ from .encapsulation_examples import get_encapsulation_examples
 from .design_patterns_examples import get_design_patterns_examples
 
 __all__ = [
-    'get_classes_examples',
-    'get_inheritance_examples',
-    'get_polymorphism_examples', 
-    'get_encapsulation_examples',
-    'get_design_patterns_examples'
+    "get_classes_examples",
+    "get_inheritance_examples",
+    "get_polymorphism_examples",
+    "get_encapsulation_examples",
+    "get_design_patterns_examples",
 ]

@@ -12,11 +12,11 @@ from .base import AsyncDemo, ThreadSafeCounter, simulate_io_operation
 
 class ThreadingConcepts(AsyncDemo):
     """Demonstrates threading concepts and synchronization."""
-    
+
     def __init__(self):
         super().__init__("Threading Concepts")
         self._setup_examples()
-    
+
     def _setup_examples(self) -> None:
         """Setup threading examples."""
         self.examples = {
@@ -59,9 +59,8 @@ def basic_threading_example():
 
 basic_threading_example()
 ''',
-                "explanation": "Threading enables concurrent execution of I/O-bound tasks with shared memory space"
+                "explanation": "Threading enables concurrent execution of I/O-bound tasks with shared memory space",
             },
-            
             "thread_synchronization": {
                 "code": '''
 import threading
@@ -136,9 +135,8 @@ def thread_synchronization_example():
 
 thread_synchronization_example()
 ''',
-                "explanation": "Thread synchronization ensures data integrity when multiple threads access shared resources"
+                "explanation": "Thread synchronization ensures data integrity when multiple threads access shared resources",
             },
-            
             "producer_consumer_threading": {
                 "code": '''
 import threading
@@ -216,9 +214,8 @@ def producer_consumer_threading():
 
 producer_consumer_threading()
 ''',
-                "explanation": "Producer-consumer pattern with threading uses queues for thread-safe communication"
+                "explanation": "Producer-consumer pattern with threading uses queues for thread-safe communication",
             },
-            
             "thread_pool": {
                 "code": '''
 import concurrent.futures
@@ -269,9 +266,8 @@ def thread_pool_example():
 
 thread_pool_example()
 ''',
-                "explanation": "ThreadPoolExecutor provides a high-level interface for managing thread pools"
+                "explanation": "ThreadPoolExecutor provides a high-level interface for managing thread pools",
             },
-            
             "condition_variables": {
                 "code": '''
 import threading
@@ -348,10 +344,10 @@ def condition_variable_example():
 
 condition_variable_example()
 ''',
-                "explanation": "Condition variables enable complex synchronization patterns between threads"
-            }
+                "explanation": "Condition variables enable complex synchronization patterns between threads",
+            },
         }
-    
+
     def get_explanation(self) -> str:
         """Get explanation for threading concepts."""
         return (
@@ -360,7 +356,7 @@ condition_variable_example()
             "communication efficient but requiring careful synchronization to "
             "prevent race conditions and ensure data consistency."
         )
-    
+
     def get_best_practices(self) -> List[str]:
         """Get best practices for threading."""
         return [
@@ -373,123 +369,125 @@ condition_variable_example()
             "Use condition variables for complex synchronization scenarios",
             "Keep critical sections as small as possible",
             "Use threading.Event for simple signaling between threads",
-            "Be aware of the Global Interpreter Lock (GIL) limitations"
+            "Be aware of the Global Interpreter Lock (GIL) limitations",
         ]
 
 
 class ThreadSafeBankAccount:
     """Enhanced thread-safe bank account for demonstrations."""
-    
+
     def __init__(self, initial_balance: float = 0):
         self.balance = initial_balance
         self.lock = threading.RLock()  # Reentrant lock
         self.transaction_history = []
         self.total_deposits = 0
         self.total_withdrawals = 0
-    
+
     def deposit(self, amount: float, description: str = "Deposit") -> bool:
         """Thread-safe deposit with transaction history."""
         if amount <= 0:
             return False
-        
+
         with self.lock:
             old_balance = self.balance
             self.balance += amount
             self.total_deposits += amount
-            
+
             transaction = {
-                'type': 'deposit',
-                'amount': amount,
-                'balance_before': old_balance,
-                'balance_after': self.balance,
-                'description': description,
-                'timestamp': time.time(),
-                'thread': threading.current_thread().name
+                "type": "deposit",
+                "amount": amount,
+                "balance_before": old_balance,
+                "balance_after": self.balance,
+                "description": description,
+                "timestamp": time.time(),
+                "thread": threading.current_thread().name,
             }
             self.transaction_history.append(transaction)
-            
-            print(f"[{transaction['thread']}] {description}: +${amount:.2f} "
-                  f"(${old_balance:.2f} -> ${self.balance:.2f})")
-            
+
+            print(
+                f"[{transaction['thread']}] {description}: +${amount:.2f} "
+                f"(${old_balance:.2f} -> ${self.balance:.2f})"
+            )
+
             return True
-    
+
     def withdraw(self, amount: float, description: str = "Withdrawal") -> bool:
         """Thread-safe withdrawal with overdraft protection."""
         if amount <= 0:
             return False
-        
+
         with self.lock:
             if self.balance >= amount:
                 old_balance = self.balance
                 self.balance -= amount
                 self.total_withdrawals += amount
-                
+
                 transaction = {
-                    'type': 'withdrawal',
-                    'amount': amount,
-                    'balance_before': old_balance,
-                    'balance_after': self.balance,
-                    'description': description,
-                    'timestamp': time.time(),
-                    'thread': threading.current_thread().name
+                    "type": "withdrawal",
+                    "amount": amount,
+                    "balance_before": old_balance,
+                    "balance_after": self.balance,
+                    "description": description,
+                    "timestamp": time.time(),
+                    "thread": threading.current_thread().name,
                 }
                 self.transaction_history.append(transaction)
-                
-                print(f"[{transaction['thread']}] {description}: -${amount:.2f} "
-                      f"(${old_balance:.2f} -> ${self.balance:.2f})")
-                
+
+                print(
+                    f"[{transaction['thread']}] {description}: -${amount:.2f} "
+                    f"(${old_balance:.2f} -> ${self.balance:.2f})"
+                )
+
                 return True
             else:
-                print(f"[{threading.current_thread().name}] "
-                      f"Insufficient funds for ${amount:.2f} withdrawal")
+                print(
+                    f"[{threading.current_thread().name}] "
+                    f"Insufficient funds for ${amount:.2f} withdrawal"
+                )
                 return False
-    
-    def transfer(self, other_account: 'ThreadSafeBankAccount', amount: float) -> bool:
+
+    def transfer(self, other_account: "ThreadSafeBankAccount", amount: float) -> bool:
         """Thread-safe transfer between accounts."""
         # Acquire locks in consistent order to prevent deadlock
         first_lock = self.lock if id(self) < id(other_account) else other_account.lock
         second_lock = other_account.lock if id(self) < id(other_account) else self.lock
-        
+
         with first_lock:
             with second_lock:
                 if self.withdraw(amount, f"Transfer to {id(other_account)}"):
                     other_account.deposit(amount, f"Transfer from {id(self)}")
                     return True
                 return False
-    
+
     def get_balance(self) -> float:
         """Get current balance thread-safely."""
         with self.lock:
             return self.balance
-    
+
     def get_summary(self) -> Dict[str, Any]:
         """Get account summary with statistics."""
         with self.lock:
             return {
-                'current_balance': self.balance,
-                'total_deposits': self.total_deposits,
-                'total_withdrawals': self.total_withdrawals,
-                'transaction_count': len(self.transaction_history),
-                'net_change': self.total_deposits - self.total_withdrawals
+                "current_balance": self.balance,
+                "total_deposits": self.total_deposits,
+                "total_withdrawals": self.total_withdrawals,
+                "transaction_count": len(self.transaction_history),
+                "net_change": self.total_deposits - self.total_withdrawals,
             }
 
 
 class WorkerPool:
     """Thread pool implementation for educational purposes."""
-    
+
     def __init__(self, num_workers: int = 4):
         self.num_workers = num_workers
         self.task_queue = queue.Queue()
         self.result_queue = queue.Queue()
         self.workers = []
         self.shutdown_event = threading.Event()
-        self.stats = {
-            'tasks_submitted': 0,
-            'tasks_completed': 0,
-            'tasks_failed': 0
-        }
+        self.stats = {"tasks_submitted": 0, "tasks_completed": 0, "tasks_failed": 0}
         self.stats_lock = threading.Lock()
-    
+
     def start(self):
         """Start the worker threads."""
         for i in range(self.num_workers):
@@ -497,70 +495,70 @@ class WorkerPool:
             worker.daemon = True
             worker.start()
             self.workers.append(worker)
-        
+
         print(f"Started {self.num_workers} worker threads")
-    
+
     def _worker(self, worker_id: int):
         """Worker thread function."""
         print(f"Worker {worker_id} started")
-        
+
         while not self.shutdown_event.is_set():
             try:
                 task_func, args, kwargs, task_id = self.task_queue.get(timeout=1)
-                
+
                 print(f"Worker {worker_id} processing task {task_id}")
-                
+
                 try:
                     result = task_func(*args, **kwargs)
-                    self.result_queue.put(('success', task_id, result))
-                    
+                    self.result_queue.put(("success", task_id, result))
+
                     with self.stats_lock:
-                        self.stats['tasks_completed'] += 1
-                        
+                        self.stats["tasks_completed"] += 1
+
                 except Exception as e:
-                    self.result_queue.put(('error', task_id, str(e)))
-                    
+                    self.result_queue.put(("error", task_id, str(e)))
+
                     with self.stats_lock:
-                        self.stats['tasks_failed'] += 1
-                
+                        self.stats["tasks_failed"] += 1
+
                 self.task_queue.task_done()
-                
+
             except queue.Empty:
                 continue
-        
+
         print(f"Worker {worker_id} shutting down")
-    
+
     def submit_task(self, func, *args, **kwargs) -> int:
         """Submit a task for execution."""
         with self.stats_lock:
-            task_id = self.stats['tasks_submitted']
-            self.stats['tasks_submitted'] += 1
-        
+            task_id = self.stats["tasks_submitted"]
+            self.stats["tasks_submitted"] += 1
+
         self.task_queue.put((func, args, kwargs, task_id))
         return task_id
-    
+
     def get_result(self, timeout: Optional[float] = None):
         """Get a completed task result."""
         try:
             return self.result_queue.get(timeout=timeout)
         except queue.Empty:
             return None
-    
+
     def shutdown(self, wait: bool = True):
         """Shutdown the worker pool."""
         print("Shutting down worker pool...")
         self.shutdown_event.set()
-        
+
         if wait:
             # Wait for current tasks to complete
             self.task_queue.join()
-            
+
             # Wait for workers to finish
             for worker in self.workers:
                 worker.join()
-        
+
         print("Worker pool shutdown complete")
-    
+
     def get_stats(self) -> Dict[str, int]:
         """Get worker pool statistics."""
         with self.stats_lock:

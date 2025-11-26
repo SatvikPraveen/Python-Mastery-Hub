@@ -116,9 +116,8 @@ class TestCalculator(TestCase):
 if __name__ == '__main__':
     unittest.main(verbosity=2)
 ''',
-            "explanation": "Basic unittest structure with setUp/tearDown and various assertion methods"
+            "explanation": "Basic unittest structure with setUp/tearDown and various assertion methods",
         },
-        
         "assertion_methods": {
             "code": '''
 import unittest
@@ -199,9 +198,8 @@ class TestAssertionMethods(TestCase):
 if __name__ == '__main__':
     unittest.main(verbosity=2)
 ''',
-            "explanation": "Comprehensive coverage of unittest assertion methods for different data types"
+            "explanation": "Comprehensive coverage of unittest assertion methods for different data types",
         },
-        
         "advanced_features": {
             "code": '''
 import unittest
@@ -456,6 +454,6 @@ if __name__ == '__main__':
     print("\\n--- Advanced Features ---")
     runner.run(TestSuiteExample.advanced_features_suite())
 ''',
-            "explanation": "Advanced unittest features including fixtures, skipping tests, custom runners, and test organization"
-        }
+            "explanation": "Advanced unittest features including fixtures, skipping tests, custom runners, and test organization",
+        },
     }

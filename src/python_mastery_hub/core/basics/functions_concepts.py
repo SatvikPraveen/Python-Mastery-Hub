@@ -7,11 +7,11 @@ from typing import Dict, Any, List, Callable, Union
 
 class FunctionsConcepts:
     """Handles all function-related concepts and examples."""
-    
+
     def __init__(self):
         self.topic = "functions"
         self.examples = self._setup_examples()
-    
+
     def demonstrate(self) -> Dict[str, Any]:
         """Return comprehensive function demonstrations."""
         return {
@@ -20,7 +20,7 @@ class FunctionsConcepts:
             "explanation": self._get_explanation(),
             "best_practices": self._get_best_practices(),
         }
-    
+
     def _setup_examples(self) -> Dict[str, Any]:
         """Setup comprehensive function examples."""
         return {
@@ -69,9 +69,8 @@ print(f"Function name: {greet.__name__}")
 print(f"Function docstring: {greet.__doc__}")
 ''',
                 "output": "Hello, Alice!\\nHi, Bob!\\nArea of 5x3 rectangle: 15\\nThis function prints information but returns None\\nprint_info() returned: None\\nFunction name: greet\\nFunction docstring: A function that greets someone with a customizable greeting.",
-                "explanation": "Functions encapsulate reusable code with parameters, return values, and documentation"
+                "explanation": "Functions encapsulate reusable code with parameters, return values, and documentation",
             },
-            
             "parameter_types": {
                 "code": '''
 # Different types of function parameters
@@ -125,11 +124,10 @@ def positional_only_function(name, age, /, city="Unknown"):
 print(positional_only_function("Charlie", 35, "Boston"))
 ''',
                 "output": "=== Basic call ===\\nRequired: must_have\\nDefault: default\\nArgs: ()\\nKwargs: {}\\n----------------------------------------\\n\\n=== With custom default ===\\nRequired: must_have\\nDefault: custom_default\\nArgs: ()\\nKwargs: {}\\n----------------------------------------\\n\\n=== With extra positional args ===\\nRequired: must_have\\nDefault: custom\\nArgs: (1, 2, 3)\\nKwargs: {}\\n----------------------------------------\\n\\n=== With keyword arguments ===\\nRequired: must_have\\nDefault: default\\nArgs: ()\\nKwargs: {'extra1': 'value1', 'extra2': 'value2'}\\n----------------------------------------\\n\\n=== Unpacking arguments ===\\nRequired: required_value\\nDefault: default_value\\nArgs: (1, 2, 3)\\nKwargs: {'key1': 'val1', 'key2': 'val2'}\\n----------------------------------------\\n\\n=== Keyword-only parameters ===\\nAlice is 25 years old and lives in New York\\nCharlie, 35, Boston",
-                "explanation": "Python functions support flexible parameter patterns including defaults, *args, **kwargs, and keyword/positional-only parameters"
+                "explanation": "Python functions support flexible parameter patterns including defaults, *args, **kwargs, and keyword/positional-only parameters",
             },
-            
             "lambda_functions": {
-                "code": '''
+                "code": """
 # Lambda functions and functional programming
 print("=== Basic Lambda Functions ===")
 # Basic lambda
@@ -190,11 +188,10 @@ print(f"High earners: {[p['name'] for p in high_earners]}")
 total_salary = reduce(lambda total, person: total + person["salary"], data, 0)
 avg_salary = total_salary / len(data)
 print(f"Average salary: ${avg_salary:,.2f}")
-''',
+""",
                 "output": "=== Basic Lambda Functions ===\\nSquare of 5: 25\\n3 + 4 = 7\\nMax of 10 and 7: 10\\n\\n=== Lambda with Built-in Functions ===\\nSquares: [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]\\nEven numbers: [2, 4, 6, 8, 10]\\nSum of all numbers: 55\\n\\n=== Lambda for Sorting ===\\nStudents by grade: [('Diana', 92), ('Bob', 90), ('Alice', 85), ('Charlie', 78)]\\nStudents by name length: [('Bob', 90), ('Alice', 85), ('Diana', 92), ('Charlie', 78)]\\n\\n=== Lambda in Data Processing ===\\nNames: ['Alice', 'Bob', 'Charlie']\\nHigh earners: ['Bob', 'Charlie']\\nAverage salary: $60,000.00",
-                "explanation": "Lambda functions provide concise anonymous functions, ideal for functional programming patterns"
+                "explanation": "Lambda functions provide concise anonymous functions, ideal for functional programming patterns",
             },
-            
             "scope_and_closures": {
                 "code": '''
 # Variable scope and closures
@@ -277,9 +274,8 @@ demo_legb()
 print(f"Global scope: {x}")
 ''',
                 "output": "Closure result: Inner: I'm in inner, y=20, Outer: I'm in outer, x=10, Global: I'm global\\n\\n=== Closure with State ===\\nCounter 1: 1, 2, 3\\nCounter 2: 101, 102\\nCounter 1 current: 3\\nCounter 2 current: 102\\nCounter 1 after reset: 51\\n\\n=== LEGB Rule Demonstration ===\\nEnclosing scope: enclosing x\\nLocal scope: local x\\nInner local: local x\\nGlobal: global x\\nBuilt-in example: 5\\nGlobal scope: global x",
-                "explanation": "Python follows LEGB rule (Local, Enclosing, Global, Built-in) for variable resolution and supports closures for persistent state"
+                "explanation": "Python follows LEGB rule (Local, Enclosing, Global, Built-in) for variable resolution and supports closures for persistent state",
             },
-            
             "decorators": {
                 "code": '''
 # Function decorators
@@ -373,9 +369,8 @@ say_hello("Bob")
 say_hello("Charlie")
 ''',
                 "output": "=== Basic Decorator ===\\nslow_function took 0.1001 seconds\\nResult: Done!\\n\\n=== Decorator with Parameters ===\\nExecution 1: Hello, Alice!\\nExecution 2: Hello, Alice!\\nExecution 3: Hello, Alice!\\nAll results: ['Hello, Alice!', 'Hello, Alice!', 'Hello, Alice!']\\n\\n=== Multiple Decorators ===\\nFormatted text: ***HELLO WORLD***\\n\\n=== Class-based Decorator ===\\nsay_hello called 1 times\\nsay_hello called 2 times\\nsay_hello called 3 times",
-                "explanation": "Decorators modify function behavior without changing the function itself, supporting both function and class-based implementations"
+                "explanation": "Decorators modify function behavior without changing the function itself, supporting both function and class-based implementations",
             },
-            
             "higher_order_functions": {
                 "code": '''
 # Higher-order functions - functions that operate on other functions
@@ -483,10 +478,10 @@ print(f"Doctor greeting: {greet_dr('Jane', 'Smith')}")
 print(f"Professor greeting: {greet_prof('John', 'Doe')}")
 ''',
                 "output": "=== Functions as First-Class Objects ===\\nAdd: 8\\nMultiply: 15\\n\\n=== Passing Functions as Arguments ===\\nAdditions: [3, 7, 11]\\nMultiplications: [2, 12, 30]\\n\\n=== Returning Functions ===\\nDouble 5: 10\\nTriple 4: 12\\n\\n=== Function Composition ===\\nSquare then increment 5: 26\\nIncrement then square 5: 36\\n\\n=== Partial Function Application ===\\nSquare of 4: 16\\nCube of 3: 27\\nDoctor greeting: Dr. Jane Smith\\nProfessor greeting: Prof. John Doe",
-                "explanation": "Higher-order functions treat functions as first-class objects, enabling powerful patterns like composition and partial application"
-            }
+                "explanation": "Higher-order functions treat functions as first-class objects, enabling powerful patterns like composition and partial application",
+            },
         }
-    
+
     def _get_explanation(self) -> str:
         """Get detailed explanation for functions."""
         return (
@@ -497,7 +492,7 @@ print(f"Professor greeting: {greet_prof('John', 'Doe')}")
             "functions as first-class objects. Understanding scope (LEGB rule) and functional "
             "programming concepts enables writing more elegant and maintainable code."
         )
-    
+
     def _get_best_practices(self) -> List[str]:
         """Get best practices for functions."""
         return [
@@ -512,5 +507,5 @@ print(f"Professor greeting: {greet_prof('John', 'Doe')}")
             "Handle edge cases and validate input parameters when necessary",
             "Consider using decorators for cross-cutting concerns like logging",
             "Use lambda functions for simple, one-line operations only",
-            "Prefer pure functions (no side effects) when possible for easier testing"
+            "Prefer pure functions (no side effects) when possible for easier testing",
         ]

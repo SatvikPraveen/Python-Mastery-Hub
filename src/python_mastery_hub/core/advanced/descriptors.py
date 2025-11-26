@@ -8,10 +8,10 @@ from .base import TopicDemo
 
 class DescriptorsDemo(TopicDemo):
     """Demonstration class for Python descriptors."""
-    
+
     def __init__(self):
         super().__init__("descriptors")
-    
+
     def _setup_examples(self) -> None:
         """Setup descriptor examples."""
         self.examples = {
@@ -112,9 +112,8 @@ class Student:
     def __str__(self):
         return f"Student(name='{self.name}', age={self.age}, grade={self.grade})"
 ''',
-                "explanation": "Basic descriptors control attribute access through __get__, __set__, and __delete__ methods"
+                "explanation": "Basic descriptors control attribute access through __get__, __set__, and __delete__ methods",
             },
-            
             "advanced_descriptors": {
                 "code": '''
 class LazyProperty:
@@ -297,9 +296,8 @@ class Temperature:
     # Using descriptor
     celsius_descriptor = RangeAttribute(min_value=-273.15)
 ''',
-                "explanation": "Advanced descriptors provide powerful patterns for lazy loading, caching, validation, and memory management"
+                "explanation": "Advanced descriptors provide powerful patterns for lazy loading, caching, validation, and memory management",
             },
-            
             "descriptor_vs_property": {
                 "code": '''
 # Comparison of different approaches to attribute management
@@ -411,6 +409,6 @@ class MathOperations:
             return 1
         return n * self.factorial(n-1)
 ''',
-                "explanation": "Descriptors vs properties comparison shows different approaches to attribute management with various trade-offs"
-            }
+                "explanation": "Descriptors vs properties comparison shows different approaches to attribute management with various trade-offs",
+            },
         }

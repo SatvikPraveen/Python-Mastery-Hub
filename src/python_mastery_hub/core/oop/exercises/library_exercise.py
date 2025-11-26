@@ -24,7 +24,7 @@ like checking out books, returning books, and searching the catalog.
             "Implement methods for object behavior",
             "Use composition to build complex systems",
             "Handle object relationships and associations",
-            "Apply encapsulation principles"
+            "Apply encapsulation principles",
         ],
         "tasks": [
             {
@@ -35,30 +35,30 @@ like checking out books, returning books, and searching the catalog.
                     "Store author name, birth year, and nationality",
                     "Implement __str__ method for readable output",
                     "Add method to calculate author's age",
-                    "Include validation for birth year"
-                ]
+                    "Include validation for birth year",
+                ],
             },
             {
                 "step": 2,
-                "title": "Create Book Class", 
+                "title": "Create Book Class",
                 "description": "Design a Book class with author association",
                 "requirements": [
                     "Store title, author (Author object), ISBN, publication year",
                     "Track availability status (checked out or available)",
                     "Implement __str__ and __repr__ methods",
-                    "Add methods to check out and return the book"
-                ]
+                    "Add methods to check out and return the book",
+                ],
             },
             {
                 "step": 3,
                 "title": "Create Patron Class",
-                "description": "Design a Patron class for library users", 
+                "description": "Design a Patron class for library users",
                 "requirements": [
                     "Store patron name, ID, contact information",
                     "Track list of currently checked out books",
                     "Implement methods to check out and return books",
-                    "Add borrowing limit enforcement"
-                ]
+                    "Add borrowing limit enforcement",
+                ],
             },
             {
                 "step": 4,
@@ -68,8 +68,8 @@ like checking out books, returning books, and searching the catalog.
                     "Maintain catalogs of books, authors, and patrons",
                     "Implement book search by title, author, or ISBN",
                     "Handle book checkout and return transactions",
-                    "Generate reports on library inventory and usage"
-                ]
+                    "Generate reports on library inventory and usage",
+                ],
             },
             {
                 "step": 5,
@@ -79,9 +79,9 @@ like checking out books, returning books, and searching the catalog.
                     "Add book reservation system",
                     "Implement overdue book tracking",
                     "Create different patron types (Student, Faculty, Public)",
-                    "Add fine calculation for overdue books"
-                ]
-            }
+                    "Add fine calculation for overdue books",
+                ],
+            },
         ],
         "starter_code": '''
 from datetime import datetime, timedelta
@@ -210,7 +210,7 @@ if __name__ == "__main__":
             "Use datetime for tracking checkout dates and due dates",
             "Think about edge cases - what if book is already checked out?",
             "Consider using enums for status values (AVAILABLE, CHECKED_OUT)",
-            "Make sure to update both Book and Patron when checking out/returning"
+            "Make sure to update both Book and Patron when checking out/returning",
         ],
         "solution": '''
 from datetime import datetime, timedelta
@@ -602,5 +602,5 @@ def demonstrate_library_system():
 
 if __name__ == "__main__":
     demonstrate_library_system()
-'''
+''',
     }

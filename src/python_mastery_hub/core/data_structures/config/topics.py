@@ -13,13 +13,12 @@ TOPICS_CONFIG: Dict[str, Dict[str, Any]] = {
         "estimated_time": "2-3 hours",
         "subtopics": [
             "list_operations",
-            "dictionary_operations", 
+            "dictionary_operations",
             "set_operations",
             "tuple_usage",
-            "comprehensions"
-        ]
+            "comprehensions",
+        ],
     },
-    
     "advanced_collections": {
         "name": "Advanced Collections",
         "description": "Specialized containers from the collections module",
@@ -32,10 +31,9 @@ TOPICS_CONFIG: Dict[str, Dict[str, Any]] = {
             "deque",
             "namedtuple",
             "ordereddict",
-            "chainmap"
-        ]
+            "chainmap",
+        ],
     },
-    
     "custom_structures": {
         "name": "Custom Data Structures",
         "description": "Implementing fundamental data structures from scratch",
@@ -47,10 +45,9 @@ TOPICS_CONFIG: Dict[str, Dict[str, Any]] = {
             "stacks_queues",
             "trees",
             "graphs",
-            "hash_tables"
-        ]
+            "hash_tables",
+        ],
     },
-    
     "performance_analysis": {
         "name": "Performance Analysis",
         "description": "Understanding time and space complexity of data structures",
@@ -62,10 +59,9 @@ TOPICS_CONFIG: Dict[str, Dict[str, Any]] = {
             "time_complexity",
             "space_complexity",
             "benchmarking",
-            "optimization"
-        ]
+            "optimization",
+        ],
     },
-    
     "practical_applications": {
         "name": "Practical Applications",
         "description": "Real-world use cases and problem-solving with data structures",
@@ -77,20 +73,22 @@ TOPICS_CONFIG: Dict[str, Dict[str, Any]] = {
             "graph_algorithms",
             "text_processing",
             "task_scheduling",
-            "data_analysis"
-        ]
-    }
+            "data_analysis",
+        ],
+    },
 }
+
 
 def get_topic_order() -> List[str]:
     """Return recommended learning order for topics."""
     return [
         "built_in_collections",
-        "advanced_collections", 
+        "advanced_collections",
         "custom_structures",
         "performance_analysis",
-        "practical_applications"
+        "practical_applications",
     ]
+
 
 def get_topic_dependencies() -> Dict[str, List[str]]:
     """Return dependency mapping for topics."""
@@ -98,6 +96,7 @@ def get_topic_dependencies() -> Dict[str, List[str]]:
     for topic, config in TOPICS_CONFIG.items():
         dependencies[topic] = config.get("prerequisites", [])
     return dependencies
+
 
 def get_difficulty_levels() -> Dict[str, List[str]]:
     """Group topics by difficulty level."""

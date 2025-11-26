@@ -15,16 +15,13 @@ from .error_handling import setup_error_handlers
 __all__ = [
     # Authentication middleware
     "get_current_user",
-    "require_admin", 
+    "require_admin",
     "verify_token",
-    
     # CORS middleware
     "setup_cors",
-    
     # Rate limiting middleware
     "RateLimiter",
     "rate_limit",
-    
     # Error handling middleware
     "setup_error_handlers",
 ]

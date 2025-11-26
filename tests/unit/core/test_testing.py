@@ -16,31 +16,36 @@ try:
         IntegrationTestingExercise,
         MockingExercise,
         TestDrivenDevelopmentExercise,
-        TestCoverageExercise
+        TestCoverageExercise,
     )
     from src.core.evaluators import TestingEvaluator
 except ImportError:
     # Mock classes for when actual modules don't exist
     class UnitTestingExercise:
         pass
+
     class IntegrationTestingExercise:
         pass
+
     class MockingExercise:
         pass
+
     class TestDrivenDevelopmentExercise:
         pass
+
     class TestCoverageExercise:
         pass
+
     class TestingEvaluator:
         pass
 
 
 class TestUnitTestingConcepts:
     """Test cases for unit testing concepts and exercises."""
-    
+
     def test_basic_unittest_structure(self):
         """Test basic unittest structure and methods."""
-        code = '''
+        code = """
 import unittest
 
 class Calculator:
@@ -111,18 +116,18 @@ if __name__ == '__main__':
     failures = len(test_result.failures)
     errors = len(test_result.errors)
     success_rate = (tests_run - failures - errors) / tests_run if tests_run > 0 else 0
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['tests_run'] == 6
-        assert globals_dict['failures'] == 0
-        assert globals_dict['errors'] == 0
-        assert globals_dict['success_rate'] == 1.0
-    
+
+        assert globals_dict["tests_run"] == 6
+        assert globals_dict["failures"] == 0
+        assert globals_dict["errors"] == 0
+        assert globals_dict["success_rate"] == 1.0
+
     def test_pytest_style_testing(self):
         """Test pytest-style testing concepts."""
-        code = '''
+        code = """
 # Functions to test
 def factorial(n):
     if n < 0:
@@ -213,17 +218,17 @@ except:
 
 parametrized_results = test_factorial_parametrized()
 all_parametrized_passed = all(result[3] for result in parametrized_results)
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        results = globals_dict['test_results']
+
+        results = globals_dict["test_results"]
         assert all(results.values()), f"Some tests failed: {results}"
-        assert globals_dict['all_parametrized_passed'] is True
-    
+        assert globals_dict["all_parametrized_passed"] is True
+
     def test_test_fixtures_and_setup(self):
         """Test fixtures and setup/teardown concepts."""
-        code = '''
+        code = """
 import tempfile
 import os
 from pathlib import Path
@@ -326,23 +331,23 @@ finally:
     test_instance.teardown_method()
 
 all_tests_passed = all(test_results.values())
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['all_tests_passed'] is True
-        results = globals_dict['test_results']
-        assert results['create_read'] is True
-        assert results['delete'] is True
-        assert results['list_files'] is True
+
+        assert globals_dict["all_tests_passed"] is True
+        results = globals_dict["test_results"]
+        assert results["create_read"] is True
+        assert results["delete"] is True
+        assert results["list_files"] is True
 
 
 class TestMockingConcepts:
     """Test cases for mocking concepts and exercises."""
-    
+
     def test_basic_mocking(self):
         """Test basic mocking with unittest.mock."""
-        code = '''
+        code = """
 from unittest.mock import Mock, patch
 import requests
 
@@ -417,16 +422,16 @@ test_results = {
     'create_user': test_api_client_create_user(),
     'error_handling': test_api_client_error_handling()
 }
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        results = globals_dict['test_results']
+
+        results = globals_dict["test_results"]
         assert all(results.values())
-    
+
     def test_mock_side_effects(self):
         """Test mock side effects and advanced mocking."""
-        code = '''
+        code = """
 from unittest.mock import Mock, MagicMock, call
 import random
 
@@ -531,16 +536,16 @@ advanced_test_results = {
     'side_effects': test_multiple_calls_with_side_effects(),
     'call_arguments': test_mock_call_arguments()
 }
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        results = globals_dict['advanced_test_results']
+
+        results = globals_dict["advanced_test_results"]
         assert all(results.values())
-    
+
     def test_spy_and_stub_patterns(self):
         """Test spy and stub patterns."""
-        code = '''
+        code = """
 from unittest.mock import Mock, MagicMock
 
 class EmailService:
@@ -656,17 +661,17 @@ spy_stub_results = {
     'stub_pattern': test_notification_service_with_stub(),
     'partial_mocking': test_partial_mocking()
 }
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        results = globals_dict['spy_stub_results']
+
+        results = globals_dict["spy_stub_results"]
         assert all(results.values())
 
 
 class TestTestDrivenDevelopment:
     """Test cases for Test-Driven Development concepts."""
-    
+
     def test_tdd_red_green_refactor_cycle(self):
         """Test the Red-Green-Refactor TDD cycle."""
         code = '''
@@ -897,11 +902,11 @@ tdd_cycle_complete = green_result and refactor_result
 '''
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['green_result'] is True
-        assert globals_dict['refactor_result'] is True
-        assert globals_dict['tdd_cycle_complete'] is True
-    
+
+        assert globals_dict["green_result"] is True
+        assert globals_dict["refactor_result"] is True
+        assert globals_dict["tdd_cycle_complete"] is True
+
     def test_behavior_driven_development(self):
         """Test BDD concepts with Given-When-Then structure."""
         code = '''
@@ -1042,17 +1047,17 @@ bdd_success, bdd_details = test_user_authentication_scenarios()
 '''
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['bdd_success'] is True
-        assert len(globals_dict['bdd_details']) >= 3  # At least 3 scenarios tested
+
+        assert globals_dict["bdd_success"] is True
+        assert len(globals_dict["bdd_details"]) >= 3  # At least 3 scenarios tested
 
 
 class TestCodeCoverage:
     """Test cases for code coverage concepts."""
-    
+
     def test_statement_coverage(self):
         """Test statement coverage analysis."""
-        code = '''
+        code = """
 import sys
 from io import StringIO
 
@@ -1186,21 +1191,21 @@ def test_branch_coverage():
 
 grade_coverage = test_grade_coverage()
 branch_coverage = test_branch_coverage()
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        grade_cov = globals_dict['grade_coverage']
-        branch_cov = globals_dict['branch_coverage']
-        
-        assert grade_cov['coverage_percentage'] > 50  # Should have decent coverage
-        assert len(grade_cov['results']) == 3
-        assert branch_cov['branch_coverage'] == 100.0  # All branches tested
-        assert len(branch_cov['results']) == 8
-    
+
+        grade_cov = globals_dict["grade_coverage"]
+        branch_cov = globals_dict["branch_coverage"]
+
+        assert grade_cov["coverage_percentage"] > 50  # Should have decent coverage
+        assert len(grade_cov["results"]) == 3
+        assert branch_cov["branch_coverage"] == 100.0  # All branches tested
+        assert len(branch_cov["results"]) == 8
+
     def test_integration_testing_concepts(self):
         """Test integration testing concepts."""
-        code = '''
+        code = """
 # Integration testing example - testing component interactions
 
 class Database:
@@ -1366,26 +1371,26 @@ integration_results = {
 }
 
 all_integration_passed = all(integration_results.values())
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        results = globals_dict['integration_results']
+
+        results = globals_dict["integration_results"]
         assert all(results.values())
-        assert globals_dict['all_integration_passed'] is True
+        assert globals_dict["all_integration_passed"] is True
 
 
 class TestTestingEvaluator:
     """Test cases for testing code evaluator."""
-    
+
     @pytest.fixture
     def evaluator(self):
         """Create a testing evaluator instance."""
         return TestingEvaluator()
-    
+
     def test_evaluate_test_code(self, evaluator):
         """Test evaluation of test code."""
-        test_code = '''
+        test_code = """
 def add(a, b):
     return a + b
 
@@ -1400,12 +1405,12 @@ try:
     test_passed = True
 except AssertionError:
     test_passed = False
-'''
+"""
         result = evaluator.evaluate(test_code)
-        
-        assert result['success'] is True
-        assert result['globals']['test_passed'] is True
-    
+
+        assert result["success"] is True
+        assert result["globals"]["test_passed"] is True
+
     def test_analyze_test_quality(self, evaluator):
         """Test analysis of test quality."""
         good_test_code = '''
@@ -1430,8 +1435,8 @@ class TestMathOperations(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.calculator.divide(10, 0)
 '''
-        
-        poor_test_code = '''
+
+        poor_test_code = """
 def test():
     x = add(1, 2)
     print(x)  # No assertion
@@ -1439,18 +1444,18 @@ def test():
 def test2():
     # Empty test
     pass
-'''
-        
+"""
+
         good_analysis = evaluator.analyze_test_quality(good_test_code)
         poor_analysis = evaluator.analyze_test_quality(poor_test_code)
-        
-        assert good_analysis['quality_score'] > poor_analysis['quality_score']
-        assert good_analysis['has_assertions'] is True
-        assert poor_analysis['has_assertions'] is False
-    
+
+        assert good_analysis["quality_score"] > poor_analysis["quality_score"]
+        assert good_analysis["has_assertions"] is True
+        assert poor_analysis["has_assertions"] is False
+
     def test_check_testing_patterns(self, evaluator):
         """Test checking for testing patterns and best practices."""
-        test_code_with_patterns = '''
+        test_code_with_patterns = """
 import unittest
 from unittest.mock import Mock, patch
 
@@ -1485,20 +1490,20 @@ class TestUserService(unittest.TestCase):
         with self.subTest("Invalid input"):
             result = self.user_service.validate_email("invalid-email")
             self.assertFalse(result)
-'''
-        
+"""
+
         patterns = evaluator.check_testing_patterns(test_code_with_patterns)
-        
-        assert patterns['uses_setup_teardown'] is True
-        assert patterns['uses_mocking'] is True
-        assert patterns['follows_aaa_pattern'] is True  # Arrange-Act-Assert
-        assert patterns['uses_subtests'] is True
-        assert patterns['test_isolation'] is True
+
+        assert patterns["uses_setup_teardown"] is True
+        assert patterns["uses_mocking"] is True
+        assert patterns["follows_aaa_pattern"] is True  # Arrange-Act-Assert
+        assert patterns["uses_subtests"] is True
+        assert patterns["test_isolation"] is True
 
 
 class TestDocumentationTesting:
     """Test cases for documentation testing concepts."""
-    
+
     def test_doctest_examples(self):
         """Test doctest functionality."""
         code = '''
@@ -1611,20 +1616,20 @@ fibonacci_doctest_passed, fibonacci_results = run_doctests(fibonacci)
 '''
         globals_dict = {}
         exec(code, globals_dict)
-        
+
         # Note: This is a simplified doctest runner
         # Real doctests would be more sophisticated
-        assert isinstance(globals_dict['factorial_doctest_passed'], bool)
-        assert isinstance(globals_dict['fibonacci_doctest_passed'], bool)
+        assert isinstance(globals_dict["factorial_doctest_passed"], bool)
+        assert isinstance(globals_dict["fibonacci_doctest_passed"], bool)
 
 
 @pytest.mark.integration
 class TestTestingIntegration:
     """Integration tests for testing concepts."""
-    
+
     def test_complete_testing_workflow(self):
         """Test a complete testing workflow scenario."""
-        code = '''
+        code = """
 # Complete testing workflow example
 from datetime import datetime
 
@@ -1812,14 +1817,14 @@ for test_method in test_methods:
 all_tests_passed = all(results)
 total_tests = len(results)
 passed_tests = sum(results)
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['all_tests_passed'] is True
-        assert globals_dict['total_tests'] == 7
-        assert globals_dict['passed_tests'] == 7
+
+        assert globals_dict["all_tests_passed"] is True
+        assert globals_dict["total_tests"] == 7
+        assert globals_dict["passed_tests"] == 7
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     pytest.main([__file__])

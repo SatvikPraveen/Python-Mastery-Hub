@@ -11,11 +11,11 @@ from .base import AsyncDemo, simulate_io_operation, simulate_cpu_work
 
 class ConcurrentFuturesConcepts(AsyncDemo):
     """Demonstrates concurrent.futures module concepts."""
-    
+
     def __init__(self):
         super().__init__("Concurrent Futures")
         self._setup_examples()
-    
+
     def _setup_examples(self) -> None:
         """Setup concurrent futures examples."""
         self.examples = {
@@ -63,9 +63,8 @@ def executor_comparison():
 
 executor_comparison()
 ''',
-                "explanation": "concurrent.futures provides a unified interface for both thread and process-based parallelism"
+                "explanation": "concurrent.futures provides a unified interface for both thread and process-based parallelism",
             },
-            
             "future_management": {
                 "code": '''
 import concurrent.futures
@@ -126,9 +125,8 @@ def advanced_future_patterns():
 
 advanced_future_patterns()
 ''',
-                "explanation": "Future objects provide fine-grained control over task execution and result handling"
+                "explanation": "Future objects provide fine-grained control over task execution and result handling",
             },
-            
             "exception_handling": {
                 "code": '''
 import concurrent.futures
@@ -206,9 +204,8 @@ def exception_handling_patterns():
 
 exception_handling_patterns()
 ''',
-                "explanation": "Proper exception handling ensures robust concurrent execution"
+                "explanation": "Proper exception handling ensures robust concurrent execution",
             },
-            
             "performance_monitoring": {
                 "code": '''
 import concurrent.futures
@@ -345,9 +342,8 @@ def performance_monitoring_example():
 
 performance_monitoring_example()
 ''',
-                "explanation": "Performance monitoring helps optimize concurrent execution and identify bottlenecks"
+                "explanation": "Performance monitoring helps optimize concurrent execution and identify bottlenecks",
             },
-            
             "adaptive_concurrency": {
                 "code": '''
 import concurrent.futures
@@ -474,10 +470,10 @@ def adaptive_concurrency_example():
 
 adaptive_concurrency_example()
 ''',
-                "explanation": "Adaptive concurrency automatically optimizes the number of workers based on performance feedback"
-            }
+                "explanation": "Adaptive concurrency automatically optimizes the number of workers based on performance feedback",
+            },
         }
-    
+
     def get_explanation(self) -> str:
         """Get explanation for concurrent futures."""
         return (
@@ -487,7 +483,7 @@ adaptive_concurrency_example()
             "and ProcessPoolExecutor, making it easy to write code that can "
             "be adapted for different types of workloads."
         )
-    
+
     def get_best_practices(self) -> List[str]:
         """Get best practices for concurrent futures."""
         return [
@@ -498,83 +494,81 @@ adaptive_concurrency_example()
             "Use as_completed() for processing results as they finish",
             "Implement proper exception handling for robust execution",
             "Monitor performance to optimize worker count",
-            "Use map() for simple parallel operations on sequences", 
+            "Use map() for simple parallel operations on sequences",
             "Cancel futures when appropriate to free resources",
-            "Be mindful of memory usage with large numbers of futures"
+            "Be mindful of memory usage with large numbers of futures",
         ]
 
 
 class FutureResultCollector:
     """Utility class for collecting and managing future results."""
-    
+
     def __init__(self):
         self.results = {}
         self.exceptions = {}
         self.completion_times = {}
         self.lock = threading.Lock()
-    
+
     def add_future(self, future_id: str, future: concurrent.futures.Future):
         """Add a future to be tracked."""
+
         def done_callback(fut):
             completion_time = time.time()
-            
+
             with self.lock:
                 self.completion_times[future_id] = completion_time
-                
+
                 try:
                     result = fut.result()
                     self.results[future_id] = result
                 except Exception as e:
                     self.exceptions[future_id] = e
-        
+
         future.add_done_callback(done_callback)
-    
+
     def wait_for_all(self, timeout: Optional[float] = None) -> Dict[str, Any]:
         """Wait for all futures to complete and return summary."""
         start_time = time.time()
-        
+
         while timeout is None or (time.time() - start_time) < timeout:
             with self.lock:
                 total_futures = len(self.results) + len(self.exceptions)
                 if len(self.completion_times) == total_futures:
                     break
-            
+
             time.sleep(0.1)
-        
+
         with self.lock:
             return {
-                'successful_results': dict(self.results),
-                'exceptions': dict(self.exceptions),
-                'completion_times': dict(self.completion_times),
-                'total_completed': len(self.completion_times)
+                "successful_results": dict(self.results),
+                "exceptions": dict(self.exceptions),
+                "completion_times": dict(self.completion_times),
+                "total_completed": len(self.completion_times),
             }
 
 
 def demonstrate_future_patterns():
     """Demonstrate various future usage patterns."""
     print("=== Future Usage Patterns ===")
-    
+
     def sample_task(task_id: int, duration: float) -> str:
         time.sleep(duration)
         if task_id == 3:  # Simulate one failure
             raise ValueError(f"Task {task_id} failed")
         return f"Task {task_id} result"
-    
+
     # Pattern 1: Submit and collect
     print("Pattern 1: Submit and collect all results")
-    
+
     with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
-        futures = {
-            f"task_{i}": executor.submit(sample_task, i, 0.5)
-            for i in range(5)
-        }
-        
+        futures = {f"task_{i}": executor.submit(sample_task, i, 0.5) for i in range(5)}
+
         collector = FutureResultCollector()
         for future_id, future in futures.items():
             collector.add_future(future_id, future)
-        
+
         summary = collector.wait_for_all(timeout=5.0)
-        
+
         print(f"  Successful: {len(summary['successful_results'])}")
         print(f"  Failed: {len(summary['exceptions'])}")
         print(f"  Total completed: {summary['total_completed']}")

@@ -7,11 +7,11 @@ from typing import Dict, Any, List
 
 class DataTypesConcepts:
     """Handles all data type-related concepts and examples."""
-    
+
     def __init__(self):
         self.topic = "data_types"
         self.examples = self._setup_examples()
-    
+
     def demonstrate(self) -> Dict[str, Any]:
         """Return comprehensive data type demonstrations."""
         return {
@@ -20,12 +20,12 @@ class DataTypesConcepts:
             "explanation": self._get_explanation(),
             "best_practices": self._get_best_practices(),
         }
-    
+
     def _setup_examples(self) -> Dict[str, Any]:
         """Setup comprehensive data type examples."""
         return {
             "numeric_types": {
-                "code": '''
+                "code": """
 # Numeric data types
 integer_num = 42
 float_num = 3.14159
@@ -45,13 +45,12 @@ print(f"Modulo: {17 % 5}")
 print(f"int('42'): {int('42')}")
 print(f"float('3.14'): {float('3.14')}")
 print(f"str(42): '{str(42)}'")
-''',
+""",
                 "output": "Integer: 42 (type: int)\\nFloat: 3.14159 (type: float)\\nComplex: (3+4j) (type: complex)\\nInteger division: 3\\nFloat division: 3.333\\nPower: 1024\\nModulo: 2\\nint('42'): 42\\nfloat('3.14'): 3.14\\nstr(42): '42'",
-                "explanation": "Python supports integers, floats, and complex numbers with rich operations and type conversion"
+                "explanation": "Python supports integers, floats, and complex numbers with rich operations and type conversion",
             },
-            
             "string_operations": {
-                "code": '''
+                "code": """
 # String data type and operations
 text = "Python Mastery Hub"
 multiline = \"\"\"This is a
@@ -78,13 +77,12 @@ name, score = "Alice", 95.5
 print(f"f-string: Student {name} scored {score:.1f}%")
 print("format(): Student {} scored {:.1f}%".format(name, score))
 print("%-formatting: Student %(name)s scored %(score).1f%%" % {"name": name, "score": score})
-''',
+""",
                 "output": "Original: 'Python Mastery Hub'\\nUpper: 'PYTHON MASTERY HUB'\\nLower: 'python mastery hub'\\nTitle: 'Python Mastery Hub'\\nReplace: 'Java Mastery Hub'\\nSplit: ['Python', 'Mastery', 'Hub']\\nLength: 18\\nFirst char: 'P'\\nLast char: 'b'\\nFirst word: 'Python'\\nLast word: 'Hub'\\nf-string: Student Alice scored 95.5%\\nformat(): Student Alice scored 95.5%\\n%-formatting: Student Alice scored 95.5%",
-                "explanation": "Strings are immutable sequences with many useful methods and multiple formatting options"
+                "explanation": "Strings are immutable sequences with many useful methods and multiple formatting options",
             },
-            
             "boolean_logic": {
-                "code": '''
+                "code": """
 # Boolean data type and logic
 is_active = True
 is_premium = False
@@ -111,13 +109,12 @@ for value in values:
 # Chained comparisons
 x = 15
 print(f"\\nChained: 10 < {x} < 20 = {10 < x < 20}")
-''',
+""",
                 "output": "AND: False\\nOR: True\\nNOT: False\\nXOR: True\\nEqual: False\\nNot equal: True\\nLess than: True\\nGreater or equal: False\\n\\nTruthiness test:\\n0               -> False\\n1               -> True\\n''              -> False\\n'hello'         -> True\\n[]              -> False\\n[1, 2]          -> True\\nNone            -> False\\n{}              -> False\\n{'key': 'value'} -> True\\n\\nChained: 10 < 15 < 20 = True",
-                "explanation": "Boolean logic and truthiness are fundamental to Python control flow and conditionals"
+                "explanation": "Boolean logic and truthiness are fundamental to Python control flow and conditionals",
             },
-            
             "list_operations": {
-                "code": '''
+                "code": """
 # List - mutable, ordered collection
 fruits = ["apple", "banana", "cherry"]
 numbers = [1, 2, 3, 4, 5]
@@ -150,13 +147,12 @@ print(f"Reversed: {fruits[::-1]}")
 # List comprehension
 squares = [x**2 for x in numbers]
 print(f"Squares: {squares}")
-''',
+""",
                 "output": "Original list: ['apple', 'banana', 'cherry']\\nAfter append: ['apple', 'banana', 'cherry', 'date']\\nAfter insert: ['apple', 'apricot', 'banana', 'cherry', 'date']\\nAfter pop: ['apple', 'apricot', 'banana', 'cherry'], removed: date\\nCombined: ['apple', 'apricot', 'banana', 'cherry', 'elderberry', 'fig']\\nLength: 4\\nIndex of 'banana': 2\\n'banana' in list: True\\nFirst two: ['apple', 'apricot']\\nLast two: ['banana', 'cherry']\\nReversed: ['cherry', 'banana', 'apricot', 'apple']\\nSquares: [1, 4, 9, 16, 25]",
-                "explanation": "Lists are mutable, ordered collections that support many useful operations and methods"
+                "explanation": "Lists are mutable, ordered collections that support many useful operations and methods",
             },
-            
             "tuple_operations": {
-                "code": '''
+                "code": """
 # Tuple - immutable, ordered collection
 coordinates = (10, 20)
 rgb_color = (255, 128, 0)
@@ -191,13 +187,12 @@ locations = {
     (0, 1): "north"
 }
 print(f"Location map: {locations}")
-''',
+""",
                 "output": "Coordinates: (10, 20)\\nRGB Color: (255, 128, 0)\\nSingle tuple: (42,)\\nUnpacked coordinates: x=10, y=20\\nUnpacked color: r=255, g=128, b=0\\nCount of 2: 3\\nIndex of 3: 2\\nNamed tuple: Point(x=10, y=20)\\nAccess by name: x=10, y=20\\nLocation map: {(0, 0): 'origin', (1, 0): 'east', (0, 1): 'north'}",
-                "explanation": "Tuples are immutable sequences useful for fixed collections and as dictionary keys"
+                "explanation": "Tuples are immutable sequences useful for fixed collections and as dictionary keys",
             },
-            
             "set_operations": {
-                "code": '''
+                "code": """
 # Set - mutable, unordered collection of unique elements
 fruits = {"apple", "banana", "cherry", "apple"}  # Duplicates removed
 numbers = set([1, 2, 3, 4, 5, 5, 5])  # From list
@@ -230,13 +225,12 @@ print(f"set1 subset of {set1 | set2}: {set1.issubset(set1 | set2)}")
 # Frozenset - immutable set
 frozen = frozenset([1, 2, 3])
 print(f"Frozenset: {frozen}")
-''',
+""",
                 "output": "Fruits set: {'cherry', 'banana', 'apple'}\\nNumbers set: {1, 2, 3, 4, 5}\\nAfter add: {'cherry', 'banana', 'apple', 'date'}\\nAfter discard: {'cherry', 'apple', 'date'}\\nSet 1: {1, 2, 3, 4}\\nSet 2: {3, 4, 5, 6}\\nUnion: {1, 2, 3, 4, 5, 6}\\nIntersection: {3, 4}\\nDifference: {1, 2}\\nSymmetric difference: {1, 2, 5, 6}\\n3 in set1: True\\nset1 subset of {1, 2, 3, 4, 5, 6}: True\\nFrozenset: frozenset({1, 2, 3})",
-                "explanation": "Sets provide fast membership testing and mathematical set operations for unique collections"
+                "explanation": "Sets provide fast membership testing and mathematical set operations for unique collections",
             },
-            
             "dictionary_operations": {
-                "code": '''
+                "code": """
 # Dictionary - mutable, ordered (Python 3.7+) key-value mapping
 student = {"name": "Alice", "age": 20, "grade": "A"}
 scores = dict(math=95, science=88, english=92)
@@ -276,12 +270,12 @@ grades = ["A", "B", "A", "C", "B", "A"]
 for grade in grades:
     grade_counts[grade] += 1
 print(f"Grade counts: {dict(grade_counts)}")
-''',
+""",
                 "output": "Student: {'name': 'Alice', 'age': 20, 'grade': 'A'}\\nScores: {'math': 95, 'science': 88, 'english': 92}\\nName: Alice\\nAge: 20\\nGrade: Undeclared\\nUpdated: {'name': 'Alice', 'age': 21, 'grade': 'A', 'major': 'Computer Science', 'gpa': 3.8}\\nKeys: ['name', 'age', 'grade', 'major', 'gpa']\\nValues: ['Alice', 21, 'A', 'Computer Science', 3.8]\\nItems: [('name', 'Alice'), ('age', 21), ('grade', 'A'), ('major', 'Computer Science'), ('gpa', 3.8)]\\nSquared numbers: {1: 1, 2: 4, 3: 9, 4: 16, 5: 25}\\nAlice's courses: ['math', 'science']\\nGrade counts: {'A': 3, 'B': 2, 'C': 1}",
-                "explanation": "Dictionaries provide fast key-based lookup and are essential for structured data storage"
-            }
+                "explanation": "Dictionaries provide fast key-based lookup and are essential for structured data storage",
+            },
         }
-    
+
     def _get_explanation(self) -> str:
         """Get detailed explanation for data types."""
         return (
@@ -292,7 +286,7 @@ print(f"Grade counts: {dict(grade_counts)}")
             "to use each type and their characteristics (mutable vs immutable, ordered vs unordered) "
             "is crucial for effective Python programming."
         )
-    
+
     def _get_best_practices(self) -> List[str]:
         """Get best practices for data types."""
         return [
@@ -307,5 +301,5 @@ print(f"Grade counts: {dict(grade_counts)}")
             "Be aware of truthiness rules for different types",
             "Use collections module for specialized data types when needed",
             "Validate input types early in functions to catch errors",
-            "Use isinstance() instead of type() for type checking"
+            "Use isinstance() instead of type() for type checking",
         ]

@@ -18,21 +18,19 @@ from .exercises import *
 
 __all__ = [
     # Database fixtures
-    'db_session',
-    'test_database',
-    'clean_database',
-    'sample_db_data',
-    
+    "db_session",
+    "test_database",
+    "clean_database",
+    "sample_db_data",
     # User fixtures
-    'test_user',
-    'admin_user',
-    'multiple_users',
-    'authenticated_user_session',
-    
+    "test_user",
+    "admin_user",
+    "multiple_users",
+    "authenticated_user_session",
     # Exercise fixtures
-    'sample_exercise',
-    'exercise_set',
-    'completed_exercise',
-    'exercise_with_hints',
-    'multilevel_exercises',
+    "sample_exercise",
+    "exercise_set",
+    "completed_exercise",
+    "exercise_with_hints",
+    "multilevel_exercises",
 ]

@@ -29,15 +29,15 @@ from .config.topics import TOPICS_CONFIG
 
 class DataScience(LearningModule):
     """Interactive learning module for Data Science with Python."""
-    
+
     def __init__(self):
         super().__init__(
             name="Data Science",
             description="Master data science with NumPy, Pandas, visualization, and machine learning",
-            difficulty="intermediate"
+            difficulty="intermediate",
         )
         self._setup_module()
-    
+
     def _setup_module(self) -> None:
         """Setup examples and exercises for data science."""
         self.examples = {
@@ -65,40 +65,40 @@ class DataScience(LearningModule):
                 "data_preprocessing": PreprocessingExamples.get_data_preprocessing(),
             },
         }
-        
+
         self.exercises = [
             {
                 "topic": "pandas_basics",
                 "title": "Data Analysis Pipeline",
                 "description": "Build a complete data analysis pipeline with real datasets",
                 "difficulty": "hard",
-                "function": DataAnalysisExercise.get_exercise
+                "function": DataAnalysisExercise.get_exercise,
             },
             {
                 "topic": "machine_learning",
                 "title": "Predictive Model Development",
                 "description": "Create and evaluate machine learning models",
                 "difficulty": "hard",
-                "function": MLPipelineExercise.get_exercise
+                "function": MLPipelineExercise.get_exercise,
             },
             {
                 "topic": "data_visualization",
                 "title": "Interactive Dashboard",
                 "description": "Build an interactive data visualization dashboard",
                 "difficulty": "hard",
-                "function": DashboardExercise.get_exercise
-            }
+                "function": DashboardExercise.get_exercise,
+            },
         ]
-    
+
     def get_topics(self) -> List[str]:
         """Return list of topics covered in this module."""
         return list(TOPICS_CONFIG.keys())
-    
+
     def demonstrate(self, topic: str) -> Dict[str, Any]:
         """Demonstrate a specific topic with examples."""
         if topic not in self.examples:
             raise ValueError(f"Topic '{topic}' not found in data science module")
-        
+
         return {
             "topic": topic,
             "examples": self.examples[topic],

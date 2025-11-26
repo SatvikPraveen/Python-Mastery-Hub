@@ -13,7 +13,7 @@ from . import demo
 # Export command modules
 __all__ = [
     "learn",
-    "progress", 
+    "progress",
     "test",
     "demo",
 ]
@@ -26,9 +26,11 @@ COMMANDS = {
     "demo": demo,
 }
 
+
 def get_command(command_name: str):
     """Get command module by name."""
     return COMMANDS.get(command_name)
+
 
 def list_commands():
     """Get list of available command names."""

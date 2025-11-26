@@ -8,7 +8,7 @@ from typing import Dict, Any
 
 class VisualizationExamples:
     """Data visualization examples and demonstrations."""
-    
+
     @staticmethod
     def get_matplotlib_basics() -> Dict[str, Any]:
         """Get basic Matplotlib plotting examples."""
@@ -190,5 +190,5 @@ if __name__ == "__main__":
     advanced_visualization_demo()
     seaborn_examples()
 ''',
-            "explanation": "Matplotlib and Seaborn provide comprehensive visualization capabilities for data analysis"
+            "explanation": "Matplotlib and Seaborn provide comprehensive visualization capabilities for data analysis",
         }

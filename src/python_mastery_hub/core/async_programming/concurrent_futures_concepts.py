@@ -11,7 +11,7 @@ import json
 
 class ConcurrentFuturesConcepts:
     """Learning module for concurrent.futures concepts."""
-    
+
     def __init__(self):
         self.name = "Concurrent Futures"
         self.description = "Master concurrent.futures for advanced parallel programming"
@@ -23,9 +23,9 @@ class ConcurrentFuturesConcepts:
             "submit() vs map()",
             "Exception handling in futures",
             "Timeout handling",
-            "Executor context managers"
+            "Executor context managers",
         ]
-    
+
     def demonstrate(self) -> Dict[str, Any]:
         """Provide comprehensive demonstration of concurrent.futures."""
         return {
@@ -50,7 +50,7 @@ with ThreadPoolExecutor(max_workers=3) as executor:
     for future in futures:
         print(future.result())  # Blocks until result is available
 ''',
-                    "output": "Data for 0\\nData for 1\\nData for 2\\nData for 3\\nData for 4"
+                    "output": "Data for 0\\nData for 1\\nData for 2\\nData for 3\\nData for 4",
                 },
                 "processpool_executor": {
                     "explanation": "ProcessPoolExecutor for CPU-bound tasks",
@@ -70,11 +70,11 @@ with ProcessPoolExecutor(max_workers=2) as executor:
         result = future.result()
         print(f"Task {i}: {result}")
 ''',
-                    "output": "Task 0: 333333833333500\\nTask 1: 333333833333500\\nTask 2: 333333833333500\\nTask 3: 333333833333500"
+                    "output": "Task 0: 333333833333500\\nTask 1: 333333833333500\\nTask 2: 333333833333500\\nTask 3: 333333833333500",
                 },
                 "submit_vs_map": {
                     "explanation": "Difference between submit() and map() methods",
-                    "code": '''from concurrent.futures import ThreadPoolExecutor
+                    "code": """from concurrent.futures import ThreadPoolExecutor
 import time
 
 def process_item(item):
@@ -96,12 +96,12 @@ with ThreadPoolExecutor(max_workers=2) as executor:
     results = executor.map(process_item, items)
     for i, result in enumerate(results):
         print(f"Item {i}: {result}")
-''',
-                    "output": "Using submit():\\nItem 0: 2\\nItem 1: 4\\nItem 2: 6\\nItem 3: 8\\nItem 4: 10\\n\\nUsing map():\\nItem 0: 2\\nItem 1: 4\\nItem 2: 6\\nItem 3: 8\\nItem 4: 10"
+""",
+                    "output": "Using submit():\\nItem 0: 2\\nItem 1: 4\\nItem 2: 6\\nItem 3: 8\\nItem 4: 10\\n\\nUsing map():\\nItem 0: 2\\nItem 1: 4\\nItem 2: 6\\nItem 3: 8\\nItem 4: 10",
                 },
                 "exception_handling": {
                     "explanation": "Exception handling with futures",
-                    "code": '''from concurrent.futures import ThreadPoolExecutor
+                    "code": """from concurrent.futures import ThreadPoolExecutor
 import time
 
 def risky_operation(x):
@@ -120,12 +120,12 @@ with ThreadPoolExecutor(max_workers=2) as executor:
             print(f"Task {i}: Exception - {e}")
         except TimeoutError:
             print(f"Task {i}: Timeout")
-''',
-                    "output": "Task 0: 0\\nTask 1: 2\\nTask 2: Exception - Error processing 2\\nTask 3: 6\\nTask 4: 8"
+""",
+                    "output": "Task 0: 0\\nTask 1: 2\\nTask 2: Exception - Error processing 2\\nTask 3: 6\\nTask 4: 8",
                 },
                 "as_completed": {
                     "explanation": "Processing futures as they complete",
-                    "code": '''from concurrent.futures import ThreadPoolExecutor, as_completed
+                    "code": """from concurrent.futures import ThreadPoolExecutor, as_completed
 import time
 import random
 
@@ -147,12 +147,12 @@ with ThreadPoolExecutor(max_workers=2) as executor:
         url = futures[future]
         result = future.result()
         print(result)
-''',
-                    "output": "Response from http://api1.com\\nResponse from http://api2.com\\nResponse from http://api3.com"
+""",
+                    "output": "Response from http://api1.com\\nResponse from http://api2.com\\nResponse from http://api3.com",
                 },
                 "timeout_handling": {
                     "explanation": "Timeout handling with result() method",
-                    "code": '''from concurrent.futures import ThreadPoolExecutor
+                    "code": """from concurrent.futures import ThreadPoolExecutor
 import time
 
 def slow_task(duration):
@@ -176,8 +176,8 @@ with ThreadPoolExecutor(max_workers=2) as executor:
         print(result)
     except TimeoutError:
         print("Task 2 timed out")
-''',
-                    "output": "Completed after 0.5s\\nTask 2 timed out"
+""",
+                    "output": "Completed after 0.5s\\nTask 2 timed out",
                 },
                 "batch_processing": {
                     "explanation": "Batch processing with chunking",
@@ -205,8 +205,8 @@ with ThreadPoolExecutor(max_workers=2) as executor:
     print(f"Total sum: {total}")
     print(f"Batch results: {[f.result() for f in futures]}")
 ''',
-                    "output": "Total sum: 55\\nBatch results: [6, 15, 24, 10]"
-                }
+                    "output": "Total sum: 55\\nBatch results: [6, 15, 24, 10]",
+                },
             },
             "best_practices": [
                 "Use ThreadPoolExecutor for I/O-bound tasks (network, files)",
@@ -216,8 +216,8 @@ with ThreadPoolExecutor(max_workers=2) as executor:
                 "Handle exceptions in futures to prevent silent failures",
                 "Use as_completed() for results as they arrive",
                 "Set reasonable timeouts to prevent hanging",
-                "Consider the GIL when using ThreadPoolExecutor for CPU work"
-            ]
+                "Consider the GIL when using ThreadPoolExecutor for CPU work",
+            ],
         }
 
 

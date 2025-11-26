@@ -8,7 +8,7 @@ from typing import Dict, Any
 
 class CustomExamples:
     """Custom data structures examples and demonstrations."""
-    
+
     @staticmethod
     def get_linked_list_implementation() -> Dict[str, Any]:
         """Get linked list implementation examples."""
@@ -198,9 +198,9 @@ def demonstrate_linked_list():
 if __name__ == "__main__":
     demonstrate_linked_list()
 ''',
-            "explanation": "Custom linked list implementation demonstrates fundamental pointer-based data structure concepts and memory management"
+            "explanation": "Custom linked list implementation demonstrates fundamental pointer-based data structure concepts and memory management",
         }
-    
+
     @staticmethod
     def get_stack_and_queue() -> Dict[str, Any]:
         """Get stack and queue implementation examples."""
@@ -500,5 +500,5 @@ def demonstrate_stacks_and_queues():
 if __name__ == "__main__":
     demonstrate_stacks_and_queues()
 ''',
-            "explanation": "Stack (LIFO) and Queue (FIFO) are fundamental data structures with many practical applications in algorithm design and system programming"
+            "explanation": "Stack (LIFO) and Queue (FIFO) are fundamental data structures with many practical applications in algorithm design and system programming",
         }

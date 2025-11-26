@@ -18,31 +18,36 @@ try:
         GeneratorExercise,
         ContextManagerExercise,
         MetaclassExercise,
-        ConcurrencyExercise
+        ConcurrencyExercise,
     )
     from src.core.evaluators import AdvancedPythonEvaluator
 except ImportError:
     # Mock classes for when actual modules don't exist
     class DecoratorExercise:
         pass
+
     class GeneratorExercise:
         pass
+
     class ContextManagerExercise:
         pass
+
     class MetaclassExercise:
         pass
+
     class ConcurrencyExercise:
         pass
+
     class AdvancedPythonEvaluator:
         pass
 
 
 class TestDecoratorExercises:
     """Test cases for decorator exercises."""
-    
+
     def test_simple_decorator(self):
         """Test creating a simple decorator."""
-        code = '''
+        code = """
 def timing_decorator(func):
     def wrapper(*args, **kwargs):
         import time
@@ -58,21 +63,21 @@ def slow_function():
     import time
     time.sleep(0.1)
     return "Done"
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
+
         # Test decorator exists
-        assert 'timing_decorator' in globals_dict
-        assert 'slow_function' in globals_dict
-        
+        assert "timing_decorator" in globals_dict
+        assert "slow_function" in globals_dict
+
         # Test decorated function works
-        result = globals_dict['slow_function']()
+        result = globals_dict["slow_function"]()
         assert result == "Done"
-    
+
     def test_decorator_with_arguments(self):
         """Test decorator that accepts arguments."""
-        code = '''
+        code = """
 def repeat(times):
     def decorator(func):
         def wrapper(*args, **kwargs):
@@ -86,17 +91,17 @@ def repeat(times):
 @repeat(3)
 def say_hello(name):
     return f"Hello, {name}!"
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        result = globals_dict['say_hello']("Alice")
+
+        result = globals_dict["say_hello"]("Alice")
         assert len(result) == 3
         assert all(greeting == "Hello, Alice!" for greeting in result)
-    
+
     def test_class_decorator(self):
         """Test class-based decorator."""
-        code = '''
+        code = """
 class CountCalls:
     def __init__(self, func):
         self.func = func
@@ -113,22 +118,22 @@ class CountCalls:
 @CountCalls
 def add(a, b):
     return a + b
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        add_func = globals_dict['add']
-        
+
+        add_func = globals_dict["add"]
+
         # Test function works
         assert add_func(2, 3) == 5
         assert add_func(5, 7) == 12
-        
+
         # Test call counting
         assert add_func.get_count() == 2
-    
+
     def test_property_decorator(self):
         """Test property decorator usage."""
-        code = '''
+        code = """
 class Circle:
     def __init__(self, radius):
         self._radius = radius
@@ -150,25 +155,25 @@ class Circle:
     @property
     def diameter(self):
         return 2 * self._radius
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        Circle = globals_dict['Circle']
+
+        Circle = globals_dict["Circle"]
         circle = Circle(5)
-        
+
         assert circle.radius == 5
         assert abs(circle.area - 78.53975) < 0.001
         assert circle.diameter == 10
-        
+
         # Test setter
         circle.radius = 10
         assert circle.radius == 10
-        
+
         # Test validation
         with pytest.raises(ValueError):
             circle.radius = -1
-    
+
     def test_functools_wraps(self):
         """Test proper use of functools.wraps."""
         code = '''
@@ -188,21 +193,21 @@ def example_function():
 '''
         globals_dict = {}
         exec(code, globals_dict)
-        
-        func = globals_dict['example_function']
-        
+
+        func = globals_dict["example_function"]
+
         # Test that function metadata is preserved
-        assert func.__name__ == 'example_function'
+        assert func.__name__ == "example_function"
         assert func.__doc__ == "This is an example function."
         assert func() == "Hello, World!"
 
 
 class TestGeneratorExercises:
     """Test cases for generator exercises."""
-    
+
     def test_simple_generator(self):
         """Test creating a simple generator."""
-        code = '''
+        code = """
 def count_up_to(max_value):
     count = 1
     while count <= max_value:
@@ -211,22 +216,22 @@ def count_up_to(max_value):
 
 # Create generator
 counter = count_up_to(5)
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        counter = globals_dict['counter']
-        
+
+        counter = globals_dict["counter"]
+
         # Test generator
         assert inspect.isgenerator(counter)
-        
+
         # Test values
         values = list(counter)
         assert values == [1, 2, 3, 4, 5]
-    
+
     def test_fibonacci_generator(self):
         """Test Fibonacci sequence generator."""
-        code = '''
+        code = """
 def fibonacci():
     a, b = 0, 1
     while True:
@@ -241,17 +246,17 @@ def take(n, generator):
 
 fib = fibonacci()
 first_ten = take(10, fib)
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        first_ten = globals_dict['first_ten']
+
+        first_ten = globals_dict["first_ten"]
         expected = [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
         assert first_ten == expected
-    
+
     def test_generator_expressions(self):
         """Test generator expressions."""
-        code = '''
+        code = """
 # Generator expression for squares
 squares_gen = (x**2 for x in range(1, 6))
 squares_list = list(squares_gen)
@@ -264,17 +269,17 @@ even_squares_list = list(even_squares)
 matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
 flattened = (item for row in matrix for item in row)
 flattened_list = list(flattened)
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['squares_list'] == [1, 4, 9, 16, 25]
-        assert globals_dict['even_squares_list'] == [4, 16, 36, 64, 100]
-        assert globals_dict['flattened_list'] == [1, 2, 3, 4, 5, 6, 7, 8, 9]
-    
+
+        assert globals_dict["squares_list"] == [1, 4, 9, 16, 25]
+        assert globals_dict["even_squares_list"] == [4, 16, 36, 64, 100]
+        assert globals_dict["flattened_list"] == [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
     def test_generator_send_method(self):
         """Test generator send method."""
-        code = '''
+        code = """
 def accumulator():
     total = 0
     while True:
@@ -287,17 +292,17 @@ next(acc)  # Prime the generator
 result1 = acc.send(10)
 result2 = acc.send(20)
 result3 = acc.send(5)
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['result1'] == 10
-        assert globals_dict['result2'] == 30
-        assert globals_dict['result3'] == 35
-    
+
+        assert globals_dict["result1"] == 10
+        assert globals_dict["result2"] == 30
+        assert globals_dict["result3"] == 35
+
     def test_generator_with_return(self):
         """Test generator with return statement."""
-        code = '''
+        code = """
 def generator_with_return():
     yield 1
     yield 2
@@ -311,20 +316,20 @@ try:
         values.append(next(gen))
 except StopIteration as e:
     return_value = e.value
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['values'] == [1, 2, 3]
-        assert globals_dict['return_value'] == "Done"
+
+        assert globals_dict["values"] == [1, 2, 3]
+        assert globals_dict["return_value"] == "Done"
 
 
 class TestContextManagerExercises:
     """Test cases for context manager exercises."""
-    
+
     def test_simple_context_manager(self):
         """Test creating a simple context manager."""
-        code = '''
+        code = """
 class FileManager:
     def __init__(self, filename, mode):
         self.filename = filename
@@ -356,15 +361,15 @@ with FileManager(temp_file.name, 'r') as f:
 
 # Cleanup
 os.unlink(temp_file.name)
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['content'] == "Test content"
-    
+
+        assert globals_dict["content"] == "Test content"
+
     def test_contextlib_contextmanager(self):
         """Test using contextlib.contextmanager decorator."""
-        code = '''
+        code = """
 from contextlib import contextmanager
 
 @contextmanager
@@ -383,15 +388,15 @@ with timer():
     import time
     time.sleep(0.1)
     result = "Task completed"
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['result'] == "Task completed"
-    
+
+        assert globals_dict["result"] == "Task completed"
+
     def test_nested_context_managers(self):
         """Test nested context managers."""
-        code = '''
+        code = """
 from contextlib import contextmanager
 
 @contextmanager
@@ -421,16 +426,16 @@ except Exception as e:
     error = str(e)
 else:
     error = None
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['result'] == "Using connection in transaction"
-        assert globals_dict['error'] is None
-    
+
+        assert globals_dict["result"] == "Using connection in transaction"
+        assert globals_dict["error"] is None
+
     def test_exception_handling_in_context_manager(self):
         """Test exception handling in context managers."""
-        code = '''
+        code = """
 class ErrorHandler:
     def __init__(self, suppress_errors=False):
         self.suppress_errors = suppress_errors
@@ -460,20 +465,20 @@ except ValueError:
     not_suppressed = True
 else:
     not_suppressed = False
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['suppressed'] is True
-        assert globals_dict['not_suppressed'] is True
+
+        assert globals_dict["suppressed"] is True
+        assert globals_dict["not_suppressed"] is True
 
 
 class TestMetaclassExercises:
     """Test cases for metaclass exercises."""
-    
+
     def test_simple_metaclass(self):
         """Test creating a simple metaclass."""
-        code = '''
+        code = """
 class SingletonMeta(type):
     _instances = {}
     
@@ -492,13 +497,13 @@ s2 = Singleton("second")
 
 same_instance = s1 is s2
 value_unchanged = s1.value == "first"
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['same_instance'] is True
-        assert globals_dict['value_unchanged'] is True
-    
+
+        assert globals_dict["same_instance"] is True
+        assert globals_dict["value_unchanged"] is True
+
     def test_attribute_validation_metaclass(self):
         """Test metaclass for attribute validation."""
         code = '''
@@ -532,13 +537,13 @@ except ValueError:
 '''
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['result'] == "documented"
-        assert globals_dict['validation_failed'] is True
-    
+
+        assert globals_dict["result"] == "documented"
+        assert globals_dict["validation_failed"] is True
+
     def test_automatic_property_metaclass(self):
         """Test metaclass that automatically creates properties."""
-        code = '''
+        code = """
 class AutoPropertyMeta(type):
     def __new__(mcs, name, bases, attrs):
         # Convert attributes ending with '_' to properties
@@ -578,20 +583,20 @@ p.age = 30
 
 name_value = p.name
 age_value = p.age
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['name_value'] == "Alice"
-        assert globals_dict['age_value'] == 30
+
+        assert globals_dict["name_value"] == "Alice"
+        assert globals_dict["age_value"] == 30
 
 
 class TestConcurrencyExercises:
     """Test cases for concurrency exercises."""
-    
+
     def test_threading_basic(self):
         """Test basic threading."""
-        code = '''
+        code = """
 import threading
 import time
 
@@ -615,17 +620,17 @@ for t in threads:
     t.join()
 
 completed_count = len(results)
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['completed_count'] == 3
-        assert len(globals_dict['results']) == 3
-    
+
+        assert globals_dict["completed_count"] == 3
+        assert len(globals_dict["results"]) == 3
+
     @pytest.mark.asyncio
     async def test_asyncio_basic(self):
         """Test basic asyncio."""
-        code = '''
+        code = """
 import asyncio
 
 async def async_worker(name, delay):
@@ -644,16 +649,16 @@ async def run_workers():
 # Run the async function
 results = asyncio.run(run_workers())
 completed_count = len(results)
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['completed_count'] == 3
-        assert len(globals_dict['results']) == 3
-    
+
+        assert globals_dict["completed_count"] == 3
+        assert len(globals_dict["results"]) == 3
+
     def test_queue_usage(self):
         """Test using queue for thread communication."""
-        code = '''
+        code = """
 import queue
 import threading
 import time
@@ -687,15 +692,15 @@ producer_thread.join()
 consumer_thread.join()
 
 processed_count = len(results)
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['processed_count'] == 5
-    
+
+        assert globals_dict["processed_count"] == 5
+
     def test_concurrent_futures(self):
         """Test concurrent.futures module."""
-        code = '''
+        code = """
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import time
 
@@ -727,25 +732,25 @@ with ThreadPoolExecutor(max_workers=2) as executor:
 
 io_count = len(io_results)
 cpu_count = len(cpu_results)
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['io_count'] == 3
-        assert globals_dict['cpu_count'] == 2
+
+        assert globals_dict["io_count"] == 3
+        assert globals_dict["cpu_count"] == 2
 
 
 class TestAdvancedPythonEvaluator:
     """Test cases for advanced Python evaluator."""
-    
+
     @pytest.fixture
     def evaluator(self):
         """Create an advanced Python evaluator instance."""
         return AdvancedPythonEvaluator()
-    
+
     def test_evaluate_decorator(self, evaluator):
         """Test evaluation of decorator code."""
-        code = '''
+        code = """
 def my_decorator(func):
     def wrapper(*args, **kwargs):
         print(f"Calling {func.__name__}")
@@ -755,35 +760,35 @@ def my_decorator(func):
 @my_decorator
 def test_function():
     return "decorated"
-'''
+"""
         result = evaluator.evaluate(code)
-        
-        assert result['success'] is True
-        assert 'my_decorator' in result['globals']
-        assert 'test_function' in result['globals']
-        
+
+        assert result["success"] is True
+        assert "my_decorator" in result["globals"]
+        assert "test_function" in result["globals"]
+
         # Test decorated function
-        func = result['globals']['test_function']
+        func = result["globals"]["test_function"]
         assert func() == "decorated"
-    
+
     def test_evaluate_generator(self, evaluator):
         """Test evaluation of generator code."""
-        code = '''
+        code = """
 def count_generator(n):
     for i in range(n):
         yield i
 
 gen = count_generator(3)
 values = list(gen)
-'''
+"""
         result = evaluator.evaluate(code)
-        
-        assert result['success'] is True
-        assert result['globals']['values'] == [0, 1, 2]
-    
+
+        assert result["success"] is True
+        assert result["globals"]["values"] == [0, 1, 2]
+
     def test_evaluate_context_manager(self, evaluator):
         """Test evaluation of context manager code."""
-        code = '''
+        code = """
 class TestContextManager:
     def __init__(self):
         self.entered = False
@@ -801,16 +806,16 @@ with TestContextManager() as cm:
     status = cm.entered
 
 final_status = cm.exited
-'''
+"""
         result = evaluator.evaluate(code)
-        
-        assert result['success'] is True
-        assert result['globals']['status'] is True
-        assert result['globals']['final_status'] is True
-    
+
+        assert result["success"] is True
+        assert result["globals"]["status"] is True
+        assert result["globals"]["final_status"] is True
+
     def test_check_advanced_features(self, evaluator):
         """Test checking for advanced Python features."""
-        code = '''
+        code = """
 from functools import wraps
 
 def my_decorator(func):
@@ -829,24 +834,24 @@ class MyContextManager:
     
     def __exit__(self, exc_type, exc_value, traceback):
         return False
-'''
-        
+"""
+
         features = evaluator.check_advanced_features(code)
-        
-        assert 'decorators' in features
-        assert 'generators' in features
-        assert 'context_managers' in features
-        assert features['decorators'] > 0
-        assert features['generators'] > 0
-        assert features['context_managers'] > 0
+
+        assert "decorators" in features
+        assert "generators" in features
+        assert "context_managers" in features
+        assert features["decorators"] > 0
+        assert features["generators"] > 0
+        assert features["context_managers"] > 0
 
 
 class TestAdvancedPatterns:
     """Test cases for advanced Python patterns."""
-    
+
     def test_descriptor_pattern(self):
         """Test descriptor pattern implementation."""
-        code = '''
+        code = """
 class Descriptor:
     def __init__(self, name):
         self.name = name
@@ -879,16 +884,16 @@ try:
     validation_error = False
 except TypeError:
     validation_error = True
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['name_value'] == "Alice"
-        assert globals_dict['validation_error'] is True
-    
+
+        assert globals_dict["name_value"] == "Alice"
+        assert globals_dict["validation_error"] is True
+
     def test_factory_pattern(self):
         """Test factory pattern implementation."""
-        code = '''
+        code = """
 class Animal:
     def speak(self):
         pass
@@ -917,16 +922,16 @@ cat = AnimalFactory.create_animal('cat')
 
 dog_sound = dog.speak()
 cat_sound = cat.speak()
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['dog_sound'] == "Woof!"
-        assert globals_dict['cat_sound'] == "Meow!"
-    
+
+        assert globals_dict["dog_sound"] == "Woof!"
+        assert globals_dict["cat_sound"] == "Meow!"
+
     def test_observer_pattern(self):
         """Test observer pattern implementation."""
-        code = '''
+        code = """
 class Observable:
     def __init__(self):
         self._observers = []
@@ -961,22 +966,22 @@ subject.notify_observers("test message")
 
 obs1_count = len(observer1.notifications)
 obs2_count = len(observer2.notifications)
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['obs1_count'] == 1
-        assert globals_dict['obs2_count'] == 1
+
+        assert globals_dict["obs1_count"] == 1
+        assert globals_dict["obs2_count"] == 1
 
 
 @pytest.mark.integration
 class TestAdvancedIntegration:
     """Integration tests for advanced Python concepts."""
-    
+
     @pytest.mark.asyncio
     async def test_async_context_manager(self):
         """Test async context manager integration."""
-        code = '''
+        code = """
 import asyncio
 
 class AsyncContextManager:
@@ -993,15 +998,15 @@ async def test_async_context():
         return ctx
 
 result = asyncio.run(test_async_context())
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['result'] == "async context"
-    
+
+        assert globals_dict["result"] == "async context"
+
     def test_combining_advanced_features(self):
         """Test combining multiple advanced features."""
-        code = '''
+        code = """
 from functools import wraps
 from contextlib import contextmanager
 
@@ -1036,12 +1041,12 @@ class DataProcessor:
 
 processor = DataProcessor()
 result = processor.process_items([1, 2, 3, 4, 5])
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['result'] == [2, 4, 6, 8, 10]
+
+        assert globals_dict["result"] == [2, 4, 6, 8, 10]
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     pytest.main([__file__])

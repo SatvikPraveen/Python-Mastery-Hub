@@ -7,7 +7,7 @@ from typing import Dict, Any
 
 class MLPipelineExercise:
     """Machine learning pipeline exercise implementation."""
-    
+
     @staticmethod
     def get_exercise() -> Dict[str, Any]:
         """Get the ML pipeline exercise."""
@@ -22,7 +22,7 @@ prediction problem.
                 "Apply proper data preprocessing techniques",
                 "Compare multiple algorithms and select the best",
                 "Perform hyperparameter optimization",
-                "Evaluate models using appropriate metrics"
+                "Evaluate models using appropriate metrics",
             ],
             "tasks": [
                 {
@@ -33,8 +33,8 @@ prediction problem.
                         "Load and examine the dataset",
                         "Define the prediction target clearly",
                         "Split data into train/validation/test sets",
-                        "Document the problem type (classification/regression)"
-                    ]
+                        "Document the problem type (classification/regression)",
+                    ],
                 },
                 {
                     "step": 2,
@@ -44,8 +44,8 @@ prediction problem.
                         "Handle missing values appropriately",
                         "Encode categorical variables",
                         "Scale numerical features",
-                        "Create new features if beneficial"
-                    ]
+                        "Create new features if beneficial",
+                    ],
                 },
                 {
                     "step": 3,
@@ -55,8 +55,8 @@ prediction problem.
                         "Implement at least 3 different algorithms",
                         "Use cross-validation for model evaluation",
                         "Compare models using appropriate metrics",
-                        "Document model assumptions and requirements"
-                    ]
+                        "Document model assumptions and requirements",
+                    ],
                 },
                 {
                     "step": 4,
@@ -66,8 +66,8 @@ prediction problem.
                         "Define hyperparameter search space",
                         "Use grid search or random search",
                         "Evaluate on validation set",
-                        "Compare optimized vs baseline performance"
-                    ]
+                        "Compare optimized vs baseline performance",
+                    ],
                 },
                 {
                     "step": 5,
@@ -77,8 +77,8 @@ prediction problem.
                         "Test on holdout test set",
                         "Generate comprehensive evaluation metrics",
                         "Analyze feature importance/coefficients",
-                        "Create visualizations of model performance"
-                    ]
+                        "Create visualizations of model performance",
+                    ],
                 },
                 {
                     "step": 6,
@@ -88,9 +88,9 @@ prediction problem.
                         "Create prediction pipeline function",
                         "Save trained model and preprocessors",
                         "Document model limitations and assumptions",
-                        "Provide usage examples"
-                    ]
-                }
+                        "Provide usage examples",
+                    ],
+                },
             ],
             "starter_code": '''
 import pandas as pd
@@ -229,10 +229,10 @@ if __name__ == "__main__":
                 "Feature engineering quality (20%)",
                 "Model selection and comparison (20%)",
                 "Hyperparameter optimization (15%)",
-                "Evaluation thoroughness (20%)"
+                "Evaluation thoroughness (20%)",
             ],
-            "solution": '''
+            "solution": """
 # Complete ML pipeline solution with production-ready code
 # Implementation includes proper error handling, logging, and documentation
-'''
+""",
         }

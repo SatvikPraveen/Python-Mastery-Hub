@@ -9,10 +9,10 @@ from .base import AlgorithmDemo
 
 class DynamicProgramming(AlgorithmDemo):
     """Demonstration class for dynamic programming algorithms."""
-    
+
     def __init__(self):
         super().__init__("dynamic_programming")
-    
+
     def _setup_examples(self) -> None:
         """Setup dynamic programming examples."""
         self.examples = {
@@ -73,9 +73,8 @@ def fibonacci_optimized(n):
 ''',
                 "explanation": "Dynamic programming optimizes recursive problems by storing and reusing previously computed results",
                 "time_complexity": "O(n) for DP versions vs O(2^n) for naive recursion",
-                "space_complexity": "O(n) for memoization/tabulation, O(1) for optimized"
+                "space_complexity": "O(n) for memoization/tabulation, O(1) for optimized",
             },
-            
             "longest_common_subsequence": {
                 "code": '''
 def lcs_recursive(X, Y, m=None, n=None):
@@ -143,9 +142,8 @@ print(f"LCS of '{X}' and '{Y}': '{lcs_str}' (length: {length})")
 ''',
                 "explanation": "LCS finds the longest sequence that appears in both strings, useful for diff algorithms and bioinformatics",
                 "time_complexity": "O(m*n) for DP vs O(2^max(m,n)) for naive recursion",
-                "space_complexity": "O(m*n) for full table, can be optimized to O(min(m,n))"
+                "space_complexity": "O(m*n) for full table, can be optimized to O(min(m,n))",
             },
-            
             "coin_change": {
                 "code": '''
 def coin_change_dp(coins, amount):
@@ -202,9 +200,8 @@ print(f"Coins to use: {path}")
 ''',
                 "explanation": "Coin change finds minimum coins needed to make a target amount, classic DP optimization problem",
                 "time_complexity": "O(amount * len(coins))",
-                "space_complexity": "O(amount)"
+                "space_complexity": "O(amount)",
             },
-            
             "knapsack_problem": {
                 "code": '''
 def knapsack_01(weights, values, capacity):
@@ -275,9 +272,8 @@ print(f"Unbounded Knapsack result: {unbounded_value}")
 ''',
                 "explanation": "Knapsack problems optimize value selection under weight constraints, fundamental in resource allocation",
                 "time_complexity": "O(n * capacity) for 0/1, O(len(items) * capacity) for unbounded",
-                "space_complexity": "O(n * capacity) for 0/1, O(capacity) for unbounded"
+                "space_complexity": "O(n * capacity) for 0/1, O(capacity) for unbounded",
             },
-            
             "edit_distance": {
                 "code": '''
 def edit_distance(str1, str2):
@@ -362,9 +358,8 @@ for op in operations:
 ''',
                 "explanation": "Edit distance measures similarity between strings, used in spell checkers and DNA analysis",
                 "time_complexity": "O(m*n) where m, n are string lengths",
-                "space_complexity": "O(m*n) for full table, can be optimized to O(min(m,n))"
+                "space_complexity": "O(m*n) for full table, can be optimized to O(min(m,n))",
             },
-            
             "matrix_chain_multiplication": {
                 "code": '''
 def matrix_chain_order(dimensions):
@@ -414,9 +409,8 @@ print(f"Optimal parenthesization: {print_optimal_parentheses(split_points, 0, le
 ''',
                 "explanation": "Matrix chain multiplication finds optimal order to multiply matrices, minimizing scalar operations",
                 "time_complexity": "O(n³) where n is number of matrices",
-                "space_complexity": "O(n²)"
+                "space_complexity": "O(n²)",
             },
-            
             "longest_increasing_subsequence": {
                 "code": '''
 def lis_dp(arr):
@@ -494,17 +488,18 @@ print(f"\\nLIS length (binary search): {length_bs}")
 ''',
                 "explanation": "LIS finds the longest subsequence where elements are in increasing order",
                 "time_complexity": "O(n²) for DP, O(n log n) for binary search optimization",
-                "space_complexity": "O(n)"
-            }
+                "space_complexity": "O(n)",
+            },
         }
-    
+
     def demonstrate_fibonacci_comparison(self):
         """Compare different Fibonacci implementations."""
+
         def fibonacci_recursive(n):
             if n <= 1:
                 return n
             return fibonacci_recursive(n - 1) + fibonacci_recursive(n - 2)
-        
+
         def fibonacci_memoized(n, memo=None):
             if memo is None:
                 memo = {}
@@ -513,10 +508,12 @@ print(f"\\nLIS length (binary search): {length_bs}")
             if n <= 1:
                 result = n
             else:
-                result = fibonacci_memoized(n - 1, memo) + fibonacci_memoized(n - 2, memo)
+                result = fibonacci_memoized(n - 1, memo) + fibonacci_memoized(
+                    n - 2, memo
+                )
             memo[n] = result
             return result
-        
+
         def fibonacci_tabulation(n):
             if n <= 1:
                 return n
@@ -525,7 +522,7 @@ print(f"\\nLIS length (binary search): {length_bs}")
             for i in range(2, n + 1):
                 dp[i] = dp[i - 1] + dp[i - 2]
             return dp[n]
-        
+
         def fibonacci_optimized(n):
             if n <= 1:
                 return n
@@ -534,72 +531,73 @@ print(f"\\nLIS length (binary search): {length_bs}")
                 current = prev1 + prev2
                 prev2, prev1 = prev1, current
             return prev1
-        
+
         print("=== Fibonacci Performance Comparison ===")
         test_values = [10, 20, 30]
-        
+
         for n in test_values:
             print(f"\nFibonacci({n}):")
-            
+
             # Recursive (only for small n)
             if n <= 30:
                 start = time.time()
                 result_rec = fibonacci_recursive(n)
                 time_rec = (time.time() - start) * 1000
                 print(f"  Recursive:   {result_rec:>10} ({time_rec:>6.2f}ms)")
-            
+
             # Memoized
             start = time.time()
             result_memo = fibonacci_memoized(n)
             time_memo = (time.time() - start) * 1000
             print(f"  Memoized:    {result_memo:>10} ({time_memo:>6.2f}ms)")
-            
+
             # Tabulation
             start = time.time()
             result_tab = fibonacci_tabulation(n)
             time_tab = (time.time() - start) * 1000
             print(f"  Tabulation:  {result_tab:>10} ({time_tab:>6.2f}ms)")
-            
+
             # Optimized
             start = time.time()
             result_opt = fibonacci_optimized(n)
             time_opt = (time.time() - start) * 1000
             print(f"  Optimized:   {result_opt:>10} ({time_opt:>6.2f}ms)")
-    
+
     def demonstrate_coin_change_variants(self):
         """Demonstrate different coin change problem variants."""
+
         def coin_change_ways(coins, amount):
             """Count number of ways to make change."""
             dp = [0] * (amount + 1)
             dp[0] = 1
-            
+
             for coin in coins:
                 for i in range(coin, amount + 1):
                     dp[i] += dp[i - coin]
-            
+
             return dp[amount]
-        
+
         print("=== Coin Change Variants ===")
         coins = [1, 2, 5]
         amount = 5
-        
+
         print(f"Coins: {coins}, Amount: {amount}")
-        
+
         # Minimum coins
-        dp = [float('inf')] * (amount + 1)
+        dp = [float("inf")] * (amount + 1)
         dp[0] = 0
         for i in range(1, amount + 1):
             for coin in coins:
                 if coin <= i:
                     dp[i] = min(dp[i], dp[i - coin] + 1)
-        min_coins = dp[amount] if dp[amount] != float('inf') else -1
-        
+        min_coins = dp[amount] if dp[amount] != float("inf") else -1
+
         # Number of ways
         ways = coin_change_ways(coins, amount)
-        
+
         print(f"Minimum coins needed: {min_coins}")
         print(f"Number of ways to make change: {ways}")
-    
+
     def get_complexity_analysis(self) -> Dict[str, Any]:
         """Get complexity analysis for DP problems."""
         return {
@@ -607,23 +605,14 @@ print(f"\\nLIS length (binary search): {length_bs}")
                 "recursive": {"time": "O(2^n)", "space": "O(n)"},
                 "memoized": {"time": "O(n)", "space": "O(n)"},
                 "tabulation": {"time": "O(n)", "space": "O(n)"},
-                "optimized": {"time": "O(n)", "space": "O(1)"}
+                "optimized": {"time": "O(n)", "space": "O(1)"},
             },
             "lcs": {
                 "recursive": {"time": "O(2^(m+n))", "space": "O(m+n)"},
                 "dp": {"time": "O(m*n)", "space": "O(m*n)"},
-                "space_optimized": {"time": "O(m*n)", "space": "O(min(m,n))"}
+                "space_optimized": {"time": "O(m*n)", "space": "O(min(m,n))"},
             },
-            "coin_change": {
-                "time": "O(amount * coins)",
-                "space": "O(amount)"
-            },
-            "knapsack_01": {
-                "time": "O(n * capacity)",
-                "space": "O(n * capacity)"
-            },
-            "edit_distance": {
-                "time": "O(m * n)",
-                "space": "O(m * n)"
-            }
+            "coin_change": {"time": "O(amount * coins)", "space": "O(amount)"},
+            "knapsack_01": {"time": "O(n * capacity)", "space": "O(n * capacity)"},
+            "edit_distance": {"time": "O(m * n)", "space": "O(m * n)"},
         }

@@ -12,11 +12,11 @@ from .base import AsyncDemo, simulate_cpu_work
 
 class MultiprocessingConcepts(AsyncDemo):
     """Demonstrates multiprocessing concepts and parallelism."""
-    
+
     def __init__(self):
         super().__init__("Multiprocessing Concepts")
         self._setup_examples()
-    
+
     def _setup_examples(self) -> None:
         """Setup multiprocessing examples."""
         self.examples = {
@@ -72,9 +72,8 @@ def multiprocessing_vs_sequential():
 if __name__ == "__main__":
     multiprocessing_vs_sequential()
 ''',
-                "explanation": "Multiprocessing enables true parallelism for CPU-bound tasks by utilizing multiple CPU cores"
+                "explanation": "Multiprocessing enables true parallelism for CPU-bound tasks by utilizing multiple CPU cores",
             },
-            
             "process_communication": {
                 "code": '''
 import multiprocessing as mp
@@ -133,9 +132,8 @@ def process_communication_example():
 if __name__ == "__main__":
     process_communication_example()
 ''',
-                "explanation": "Inter-process communication allows processes to share data safely and efficiently"
+                "explanation": "Inter-process communication allows processes to share data safely and efficiently",
             },
-            
             "shared_memory": {
                 "code": '''
 import multiprocessing as mp
@@ -190,9 +188,8 @@ def shared_memory_example():
 if __name__ == "__main__":
     shared_memory_example()
 ''',
-                "explanation": "Shared memory enables efficient data sharing between processes"
+                "explanation": "Shared memory enables efficient data sharing between processes",
             },
-            
             "process_pool": {
                 "code": '''
 import multiprocessing as mp
@@ -284,9 +281,8 @@ def process_pool_example():
 if __name__ == "__main__":
     process_pool_example()
 ''',
-                "explanation": "Process pools provide efficient management of worker processes for parallel execution"
+                "explanation": "Process pools provide efficient management of worker processes for parallel execution",
             },
-            
             "data_parallelism": {
                 "code": '''
 import multiprocessing as mp
@@ -392,10 +388,10 @@ def data_parallelism_example():
 if __name__ == "__main__":
     data_parallelism_example()
 ''',
-                "explanation": "Data parallelism divides large datasets across multiple processes for efficient parallel processing"
-            }
+                "explanation": "Data parallelism divides large datasets across multiple processes for efficient parallel processing",
+            },
         }
-    
+
     def get_explanation(self) -> str:
         """Get explanation for multiprocessing concepts."""
         return (
@@ -404,7 +400,7 @@ if __name__ == "__main__":
             "parallelism for CPU-bound tasks by utilizing multiple CPU cores, "
             "bypassing the Global Interpreter Lock (GIL) limitation."
         )
-    
+
     def get_best_practices(self) -> List[str]:
         """Get best practices for multiprocessing."""
         return [
@@ -417,63 +413,63 @@ if __name__ == "__main__":
             "Consider memory usage - each process has its own memory space",
             "Use locks when accessing shared resources between processes",
             "Profile your code to ensure multiprocessing provides real benefits",
-            "Be mindful of process startup overhead for short-running tasks"
+            "Be mindful of process startup overhead for short-running tasks",
         ]
 
 
 def cpu_intensive_benchmark():
     """Benchmark CPU-intensive tasks across different approaches."""
-    
+
     def fibonacci(n):
         """CPU-intensive Fibonacci calculation."""
         if n <= 1:
             return n
-        return fibonacci(n-1) + fibonacci(n-2)
-    
+        return fibonacci(n - 1) + fibonacci(n - 2)
+
     def matrix_multiply(size):
         """CPU-intensive matrix multiplication."""
         import random
-        
+
         # Create two random matrices
         matrix_a = [[random.random() for _ in range(size)] for _ in range(size)]
         matrix_b = [[random.random() for _ in range(size)] for _ in range(size)]
-        
+
         # Multiply matrices
         result = [[0 for _ in range(size)] for _ in range(size)]
         for i in range(size):
             for j in range(size):
                 for k in range(size):
                     result[i][j] += matrix_a[i][k] * matrix_b[k][j]
-        
+
         return result
-    
+
     # Test different approaches
     test_sizes = [50, 60, 70, 80]
-    
+
     print("=== CPU-Intensive Benchmark ===")
     print(f"Available CPU cores: {mp.cpu_count()}")
-    
+
     # Sequential execution
     print("\n--- Sequential Execution ---")
     start_time = time.time()
     sequential_results = [matrix_multiply(size) for size in test_sizes]
     sequential_time = time.time() - start_time
     print(f"Sequential time: {sequential_time:.3f}s")
-    
+
     # Multiprocessing execution
     print("\n--- Multiprocessing Execution ---")
     start_time = time.time()
-    
+
     with ProcessPoolExecutor(max_workers=mp.cpu_count()) as executor:
         parallel_results = list(executor.map(matrix_multiply, test_sizes))
-    
+
     parallel_time = time.time() - start_time
     print(f"Parallel time: {parallel_time:.3f}s")
-    
+
     # Results
     speedup = sequential_time / parallel_time
     efficiency = speedup / mp.cpu_count()
-    
+
     print(f"\n--- Performance Results ---")
     print(f"Speedup: {speedup:.2f}x")
     print(f"Efficiency: {efficiency:.2%}")
@@ -482,57 +478,57 @@ def cpu_intensive_benchmark():
 
 class ProcessManager:
     """Manages multiple processes with monitoring capabilities."""
-    
+
     def __init__(self):
         self.processes = {}
         self.results = mp.Queue()
         self.shutdown_event = mp.Event()
-    
+
     def start_process(self, name: str, target_func, *args, **kwargs):
         """Start a named process."""
         process = mp.Process(target=target_func, args=args, kwargs=kwargs, name=name)
         process.start()
         self.processes[name] = {
-            'process': process,
-            'start_time': time.time(),
-            'status': 'running'
+            "process": process,
+            "start_time": time.time(),
+            "status": "running",
         }
         print(f"Started process '{name}' (PID: {process.pid})")
-    
+
     def monitor_processes(self):
         """Monitor all running processes."""
         print("\n=== Process Monitor ===")
         for name, info in self.processes.items():
-            process = info['process']
-            runtime = time.time() - info['start_time']
-            
+            process = info["process"]
+            runtime = time.time() - info["start_time"]
+
             if process.is_alive():
                 status = "RUNNING"
             else:
                 status = f"FINISHED (exit code: {process.exitcode})"
-                info['status'] = 'finished'
-            
+                info["status"] = "finished"
+
             print(f"Process '{name}': {status}, Runtime: {runtime:.2f}s")
-    
+
     def wait_for_all(self):
         """Wait for all processes to complete."""
         for name, info in self.processes.items():
-            process = info['process']
+            process = info["process"]
             process.join()
-            info['end_time'] = time.time()
-            info['total_runtime'] = info['end_time'] - info['start_time']
-        
+            info["end_time"] = time.time()
+            info["total_runtime"] = info["end_time"] - info["start_time"]
+
         print("\nAll processes completed")
         self._print_summary()
-    
+
     def _print_summary(self):
         """Print execution summary."""
         print("\n=== Execution Summary ===")
         total_runtime = 0
-        
+
         for name, info in self.processes.items():
-            runtime = info.get('total_runtime', 0)
+            runtime = info.get("total_runtime", 0)
             total_runtime += runtime
             print(f"Process '{name}': {runtime:.3f}s")
-        
+
         print(f"Total process time: {total_runtime:.3f}s")

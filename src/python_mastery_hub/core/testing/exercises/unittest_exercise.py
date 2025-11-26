@@ -25,7 +25,7 @@ real-world testing scenarios and best practices.
             "Practice comprehensive test coverage strategies",
             "Learn to test complex object interactions",
             "Implement custom assertion methods",
-            "Handle edge cases and error conditions effectively"
+            "Handle edge cases and error conditions effectively",
         ],
         "tasks": [
             {
@@ -36,8 +36,8 @@ real-world testing scenarios and best practices.
                     "Author class with name, birth_year, nationality",
                     "Book class with title, author, isbn, publication_year, copies",
                     "Proper validation for all inputs",
-                    "String representations for debugging"
-                ]
+                    "String representations for debugging",
+                ],
             },
             {
                 "step": 2,
@@ -47,19 +47,19 @@ real-world testing scenarios and best practices.
                     "Add books to library collection",
                     "Check out and return books",
                     "Search books by title, author, or ISBN",
-                    "Track available copies"
-                ]
+                    "Track available copies",
+                ],
             },
             {
                 "step": 3,
-                "title": "Implement Member System", 
+                "title": "Implement Member System",
                 "description": "Add library member functionality",
                 "requirements": [
                     "Member registration and management",
                     "Checkout history tracking",
                     "Fine calculation for overdue books",
-                    "Member status (active/suspended)"
-                ]
+                    "Member status (active/suspended)",
+                ],
             },
             {
                 "step": 4,
@@ -69,8 +69,8 @@ real-world testing scenarios and best practices.
                     "Test all positive and negative scenarios",
                     "Use setUp and tearDown appropriately",
                     "Implement parameterized tests with subTest",
-                    "Test edge cases and boundary conditions"
-                ]
+                    "Test edge cases and boundary conditions",
+                ],
             },
             {
                 "step": 5,
@@ -80,9 +80,9 @@ real-world testing scenarios and best practices.
                     "Custom assertion methods",
                     "Test suite organization",
                     "Mock external dependencies if needed",
-                    "Performance and stress testing"
-                ]
-            }
+                    "Performance and stress testing",
+                ],
+            },
         ],
         "starter_code": '''
 import unittest
@@ -182,7 +182,7 @@ if __name__ == '__main__':
             "Consider using class-level setUp for expensive operations",
             "Create helper methods to reduce test code duplication",
             "Test edge cases like empty strings, negative numbers",
-            "Use appropriate assertion methods for better error messages"
+            "Use appropriate assertion methods for better error messages",
         ],
         "solution": '''
 import unittest
@@ -731,5 +731,5 @@ class LibraryTestRunner:
 if __name__ == '__main__':
     # Run with custom runner
     LibraryTestRunner.run_all_tests()
-'''
+''',
     }

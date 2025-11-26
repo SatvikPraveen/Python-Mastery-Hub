@@ -28,15 +28,15 @@ from .config.topics import TOPICS_CONFIG
 
 class DataStructures(LearningModule):
     """Interactive learning module for Data Structures."""
-    
+
     def __init__(self):
         super().__init__(
             name="Data Structures & Collections",
             description="Master Python data structures from built-ins to custom implementations",
-            difficulty="intermediate"
+            difficulty="intermediate",
         )
         self._setup_module()
-    
+
     def _setup_module(self) -> None:
         """Setup examples and exercises for data structures."""
         self.examples = {
@@ -59,40 +59,40 @@ class DataStructures(LearningModule):
                 "real_world_applications": ApplicationsExamples.get_real_world_applications(),
             },
         }
-        
+
         self.exercises = [
             {
                 "topic": "custom_structures",
                 "title": "Implement a LinkedList",
                 "description": "Build a complete linked list with all standard operations",
                 "difficulty": "medium",
-                "function": LinkedListExercise.get_exercise
+                "function": LinkedListExercise.get_exercise,
             },
             {
-                "topic": "custom_structures", 
+                "topic": "custom_structures",
                 "title": "Build a Binary Search Tree",
                 "description": "Implement a BST with insertion, deletion, and traversal",
                 "difficulty": "hard",
-                "function": BSTExercise.get_exercise
+                "function": BSTExercise.get_exercise,
             },
             {
                 "topic": "advanced_collections",
                 "title": "Design a Cache System",
                 "description": "Build an LRU cache using OrderedDict and custom logic",
                 "difficulty": "hard",
-                "function": CacheExercise.get_exercise
-            }
+                "function": CacheExercise.get_exercise,
+            },
         ]
-    
+
     def get_topics(self) -> List[str]:
         """Return list of topics covered in this module."""
         return list(TOPICS_CONFIG.keys())
-    
+
     def demonstrate(self, topic: str) -> Dict[str, Any]:
         """Demonstrate a specific topic with examples."""
         if topic not in self.examples:
             raise ValueError(f"Topic '{topic}' not found in data structures module")
-        
+
         return {
             "topic": topic,
             "examples": self.examples[topic],

@@ -15,10 +15,10 @@ from .metaclasses import MetaclassesDemo
 from .descriptors import DescriptorsDemo
 
 __all__ = [
-    'AdvancedConcepts',
-    'DecoratorsDemo',
-    'GeneratorsDemo', 
-    'ContextManagersDemo',
-    'MetaclassesDemo',
-    'DescriptorsDemo'
+    "AdvancedConcepts",
+    "DecoratorsDemo",
+    "GeneratorsDemo",
+    "ContextManagersDemo",
+    "MetaclassesDemo",
+    "DescriptorsDemo",
 ]

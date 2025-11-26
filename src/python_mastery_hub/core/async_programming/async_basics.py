@@ -10,11 +10,11 @@ from .base import AsyncDemo, TimingContextManager, AsyncTimingContextManager
 
 class AsyncBasics(AsyncDemo):
     """Demonstrates fundamental async/await concepts."""
-    
+
     def __init__(self):
         super().__init__("Async Basics")
         self._setup_examples()
-    
+
     def _setup_examples(self) -> None:
         """Setup basic async examples."""
         self.examples = {
@@ -82,10 +82,9 @@ if __name__ == "__main__":
                     "async def creates an async function",
                     "await suspends execution until the awaited operation completes",
                     "asyncio.gather() runs multiple async operations concurrently",
-                    "asyncio.sleep() is non-blocking unlike time.sleep()"
-                ]
+                    "asyncio.sleep() is non-blocking unlike time.sleep()",
+                ],
             },
-            
             "async_context_managers": {
                 "code": '''
 import asyncio
@@ -138,10 +137,9 @@ asyncio.run(async_context_example())
                 "key_concepts": [
                     "__aenter__ and __aexit__ define async context manager protocol",
                     "async with statement ensures proper resource cleanup",
-                    "Useful for database connections, file operations, network resources"
-                ]
+                    "Useful for database connections, file operations, network resources",
+                ],
             },
-            
             "error_handling": {
                 "code": '''
 import asyncio
@@ -199,10 +197,9 @@ asyncio.run(error_handling_example())
                     "Use try/except blocks around await statements",
                     "gather() with return_exceptions=True collects both results and exceptions",
                     "as_completed() allows handling results as they finish",
-                    "Async exceptions can bubble up through the call stack"
-                ]
+                    "Async exceptions can bubble up through the call stack",
+                ],
             },
-            
             "task_management": {
                 "code": '''
 import asyncio
@@ -272,11 +269,11 @@ asyncio.run(main())
                     "asyncio.create_task() converts coroutines to tasks",
                     "Tasks can be cancelled with .cancel()",
                     "asyncio.wait_for() provides timeout functionality",
-                    "CancelledError is raised when tasks are cancelled"
-                ]
-            }
+                    "CancelledError is raised when tasks are cancelled",
+                ],
+            },
         }
-    
+
     def get_explanation(self) -> str:
         """Get explanation for async basics."""
         return (
@@ -286,7 +283,7 @@ asyncio.run(main())
             "suspend execution and resume when the operation completes, allowing "
             "other code to run in the meantime."
         )
-    
+
     def get_best_practices(self) -> List[str]:
         """Get best practices for async programming."""
         return [
@@ -299,96 +296,97 @@ asyncio.run(main())
             "Implement proper cancellation and timeout handling",
             "Don't mix sync and async code without proper integration",
             "Use asyncio.run() as the main entry point for async programs",
-            "Understand the difference between concurrency and parallelism"
+            "Understand the difference between concurrency and parallelism",
         ]
-    
+
     def demonstrate_sync_vs_async(self):
         """Interactive demonstration of sync vs async performance."""
         print("=== Synchronous vs Asynchronous Demonstration ===")
-        
+
         def sync_demo():
             """Synchronous version."""
             start_time = time.time()
-            
+
             # Simulate three I/O operations
             for i in range(3):
                 print(f"Sync operation {i+1} starting...")
                 time.sleep(1)  # Blocking I/O
                 print(f"Sync operation {i+1} completed")
-            
+
             return time.time() - start_time
-        
+
         async def async_demo():
             """Asynchronous version."""
             start_time = time.time()
-            
+
             async def async_operation(op_id):
                 print(f"Async operation {op_id} starting...")
                 await asyncio.sleep(1)  # Non-blocking I/O
                 print(f"Async operation {op_id} completed")
                 return f"Result {op_id}"
-            
+
             # Run operations concurrently
-            tasks = [async_operation(i+1) for i in range(3)]
+            tasks = [async_operation(i + 1) for i in range(3)]
             await asyncio.gather(*tasks)
-            
+
             return time.time() - start_time
-        
+
         # Run demonstrations
         sync_time = sync_demo()
         async_time = asyncio.run(async_demo())
-        
+
         print(f"\nResults:")
         print(f"Synchronous time: {sync_time:.2f}s")
         print(f"Asynchronous time: {async_time:.2f}s")
         print(f"Speedup: {sync_time / async_time:.2f}x")
-    
+
     def demonstrate_async_patterns(self):
         """Demonstrate common async patterns."""
+
         async def pattern_demo():
             print("=== Common Async Patterns ===")
-            
+
             # Pattern 1: Fire and forget
             async def background_task():
                 await asyncio.sleep(2)
                 print("Background task completed")
-            
+
             print("1. Fire and forget pattern:")
             asyncio.create_task(background_task())  # Don't await
             print("Background task started, continuing...")
-            
+
             # Pattern 2: Timeout with fallback
             print("\n2. Timeout with fallback:")
-            
+
             async def slow_operation():
                 await asyncio.sleep(3)
                 return "Slow result"
-            
+
             try:
                 result = await asyncio.wait_for(slow_operation(), timeout=1.0)
                 print(f"Got result: {result}")
             except asyncio.TimeoutError:
                 print("Operation timed out, using fallback")
                 result = "Fallback result"
-            
+
             # Pattern 3: Processing results as they complete
             print("\n3. Processing as completed:")
-            
+
             async def variable_duration_task(task_id, duration):
                 await asyncio.sleep(duration)
                 return f"Task {task_id} result"
-            
+
             tasks = [
                 variable_duration_task(1, 0.5),
                 variable_duration_task(2, 1.0),
                 variable_duration_task(3, 0.3),
             ]
-            
+
             for completed_task in asyncio.as_completed(tasks):
                 result = await completed_task
                 print(f"Completed: {result}")
-            
+
             # Small delay to see background task
             await asyncio.sleep(3)
-        
+
         asyncio.run(pattern_demo())

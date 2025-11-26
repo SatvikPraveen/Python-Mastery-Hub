@@ -22,14 +22,14 @@ def get_exercise() -> Dict[str, Any]:
             "Store and retrieve message history",
             "Implement user presence and typing indicators",
             "Handle reconnection and error scenarios",
-            "Add real-time notifications and events"
+            "Add real-time notifications and events",
         ],
         "requirements": [
             "FastAPI with WebSocket support",
             "HTML/JavaScript for client interface",
             "In-memory or database storage for messages",
             "JSON for message serialization",
-            "Asyncio for concurrent handling"
+            "Asyncio for concurrent handling",
         ],
         "starter_code": '''
 """
@@ -311,9 +311,9 @@ if __name__ == "__main__":
             "Implement typing indicators and user presence",
             "Add room management features",
             "Create REST API endpoints for room/message management",
-            "Add error handling and edge cases"
+            "Add error handling and edge cases",
         ],
-        "testing_guide": '''
+        "testing_guide": """
 # Testing Your WebSocket Chat Application
 
 ## 1. Basic Connection Testing
@@ -380,7 +380,7 @@ async def load_test():
 
 asyncio.run(load_test())
 ```
-''',
+""",
         "solution_hints": [
             "Use dictionaries to track connections: {user_id: websocket}",
             "Store room membership: {room_id: set_of_user_ids}",
@@ -389,7 +389,7 @@ asyncio.run(load_test())
             "Validate message types and content before processing",
             "Keep message history limited to prevent memory issues",
             "Use UUIDs for unique message and room IDs",
-            "Implement heartbeat/ping to detect dead connections"
+            "Implement heartbeat/ping to detect dead connections",
         ],
         "bonus_challenges": [
             "Add private messaging between users",
@@ -403,7 +403,7 @@ asyncio.run(load_test())
             "Add voice/video call integration",
             "Implement message notifications when user is away",
             "Add chat bots with commands",
-            "Create room passwords and private rooms"
+            "Create room passwords and private rooms",
         ],
         "common_pitfalls": [
             "Not handling WebSocket disconnections properly",
@@ -413,6 +413,6 @@ asyncio.run(load_test())
             "Blocking operations in WebSocket handlers",
             "Not limiting message history storage",
             "Missing error handling for malformed JSON",
-            "Not handling duplicate user connections"
-        ]
+            "Not handling duplicate user connections",
+        ],
     }

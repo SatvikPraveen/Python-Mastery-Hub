@@ -9,10 +9,10 @@ from .base import AlgorithmDemo
 
 class AlgorithmicPatterns(AlgorithmDemo):
     """Demonstration class for algorithmic patterns."""
-    
+
     def __init__(self):
         super().__init__("algorithmic_patterns")
-    
+
     def _setup_examples(self) -> None:
         """Setup algorithmic patterns examples."""
         self.examples = {
@@ -133,9 +133,8 @@ print(f"All triplets: {triplets}")
 ''',
                 "explanation": "Two pointers technique efficiently solves array and string problems with O(n) time complexity",
                 "time_complexity": "O(n) for most two-pointer problems",
-                "space_complexity": "O(1) additional space"
+                "space_complexity": "O(1) additional space",
             },
-            
             "sliding_window": {
                 "code": '''
 def max_sum_subarray(arr, k):
@@ -297,9 +296,8 @@ print(f"Sliding window maximums: {result}")
 ''',
                 "explanation": "Sliding window technique efficiently processes subarrays or substrings with optimal time complexity",
                 "time_complexity": "O(n) for most sliding window problems",
-                "space_complexity": "O(k) for window storage"
+                "space_complexity": "O(k) for window storage",
             },
-            
             "fast_slow_pointers": {
                 "code": '''
 class ListNode:
@@ -503,9 +501,8 @@ is_happy_number(4)
 ''',
                 "explanation": "Fast/slow pointers (Floyd's algorithm) detect cycles and solve linked list problems efficiently",
                 "time_complexity": "O(n) for cycle detection and middle finding",
-                "space_complexity": "O(1) constant space"
+                "space_complexity": "O(1) constant space",
             },
-            
             "divide_and_conquer": {
                 "code": '''
 def merge_sort_divide_conquer(arr):
@@ -725,9 +722,8 @@ closest_pair_points(test_points)
 ''',
                 "explanation": "Divide and conquer breaks problems into smaller subproblems, solves recursively, then combines results",
                 "time_complexity": "Often O(n log n) due to divide step and linear combine step",
-                "space_complexity": "O(log n) for recursion stack in most cases"
+                "space_complexity": "O(log n) for recursion stack in most cases",
             },
-            
             "greedy_algorithms": {
                 "code": '''
 def activity_selection(activities):
@@ -926,14 +922,14 @@ scheduled_jobs, profit = job_scheduling(jobs)
 ''',
                 "explanation": "Greedy algorithms make locally optimal choices at each step, hoping to find global optimum",
                 "time_complexity": "Varies by problem, often O(n log n) due to sorting step",
-                "space_complexity": "Usually O(1) to O(n) depending on data structures used"
-            }
+                "space_complexity": "Usually O(1) to O(n) depending on data structures used",
+            },
         }
-    
+
     def demonstrate_pattern_comparison(self):
         """Compare different algorithmic patterns."""
         print("=== Algorithmic Patterns Comparison ===")
-        
+
         # Two pointers vs brute force for two sum
         def two_sum_brute_force(arr, target):
             for i in range(len(arr)):
@@ -941,7 +937,7 @@ scheduled_jobs, profit = job_scheduling(jobs)
                     if arr[i] + arr[j] == target:
                         return [i, j]
             return []
-        
+
         def two_sum_two_pointers(arr, target):
             left, right = 0, len(arr) - 1
             while left < right:
@@ -953,37 +949,37 @@ scheduled_jobs, profit = job_scheduling(jobs)
                 else:
                     right -= 1
             return []
-        
+
         test_array = [2, 7, 11, 15]
         target = 9
-        
+
         print(f"Two Sum in {test_array} with target {target}:")
         print(f"  Brute force result: {two_sum_brute_force(test_array, target)}")
         print(f"  Two pointers result: {two_sum_two_pointers(test_array, target)}")
-        
+
         # Sliding window vs brute force for max subarray
         def max_subarray_brute_force(arr, k):
-            max_sum = float('-inf')
+            max_sum = float("-inf")
             for i in range(len(arr) - k + 1):
-                current_sum = sum(arr[i:i+k])
+                current_sum = sum(arr[i : i + k])
                 max_sum = max(max_sum, current_sum)
             return max_sum
-        
+
         def max_subarray_sliding_window(arr, k):
             window_sum = sum(arr[:k])
             max_sum = window_sum
             for i in range(k, len(arr)):
-                window_sum = window_sum - arr[i-k] + arr[i]
+                window_sum = window_sum - arr[i - k] + arr[i]
                 max_sum = max(max_sum, window_sum)
             return max_sum
-        
+
         test_array2 = [1, 4, 2, 10, 23, 3, 1, 0, 20]
         k = 4
-        
+
         print(f"\\nMax subarray sum of size {k} in {test_array2}:")
         print(f"  Brute force result: {max_subarray_brute_force(test_array2, k)}")
         print(f"  Sliding window result: {max_subarray_sliding_window(test_array2, k)}")
-    
+
     def get_pattern_guide(self) -> Dict[str, Any]:
         """Get guide for when to use each pattern."""
         return {
@@ -992,54 +988,58 @@ scheduled_jobs, profit = job_scheduling(jobs)
                     "Sorted array problems",
                     "Palindrome checking",
                     "Finding pairs with specific sum",
-                    "Removing duplicates"
+                    "Removing duplicates",
                 ],
                 "time_complexity": "O(n)",
                 "space_complexity": "O(1)",
-                "variations": ["Fast/slow pointers", "Left/right pointers", "Three pointers"]
+                "variations": [
+                    "Fast/slow pointers",
+                    "Left/right pointers",
+                    "Three pointers",
+                ],
             },
             "sliding_window": {
                 "when_to_use": [
                     "Subarray/substring problems",
                     "Fixed or variable window size",
                     "Maximum/minimum in windows",
-                    "String pattern matching"
+                    "String pattern matching",
                 ],
                 "time_complexity": "O(n)",
                 "space_complexity": "O(k) where k is window size",
-                "variations": ["Fixed window", "Variable window", "Multiple windows"]
+                "variations": ["Fixed window", "Variable window", "Multiple windows"],
             },
             "fast_slow_pointers": {
                 "when_to_use": [
                     "Cycle detection in linked lists",
                     "Finding middle of linked list",
                     "Detecting patterns in sequences",
-                    "Happy number problems"
+                    "Happy number problems",
                 ],
                 "time_complexity": "O(n)",
                 "space_complexity": "O(1)",
-                "variations": ["Floyd's algorithm", "Tortoise and hare"]
+                "variations": ["Floyd's algorithm", "Tortoise and hare"],
             },
             "divide_and_conquer": {
                 "when_to_use": [
                     "Problems that can be broken into subproblems",
                     "Sorting algorithms",
                     "Finding maximum/minimum",
-                    "Closest pair problems"
+                    "Closest pair problems",
                 ],
                 "time_complexity": "Usually O(n log n)",
                 "space_complexity": "O(log n) for recursion",
-                "variations": ["Binary search", "Merge sort", "Quick sort"]
+                "variations": ["Binary search", "Merge sort", "Quick sort"],
             },
             "greedy": {
                 "when_to_use": [
                     "Optimization problems",
                     "Activity selection",
                     "Huffman coding",
-                    "Minimum spanning tree"
+                    "Minimum spanning tree",
                 ],
                 "time_complexity": "Often O(n log n) due to sorting",
                 "space_complexity": "Usually O(1) to O(n)",
-                "note": "Works only when greedy choice leads to optimal solution"
-            }
+                "note": "Works only when greedy choice leads to optimal solution",
+            },
         }

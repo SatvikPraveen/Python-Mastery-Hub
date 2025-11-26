@@ -8,7 +8,7 @@ from typing import Dict, Any
 
 class MLExamples:
     """Machine learning examples and demonstrations."""
-    
+
     @staticmethod
     def get_classification_models() -> Dict[str, Any]:
         """Get classification models examples."""
@@ -216,5 +216,5 @@ if __name__ == "__main__":
     model_evaluation_demo()
     hyperparameter_tuning_demo()
 ''',
-            "explanation": "Machine learning provides algorithms for prediction, classification, and pattern discovery"
+            "explanation": "Machine learning provides algorithms for prediction, classification, and pattern discovery",
         }

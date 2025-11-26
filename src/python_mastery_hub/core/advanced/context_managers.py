@@ -13,10 +13,10 @@ from .base import TopicDemo
 
 class ContextManagersDemo(TopicDemo):
     """Demonstration class for Python context managers."""
-    
+
     def __init__(self):
         super().__init__("context_managers")
-    
+
     def _setup_examples(self) -> None:
         """Setup context manager examples."""
         self.examples = {
@@ -125,9 +125,8 @@ with DatabaseTransaction("user_db") as tx:
     tx.execute("INSERT INTO users (name) VALUES ('Alice')")
     tx.execute("UPDATE users SET email='alice@example.com' WHERE name='Alice'")
 ''',
-                "explanation": "Context managers ensure proper resource management and cleanup using the __enter__ and __exit__ methods"
+                "explanation": "Context managers ensure proper resource management and cleanup using the __enter__ and __exit__ methods",
             },
-            
             "contextlib_decorators": {
                 "code": '''
 import contextlib
@@ -247,9 +246,8 @@ with contextlib.ExitStack() as stack:
     print(f"Config in stack: debug={config.debug}, max_connections={config.max_connections}")
     print(f"Object value in stack: {obj.value}")
 ''',
-                "explanation": "The contextlib module provides decorators and utilities for creating context managers with less boilerplate code"
+                "explanation": "The contextlib module provides decorators and utilities for creating context managers with less boilerplate code",
             },
-            
             "nested_contexts": {
                 "code": '''
 import contextlib
@@ -358,31 +356,33 @@ def error_handling_example():
     except RuntimeError as e:
         print(f"RuntimeError was not ignored: {e}")
 ''',
-                "explanation": "Nested context managers and ExitStack provide sophisticated resource management patterns"
-            }
+                "explanation": "Nested context managers and ExitStack provide sophisticated resource management patterns",
+            },
         }
-    
+
     def _setup_exercises(self) -> None:
         """Setup context manager exercises."""
         from .exercises.transaction_manager import TransactionManagerExercise
-        
+
         transaction_exercise = TransactionManagerExercise()
-        
+
         self.exercises = [
             {
                 "topic": "context_managers",
                 "title": "Database Transaction Manager",
                 "description": "Implement a context manager for database transactions",
                 "difficulty": "hard",
-                "exercise": transaction_exercise
+                "exercise": transaction_exercise,
             }
         ]
-    
+
     def get_explanation(self) -> str:
         """Get detailed explanation for context managers."""
-        return ("Context managers ensure proper resource management and cleanup using the 'with' statement protocol, "
-                "guaranteeing that setup and teardown code runs even when exceptions occur.")
-    
+        return (
+            "Context managers ensure proper resource management and cleanup using the 'with' statement protocol, "
+            "guaranteeing that setup and teardown code runs even when exceptions occur."
+        )
+
     def get_best_practices(self) -> List[str]:
         """Get best practices for context managers."""
         return [
@@ -390,5 +390,5 @@ def error_handling_example():
             "Use contextlib.contextmanager for simple cases",
             "Ensure resources are properly cleaned up",
             "Return False from __exit__ to propagate exceptions",
-            "Use ExitStack for managing multiple contexts"
+            "Use ExitStack for managing multiple contexts",
         ]

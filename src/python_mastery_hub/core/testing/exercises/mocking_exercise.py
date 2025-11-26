@@ -25,7 +25,7 @@ and verifying that your code interacts correctly with external APIs.
             "Test HTTP client code without making real network requests",
             "Handle different response scenarios and error conditions",
             "Verify correct API usage patterns",
-            "Practice testing asynchronous and synchronous code"
+            "Practice testing asynchronous and synchronous code",
         ],
         "tasks": [
             {
@@ -36,8 +36,8 @@ and verifying that your code interacts correctly with external APIs.
                     "Get current weather for a city",
                     "Get weather forecast",
                     "Handle API authentication",
-                    "Parse JSON responses into data classes"
-                ]
+                    "Parse JSON responses into data classes",
+                ],
             },
             {
                 "step": 2,
@@ -47,8 +47,8 @@ and verifying that your code interacts correctly with external APIs.
                     "Mock successful API responses",
                     "Test different weather conditions",
                     "Verify correct request parameters",
-                    "Check proper header handling"
-                ]
+                    "Check proper header handling",
+                ],
             },
             {
                 "step": 3,
@@ -58,8 +58,8 @@ and verifying that your code interacts correctly with external APIs.
                     "Network errors and timeouts",
                     "Invalid API keys",
                     "Rate limiting (HTTP 429)",
-                    "City not found (HTTP 404)"
-                ]
+                    "City not found (HTTP 404)",
+                ],
             },
             {
                 "step": 4,
@@ -69,8 +69,8 @@ and verifying that your code interacts correctly with external APIs.
                     "Cache responses for performance",
                     "Mock file system operations",
                     "Test cache hit/miss scenarios",
-                    "Handle cache expiration"
-                ]
+                    "Handle cache expiration",
+                ],
             },
             {
                 "step": 5,
@@ -80,9 +80,9 @@ and verifying that your code interacts correctly with external APIs.
                     "Mock context managers",
                     "Test retry mechanisms",
                     "Mock time-dependent behavior",
-                    "Verify call patterns and sequences"
-                ]
-            }
+                    "Verify call patterns and sequences",
+                ],
+            },
         ],
         "starter_code": '''
 import unittest
@@ -150,7 +150,7 @@ if __name__ == '__main__':
             "Use side_effect to simulate exceptions",
             "Verify that mocks are called with correct parameters",
             "Mock datetime.now() for time-dependent tests",
-            "Use MagicMock for complex objects with multiple methods"
+            "Use MagicMock for complex objects with multiple methods",
         ],
         "solution": '''
 import unittest
@@ -646,5 +646,5 @@ class TestWeatherAPIClient(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)
-'''
+''',
     }

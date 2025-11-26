@@ -14,12 +14,14 @@ from typing import Any, Callable, Optional, Dict, Tuple
 
 class CachingDecoratorExercise:
     """Exercise for building an advanced caching decorator."""
-    
+
     def __init__(self):
         self.title = "Build a Caching Decorator"
-        self.description = "Create a sophisticated caching decorator with TTL and size limits"
+        self.description = (
+            "Create a sophisticated caching decorator with TTL and size limits"
+        )
         self.difficulty = "hard"
-    
+
     def get_instructions(self) -> str:
         """Return exercise instructions."""
         return """
@@ -33,7 +35,7 @@ class CachingDecoratorExercise:
         6. Thread-safe operations
         7. Preserve function metadata with functools.wraps
         """
-    
+
     def get_tasks(self) -> list:
         """Return list of specific tasks."""
         return [
@@ -43,9 +45,9 @@ class CachingDecoratorExercise:
             "Add methods to clear cache and view cache contents",
             "Handle unhashable arguments gracefully",
             "Ensure thread safety with proper locking",
-            "Preserve function signatures and metadata"
+            "Preserve function signatures and metadata",
         ]
-    
+
     def get_starter_code(self) -> str:
         """Return starter code template."""
         return '''
@@ -69,7 +71,7 @@ def expensive_function(x, y):
 
 # TODO: Test the implementation
 '''
-    
+
     def get_solution(self) -> str:
         """Return complete solution."""
         return '''
@@ -238,74 +240,67 @@ def test_caching_decorator():
 if __name__ == "__main__":
     test_caching_decorator()
 '''
-    
+
     def get_test_cases(self) -> list:
         """Return test cases for validation."""
         return [
             {
                 "name": "Basic caching functionality",
-                "test": "Verify cache hits and misses work correctly"
+                "test": "Verify cache hits and misses work correctly",
             },
-            {
-                "name": "TTL expiration",
-                "test": "Verify cached values expire after TTL"
-            },
+            {"name": "TTL expiration", "test": "Verify cached values expire after TTL"},
             {
                 "name": "LRU eviction",
-                "test": "Verify oldest items are evicted when cache is full"
+                "test": "Verify oldest items are evicted when cache is full",
             },
             {
-                "name": "Cache statistics", 
-                "test": "Verify hit/miss/eviction counters work"
+                "name": "Cache statistics",
+                "test": "Verify hit/miss/eviction counters work",
             },
             {
                 "name": "Unhashable arguments",
-                "test": "Verify decorator handles unhashable args gracefully"
+                "test": "Verify decorator handles unhashable args gracefully",
             },
             {
                 "name": "Thread safety",
-                "test": "Verify decorator works correctly with multiple threads"
+                "test": "Verify decorator works correctly with multiple threads",
             },
             {
                 "name": "Function metadata preservation",
-                "test": "Verify original function name, docstring, etc. are preserved"
-            }
+                "test": "Verify original function name, docstring, etc. are preserved",
+            },
         ]
-    
+
     def validate_solution(self, solution_func) -> Dict[str, Any]:
         """Validate a solution implementation."""
-        results = {
-            "passed": 0,
-            "total": len(self.get_test_cases()),
-            "details": []
-        }
-        
+        results = {"passed": 0, "total": len(self.get_test_cases()), "details": []}
+
         try:
             # Test basic functionality
             @solution_func(max_size=2, ttl=1.0)
             def test_func(x):
                 return x * 2
-            
+
             # Verify function metadata is preserved
-            if hasattr(test_func, '__name__') and hasattr(test_func, 'cache_info'):
+            if hasattr(test_func, "__name__") and hasattr(test_func, "cache_info"):
                 results["passed"] += 1
                 results["details"].append("✓ Function metadata preserved")
             else:
                 results["details"].append("✗ Function metadata not preserved")
-            
+
             # Test basic caching
             result1 = test_func(5)
             result2 = test_func(5)
-            
-            if hasattr(test_func, 'cache_info'):
+
+            if hasattr(test_func, "cache_info"):
                 info = test_func.cache_info()
-                if info.get('hits', 0) > 0:
+                if info.get("hits", 0) > 0:
                     results["passed"] += 1
                     results["details"].append("✓ Basic caching works")
                 else:
                     results["details"].append("✗ Cache hits not working")
-            
+
         except Exception as e:
             results["details"].append(f"✗ Error during validation: {e}")
-        
+
         return results

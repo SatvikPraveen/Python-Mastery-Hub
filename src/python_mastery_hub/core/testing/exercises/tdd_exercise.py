@@ -27,7 +27,7 @@ comprehensive test coverage from the start.
             "Learn to write tests before implementation",
             "Experience how tests drive code design",
             "Build confidence in refactoring with good test coverage",
-            "Understand the benefits of incremental development"
+            "Understand the benefits of incremental development",
         ],
         "tasks": [
             {
@@ -37,8 +37,8 @@ comprehensive test coverage from the start.
                 "requirements": [
                     "Write test_empty_string_returns_zero()",
                     "Test should fail initially",
-                    "Create minimal Calculator class to pass"
-                ]
+                    "Create minimal Calculator class to pass",
+                ],
             },
             {
                 "step": 2,
@@ -47,8 +47,8 @@ comprehensive test coverage from the start.
                 "requirements": [
                     "Write test for single number input",
                     "Update add() method to handle single numbers",
-                    "Ensure previous test still passes"
-                ]
+                    "Ensure previous test still passes",
+                ],
             },
             {
                 "step": 3,
@@ -57,8 +57,8 @@ comprehensive test coverage from the start.
                 "requirements": [
                     "Write test for two numbers: '1,2' -> 3",
                     "Update implementation to split and sum",
-                    "Refactor if needed while keeping tests green"
-                ]
+                    "Refactor if needed while keeping tests green",
+                ],
             },
             {
                 "step": 4,
@@ -67,8 +67,8 @@ comprehensive test coverage from the start.
                 "requirements": [
                     "Write test for multiple numbers: '1,2,3,4' -> 10",
                     "Refactor to handle arbitrary number of inputs",
-                    "Consider edge cases"
-                ]
+                    "Consider edge cases",
+                ],
             },
             {
                 "step": 5,
@@ -77,8 +77,8 @@ comprehensive test coverage from the start.
                 "requirements": [
                     "Write test for newlines: '1\\n2,3' -> 6",
                     "Update parsing logic",
-                    "Handle mixed separators"
-                ]
+                    "Handle mixed separators",
+                ],
             },
             {
                 "step": 6,
@@ -87,8 +87,8 @@ comprehensive test coverage from the start.
                 "requirements": [
                     "Write test for custom delimiter: '//;\\n1;2' -> 3",
                     "Parse delimiter specification",
-                    "Support different delimiter formats"
-                ]
+                    "Support different delimiter formats",
+                ],
             },
             {
                 "step": 7,
@@ -97,8 +97,8 @@ comprehensive test coverage from the start.
                 "requirements": [
                     "Write test for negative number exception",
                     "Include all negative numbers in error message",
-                    "Don't break positive number functionality"
-                ]
+                    "Don't break positive number functionality",
+                ],
             },
             {
                 "step": 8,
@@ -107,9 +107,9 @@ comprehensive test coverage from the start.
                 "requirements": [
                     "Write test for numbers > 1000 being ignored",
                     "Numbers <= 1000 should still be included",
-                    "Maintain all previous functionality"
-                ]
-            }
+                    "Maintain all previous functionality",
+                ],
+            },
         ],
         "starter_code": '''
 import unittest
@@ -138,7 +138,7 @@ if __name__ == '__main__':
             "Let the tests guide your design decisions",
             "Use string methods like split() and join() for parsing",
             "Regular expressions can help with custom delimiters",
-            "Consider using a list to collect parsing errors"
+            "Consider using a list to collect parsing errors",
         ],
         "solution": '''
 import unittest
@@ -314,5 +314,5 @@ if __name__ == '__main__':
     
     # Run all tests
     unittest.main(verbosity=2)
-'''
+''',
     }

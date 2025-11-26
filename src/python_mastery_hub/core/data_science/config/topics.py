@@ -16,10 +16,9 @@ TOPICS_CONFIG: Dict[str, Dict[str, Any]] = {
             "indexing_slicing",
             "mathematical_operations",
             "broadcasting",
-            "linear_algebra"
-        ]
+            "linear_algebra",
+        ],
     },
-    
     "pandas_basics": {
         "name": "Pandas Data Manipulation",
         "description": "Data manipulation and analysis with Pandas",
@@ -31,10 +30,9 @@ TOPICS_CONFIG: Dict[str, Dict[str, Any]] = {
             "indexing_selection",
             "groupby_operations",
             "data_cleaning",
-            "time_series"
-        ]
+            "time_series",
+        ],
     },
-    
     "data_visualization": {
         "name": "Data Visualization",
         "description": "Creating effective visualizations with Matplotlib and Seaborn",
@@ -45,10 +43,9 @@ TOPICS_CONFIG: Dict[str, Dict[str, Any]] = {
             "matplotlib_basics",
             "advanced_plots",
             "seaborn_statistical",
-            "interactive_concepts"
-        ]
+            "interactive_concepts",
+        ],
     },
-    
     "statistical_analysis": {
         "name": "Statistical Analysis",
         "description": "Statistical methods for data analysis and inference",
@@ -60,10 +57,9 @@ TOPICS_CONFIG: Dict[str, Dict[str, Any]] = {
             "hypothesis_testing",
             "correlation_analysis",
             "confidence_intervals",
-            "normality_testing"
-        ]
+            "normality_testing",
+        ],
     },
-    
     "machine_learning": {
         "name": "Machine Learning",
         "description": "ML algorithms for prediction and pattern discovery",
@@ -75,10 +71,9 @@ TOPICS_CONFIG: Dict[str, Dict[str, Any]] = {
             "regression",
             "clustering",
             "model_evaluation",
-            "hyperparameter_tuning"
-        ]
+            "hyperparameter_tuning",
+        ],
     },
-    
     "data_preprocessing": {
         "name": "Data Preprocessing",
         "description": "Preparing data for machine learning algorithms",
@@ -90,10 +85,11 @@ TOPICS_CONFIG: Dict[str, Dict[str, Any]] = {
             "feature_scaling",
             "encoding",
             "feature_selection",
-            "dimensionality_reduction"
-        ]
-    }
+            "dimensionality_reduction",
+        ],
+    },
 }
+
 
 def get_topic_order() -> List[str]:
     """Return recommended learning order for topics."""
@@ -103,8 +99,9 @@ def get_topic_order() -> List[str]:
         "data_visualization",
         "data_preprocessing",
         "statistical_analysis",
-        "machine_learning"
+        "machine_learning",
     ]
+
 
 def get_topic_dependencies() -> Dict[str, List[str]]:
     """Return dependency mapping for topics."""

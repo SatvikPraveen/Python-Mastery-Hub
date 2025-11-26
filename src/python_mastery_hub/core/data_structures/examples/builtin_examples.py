@@ -8,12 +8,12 @@ from typing import Dict, Any
 
 class BuiltinExamples:
     """Built-in collections examples and demonstrations."""
-    
+
     @staticmethod
     def get_list_operations() -> Dict[str, Any]:
         """Get comprehensive list operations examples."""
         return {
-            "code": '''
+            "code": """
 # Comprehensive list operations
 numbers = [1, 2, 3, 4, 5]
 print(f"Original list: {numbers}")
@@ -73,15 +73,15 @@ print(f"Sorted by name: {[p['name'] for p in sorted_by_name]}")
 ages = [p["age"] for p in people]
 print(f"Any age > 30? {any(age > 30 for age in ages)}")
 print(f"All ages > 20? {all(age > 20 for age in ages)}")
-''',
-            "explanation": "Lists are mutable, ordered collections that support indexing, slicing, and comprehensive manipulation operations"
+""",
+            "explanation": "Lists are mutable, ordered collections that support indexing, slicing, and comprehensive manipulation operations",
         }
-    
+
     @staticmethod
     def get_dictionary_operations() -> Dict[str, Any]:
         """Get comprehensive dictionary operations examples."""
         return {
-            "code": '''
+            "code": """
 # Comprehensive dictionary operations
 student = {
     'name': 'Alice',
@@ -149,15 +149,15 @@ for student in students:
     grouped_by_year[student['year']].append(student['name'])
 
 print(f"Students by year: {dict(grouped_by_year)}")
-''',
-            "explanation": "Dictionaries are mutable mappings that provide fast key-based lookup and flexible data organization"
+""",
+            "explanation": "Dictionaries are mutable mappings that provide fast key-based lookup and flexible data organization",
         }
-    
+
     @staticmethod
     def get_set_operations() -> Dict[str, Any]:
         """Get comprehensive set operations examples."""
         return {
-            "code": '''
+            "code": """
 # Comprehensive set operations
 set_a = {1, 2, 3, 4, 5}
 set_b = {4, 5, 6, 7, 8}
@@ -247,6 +247,6 @@ set_time = time.time() - start
 print(f"List membership: {list_time:.6f}s")
 print(f"Set membership: {set_time:.6f}s")
 print(f"Set is ~{list_time/set_time:.0f}x faster")
-''',
-            "explanation": "Sets are unordered collections of unique elements that provide fast membership testing and mathematical set operations"
+""",
+            "explanation": "Sets are unordered collections of unique elements that provide fast membership testing and mathematical set operations",
         }

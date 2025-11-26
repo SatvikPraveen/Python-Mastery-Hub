@@ -7,11 +7,11 @@ from typing import Dict, Any, List
 
 class VariablesConcepts:
     """Handles all variable-related concepts and examples."""
-    
+
     def __init__(self):
         self.topic = "variables"
         self.examples = self._setup_examples()
-    
+
     def demonstrate(self) -> Dict[str, Any]:
         """Return comprehensive variable demonstrations."""
         return {
@@ -20,12 +20,12 @@ class VariablesConcepts:
             "explanation": self._get_explanation(),
             "best_practices": self._get_best_practices(),
         }
-    
+
     def _setup_examples(self) -> Dict[str, Any]:
         """Setup comprehensive variable examples."""
         return {
             "basic_assignment": {
-                "code": '''
+                "code": """
 # Basic variable assignment
 name = "Alice"
 age = 30
@@ -33,13 +33,12 @@ height = 5.6
 is_student = False
 
 print(f"Name: {name}, Age: {age}, Height: {height}, Student: {is_student}")
-''',
+""",
                 "output": "Name: Alice, Age: 30, Height: 5.6, Student: False",
-                "explanation": "Variables store data and can hold different types of values"
+                "explanation": "Variables store data and can hold different types of values",
             },
-            
             "multiple_assignment": {
-                "code": '''
+                "code": """
 # Multiple assignment techniques
 x, y, z = 1, 2, 3
 a = b = c = 0
@@ -48,13 +47,12 @@ first, *middle, last = [1, 2, 3, 4, 5]
 print(f"x={x}, y={y}, z={z}")
 print(f"a={a}, b={b}, c={c}")
 print(f"first={first}, middle={middle}, last={last}")
-''',
+""",
                 "output": "x=1, y=2, z=3\\na=0, b=0, c=0\\nfirst=1, middle=[2, 3, 4], last=5",
-                "explanation": "Python supports multiple assignment patterns for efficiency"
+                "explanation": "Python supports multiple assignment patterns for efficiency",
             },
-            
             "variable_swapping": {
-                "code": '''
+                "code": """
 # Elegant variable swapping
 a, b = 10, 20
 print(f"Before swap: a={a}, b={b}")
@@ -62,13 +60,12 @@ print(f"Before swap: a={a}, b={b}")
 # Pythonic swap
 a, b = b, a
 print(f"After swap: a={a}, b={b}")
-''',
+""",
                 "output": "Before swap: a=10, b=20\\nAfter swap: a=20, b=10",
-                "explanation": "Python allows elegant variable swapping without temporary variables"
+                "explanation": "Python allows elegant variable swapping without temporary variables",
             },
-            
             "variable_scope": {
-                "code": '''
+                "code": """
 # Variable scope demonstration
 global_var = "I'm global"
 
@@ -89,13 +86,12 @@ def scope_demo():
 result = scope_demo()
 print(f"Global: {global_var}")
 print(f"Returned: {result}")
-''',
+""",
                 "output": "Global: Modified global\\nReturned: ('Modified local', \"I'm inner\")",
-                "explanation": "Understanding variable scope is crucial for proper Python programming"
+                "explanation": "Understanding variable scope is crucial for proper Python programming",
             },
-            
             "naming_conventions": {
-                "code": '''
+                "code": """
 # Proper naming conventions
 # Good variable names
 user_name = "john_doe"
@@ -117,12 +113,12 @@ class StudentRecord:
 student = StudentRecord("STU001")
 print(student.get_student_info())
 print(f"User: {user_name}, Price: ${total_price}")
-''',
+""",
                 "output": "Student ID: STU001\\nUser: john_doe, Price: $99.99",
-                "explanation": "Consistent naming conventions improve code readability and maintainability"
-            }
+                "explanation": "Consistent naming conventions improve code readability and maintainability",
+            },
         }
-    
+
     def _get_explanation(self) -> str:
         """Get detailed explanation for variables."""
         return (
@@ -132,7 +128,7 @@ print(f"User: {user_name}, Price: ${total_price}")
             "(global, local, nonlocal) and following naming conventions are essential "
             "for writing clean, maintainable Python code."
         )
-    
+
     def _get_best_practices(self) -> List[str]:
         """Get best practices for variables."""
         return [
@@ -145,5 +141,5 @@ print(f"User: {user_name}, Price: ${total_price}")
             "Don't use Python keywords or built-in function names as variables",
             "Group related variable assignments for better organization",
             "Use tuple unpacking for multiple assignments when appropriate",
-            "Be consistent with naming patterns throughout your codebase"
+            "Be consistent with naming patterns throughout your codebase",
         ]

@@ -7,7 +7,7 @@ from typing import Dict, Any
 
 class LinkedListExercise:
     """LinkedList implementation exercise."""
-    
+
     @staticmethod
     def get_exercise() -> Dict[str, Any]:
         """Get the LinkedList implementation exercise."""
@@ -23,7 +23,7 @@ memory management, and algorithm implementation.
                 "Implement node-based memory management",
                 "Create efficient insertion and deletion algorithms",
                 "Handle edge cases and boundary conditions",
-                "Provide comprehensive testing and validation"
+                "Provide comprehensive testing and validation",
             ],
             "tasks": [
                 {
@@ -34,8 +34,8 @@ memory management, and algorithm implementation.
                         "Store data, next, and previous pointers",
                         "Implement __str__ method for debugging",
                         "Handle None values appropriately",
-                        "Provide clear initialization"
-                    ]
+                        "Provide clear initialization",
+                    ],
                 },
                 {
                     "step": 2,
@@ -43,11 +43,11 @@ memory management, and algorithm implementation.
                     "description": "Create fundamental list operations",
                     "requirements": [
                         "append(data) - add to end",
-                        "prepend(data) - add to beginning", 
+                        "prepend(data) - add to beginning",
                         "insert_at(index, data) - insert at position",
                         "delete(data) - remove first occurrence",
-                        "find(data) - locate element"
-                    ]
+                        "find(data) - locate element",
+                    ],
                 },
                 {
                     "step": 3,
@@ -57,8 +57,8 @@ memory management, and algorithm implementation.
                         "reverse() - reverse the entire list",
                         "get_middle() - find middle element efficiently",
                         "remove_duplicates() - eliminate duplicate values",
-                        "merge() - combine with another sorted list"
-                    ]
+                        "merge() - combine with another sorted list",
+                    ],
                 },
                 {
                     "step": 4,
@@ -69,8 +69,8 @@ memory management, and algorithm implementation.
                         "__str__ - string representation",
                         "__iter__ - make iterable",
                         "__getitem__ - support indexing",
-                        "__contains__ - support 'in' operator"
-                    ]
+                        "__contains__ - support 'in' operator",
+                    ],
                 },
                 {
                     "step": 5,
@@ -80,9 +80,9 @@ memory management, and algorithm implementation.
                         "Handle empty list operations",
                         "Validate index bounds",
                         "Provide meaningful error messages",
-                        "Create comprehensive test suite"
-                    ]
-                }
+                        "Create comprehensive test suite",
+                    ],
+                },
             ],
             "starter_code": '''
 class DoublyLinkedListNode:
@@ -169,7 +169,7 @@ if __name__ == "__main__":
                 "Update both next and prev pointers when modifying nodes",
                 "Handle empty list and single-element cases carefully",
                 "Use two-pointer technique for finding middle element",
-                "Remember to update size counter for all operations"
+                "Remember to update size counter for all operations",
             ],
             "solution": '''
 class DoublyLinkedListNode:
@@ -418,7 +418,7 @@ def test_doubly_linked_list():
 
 if __name__ == "__main__":
     test_doubly_linked_list()
-'''
+''',
         }
 
 

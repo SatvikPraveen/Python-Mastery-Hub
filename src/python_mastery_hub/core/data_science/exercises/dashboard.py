@@ -7,7 +7,7 @@ from typing import Dict, Any
 
 class DashboardExercise:
     """Interactive dashboard exercise implementation."""
-    
+
     @staticmethod
     def get_exercise() -> Dict[str, Any]:
         """Get the interactive dashboard exercise."""
@@ -22,7 +22,7 @@ and selection capabilities.
                 "Implement multiple visualization types",
                 "Add interactive filtering and selection",
                 "Create responsive and user-friendly interface",
-                "Enable real-time data updates"
+                "Enable real-time data updates",
             ],
             "tasks": [
                 {
@@ -33,8 +33,8 @@ and selection capabilities.
                         "Define dashboard layout and sections",
                         "Plan data flow and update mechanisms",
                         "Design user interaction patterns",
-                        "Choose appropriate visualization library"
-                    ]
+                        "Choose appropriate visualization library",
+                    ],
                 },
                 {
                     "step": 2,
@@ -44,8 +44,8 @@ and selection capabilities.
                         "Create data loading and preprocessing functions",
                         "Implement data caching for performance",
                         "Handle data updates and refreshes",
-                        "Validate data quality and completeness"
-                    ]
+                        "Validate data quality and completeness",
+                    ],
                 },
                 {
                     "step": 3,
@@ -55,8 +55,8 @@ and selection capabilities.
                         "Create at least 5 different chart types",
                         "Implement proper styling and theming",
                         "Add titles, labels, and legends",
-                        "Ensure responsive design"
-                    ]
+                        "Ensure responsive design",
+                    ],
                 },
                 {
                     "step": 4,
@@ -66,8 +66,8 @@ and selection capabilities.
                         "Implement date range selectors",
                         "Add category and metric filters",
                         "Create dynamic dropdowns and sliders",
-                        "Enable chart-to-chart interactions"
-                    ]
+                        "Enable chart-to-chart interactions",
+                    ],
                 },
                 {
                     "step": 5,
@@ -77,8 +77,8 @@ and selection capabilities.
                         "Add data export functionality",
                         "Implement dashboard sharing options",
                         "Create custom aggregation options",
-                        "Add performance monitoring"
-                    ]
+                        "Add performance monitoring",
+                    ],
                 },
                 {
                     "step": 6,
@@ -88,9 +88,9 @@ and selection capabilities.
                         "Test with different data scenarios",
                         "Validate cross-browser compatibility",
                         "Create user documentation",
-                        "Document technical specifications"
-                    ]
-                }
+                        "Document technical specifications",
+                    ],
+                },
             ],
             "starter_code": '''
 import pandas as pd
@@ -272,10 +272,10 @@ if __name__ == "__main__":
                 "Visualization quality and variety (25%)",
                 "Interactive functionality (20%)",
                 "Performance and responsiveness (15%)",
-                "Code organization and documentation (15%)"
+                "Code organization and documentation (15%)",
             ],
-            "solution": '''
+            "solution": """
 # Complete dashboard implementation with production-ready features
 # Includes proper error handling, performance optimization, and accessibility
-'''
+""",
         }

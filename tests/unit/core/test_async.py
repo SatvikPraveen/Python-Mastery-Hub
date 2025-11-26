@@ -17,32 +17,37 @@ try:
         ConcurrencyExercise,
         AsyncIOExercise,
         ThreadingExercise,
-        MultiprocessingExercise
+        MultiprocessingExercise,
     )
     from src.core.evaluators import AsyncEvaluator
 except ImportError:
     # Mock classes for when actual modules don't exist
     class AsyncBasicsExercise:
         pass
+
     class ConcurrencyExercise:
         pass
+
     class AsyncIOExercise:
         pass
+
     class ThreadingExercise:
         pass
+
     class MultiprocessingExercise:
         pass
+
     class AsyncEvaluator:
         pass
 
 
 class TestAsyncBasics:
     """Test cases for basic asynchronous programming concepts."""
-    
+
     @pytest.mark.asyncio
     async def test_simple_async_function(self):
         """Test basic async function definition and execution."""
-        code = '''
+        code = """
 import asyncio
 
 async def simple_async_function():
@@ -54,16 +59,16 @@ async def run_test():
     return result
 
 result = asyncio.run(run_test())
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['result'] == "Hello, Async World!"
-    
+
+        assert globals_dict["result"] == "Hello, Async World!"
+
     @pytest.mark.asyncio
     async def test_async_with_parameters(self):
         """Test async function with parameters."""
-        code = '''
+        code = """
 import asyncio
 
 async def async_multiply(a, b):
@@ -80,16 +85,16 @@ async def run_calculations():
     return mult_result, add_result
 
 results = asyncio.run(run_calculations())
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['results'] == (30, 25)
-    
+
+        assert globals_dict["results"] == (30, 25)
+
     @pytest.mark.asyncio
     async def test_async_gather(self):
         """Test asyncio.gather for concurrent execution."""
-        code = '''
+        code = """
 import asyncio
 import time
 
@@ -115,17 +120,19 @@ async def run_concurrent_tasks():
     return results, total_time
 
 results, total_time = asyncio.run(run_concurrent_tasks())
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert len(globals_dict['results']) == 3
-        assert globals_dict['total_time'] < 0.5  # Should be much less than 0.3s (3 * 0.1s)
-    
+
+        assert len(globals_dict["results"]) == 3
+        assert (
+            globals_dict["total_time"] < 0.5
+        )  # Should be much less than 0.3s (3 * 0.1s)
+
     @pytest.mark.asyncio
     async def test_async_with_exception_handling(self):
         """Test exception handling in async functions."""
-        code = '''
+        code = """
 import asyncio
 
 async def async_function_with_error():
@@ -154,18 +161,18 @@ async def run_with_exception_handling():
     return results
 
 results = asyncio.run(run_with_exception_handling())
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert len(globals_dict['results']) == 2
-        assert globals_dict['results'][0] == "Success"
-        assert "Caught: Something went wrong!" in globals_dict['results'][1]
-    
+
+        assert len(globals_dict["results"]) == 2
+        assert globals_dict["results"][0] == "Success"
+        assert "Caught: Something went wrong!" in globals_dict["results"][1]
+
     @pytest.mark.asyncio
     async def test_async_context_manager(self):
         """Test async context managers."""
-        code = '''
+        code = """
 import asyncio
 
 class AsyncContextManager:
@@ -193,11 +200,11 @@ async def test_async_context():
     return entered_status, exited_status, name
 
 result = asyncio.run(test_async_context())
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        entered, exited, name = globals_dict['result']
+
+        entered, exited, name = globals_dict["result"]
         assert entered is True
         assert exited is True
         assert name == "test"
@@ -205,11 +212,11 @@ result = asyncio.run(test_async_context())
 
 class TestAsyncIOAdvanced:
     """Test cases for advanced asyncio concepts."""
-    
+
     @pytest.mark.asyncio
     async def test_async_queue(self):
         """Test asyncio Queue for producer-consumer pattern."""
-        code = '''
+        code = """
 import asyncio
 
 async def producer(queue, producer_id, num_items):
@@ -247,17 +254,17 @@ async def run_producer_consumer():
     return consumed_items
 
 result = asyncio.run(run_producer_consumer())
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert len(globals_dict['result']) == 3
-        assert all("Producer-1-Item-" in item for item in globals_dict['result'])
-    
+
+        assert len(globals_dict["result"]) == 3
+        assert all("Producer-1-Item-" in item for item in globals_dict["result"])
+
     @pytest.mark.asyncio
     async def test_async_semaphore(self):
         """Test asyncio Semaphore for limiting concurrency."""
-        code = '''
+        code = """
 import asyncio
 import time
 
@@ -288,18 +295,18 @@ async def run_semaphore_test():
     return results, total_time
 
 results, total_time = asyncio.run(run_semaphore_test())
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert len(globals_dict['results']) == 4
+
+        assert len(globals_dict["results"]) == 4
         # With semaphore of 2, 4 tasks should take about 0.2s (2 batches of 0.1s each)
-        assert 0.15 < globals_dict['total_time'] < 0.35
-    
+        assert 0.15 < globals_dict["total_time"] < 0.35
+
     @pytest.mark.asyncio
     async def test_async_event(self):
         """Test asyncio Event for coordination."""
-        code = '''
+        code = """
 import asyncio
 
 async def waiter(event, waiter_id):
@@ -328,18 +335,18 @@ async def run_event_test():
     return results
 
 results = asyncio.run(run_event_test())
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert len(globals_dict['results']) == 4  # 3 waiters + 1 setter
-        assert sum(1 for r in globals_dict['results'] if "Waiter" in r) == 3
-        assert "Event set" in globals_dict['results']
-    
+
+        assert len(globals_dict["results"]) == 4  # 3 waiters + 1 setter
+        assert sum(1 for r in globals_dict["results"] if "Waiter" in r) == 3
+        assert "Event set" in globals_dict["results"]
+
     @pytest.mark.asyncio
     async def test_async_lock(self):
         """Test asyncio Lock for mutual exclusion."""
-        code = '''
+        code = """
 import asyncio
 
 shared_resource = 0
@@ -372,20 +379,20 @@ async def run_lock_test():
     return shared_resource, operations_log
 
 final_value, log = asyncio.run(run_lock_test())
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['final_value'] == 5  # Should be exactly 5 due to lock
-        assert len(globals_dict['log']) == 5
+
+        assert globals_dict["final_value"] == 5  # Should be exactly 5 due to lock
+        assert len(globals_dict["log"]) == 5
 
 
 class TestConcurrencyPatterns:
     """Test cases for concurrency patterns and exercises."""
-    
+
     def test_threading_basics(self):
         """Test basic threading concepts."""
-        code = '''
+        code = """
 import threading
 import time
 
@@ -412,16 +419,16 @@ for t in threads:
 
 end_time = time.time()
 total_time = end_time - start_time
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert len(globals_dict['results']) == 3
-        assert globals_dict['total_time'] < 0.5  # Should be much less than 0.3s
-    
+
+        assert len(globals_dict["results"]) == 3
+        assert globals_dict["total_time"] < 0.5  # Should be much less than 0.3s
+
     def test_thread_pool_executor(self):
         """Test ThreadPoolExecutor."""
-        code = '''
+        code = """
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import time
 
@@ -450,17 +457,17 @@ with ThreadPoolExecutor(max_workers=2) as executor:
 
 len_results = len(results)
 len_cpu_results = len(cpu_results)
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['len_results'] == 3
-        assert globals_dict['len_cpu_results'] == 2
-        assert globals_dict['io_time'] < 0.5  # Should be concurrent
-    
+
+        assert globals_dict["len_results"] == 3
+        assert globals_dict["len_cpu_results"] == 2
+        assert globals_dict["io_time"] < 0.5  # Should be concurrent
+
     def test_process_pool_executor(self):
         """Test ProcessPoolExecutor."""
-        code = '''
+        code = """
 from concurrent.futures import ProcessPoolExecutor
 import os
 
@@ -485,13 +492,13 @@ if __name__ == '__main__' or 'pytest' in os.path.basename(__file__):
 else:
     len_results = 2
     unique_pids = 1  # Fallback for testing
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['len_results'] == 2
+
+        assert globals_dict["len_results"] == 2
         # Note: unique_pids might be 1 in some test environments
-    
+
     @pytest.mark.asyncio
     async def test_mixing_sync_and_async(self):
         """Test mixing synchronous and asynchronous code."""
@@ -536,18 +543,18 @@ results, total_time = asyncio.run(run_mixed_tasks())
 '''
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert len(globals_dict['results']) == 3
-        assert globals_dict['total_time'] < 0.5  # Should run concurrently
+
+        assert len(globals_dict["results"]) == 3
+        assert globals_dict["total_time"] < 0.5  # Should run concurrently
 
 
 class TestAsyncWebProgramming:
     """Test cases for asynchronous web programming concepts."""
-    
+
     @pytest.mark.asyncio
     async def test_async_http_requests(self):
         """Test making async HTTP requests (mocked)."""
-        code = '''
+        code = """
 import asyncio
 from unittest.mock import AsyncMock
 
@@ -603,15 +610,15 @@ async def fetch_multiple_urls():
     return results
 
 results = asyncio.run(fetch_multiple_urls())
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert len(globals_dict['results']) == 3
-        assert "users" in str(globals_dict['results'][0])
-        assert "posts" in str(globals_dict['results'][1])
-        assert "error" in str(globals_dict['results'][2])
-    
+
+        assert len(globals_dict["results"]) == 3
+        assert "users" in str(globals_dict["results"][0])
+        assert "posts" in str(globals_dict["results"][1])
+        assert "error" in str(globals_dict["results"][2])
+
     @pytest.mark.asyncio
     async def test_async_generator(self):
         """Test async generators."""
@@ -649,15 +656,15 @@ result = asyncio.run(consume_async_generator())
 '''
         globals_dict = {}
         exec(code, globals_dict)
-        
-        numbers, fib_numbers = globals_dict['result']
+
+        numbers, fib_numbers = globals_dict["result"]
         assert numbers == [1, 2, 3, 4, 5]
         assert fib_numbers == [0, 1, 1, 2, 3]
-    
+
     @pytest.mark.asyncio
     async def test_async_iterator(self):
         """Test async iterators."""
-        code = '''
+        code = """
 import asyncio
 
 class AsyncRange:
@@ -685,20 +692,20 @@ async def use_async_iterator():
     return results
 
 result = asyncio.run(use_async_iterator())
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['result'] == [0, 1, 2, 3, 4]
+
+        assert globals_dict["result"] == [0, 1, 2, 3, 4]
 
 
 class TestAsyncErrorHandling:
     """Test cases for error handling in async code."""
-    
+
     @pytest.mark.asyncio
     async def test_async_exception_propagation(self):
         """Test exception propagation in async functions."""
-        code = '''
+        code = """
 import asyncio
 
 async def failing_task(task_id):
@@ -725,22 +732,22 @@ async def test_exception_handling():
     return results_individual, results_gather
 
 individual, gather_results = asyncio.run(test_exception_handling())
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        individual = globals_dict['individual']
-        gather_results = globals_dict['gather_results']
-        
+
+        individual = globals_dict["individual"]
+        gather_results = globals_dict["gather_results"]
+
         assert len(individual) == 4
         assert len(gather_results) == 4
         assert any("Error:" in str(result) for result in individual)
         assert any(isinstance(result, ValueError) for result in gather_results)
-    
+
     @pytest.mark.asyncio
     async def test_async_timeout(self):
         """Test timeout handling in async operations."""
-        code = '''
+        code = """
 import asyncio
 
 async def slow_task(duration):
@@ -767,18 +774,18 @@ async def test_timeouts():
     return results
 
 results = asyncio.run(test_timeouts())
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert len(globals_dict['results']) == 2
-        assert "Task completed" in globals_dict['results'][0]
-        assert "timed out" in globals_dict['results'][1]
-    
+
+        assert len(globals_dict["results"]) == 2
+        assert "Task completed" in globals_dict["results"][0]
+        assert "timed out" in globals_dict["results"][1]
+
     @pytest.mark.asyncio
     async def test_async_cancellation(self):
         """Test task cancellation."""
-        code = '''
+        code = """
 import asyncio
 
 async def cancellable_task(task_id):
@@ -820,27 +827,27 @@ async def test_cancellation():
     return results
 
 results = asyncio.run(test_cancellation())
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert len(globals_dict['results']) == 2
-        assert "Task 1" in globals_dict['results'][0]
-        assert "cancelled" in globals_dict['results'][1].lower()
+
+        assert len(globals_dict["results"]) == 2
+        assert "Task 1" in globals_dict["results"][0]
+        assert "cancelled" in globals_dict["results"][1].lower()
 
 
 class TestAsyncEvaluator:
     """Test cases for async code evaluator."""
-    
+
     @pytest.fixture
     def evaluator(self):
         """Create an async evaluator instance."""
         return AsyncEvaluator()
-    
+
     @pytest.mark.asyncio
     async def test_evaluate_async_function(self, evaluator):
         """Test evaluation of async function."""
-        code = '''
+        code = """
 import asyncio
 
 async def test_async():
@@ -848,16 +855,16 @@ async def test_async():
     return "async result"
 
 result = asyncio.run(test_async())
-'''
+"""
         result = evaluator.evaluate(code)
-        
-        assert result['success'] is True
-        assert result['globals']['result'] == "async result"
-    
+
+        assert result["success"] is True
+        assert result["globals"]["result"] == "async result"
+
     @pytest.mark.asyncio
     async def test_check_async_patterns(self, evaluator):
         """Test checking for async patterns in code."""
-        code = '''
+        code = """
 import asyncio
 
 async def example_function():
@@ -872,19 +879,19 @@ async def another_function():
         task1(),
         task2()
     )
-'''
-        
+"""
+
         patterns = evaluator.check_async_patterns(code)
-        
-        assert patterns['async_functions'] >= 2
-        assert patterns['await_expressions'] >= 2
-        assert patterns['async_context_managers'] >= 1
-        assert patterns['async_generators'] >= 1
-    
+
+        assert patterns["async_functions"] >= 2
+        assert patterns["await_expressions"] >= 2
+        assert patterns["async_context_managers"] >= 1
+        assert patterns["async_generators"] >= 1
+
     def test_performance_async_vs_sync(self, evaluator):
         """Test performance comparison between async and sync approaches."""
         # This would be a more complex test comparing execution times
-        sync_code = '''
+        sync_code = """
 import time
 
 def sync_task(duration):
@@ -894,9 +901,9 @@ def sync_task(duration):
 start_time = time.time()
 results = [sync_task(0.01) for _ in range(3)]
 sync_time = time.time() - start_time
-'''
-        
-        async_code = '''
+"""
+
+        async_code = """
 import asyncio
 import time
 
@@ -911,29 +918,32 @@ async def run_async():
     return async_time
 
 async_time = asyncio.run(run_async())
-'''
-        
+"""
+
         sync_result = evaluator.evaluate(sync_code)
         async_result = evaluator.evaluate(async_code)
-        
-        assert sync_result['success'] is True
-        assert async_result['success'] is True
-        
+
+        assert sync_result["success"] is True
+        assert async_result["success"] is True
+
         # Async should generally be faster for I/O bound tasks
-        if 'sync_time' in sync_result['globals'] and 'async_time' in async_result['globals']:
-            sync_time = sync_result['globals']['sync_time']
-            async_time = async_result['globals']['async_time']
+        if (
+            "sync_time" in sync_result["globals"]
+            and "async_time" in async_result["globals"]
+        ):
+            sync_time = sync_result["globals"]["sync_time"]
+            async_time = async_result["globals"]["async_time"]
             assert async_time < sync_time
 
 
 @pytest.mark.integration
 class TestAsyncIntegration:
     """Integration tests for async programming exercises."""
-    
+
     @pytest.mark.asyncio
     async def test_complete_async_application(self):
         """Test a complete async application scenario."""
-        code = '''
+        code = """
 import asyncio
 from collections import defaultdict
 
@@ -1046,17 +1056,17 @@ async def run_task_manager_demo():
     return len(completed), completed
 
 num_completed, completed_tasks = asyncio.run(run_task_manager_demo())
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['num_completed'] == 4  # All 4 tasks should complete
-        assert len(globals_dict['completed_tasks']) == 4
-    
+
+        assert globals_dict["num_completed"] == 4  # All 4 tasks should complete
+        assert len(globals_dict["completed_tasks"]) == 4
+
     @pytest.mark.asyncio
     async def test_async_web_scraper_simulation(self):
         """Test simulation of async web scraping."""
-        code = '''
+        code = """
 import asyncio
 import random
 
@@ -1121,15 +1131,15 @@ async def run_scraper_simulation():
     return results
 
 result = asyncio.run(run_scraper_simulation())
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        result = globals_dict['result']
-        assert result['total_pages'] == 10
-        assert result['success_rate'] > 0.8  # Should have high success rate
-        assert len(result['successful']) >= 8
+
+        result = globals_dict["result"]
+        assert result["total_pages"] == 10
+        assert result["success_rate"] > 0.8  # Should have high success rate
+        assert len(result["successful"]) >= 8
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     pytest.main([__file__])

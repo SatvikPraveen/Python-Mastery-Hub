@@ -11,12 +11,14 @@ from typing import Iterator, Callable, Any, Dict, List
 
 class FilePipelineExercise:
     """Exercise for building a memory-efficient file processing pipeline."""
-    
+
     def __init__(self):
         self.title = "File Processing Pipeline"
-        self.description = "Build a memory-efficient file processing pipeline using generators"
+        self.description = (
+            "Build a memory-efficient file processing pipeline using generators"
+        )
         self.difficulty = "hard"
-    
+
     def get_instructions(self) -> str:
         """Return exercise instructions."""
         return """
@@ -30,7 +32,7 @@ class FilePipelineExercise:
         6. Handle errors gracefully and provide progress feedback
         7. Support batch processing for memory management
         """
-    
+
     def get_tasks(self) -> List[str]:
         """Return list of specific tasks."""
         return [
@@ -40,9 +42,9 @@ class FilePipelineExercise:
             "Create aggregation generators for statistics",
             "Chain generators together in a processing pipeline",
             "Add batch processing for memory efficiency",
-            "Include error handling and progress reporting"
+            "Include error handling and progress reporting",
         ]
-    
+
     def get_starter_code(self) -> str:
         """Return starter code template."""
         return '''
@@ -66,7 +68,7 @@ def process_file_pipeline(filename, pattern, transform_func):
     # TODO: Chain generators together
     pass
 '''
-    
+
     def get_solution(self) -> str:
         """Return complete solution."""
         return '''
@@ -357,36 +359,36 @@ def test_file_pipeline():
 if __name__ == "__main__":
     test_file_pipeline()
 '''
-    
+
     def get_test_cases(self) -> List[Dict[str, str]]:
         """Return test cases for validation."""
         return [
             {
                 "name": "File reading generator",
-                "test": "Verify file_reader yields line numbers and content"
+                "test": "Verify file_reader yields line numbers and content",
             },
             {
-                "name": "Pattern filtering", 
-                "test": "Verify filter_lines correctly filters by regex pattern"
+                "name": "Pattern filtering",
+                "test": "Verify filter_lines correctly filters by regex pattern",
             },
             {
                 "name": "Line transformation",
-                "test": "Verify transform_lines applies functions to each line"
+                "test": "Verify transform_lines applies functions to each line",
             },
             {
                 "name": "Statistics aggregation",
-                "test": "Verify aggregate_stats maintains running totals"
+                "test": "Verify aggregate_stats maintains running totals",
             },
             {
                 "name": "Batch processing",
-                "test": "Verify batch_processor groups items correctly"
+                "test": "Verify batch_processor groups items correctly",
             },
             {
                 "name": "Memory efficiency",
-                "test": "Verify pipeline processes large files without loading all into memory"
+                "test": "Verify pipeline processes large files without loading all into memory",
             },
             {
                 "name": "Error handling",
-                "test": "Verify pipeline handles file errors gracefully"
-            }
+                "test": "Verify pipeline handles file errors gracefully",
+            },
         ]

@@ -15,10 +15,10 @@ from .graph_algorithms import GraphAlgorithms
 from .algorithmic_patterns import AlgorithmicPatterns
 
 __all__ = [
-    'Algorithms',
-    'SortingAlgorithms',
-    'SearchingAlgorithms',
-    'DynamicProgramming',
-    'GraphAlgorithms',
-    'AlgorithmicPatterns'
+    "Algorithms",
+    "SortingAlgorithms",
+    "SearchingAlgorithms",
+    "DynamicProgramming",
+    "GraphAlgorithms",
+    "AlgorithmicPatterns",
 ]

@@ -9,7 +9,7 @@ from typing import Dict, Any
 
 class AuthExamples:
     """Collection of authentication and security examples."""
-    
+
     @staticmethod
     def get_jwt_example() -> Dict[str, Any]:
         """JWT authentication example."""
@@ -65,9 +65,9 @@ async def login(username: str, password: str):
 async def protected_route(user_id: str = Depends(verify_token)):
     """Protected route requiring authentication."""
     return {"user_id": user_id, "message": "This is protected"}
-'''
+''',
         }
-    
+
     @staticmethod
     def get_password_hashing_example() -> Dict[str, Any]:
         """Password hashing example."""
@@ -93,9 +93,9 @@ hashed = hash_password(password)
 print(f"Original: {password}")
 print(f"Hashed: {hashed}")
 print(f"Verification: {verify_password(password, hashed)}")
-'''
+''',
         }
-    
+
     @staticmethod
     def get_oauth2_example() -> Dict[str, Any]:
         """OAuth2 integration example."""
@@ -134,9 +134,9 @@ async def auth_callback_github(request):
     user = token.get('userinfo')
     # Save user to database
     return {"user": user, "token": token}
-'''
+''',
         }
-    
+
     @staticmethod
     def get_cors_example() -> Dict[str, Any]:
         """CORS configuration example."""
@@ -172,9 +172,9 @@ app.add_middleware(
 async def get_data():
     """API endpoint accessible from configured origins."""
     return {"data": "example"}
-'''
+''',
         }
-    
+
     @staticmethod
     def get_session_management_example() -> Dict[str, Any]:
         """Session management example."""
@@ -230,9 +230,9 @@ async def logout(session_id: str):
     """Logout and delete session."""
     redis_client.delete(session_id)
     return {"message": "Logged out"}
-'''
+''',
         }
-    
+
     @staticmethod
     def get_auth_examples() -> Dict[str, Dict[str, Any]]:
         """Get all authentication examples."""
@@ -243,13 +243,13 @@ async def logout(session_id: str):
             "cors": AuthExamples.get_cors_example(),
             "session_management": AuthExamples.get_session_management_example(),
         }
-    
+
     # Alias for backwards compatibility
     @staticmethod
     def get_all_examples() -> Dict[str, Dict[str, Any]]:
         """Get all authentication examples (deprecated, use get_auth_examples)."""
         return AuthExamples.get_auth_examples()
-    
+
     @staticmethod
     def demonstrate() -> Dict[str, Any]:
         """Demonstrate authentication concepts."""
@@ -265,8 +265,8 @@ async def logout(session_id: str):
                 "Validate all inputs",
                 "Implement rate limiting for auth endpoints",
                 "Use secure cookie settings",
-                "Keep secrets in environment variables"
-            ]
+                "Keep secrets in environment variables",
+            ],
         }
 
 

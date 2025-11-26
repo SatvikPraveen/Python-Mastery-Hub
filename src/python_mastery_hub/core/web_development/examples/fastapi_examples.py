@@ -232,7 +232,7 @@ async def search_posts(q: Optional[str] = None, limit: int = 10):
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
 ''',
-            "explanation": "Basic FastAPI application with automatic validation and documentation"
+            "explanation": "Basic FastAPI application with automatic validation and documentation",
         }
     }
 
@@ -477,6 +477,6 @@ if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
 ''',
-            "explanation": "Advanced FastAPI with dependency injection, middleware, and background tasks"
+            "explanation": "Advanced FastAPI with dependency injection, middleware, and background tasks",
         }
     }

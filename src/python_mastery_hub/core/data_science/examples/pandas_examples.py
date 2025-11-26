@@ -8,7 +8,7 @@ from typing import Dict, Any
 
 class PandasExamples:
     """Pandas examples and demonstrations."""
-    
+
     @staticmethod
     def get_dataframe_operations() -> Dict[str, Any]:
         """Get Pandas DataFrame operations examples."""
@@ -228,5 +228,5 @@ if __name__ == "__main__":
     data_cleaning_demo()
     time_series_demo()
 ''',
-            "explanation": "Pandas provides powerful data manipulation and analysis tools for structured data"
+            "explanation": "Pandas provides powerful data manipulation and analysis tools for structured data",
         }

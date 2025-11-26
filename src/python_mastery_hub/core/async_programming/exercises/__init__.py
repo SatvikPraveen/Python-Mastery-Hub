@@ -7,7 +7,7 @@ from .producer_consumer_exercise import ProducerConsumerExercise
 from .parallel_processor_exercise import ParallelProcessorExercise
 
 __all__ = [
-    'AsyncScraperExercise',
-    'ProducerConsumerExercise', 
-    'ParallelProcessorExercise'
+    "AsyncScraperExercise",
+    "ProducerConsumerExercise",
+    "ParallelProcessorExercise",
 ]

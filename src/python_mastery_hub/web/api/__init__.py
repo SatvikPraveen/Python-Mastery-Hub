@@ -13,7 +13,7 @@ from . import admin
 # Export API routers
 __all__ = [
     "auth",
-    "modules", 
+    "modules",
     "progress",
     "exercises",
     "admin",

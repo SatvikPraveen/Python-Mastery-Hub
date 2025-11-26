@@ -25,7 +25,7 @@ to create a realistic employee hierarchy system.
             "Practice method overriding for specialized behavior",
             "Implement polymorphic methods for different employee types",
             "Use super() to extend parent class functionality",
-            "Design class hierarchies with proper abstraction"
+            "Design class hierarchies with proper abstraction",
         ],
         "tasks": [
             {
@@ -36,8 +36,8 @@ to create a realistic employee hierarchy system.
                     "Store employee ID, name, department, hire date, base salary",
                     "Implement calculate_pay() method for basic salary calculation",
                     "Add get_employee_info() method for employee details",
-                    "Include years_of_service() method using hire date"
-                ]
+                    "Include years_of_service() method using hire date",
+                ],
             },
             {
                 "step": 2,
@@ -47,8 +47,8 @@ to create a realistic employee hierarchy system.
                     "Add team_size and direct_reports list",
                     "Override calculate_pay() to include management bonus",
                     "Add methods to add/remove team members",
-                    "Implement performance review methods for team"
-                ]
+                    "Implement performance review methods for team",
+                ],
             },
             {
                 "step": 3,
@@ -58,8 +58,8 @@ to create a realistic employee hierarchy system.
                     "Add programming_languages list and skill_level",
                     "Override calculate_pay() to include skill bonuses",
                     "Add methods to add/update programming skills",
-                    "Implement code review and project assignment methods"
-                ]
+                    "Implement code review and project assignment methods",
+                ],
             },
             {
                 "step": 4,
@@ -69,8 +69,8 @@ to create a realistic employee hierarchy system.
                     "Add sales_target, sales_achieved, commission_rate",
                     "Override calculate_pay() to include commission",
                     "Add methods to record sales and track performance",
-                    "Implement quota achievement calculation"
-                ]
+                    "Implement quota achievement calculation",
+                ],
             },
             {
                 "step": 5,
@@ -80,9 +80,9 @@ to create a realistic employee hierarchy system.
                     "Maintain employee roster with polymorphic operations",
                     "Implement payroll calculation for all employee types",
                     "Add employee search and filtering methods",
-                    "Generate company-wide reports and statistics"
-                ]
-            }
+                    "Generate company-wide reports and statistics",
+                ],
+            },
         ],
         "starter_code": '''
 from datetime import datetime, date
@@ -246,7 +246,7 @@ if __name__ == "__main__":
             "Use polymorphism in Company class - all employees should work the same way",
             "Think about edge cases: negative salaries, invalid dates, etc.",
             "Consider using enums for fixed values like skill levels",
-            "Make calculate_pay() work differently for each employee type"
+            "Make calculate_pay() work differently for each employee type",
         ],
         "solution": '''
 from datetime import datetime, date
@@ -845,5 +845,5 @@ def demonstrate_employee_system():
 
 if __name__ == "__main__":
     demonstrate_employee_system()
-'''
+''',
     }

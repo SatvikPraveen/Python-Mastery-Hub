@@ -13,12 +13,12 @@ from typing import Optional, Any, Dict, List
 
 class TransactionManagerExercise:
     """Exercise for implementing a database transaction context manager."""
-    
+
     def __init__(self):
         self.title = "Database Transaction Manager"
         self.description = "Implement a context manager for database transactions"
         self.difficulty = "hard"
-    
+
     def get_instructions(self) -> str:
         """Return exercise instructions."""
         return """
@@ -33,20 +33,20 @@ class TransactionManagerExercise:
         7. Retry logic for transient failures
         8. Thread safety
         """
-    
+
     def get_tasks(self) -> List[str]:
         """Return list of specific tasks."""
         return [
             "Create a transaction context manager",
-            "Handle commit on successful completion", 
+            "Handle commit on successful completion",
             "Handle rollback on exceptions",
             "Add nested transaction support with savepoints",
             "Include transaction isolation levels",
             "Add timeout and retry functionality",
             "Ensure thread safety",
-            "Provide transaction statistics and logging"
+            "Provide transaction statistics and logging",
         ]
-    
+
     def get_starter_code(self) -> str:
         """Return starter code template."""
         return '''
@@ -81,7 +81,7 @@ class TransactionManager:
         # TODO: Handle commit/rollback
         pass
 '''
-    
+
     def get_solution(self) -> str:
         """Return complete solution."""
         return '''
@@ -456,36 +456,36 @@ def test_transaction_manager():
 if __name__ == "__main__":
     test_transaction_manager()
 '''
-    
+
     def get_test_cases(self) -> List[Dict[str, str]]:
         """Return test cases for validation."""
         return [
             {
                 "name": "Basic transaction flow",
-                "test": "Verify transaction starts, executes operations, and commits successfully"
+                "test": "Verify transaction starts, executes operations, and commits successfully",
             },
             {
                 "name": "Exception handling",
-                "test": "Verify transaction rolls back on exceptions"
+                "test": "Verify transaction rolls back on exceptions",
             },
             {
                 "name": "Nested transactions",
-                "test": "Verify savepoints work for nested transaction scenarios"
+                "test": "Verify savepoints work for nested transaction scenarios",
             },
             {
                 "name": "Isolation levels",
-                "test": "Verify different isolation levels can be set"
+                "test": "Verify different isolation levels can be set",
             },
             {
                 "name": "Timeout handling",
-                "test": "Verify transactions timeout and rollback appropriately"
+                "test": "Verify transactions timeout and rollback appropriately",
             },
             {
                 "name": "Retry logic",
-                "test": "Verify auto-retry works for transient failures"
+                "test": "Verify auto-retry works for transient failures",
             },
             {
                 "name": "Thread safety",
-                "test": "Verify transaction manager works correctly with multiple threads"
-            }
+                "test": "Verify transaction manager works correctly with multiple threads",
+            },
         ]

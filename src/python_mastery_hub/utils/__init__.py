@@ -13,17 +13,17 @@ Optional modules require additional dependencies:
 
 # Core utilities - always available
 from .progress_calculator import (
-    ProgressCalculator, 
-    TopicProgress, 
-    ModuleProgress, 
-    LearningSession
+    ProgressCalculator,
+    TopicProgress,
+    ModuleProgress,
+    LearningSession,
 )
 
 from .achievement_engine import (
-    AchievementEngine, 
-    Achievement, 
-    AchievementCategory, 
-    AchievementTier
+    AchievementEngine,
+    Achievement,
+    AchievementCategory,
+    AchievementTier,
 )
 
 from .logging_config import (
@@ -36,7 +36,7 @@ from .logging_config import (
     PerformanceLogger,
     timed_operation,
     cleanup_old_logs,
-    get_logging_status
+    get_logging_status,
 )
 
 from .validators import (
@@ -51,7 +51,7 @@ from .validators import (
     sanitize_string,
     string_validator,
     number_validator,
-    email_validator
+    email_validator,
 )
 
 from .formatters import (
@@ -63,7 +63,7 @@ from .formatters import (
     format_percentage,
     format_progress_bar,
     format_table,
-    format_json
+    format_json,
 )
 
 from .file_handlers import (
@@ -81,7 +81,7 @@ from .file_handlers import (
     read_yaml,
     write_yaml,
     read_csv,
-    write_csv
+    write_csv,
 )
 
 from .code_execution import (
@@ -93,7 +93,7 @@ from .code_execution import (
     SecurityViolation,
     execute_code,
     validate_code,
-    run_code_tests
+    run_code_tests,
 )
 
 from .email_templates import (
@@ -103,7 +103,7 @@ from .email_templates import (
     EmailPreferences,
     create_email_manager,
     render_welcome_email,
-    render_achievement_email
+    render_achievement_email,
 )
 
 from .cache_manager import (
@@ -116,7 +116,7 @@ from .cache_manager import (
     cache_set,
     cache_delete,
     cache_clear,
-    cache_stats
+    cache_stats,
 )
 
 from .data_exporters import (
@@ -128,23 +128,21 @@ from .data_exporters import (
     ExportConfig as DataExportConfig,
     create_exporter,
     export_learning_data,
-    get_supported_formats
+    get_supported_formats,
 )
 
 # Core exports - always available
 __all__ = [
     # Progress tracking
     "ProgressCalculator",
-    "TopicProgress", 
+    "TopicProgress",
     "ModuleProgress",
     "LearningSession",
-    
     # Achievement system
     "AchievementEngine",
     "Achievement",
     "AchievementCategory",
     "AchievementTier",
-    
     # Logging utilities
     "setup_logging",
     "get_logger",
@@ -156,11 +154,10 @@ __all__ = [
     "timed_operation",
     "cleanup_old_logs",
     "get_logging_status",
-    
     # Validation
     "ValidationError",
     "Validator",
-    "StringValidator", 
+    "StringValidator",
     "NumberValidator",
     "FormValidator",
     "validate_email",
@@ -170,7 +167,6 @@ __all__ = [
     "string_validator",
     "number_validator",
     "email_validator",
-    
     # Formatting
     "TextFormatter",
     "ColorCodes",
@@ -181,7 +177,6 @@ __all__ = [
     "format_progress_bar",
     "format_table",
     "format_json",
-    
     # File handling
     "SafeFileHandler",
     "JSONFileHandler",
@@ -198,7 +193,6 @@ __all__ = [
     "write_yaml",
     "read_csv",
     "write_csv",
-    
     # Code execution
     "SafeCodeExecutor",
     "CodeValidator",
@@ -209,7 +203,6 @@ __all__ = [
     "execute_code",
     "validate_code",
     "run_code_tests",
-    
     # Email templates
     "EmailTemplateManager",
     "EmailRenderer",
@@ -218,7 +211,6 @@ __all__ = [
     "create_email_manager",
     "render_welcome_email",
     "render_achievement_email",
-    
     # Caching
     "CacheManager",
     "MemoryCache",
@@ -230,11 +222,10 @@ __all__ = [
     "cache_delete",
     "cache_clear",
     "cache_stats",
-    
     # Data export
     "DataExporter",
     "CSVExporter",
-    "JSONExporter", 
+    "JSONExporter",
     "HTMLReportExporter",
     "ZipExporter",
     "DataExportConfig",
@@ -253,15 +244,16 @@ __description__ = "Comprehensive utilities for the Python Mastery Hub learning p
 def get_security_utils():
     """
     Get security utilities module (requires bcrypt).
-    
+
     Returns:
         security_utils module
-        
+
     Raises:
         ImportError: If bcrypt is not installed
     """
     try:
         from . import security_utils
+
         return security_utils
     except ImportError as e:
         raise ImportError(
@@ -272,15 +264,16 @@ def get_security_utils():
 def get_metrics_collector():
     """
     Get metrics collector module (requires psutil).
-    
+
     Returns:
         metrics_collector module
-        
+
     Raises:
         ImportError: If psutil is not installed
     """
     try:
         from . import metrics_collector
+
         return metrics_collector
     except ImportError as e:
         raise ImportError(
@@ -291,15 +284,16 @@ def get_metrics_collector():
 def get_excel_exporter():
     """
     Get Excel export functionality (requires openpyxl).
-    
+
     Returns:
         ExcelExporter class
-        
+
     Raises:
         ImportError: If openpyxl is not installed
     """
     try:
         from .data_exporters import ExcelExporter
+
         return ExcelExporter
     except ImportError as e:
         raise ImportError(
@@ -310,33 +304,36 @@ def get_excel_exporter():
 def check_dependencies():
     """
     Check which optional dependencies are available.
-    
+
     Returns:
         Dict[str, bool]: Availability status of optional features
     """
     features = {}
-    
+
     # Check bcrypt for security
     try:
         import bcrypt
-        features['security'] = True
+
+        features["security"] = True
     except ImportError:
-        features['security'] = False
-    
+        features["security"] = False
+
     # Check psutil for metrics
     try:
         import psutil
-        features['metrics'] = True
+
+        features["metrics"] = True
     except ImportError:
-        features['metrics'] = False
-    
+        features["metrics"] = False
+
     # Check openpyxl for Excel export
     try:
         import openpyxl
-        features['excel_export'] = True
+
+        features["excel_export"] = True
     except ImportError:
-        features['excel_export'] = False
-    
+        features["excel_export"] = False
+
     return features
 
 
@@ -347,5 +344,5 @@ def import_security():
 
 
 def import_metrics():
-    """Import metrics collector with clear error message if unavailable.""" 
+    """Import metrics collector with clear error message if unavailable."""
     return get_metrics_collector()

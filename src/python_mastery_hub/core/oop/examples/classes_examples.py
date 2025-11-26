@@ -63,9 +63,8 @@ print(f"Bob's average: {bob.get_average_grade()}")
 print(f"School: {Student.school_name}")
 """,
             "output": "Alice: Student(Alice Johnson, ID: S001)\nAlice's average: 91.67\nBob: Student(Bob Smith, ID: S002)\nBob's average: 89.0\nSchool: Python Mastery University",
-            "explanation": "Classes define blueprints for objects with attributes and methods"
+            "explanation": "Classes define blueprints for objects with attributes and methods",
         },
-        
         "class_methods_and_static_methods": {
             "code": """
 from datetime import datetime
@@ -147,9 +146,8 @@ interest = BankAccount.calculate_compound_interest(1000, 0.05, 5)
 print(f"Compound interest: ${interest:.2f}")
 """,
             "output": "=== Instance Methods ===\nAccount 1234567890 - Alice: $1000\nAfter deposit: Account 1234567890 - Alice: $1500\n\n=== Class Methods ===\nSavings account: Account 9876543210 - Bob: $2000\nAccount type: Savings\n\n=== Static Methods ===\nValid account number: True\nInvalid account number: False\nCompound interest: $1276.28",
-            "explanation": "Different method types serve different purposes: instance methods for object operations, class methods for class-level operations, static methods for utility functions"
+            "explanation": "Different method types serve different purposes: instance methods for object operations, class methods for class-level operations, static methods for utility functions",
         },
-        
         "property_decorators": {
             "code": """
 class Temperature:
@@ -216,9 +214,8 @@ print(f"Current Fahrenheit: {temp.fahrenheit}")
 print(f"Current Kelvin: {temp.kelvin}")
 """,
             "output": "Initial: 25°C (77.0°F, 298.15K)\nSet to 86°F: 30.0°C (86.0°F, 303.15K)\nSet to 300K: 26.85°C (80.33°F, 300.0K)\nError: Temperature cannot be below absolute zero\nCurrent Celsius: 26.85\nCurrent Fahrenheit: 80.33\nCurrent Kelvin: 300.0",
-            "explanation": "Property decorators provide controlled access to attributes with validation and computed properties"
+            "explanation": "Property decorators provide controlled access to attributes with validation and computed properties",
         },
-        
         "data_classes": {
             "code": """
 from dataclasses import dataclass, field
@@ -318,6 +315,6 @@ cart.remove_item("Python Guide")
 print(f"After removing book - Items: {cart.item_count}, Cost: ${cart.total_cost:.2f}")
 """,
             "output": "=== DataClass Examples ===\nLaptop: Product(name='Gaming Laptop', price=1299.99, category='Electronics', in_stock=True, tags=['electronics', 'new-product'], created_at=datetime.datetime(2024, 1, 1, 12, 0, 0))\nBook: Product(name='Python Guide', price=29.99, category='Books', in_stock=True, tags=['programming', 'education'], created_at=datetime.datetime(2024, 1, 1, 12, 0, 0))\nIs laptop expensive? True\nLaptop after 10% discount: 1169.991\n\nCart for Alice:\nItems: 4\nTotal cost: $1429.97\nAfter removing book - Items: 3, Cost: $1399.98",
-            "explanation": "DataClasses automatically generate common methods like __init__, __str__, and __repr__, reducing boilerplate code"
-        }
+            "explanation": "DataClasses automatically generate common methods like __init__, __str__, and __repr__, reducing boilerplate code",
+        },
     }

@@ -18,12 +18,12 @@ def get_exercise() -> Dict[str, Any]:
         "learning_objectives": [
             "Structure Flask applications with blueprints",
             "Implement Jinja2 templates with inheritance",
-            "Handle forms with Flask-WTF and validation", 
+            "Handle forms with Flask-WTF and validation",
             "Integrate SQLAlchemy ORM with relationships",
             "Add user authentication and sessions",
             "Implement file uploads for images",
             "Create pagination for blog posts",
-            "Add search and filtering functionality"
+            "Add search and filtering functionality",
         ],
         "requirements": [
             "Flask web framework",
@@ -32,7 +32,7 @@ def get_exercise() -> Dict[str, Any]:
             "Flask-Login for authentication",
             "Jinja2 for templating",
             "Werkzeug for file uploads",
-            "Flask-Migrate for database migrations"
+            "Flask-Migrate for database migrations",
         ],
         "starter_code": '''
 """
@@ -384,7 +384,7 @@ with app.app_context():
 if __name__ == '__main__':
     app.run(debug=True)
 ''',
-        "template_structure": '''
+        "template_structure": """
 # Required Template Files Structure
 
 templates/
@@ -436,8 +436,8 @@ templates/
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-''',
-        "testing_guide": '''
+""",
+        "testing_guide": """
 # Testing Your Flask Blog Application
 
 ## 1. Setup and Run
@@ -537,7 +537,7 @@ class BlogTestCase(unittest.TestCase):
         })
         self.assertEqual(response.status_code, 302)
 ```
-''',
+""",
         "implementation_hints": [
             "Use Flask-WTF for CSRF protection on all forms",
             "Implement proper file upload validation and size limits",
@@ -548,7 +548,7 @@ class BlogTestCase(unittest.TestCase):
             "Validate and sanitize all user input",
             "Use secure_filename() for uploaded files",
             "Implement proper URL validation for redirects",
-            "Add proper database constraints and indexes"
+            "Add proper database constraints and indexes",
         ],
         "bonus_features": [
             "Add comment system for blog posts",
@@ -560,9 +560,9 @@ class BlogTestCase(unittest.TestCase):
             "Add rich text editor for post content",
             "Create sitemap generation for SEO",
             "Add admin panel for user management",
-            "Implement post analytics and statistics"
+            "Implement post analytics and statistics",
         ],
-        "deployment_notes": '''
+        "deployment_notes": """
 # Production Deployment Considerations
 
 ## Security
@@ -588,5 +588,5 @@ class BlogTestCase(unittest.TestCase):
 - Optimize database queries
 - Use Gunicorn with multiple workers
 - Set up reverse proxy with Nginx
-'''
+""",
     }

@@ -10,10 +10,10 @@ from .base import AlgorithmDemo
 
 class SearchingAlgorithms(AlgorithmDemo):
     """Demonstration class for searching algorithms."""
-    
+
     def __init__(self):
         super().__init__("searching_algorithms")
-    
+
     def _setup_examples(self) -> None:
         """Setup searching algorithm examples."""
         self.examples = {
@@ -63,9 +63,8 @@ print(f"All occurrences of 22: {all_22s}")
                 "explanation": "Linear search checks each element sequentially, with O(n) time complexity",
                 "time_complexity": "O(n)",
                 "space_complexity": "O(1)",
-                "prerequisites": "None - works on unsorted arrays"
+                "prerequisites": "None - works on unsorted arrays",
             },
-            
             "binary_search": {
                 "code": '''
 def binary_search(arr, target):
@@ -138,9 +137,8 @@ binary_search_recursive(sorted_array, 25)
                 "explanation": "Binary search efficiently finds elements in sorted arrays with O(log n) time complexity",
                 "time_complexity": "O(log n)",
                 "space_complexity": "O(1) iterative, O(log n) recursive",
-                "prerequisites": "Array must be sorted"
+                "prerequisites": "Array must be sorted",
             },
-            
             "interpolation_search": {
                 "code": '''
 def interpolation_search(arr, target):
@@ -193,9 +191,8 @@ interpolation_search(uniform_array, 70)
                 "explanation": "Interpolation search estimates target position based on value distribution, more efficient than binary search for uniformly distributed data",
                 "time_complexity": "O(log log n) average, O(n) worst case",
                 "space_complexity": "O(1)",
-                "prerequisites": "Sorted array with uniform distribution"
+                "prerequisites": "Sorted array with uniform distribution",
             },
-            
             "exponential_search": {
                 "code": '''
 def exponential_search(arr, target):
@@ -247,9 +244,8 @@ exponential_search(large_array, 47)
                 "explanation": "Exponential search finds range for target then applies binary search, useful for unbounded arrays",
                 "time_complexity": "O(log n)",
                 "space_complexity": "O(1)",
-                "prerequisites": "Sorted array"
+                "prerequisites": "Sorted array",
             },
-            
             "ternary_search": {
                 "code": '''
 def ternary_search(arr, target):
@@ -299,13 +295,13 @@ ternary_search(sorted_array, 15)
                 "explanation": "Ternary search divides the search space into three parts instead of two",
                 "time_complexity": "O(log₃ n)",
                 "space_complexity": "O(1)",
-                "prerequisites": "Sorted array"
-            }
+                "prerequisites": "Sorted array",
+            },
         }
-    
+
     def _setup_exercises(self) -> None:
         """Setup searching exercises."""
-        # Searching algorithms are generally straightforward, 
+        # Searching algorithms are generally straightforward,
         # so we focus on comparative analysis exercises
         self.exercises = [
             {
@@ -313,15 +309,17 @@ ternary_search(sorted_array, 15)
                 "title": "Search Algorithm Comparison",
                 "description": "Compare different search algorithms on various data types",
                 "difficulty": "medium",
-                "exercise": None  # Implementation included in examples
+                "exercise": None,  # Implementation included in examples
             }
         ]
-    
+
     def get_explanation(self) -> str:
         """Get detailed explanation for searching algorithms."""
-        return ("Searching algorithms find elements in data structures, with efficiency "
-                "depending on data organization and algorithm choice.")
-    
+        return (
+            "Searching algorithms find elements in data structures, with efficiency "
+            "depending on data organization and algorithm choice."
+        )
+
     def get_best_practices(self) -> List[str]:
         """Get best practices for searching algorithms."""
         return [
@@ -331,58 +329,60 @@ ternary_search(sorted_array, 15)
             "Handle edge cases like empty arrays",
             "Choose appropriate search algorithm based on data structure",
             "For repeated searches, consider preprocessing data",
-            "Use interpolation search for uniformly distributed data"
+            "Use interpolation search for uniformly distributed data",
         ]
-    
-    def compare_search_performance(self, data_sizes: List[int] = None) -> Dict[str, Any]:
+
+    def compare_search_performance(
+        self, data_sizes: List[int] = None
+    ) -> Dict[str, Any]:
         """Compare performance of different search algorithms."""
         if data_sizes is None:
             data_sizes = [1000, 10000, 100000]
-        
+
         results = {}
-        
+
         for size in data_sizes:
             # Generate sorted test data
             sorted_data = list(range(0, size * 2, 2))  # Even numbers
             target = random.choice(sorted_data)
-            
+
             results[size] = {}
-            
+
             # Linear search
             start_time = time.time()
             linear_result = self._linear_search_simple(sorted_data, target)
             linear_time = (time.time() - start_time) * 1000
-            
+
             # Binary search
             start_time = time.time()
             binary_result = self._binary_search_simple(sorted_data, target)
             binary_time = (time.time() - start_time) * 1000
-            
+
             # Interpolation search (for uniform data)
             start_time = time.time()
             interp_result = self._interpolation_search_simple(sorted_data, target)
             interp_time = (time.time() - start_time) * 1000
-            
+
             results[size] = {
-                'linear': {'time_ms': linear_time, 'result': linear_result},
-                'binary': {'time_ms': binary_time, 'result': binary_result},
-                'interpolation': {'time_ms': interp_time, 'result': interp_result},
-                'target': target
+                "linear": {"time_ms": linear_time, "result": linear_result},
+                "binary": {"time_ms": binary_time, "result": binary_result},
+                "interpolation": {"time_ms": interp_time, "result": interp_result},
+                "target": target,
             }
-        
+
         return results
-    
+
     def _linear_search_simple(self, arr, target):
         """Simple linear search without visualization."""
         for i, element in enumerate(arr):
             if element == target:
                 return i
         return -1
-    
+
     def _binary_search_simple(self, arr, target):
         """Simple binary search without visualization."""
         left, right = 0, len(arr) - 1
-        
+
         while left <= right:
             mid = (left + right) // 2
             if arr[mid] == target:
@@ -391,39 +391,41 @@ ternary_search(sorted_array, 15)
                 left = mid + 1
             else:
                 right = mid - 1
-        
+
         return -1
-    
+
     def _interpolation_search_simple(self, arr, target):
         """Simple interpolation search without visualization."""
         left, right = 0, len(arr) - 1
-        
+
         while left <= right and target >= arr[left] and target <= arr[right]:
             if left == right:
                 return left if arr[left] == target else -1
-            
+
             # Interpolation formula
-            pos = left + ((target - arr[left]) * (right - left)) // (arr[right] - arr[left])
+            pos = left + ((target - arr[left]) * (right - left)) // (
+                arr[right] - arr[left]
+            )
             pos = max(left, min(pos, right))
-            
+
             if arr[pos] == target:
                 return pos
             elif arr[pos] < target:
                 left = pos + 1
             else:
                 right = pos - 1
-        
+
         return -1
-    
+
     def search_variations(self) -> Dict[str, Any]:
         """Demonstrate various search algorithm variations."""
         return {
             "find_first_occurrence": self._find_first_occurrence_example(),
             "find_last_occurrence": self._find_last_occurrence_example(),
             "find_insertion_point": self._find_insertion_point_example(),
-            "search_in_rotated_array": self._search_rotated_array_example()
+            "search_in_rotated_array": self._search_rotated_array_example(),
         }
-    
+
     def _find_first_occurrence_example(self) -> Dict[str, str]:
         """Example of finding first occurrence in sorted array with duplicates."""
         return {
@@ -450,9 +452,9 @@ def find_first_occurrence(arr, target):
 arr = [1, 2, 2, 2, 3, 4, 5]
 first_2 = find_first_occurrence(arr, 2)  # Returns index 1
 ''',
-            "explanation": "Modified binary search to find the leftmost occurrence of a target value"
+            "explanation": "Modified binary search to find the leftmost occurrence of a target value",
         }
-    
+
     def _find_last_occurrence_example(self) -> Dict[str, str]:
         """Example of finding last occurrence in sorted array with duplicates."""
         return {
@@ -479,9 +481,9 @@ def find_last_occurrence(arr, target):
 arr = [1, 2, 2, 2, 3, 4, 5]
 last_2 = find_last_occurrence(arr, 2)  # Returns index 3
 ''',
-            "explanation": "Modified binary search to find the rightmost occurrence of a target value"
+            "explanation": "Modified binary search to find the rightmost occurrence of a target value",
         }
-    
+
     def _find_insertion_point_example(self) -> Dict[str, str]:
         """Example of finding insertion point for maintaining sorted order."""
         return {
@@ -504,9 +506,9 @@ def find_insertion_point(arr, target):
 arr = [1, 3, 5, 7, 9]
 insert_pos = find_insertion_point(arr, 6)  # Returns index 3
 ''',
-            "explanation": "Binary search variation to find correct insertion position"
+            "explanation": "Binary search variation to find correct insertion position",
         }
-    
+
     def _search_rotated_array_example(self) -> Dict[str, str]:
         """Example of searching in rotated sorted array."""
         return {
@@ -539,5 +541,5 @@ def search_rotated_array(arr, target):
 arr = [4, 5, 6, 7, 0, 1, 2]
 result = search_rotated_array(arr, 0)  # Returns index 4
 ''',
-            "explanation": "Binary search adapted for rotated sorted arrays"
+            "explanation": "Binary search adapted for rotated sorted arrays",
         }

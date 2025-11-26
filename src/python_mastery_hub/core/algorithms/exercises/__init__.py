@@ -9,8 +9,4 @@ from .quicksort_exercise import QuickSortExercise
 from .lcs_exercise import LCSExercise
 from .dijkstra_exercise import DijkstraExercise
 
-__all__ = [
-    'QuickSortExercise',
-    'LCSExercise', 
-    'DijkstraExercise'
-]
+__all__ = ["QuickSortExercise", "LCSExercise", "DijkstraExercise"]

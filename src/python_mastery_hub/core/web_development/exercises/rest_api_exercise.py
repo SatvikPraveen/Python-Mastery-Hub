@@ -21,14 +21,14 @@ def get_exercise() -> Dict[str, Any]:
             "Implement filtering, sorting, and pagination",
             "Handle errors gracefully with appropriate status codes",
             "Add comprehensive API documentation",
-            "Implement proper data relationships"
+            "Implement proper data relationships",
         ],
         "requirements": [
             "FastAPI framework",
             "Pydantic for validation",
             "SQLAlchemy for database ORM",
             "pytest for testing",
-            "uvicorn for server"
+            "uvicorn for server",
         ],
         "starter_code": '''
 """
@@ -344,9 +344,9 @@ if __name__ == "__main__":
             "Implement CRUD operations one by one, testing each",
             "Add proper error handling for common scenarios",
             "Use SQLAlchemy query methods for filtering and pagination",
-            "Test your API endpoints using FastAPI's automatic docs at /docs"
+            "Test your API endpoints using FastAPI's automatic docs at /docs",
         ],
-        "testing_guide": '''
+        "testing_guide": """
 # Testing Your REST API
 
 1. **Start the server:**
@@ -389,7 +389,7 @@ if __name__ == "__main__":
        assert response.status_code == 201
        assert response.json()["username"] == "testuser"
    ```
-''',
+""",
         "bonus_challenges": [
             "Add search functionality across task titles and descriptions",
             "Implement task comments with a separate Comment model",
@@ -398,6 +398,6 @@ if __name__ == "__main__":
             "Add email notifications for task assignments",
             "Create task templates for recurring tasks",
             "Add time tracking functionality",
-            "Implement task labels/tags with many-to-many relationships"
-        ]
+            "Implement task labels/tags with many-to-many relationships",
+        ],
     }

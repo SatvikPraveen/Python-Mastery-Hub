@@ -77,9 +77,8 @@ singleton2 = ThreadSafeSingleton()
 print(f"Thread-safe singleton same instance? {singleton1 is singleton2}")
 """,
             "output": "=== Singleton Pattern ===\nDatabase connection initialized\nSame instance? True\nConnected to python_mastery at localhost:5432 (Connection #1)\nConnected to python_mastery at localhost:5432 (Connection #2)\nThread-safe singleton same instance? True",
-            "explanation": "Singleton pattern ensures a class has only one instance and provides global access to it"
+            "explanation": "Singleton pattern ensures a class has only one instance and provides global access to it",
         },
-        
         "observer_pattern": {
             "code": """
 from abc import ABC, abstractmethod
@@ -202,9 +201,8 @@ stock.price = 147.0  # -$8 change
 stock.price = 142.0  # -$5 change
 """,
             "output": "=== Observer Pattern ===\nObserver EmailNotifier attached\nObserver SMSNotifier attached\nObserver TradingBot attached\n\nPrice changes:\nEMAIL to investor@email.com: AAPL increased by $5.00\nEMAIL to investor@email.com: AAPL decreased by $8.00\nSMS to +1234567890: ALERT! AAPL price changed significantly\nEMAIL to investor@email.com: AAPL decreased by $5.00\nTRADING BOT: BUY AAPL at $142.0",
-            "explanation": "Observer pattern allows objects to be notified of changes in other objects without tight coupling"
+            "explanation": "Observer pattern allows objects to be notified of changes in other objects without tight coupling",
         },
-        
         "factory_pattern": {
             "code": """
 from abc import ABC, abstractmethod
@@ -400,9 +398,8 @@ print(f"  Engine: {luxury_factory.create_engine()}")
 print(f"  Transmission: {luxury_factory.create_transmission()}")
 """,
             "output": "=== Factory Patterns ===\n\n--- Simple Factory ---\nCar: Generic Sedan\n  Car engine started with key\nMotorcycle: Generic Sport\n  Motorcycle engine started with kick/button\nTruck: Generic Pickup\n  Truck engine started with heavy duty ignition\n\n--- Factory Method ---\nQuality check passed for Car: Toyota Camry\nQuality check passed for Car: Honda Civic\nQuality check passed for Motorcycle: Honda CBR600\nProduced: Car: Toyota Camry\nProduced: Car: Honda Civic\nProduced: Motorcycle: Honda CBR600\n\n--- Abstract Factory ---\nEconomy vehicle components:\n  Engine: 4-cylinder economy engine\n  Transmission: CVT transmission\nLuxury vehicle components:\n  Engine: V8 luxury engine\n  Transmission: 8-speed automatic transmission",
-            "explanation": "Factory patterns provide ways to create objects without specifying their exact classes"
+            "explanation": "Factory patterns provide ways to create objects without specifying their exact classes",
         },
-        
         "decorator_pattern": {
             "code": """
 from abc import ABC, abstractmethod
@@ -572,6 +569,6 @@ except ValueError as e:
     print(f"Validation error: {e}")
 """,
             "output": "=== Decorator Pattern ===\n\n--- Coffee Decorators ---\nSimple coffee: $2.00\nSimple coffee, milk: $2.50\nSimple coffee, milk, sugar: $2.70\nSimple coffee, milk, sugar, whipped cream: $3.40\n\nFancy coffee: Simple coffee, sugar, milk, whipped cream, vanilla syrup\nTotal cost: $3.80\n\n--- Function Decorators ---\nslow_calculation took 0.1023 seconds\nCalculation result: 49995000\nDivision result: 5.0\nValidation error: Validation failed for divide",
-            "explanation": "Decorator pattern allows adding new functionality to objects dynamically without altering their structure"
-        }
+            "explanation": "Decorator pattern allows adding new functionality to objects dynamically without altering their structure",
+        },
     }

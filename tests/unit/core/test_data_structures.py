@@ -18,37 +18,45 @@ try:
         StackExercise,
         QueueExercise,
         TreeExercise,
-        GraphExercise
+        GraphExercise,
     )
     from src.core.evaluators import DataStructureEvaluator
 except ImportError:
     # Mock classes for when actual modules don't exist
     class ListExercise:
         pass
+
     class DictExercise:
         pass
+
     class SetExercise:
         pass
+
     class TupleExercise:
         pass
+
     class StackExercise:
         pass
+
     class QueueExercise:
         pass
+
     class TreeExercise:
         pass
+
     class GraphExercise:
         pass
+
     class DataStructureEvaluator:
         pass
 
 
 class TestListExercises:
     """Test cases for list data structure exercises."""
-    
+
     def test_list_creation_and_access(self):
         """Test basic list creation and element access."""
-        code = '''
+        code = """
 # Create different types of lists
 numbers = [1, 2, 3, 4, 5]
 mixed = [1, "hello", 3.14, True]
@@ -62,22 +70,22 @@ middle = numbers[2]
 
 # Access nested elements
 nested_element = nested[1][0]
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['numbers'] == [1, 2, 3, 4, 5]
-        assert globals_dict['mixed'] == [1, "hello", 3.14, True]
-        assert globals_dict['nested'] == [[1, 2], [3, 4], [5, 6]]
-        assert globals_dict['empty'] == []
-        assert globals_dict['first'] == 1
-        assert globals_dict['last'] == 5
-        assert globals_dict['middle'] == 3
-        assert globals_dict['nested_element'] == 3
-    
+
+        assert globals_dict["numbers"] == [1, 2, 3, 4, 5]
+        assert globals_dict["mixed"] == [1, "hello", 3.14, True]
+        assert globals_dict["nested"] == [[1, 2], [3, 4], [5, 6]]
+        assert globals_dict["empty"] == []
+        assert globals_dict["first"] == 1
+        assert globals_dict["last"] == 5
+        assert globals_dict["middle"] == 3
+        assert globals_dict["nested_element"] == 3
+
     def test_list_slicing(self):
         """Test list slicing operations."""
-        code = '''
+        code = """
 numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 # Basic slicing
@@ -93,21 +101,21 @@ every_third_reverse = numbers[::-3]
 # Slice assignment
 numbers_copy = numbers.copy()
 numbers_copy[2:5] = [20, 30, 40]
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['first_three'] == [0, 1, 2]
-        assert globals_dict['last_three'] == [7, 8, 9]
-        assert globals_dict['middle'] == [2, 3, 4, 5, 6]
-        assert globals_dict['skip_two'] == [0, 2, 4, 6, 8]
-        assert globals_dict['reverse'] == [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
-        assert globals_dict['every_third_reverse'] == [9, 6, 3, 0]
-        assert globals_dict['numbers_copy'][2:5] == [20, 30, 40]
-    
+
+        assert globals_dict["first_three"] == [0, 1, 2]
+        assert globals_dict["last_three"] == [7, 8, 9]
+        assert globals_dict["middle"] == [2, 3, 4, 5, 6]
+        assert globals_dict["skip_two"] == [0, 2, 4, 6, 8]
+        assert globals_dict["reverse"] == [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+        assert globals_dict["every_third_reverse"] == [9, 6, 3, 0]
+        assert globals_dict["numbers_copy"][2:5] == [20, 30, 40]
+
     def test_list_methods(self):
         """Test various list methods."""
-        code = '''
+        code = """
 fruits = ["apple", "banana", "cherry"]
 
 # Append and extend
@@ -133,20 +141,20 @@ sorted_fruits = fruits.copy()
 temp_list = [1, 2, 3]
 temp_list.clear()
 cleared_length = len(temp_list)
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert "date" in globals_dict['fruits']
-        assert "elderberry" in globals_dict['fruits']
-        assert "fig" not in globals_dict['fruits']  # Was popped
-        assert globals_dict['popped'] == "fig"
-        assert globals_dict['count_apple'] == 1
-        assert globals_dict['cleared_length'] == 0
-    
+
+        assert "date" in globals_dict["fruits"]
+        assert "elderberry" in globals_dict["fruits"]
+        assert "fig" not in globals_dict["fruits"]  # Was popped
+        assert globals_dict["popped"] == "fig"
+        assert globals_dict["count_apple"] == 1
+        assert globals_dict["cleared_length"] == 0
+
     def test_list_comprehensions(self):
         """Test list comprehensions."""
-        code = '''
+        code = """
 # Basic list comprehension
 squares = [x**2 for x in range(1, 6)]
 
@@ -168,25 +176,25 @@ word_lengths = [len(word) for word in words]
 # Conditional expression in comprehension
 numbers = [-2, -1, 0, 1, 2]
 abs_values = [x if x >= 0 else -x for x in numbers]
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['squares'] == [1, 4, 9, 16, 25]
-        assert globals_dict['even_squares'] == [4, 16, 36, 64, 100]
-        assert globals_dict['matrix'] == [[0, 1, 2], [1, 2, 3], [2, 3, 4]]
-        assert globals_dict['flattened'] == [1, 2, 3, 4, 5, 6]
-        assert globals_dict['upper_words'] == ["HELLO", "WORLD", "PYTHON"]
-        assert globals_dict['word_lengths'] == [5, 5, 6]
-        assert globals_dict['abs_values'] == [2, 1, 0, 1, 2]
+
+        assert globals_dict["squares"] == [1, 4, 9, 16, 25]
+        assert globals_dict["even_squares"] == [4, 16, 36, 64, 100]
+        assert globals_dict["matrix"] == [[0, 1, 2], [1, 2, 3], [2, 3, 4]]
+        assert globals_dict["flattened"] == [1, 2, 3, 4, 5, 6]
+        assert globals_dict["upper_words"] == ["HELLO", "WORLD", "PYTHON"]
+        assert globals_dict["word_lengths"] == [5, 5, 6]
+        assert globals_dict["abs_values"] == [2, 1, 0, 1, 2]
 
 
 class TestDictExercises:
     """Test cases for dictionary data structure exercises."""
-    
+
     def test_dict_creation_and_access(self):
         """Test dictionary creation and element access."""
-        code = '''
+        code = """
 # Different ways to create dictionaries
 person = {"name": "Alice", "age": 30, "city": "New York"}
 empty_dict = {}
@@ -205,21 +213,21 @@ person["age"] = 31
 keys_list = list(person.keys())
 values_list = list(person.values())
 items_list = list(person.items())
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['person']['name'] == "Alice"
-        assert globals_dict['person']['age'] == 31
-        assert globals_dict['person']['email'] == "alice@example.com"
-        assert globals_dict['dict_from_tuples'] == {"a": 1, "b": 2, "c": 3}
-        assert globals_dict['dict_comprehension'] == {1: 1, 2: 4, 3: 9, 4: 16, 5: 25}
-        assert globals_dict['height'] == "Unknown"
-        assert "name" in globals_dict['keys_list']
-    
+
+        assert globals_dict["person"]["name"] == "Alice"
+        assert globals_dict["person"]["age"] == 31
+        assert globals_dict["person"]["email"] == "alice@example.com"
+        assert globals_dict["dict_from_tuples"] == {"a": 1, "b": 2, "c": 3}
+        assert globals_dict["dict_comprehension"] == {1: 1, 2: 4, 3: 9, 4: 16, 5: 25}
+        assert globals_dict["height"] == "Unknown"
+        assert "name" in globals_dict["keys_list"]
+
     def test_dict_methods(self):
         """Test various dictionary methods."""
-        code = '''
+        code = """
 scores = {"Alice": 85, "Bob": 92, "Charlie": 78}
 
 # Update operations
@@ -244,20 +252,20 @@ cleared_length = len(temp_dict)
 original_scores = {"Alice": 85, "Bob": 92}
 alice_score = original_scores.setdefault("Alice", 0)
 eve_score = original_scores.setdefault("Eve", 75)
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['bob_score'] == 92
-        assert globals_dict['default_score'] == 0
-        assert globals_dict['alice_score'] == 85
-        assert globals_dict['eve_score'] == 75
-        assert "Eve" in globals_dict['original_scores']
-        assert globals_dict['cleared_length'] == 0
-    
+
+        assert globals_dict["bob_score"] == 92
+        assert globals_dict["default_score"] == 0
+        assert globals_dict["alice_score"] == 85
+        assert globals_dict["eve_score"] == 75
+        assert "Eve" in globals_dict["original_scores"]
+        assert globals_dict["cleared_length"] == 0
+
     def test_nested_dictionaries(self):
         """Test nested dictionaries."""
-        code = '''
+        code = """
 company = {
     "name": "Tech Corp",
     "employees": {
@@ -282,19 +290,22 @@ company["employees"]["hr"] = {}
 
 # Safe access with get
 bob_role = company.get("employees", {}).get("engineering", {}).get("Bob", {}).get("role", "Unknown")
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['alice_salary'] == 90000
-        assert globals_dict['locations_count'] == 3
-        assert globals_dict['company']['employees']['engineering']['Alice']['salary'] == 95000
-        assert globals_dict['bob_role'] == "Junior Developer"
-        assert "hr" in globals_dict['company']['employees']
-    
+
+        assert globals_dict["alice_salary"] == 90000
+        assert globals_dict["locations_count"] == 3
+        assert (
+            globals_dict["company"]["employees"]["engineering"]["Alice"]["salary"]
+            == 95000
+        )
+        assert globals_dict["bob_role"] == "Junior Developer"
+        assert "hr" in globals_dict["company"]["employees"]
+
     def test_dict_comprehensions(self):
         """Test dictionary comprehensions."""
-        code = '''
+        code = """
 # Basic dict comprehension
 squares_dict = {x: x**2 for x in range(1, 6)}
 
@@ -315,23 +326,23 @@ swapped = {v: k for k, v in original.items()}
 
 # Nested comprehension
 matrix_dict = {i: {j: i*j for j in range(3)} for i in range(3)}
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['squares_dict'] == {1: 1, 2: 4, 3: 9, 4: 16, 5: 25}
-        assert globals_dict['even_squares'] == {2: 4, 4: 16, 6: 36, 8: 64, 10: 100}
-        assert globals_dict['name_lengths'] == {"Alice": 5, "Bob": 3, "Charlie": 7}
-        assert globals_dict['doubled'] == {"a": 2, "b": 4, "c": 6}
-        assert globals_dict['swapped'] == {1: "a", 2: "b", 3: "c"}
+
+        assert globals_dict["squares_dict"] == {1: 1, 2: 4, 3: 9, 4: 16, 5: 25}
+        assert globals_dict["even_squares"] == {2: 4, 4: 16, 6: 36, 8: 64, 10: 100}
+        assert globals_dict["name_lengths"] == {"Alice": 5, "Bob": 3, "Charlie": 7}
+        assert globals_dict["doubled"] == {"a": 2, "b": 4, "c": 6}
+        assert globals_dict["swapped"] == {1: "a", 2: "b", 3: "c"}
 
 
 class TestSetExercises:
     """Test cases for set data structure exercises."""
-    
+
     def test_set_creation_and_operations(self):
         """Test set creation and basic operations."""
-        code = '''
+        code = """
 # Set creation
 numbers = {1, 2, 3, 4, 5}
 from_list = set([1, 2, 2, 3, 3, 4])
@@ -354,22 +365,22 @@ numbers_copy = numbers.copy()
 temp_set = {1, 2, 3}
 temp_set.clear()
 cleared_length = len(temp_set)
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert 6 in globals_dict['numbers']
-        assert 1 not in globals_dict['numbers']
-        assert 2 not in globals_dict['numbers']
-        assert globals_dict['from_list'] == {1, 2, 3, 4}
-        assert globals_dict['from_string'] == {'h', 'e', 'l', 'o'}
-        assert globals_dict['contains_three'] is True
-        assert globals_dict['contains_ten'] is False
-        assert globals_dict['cleared_length'] == 0
-    
+
+        assert 6 in globals_dict["numbers"]
+        assert 1 not in globals_dict["numbers"]
+        assert 2 not in globals_dict["numbers"]
+        assert globals_dict["from_list"] == {1, 2, 3, 4}
+        assert globals_dict["from_string"] == {"h", "e", "l", "o"}
+        assert globals_dict["contains_three"] is True
+        assert globals_dict["contains_ten"] is False
+        assert globals_dict["cleared_length"] == 0
+
     def test_set_operations(self):
         """Test set mathematical operations."""
-        code = '''
+        code = """
 set1 = {1, 2, 3, 4, 5}
 set2 = {4, 5, 6, 7, 8}
 set3 = {1, 2, 3}
@@ -399,21 +410,21 @@ is_disjoint = set1.isdisjoint({10, 11, 12})
 set1_copy = set1.copy()
 set1_copy |= {9, 10}  # In-place union
 set1_copy &= {1, 2, 3, 4, 5, 9}  # In-place intersection
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['union1'] == {1, 2, 3, 4, 5, 6, 7, 8}
-        assert globals_dict['intersection1'] == {4, 5}
-        assert globals_dict['difference1'] == {1, 2, 3}
-        assert globals_dict['sym_diff1'] == {1, 2, 3, 6, 7, 8}
-        assert globals_dict['is_subset'] is True
-        assert globals_dict['is_superset'] is True
-        assert globals_dict['is_disjoint'] is True
-    
+
+        assert globals_dict["union1"] == {1, 2, 3, 4, 5, 6, 7, 8}
+        assert globals_dict["intersection1"] == {4, 5}
+        assert globals_dict["difference1"] == {1, 2, 3}
+        assert globals_dict["sym_diff1"] == {1, 2, 3, 6, 7, 8}
+        assert globals_dict["is_subset"] is True
+        assert globals_dict["is_superset"] is True
+        assert globals_dict["is_disjoint"] is True
+
     def test_set_comprehensions(self):
         """Test set comprehensions."""
-        code = '''
+        code = """
 # Basic set comprehension
 squares = {x**2 for x in range(1, 6)}
 
@@ -429,24 +440,24 @@ unique_numbers = {x for x in numbers_with_duplicates}
 
 # Complex condition
 divisible_by_3_or_5 = {x for x in range(1, 31) if x % 3 == 0 or x % 5 == 0}
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['squares'] == {1, 4, 9, 16, 25}
-        assert globals_dict['even_squares'] == {4, 16, 36, 64, 100}
-        assert globals_dict['unique_chars'] == {'h', 'e', 'l', 'o', 'w', 'r', 'd'}
-        assert globals_dict['unique_numbers'] == {1, 2, 3, 4, 5}
-        assert 15 in globals_dict['divisible_by_3_or_5']
-        assert 30 in globals_dict['divisible_by_3_or_5']
+
+        assert globals_dict["squares"] == {1, 4, 9, 16, 25}
+        assert globals_dict["even_squares"] == {4, 16, 36, 64, 100}
+        assert globals_dict["unique_chars"] == {"h", "e", "l", "o", "w", "r", "d"}
+        assert globals_dict["unique_numbers"] == {1, 2, 3, 4, 5}
+        assert 15 in globals_dict["divisible_by_3_or_5"]
+        assert 30 in globals_dict["divisible_by_3_or_5"]
 
 
 class TestTupleExercises:
     """Test cases for tuple data structure exercises."""
-    
+
     def test_tuple_creation_and_access(self):
         """Test tuple creation and element access."""
-        code = '''
+        code = """
 # Tuple creation
 coordinates = (3, 4)
 single_element = (42,)  # Note the comma
@@ -469,23 +480,23 @@ length = len(numbers)
 contains_three = 3 in numbers
 count_ones = (1, 1, 2, 1, 3).count(1)
 index_of_two = numbers.index(2)
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['coordinates'] == (3, 4)
-        assert globals_dict['x'] == 3
-        assert globals_dict['y'] == 4
-        assert globals_dict['single_element'] == (42,)
-        assert globals_dict['from_list'] == (1, 2, 3, 4)
-        assert globals_dict['first_three'] == (0, 1, 2)
-        assert globals_dict['contains_three'] is True
-        assert globals_dict['count_ones'] == 3
-        assert globals_dict['index_of_two'] == 2
-    
+
+        assert globals_dict["coordinates"] == (3, 4)
+        assert globals_dict["x"] == 3
+        assert globals_dict["y"] == 4
+        assert globals_dict["single_element"] == (42,)
+        assert globals_dict["from_list"] == (1, 2, 3, 4)
+        assert globals_dict["first_three"] == (0, 1, 2)
+        assert globals_dict["contains_three"] is True
+        assert globals_dict["count_ones"] == 3
+        assert globals_dict["index_of_two"] == 2
+
     def test_tuple_unpacking(self):
         """Test tuple unpacking operations."""
-        code = '''
+        code = """
 # Basic unpacking
 point = (10, 20)
 x, y = point
@@ -516,25 +527,25 @@ name, age = get_name_age()
 # Ignoring values
 data = (1, 2, 3, 4, 5)
 first, _, third, *_ = data
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['x'] == 10
-        assert globals_dict['y'] == 20
-        assert globals_dict['x1'] == 1
-        assert globals_dict['y2'] == 4
-        assert globals_dict['middle'] == [2, 3, 4]
-        assert globals_dict['tail'] == [2, 3, 4, 5]
-        assert globals_dict['init'] == [1, 2, 3, 4]
-        assert globals_dict['a'] == 20  # After swapping
-        assert globals_dict['b'] == 10  # After swapping
-        assert globals_dict['name'] == "Alice"
-        assert globals_dict['third'] == 3
-    
+
+        assert globals_dict["x"] == 10
+        assert globals_dict["y"] == 20
+        assert globals_dict["x1"] == 1
+        assert globals_dict["y2"] == 4
+        assert globals_dict["middle"] == [2, 3, 4]
+        assert globals_dict["tail"] == [2, 3, 4, 5]
+        assert globals_dict["init"] == [1, 2, 3, 4]
+        assert globals_dict["a"] == 20  # After swapping
+        assert globals_dict["b"] == 10  # After swapping
+        assert globals_dict["name"] == "Alice"
+        assert globals_dict["third"] == 3
+
     def test_named_tuples(self):
         """Test named tuples."""
-        code = '''
+        code = """
 from collections import namedtuple
 
 # Define named tuple
@@ -560,26 +571,26 @@ new_point = p1._replace(x=100)
 
 # Unpacking still works
 x, y = p1
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['x_coord'] == 3
-        assert globals_dict['y_coord'] == 4
-        assert globals_dict['name'] == 'Alice'
-        assert globals_dict['city_default'] == 'Unknown'
-        assert globals_dict['point_dict'] == {'x': 3, 'y': 4}
-        assert globals_dict['fields'] == ('x', 'y')
-        assert globals_dict['new_point'].x == 100
-        assert globals_dict['x'] == 3  # From unpacking
+
+        assert globals_dict["x_coord"] == 3
+        assert globals_dict["y_coord"] == 4
+        assert globals_dict["name"] == "Alice"
+        assert globals_dict["city_default"] == "Unknown"
+        assert globals_dict["point_dict"] == {"x": 3, "y": 4}
+        assert globals_dict["fields"] == ("x", "y")
+        assert globals_dict["new_point"].x == 100
+        assert globals_dict["x"] == 3  # From unpacking
 
 
 class TestAdvancedDataStructures:
     """Test cases for advanced data structures."""
-    
+
     def test_collections_deque(self):
         """Test collections.deque (double-ended queue)."""
-        code = '''
+        code = """
 from collections import deque
 
 # Create deque
@@ -608,18 +619,18 @@ rotated_left = list(dq_rotate)
 for i in range(5):
     dq_maxlen.append(i)
 maxlen_result = list(dq_maxlen)
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['right'] == 6
-        assert globals_dict['left'] == -1
-        assert globals_dict['rotated_right'] == [4, 5, 1, 2, 3]
-        assert globals_dict['maxlen_result'] == [2, 3, 4]  # Only last 3 elements
-    
+
+        assert globals_dict["right"] == 6
+        assert globals_dict["left"] == -1
+        assert globals_dict["rotated_right"] == [4, 5, 1, 2, 3]
+        assert globals_dict["maxlen_result"] == [2, 3, 4]  # Only last 3 elements
+
     def test_collections_defaultdict(self):
         """Test collections.defaultdict."""
-        code = '''
+        code = """
 from collections import defaultdict
 
 # Different default factories
@@ -642,18 +653,18 @@ dd_set['group2'].add('item3')
 
 # Convert to regular dict
 regular_dict = dict(dd_list)
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['dd_list']['fruits'] == ['apple', 'banana']
-        assert globals_dict['dd_int']['count'] == 2
-        assert globals_dict['dd_int']['missing'] == 0
-        assert globals_dict['dd_set']['group1'] == {'item1', 'item2'}
-    
+
+        assert globals_dict["dd_list"]["fruits"] == ["apple", "banana"]
+        assert globals_dict["dd_int"]["count"] == 2
+        assert globals_dict["dd_int"]["missing"] == 0
+        assert globals_dict["dd_set"]["group1"] == {"item1", "item2"}
+
     def test_collections_counter(self):
         """Test collections.Counter."""
-        code = '''
+        code = """
 from collections import Counter
 
 # Create counters
@@ -681,20 +692,20 @@ updated_a = c1['a']
 
 # Elements method
 elements_list = list(Counter({'a': 2, 'b': 3}).elements())
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['counter_text']['l'] == 3
-        assert globals_dict['counter_list'][2] == 3
-        assert globals_dict['addition']['a'] == 4
-        assert globals_dict['subtraction']['a'] == 2
-        assert globals_dict['intersection']['a'] == 1
-        assert sorted(globals_dict['elements_list']) == ['a', 'a', 'b', 'b', 'b']
-    
+
+        assert globals_dict["counter_text"]["l"] == 3
+        assert globals_dict["counter_list"][2] == 3
+        assert globals_dict["addition"]["a"] == 4
+        assert globals_dict["subtraction"]["a"] == 2
+        assert globals_dict["intersection"]["a"] == 1
+        assert sorted(globals_dict["elements_list"]) == ["a", "a", "b", "b", "b"]
+
     def test_heapq_operations(self):
         """Test heapq (priority queue) operations."""
-        code = '''
+        code = """
 import heapq
 
 # Create heap
@@ -719,19 +730,19 @@ heapq.heappush(tasks, (5, 'Low priority'))
 
 first_task = heapq.heappop(tasks)
 second_task = heapq.heappop(tasks)
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['smallest'] == 0
-        assert globals_dict['largest_3'] == [9, 8, 7]
-        assert globals_dict['smallest_3'] == [0, 1, 2]
-        assert globals_dict['first_task'][1] == 'High priority'
-        assert globals_dict['second_task'][1] == 'Medium priority'
-    
+
+        assert globals_dict["smallest"] == 0
+        assert globals_dict["largest_3"] == [9, 8, 7]
+        assert globals_dict["smallest_3"] == [0, 1, 2]
+        assert globals_dict["first_task"][1] == "High priority"
+        assert globals_dict["second_task"][1] == "Medium priority"
+
     def test_bisect_operations(self):
         """Test bisect module for sorted lists."""
-        code = '''
+        code = """
 import bisect
 
 # Sorted list
@@ -758,22 +769,22 @@ def grade(score):
     return letter_grades[i]
 
 student_grade = grade(85)
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['left_pos'] == 2
-        assert globals_dict['right_pos'] == 3
-        assert globals_dict['after_insert'] == [1, 3, 5, 6, 7, 9]
-        assert globals_dict['student_grade'] == 'B'
+
+        assert globals_dict["left_pos"] == 2
+        assert globals_dict["right_pos"] == 3
+        assert globals_dict["after_insert"] == [1, 3, 5, 6, 7, 9]
+        assert globals_dict["student_grade"] == "B"
 
 
 class TestCustomDataStructures:
     """Test cases for implementing custom data structures."""
-    
+
     def test_stack_implementation(self):
         """Test stack implementation."""
-        code = '''
+        code = """
 class Stack:
     def __init__(self):
         self.items = []
@@ -807,18 +818,18 @@ top = stack.peek()
 popped = stack.pop()
 size_after_pop = stack.size()
 is_empty = stack.is_empty()
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['top'] == 3
-        assert globals_dict['popped'] == 3
-        assert globals_dict['size_after_pop'] == 2
-        assert globals_dict['is_empty'] is False
-    
+
+        assert globals_dict["top"] == 3
+        assert globals_dict["popped"] == 3
+        assert globals_dict["size_after_pop"] == 2
+        assert globals_dict["is_empty"] is False
+
     def test_queue_implementation(self):
         """Test queue implementation."""
-        code = '''
+        code = """
 from collections import deque
 
 class Queue:
@@ -853,17 +864,17 @@ queue.enqueue(3)
 front_item = queue.front()
 dequeued = queue.dequeue()
 size_after_dequeue = queue.size()
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['front_item'] == 1
-        assert globals_dict['dequeued'] == 1
-        assert globals_dict['size_after_dequeue'] == 2
-    
+
+        assert globals_dict["front_item"] == 1
+        assert globals_dict["dequeued"] == 1
+        assert globals_dict["size_after_dequeue"] == 2
+
     def test_binary_tree_implementation(self):
         """Test binary tree implementation."""
-        code = '''
+        code = """
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
@@ -924,17 +935,17 @@ for val in values:
 inorder_result = tree.inorder_traversal()
 found_5 = tree.search(5)
 found_10 = tree.search(10)
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['inorder_result'] == [2, 3, 4, 5, 6, 7, 8]
-        assert globals_dict['found_5'] is True
-        assert globals_dict['found_10'] is False
-    
+
+        assert globals_dict["inorder_result"] == [2, 3, 4, 5, 6, 7, 8]
+        assert globals_dict["found_5"] is True
+        assert globals_dict["found_10"] is False
+
     def test_linked_list_implementation(self):
         """Test linked list implementation."""
-        code = '''
+        code = """
 class ListNode:
     def __init__(self, val=0, next=None):
         self.val = val
@@ -1008,58 +1019,58 @@ found_2 = ll.find(2)
 deleted_2 = ll.delete(2)
 list_after_delete = ll.to_list()
 list_size = ll.size
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['list_representation'] == [0, 1, 2, 3]
-        assert globals_dict['found_2'] is True
-        assert globals_dict['deleted_2'] is True
-        assert globals_dict['list_after_delete'] == [0, 1, 3]
-        assert globals_dict['list_size'] == 3
+
+        assert globals_dict["list_representation"] == [0, 1, 2, 3]
+        assert globals_dict["found_2"] is True
+        assert globals_dict["deleted_2"] is True
+        assert globals_dict["list_after_delete"] == [0, 1, 3]
+        assert globals_dict["list_size"] == 3
 
 
 class TestDataStructureEvaluator:
     """Test cases for data structure evaluator."""
-    
+
     @pytest.fixture
     def evaluator(self):
         """Create a data structure evaluator instance."""
         return DataStructureEvaluator()
-    
+
     def test_evaluate_list_operations(self, evaluator):
         """Test evaluation of list operations."""
-        code = '''
+        code = """
 numbers = [1, 2, 3, 4, 5]
 numbers.append(6)
 numbers.insert(0, 0)
 popped = numbers.pop()
 result = numbers
-'''
+"""
         result = evaluator.evaluate(code)
-        
-        assert result['success'] is True
-        assert result['globals']['result'] == [0, 1, 2, 3, 4, 5]
-        assert result['globals']['popped'] == 6
-    
+
+        assert result["success"] is True
+        assert result["globals"]["result"] == [0, 1, 2, 3, 4, 5]
+        assert result["globals"]["popped"] == 6
+
     def test_evaluate_dict_operations(self, evaluator):
         """Test evaluation of dictionary operations."""
-        code = '''
+        code = """
 person = {"name": "Alice", "age": 30}
 person["city"] = "New York"
 age = person.pop("age")
 keys = list(person.keys())
-'''
+"""
         result = evaluator.evaluate(code)
-        
-        assert result['success'] is True
-        assert result['globals']['age'] == 30
-        assert "city" in result['globals']['person']
-        assert "age" not in result['globals']['person']
-    
+
+        assert result["success"] is True
+        assert result["globals"]["age"] == 30
+        assert "city" in result["globals"]["person"]
+        assert "age" not in result["globals"]["person"]
+
     def test_check_data_structure_usage(self, evaluator):
         """Test checking for specific data structure usage."""
-        code = '''
+        code = """
 # Using various data structures
 my_list = [1, 2, 3]
 my_dict = {"a": 1, "b": 2}
@@ -1068,19 +1079,19 @@ my_tuple = (1, 2, 3)
 
 from collections import deque
 my_deque = deque([1, 2, 3])
-'''
-        
+"""
+
         usage = evaluator.check_data_structure_usage(code)
-        
-        assert usage['lists'] > 0
-        assert usage['dicts'] > 0
-        assert usage['sets'] > 0
-        assert usage['tuples'] > 0
-        assert usage['deques'] > 0
-    
+
+        assert usage["lists"] > 0
+        assert usage["dicts"] > 0
+        assert usage["sets"] > 0
+        assert usage["tuples"] > 0
+        assert usage["deques"] > 0
+
     def test_evaluate_comprehensions(self, evaluator):
         """Test evaluation of comprehensions."""
-        code = '''
+        code = """
 # List comprehension
 squares = [x**2 for x in range(5)]
 
@@ -1089,21 +1100,21 @@ square_dict = {x: x**2 for x in range(5)}
 
 # Set comprehension
 even_set = {x for x in range(10) if x % 2 == 0}
-'''
+"""
         result = evaluator.evaluate(code)
-        
-        assert result['success'] is True
-        assert result['globals']['squares'] == [0, 1, 4, 9, 16]
-        assert result['globals']['square_dict'] == {0: 0, 1: 1, 2: 4, 3: 9, 4: 16}
-        assert result['globals']['even_set'] == {0, 2, 4, 6, 8}
+
+        assert result["success"] is True
+        assert result["globals"]["squares"] == [0, 1, 4, 9, 16]
+        assert result["globals"]["square_dict"] == {0: 0, 1: 1, 2: 4, 3: 9, 4: 16}
+        assert result["globals"]["even_set"] == {0, 2, 4, 6, 8}
 
 
 class TestDataStructurePerformance:
     """Test cases for data structure performance characteristics."""
-    
+
     def test_list_vs_deque_performance(self):
         """Test performance differences between list and deque."""
-        code = '''
+        code = """
 import time
 from collections import deque
 
@@ -1123,17 +1134,17 @@ deque_time = time.time() - start_time
 
 # Deque should be faster for left operations
 deque_faster = deque_time < list_time
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
+
         # Note: This test might be flaky on very fast machines
         # but generally deque should be faster for left operations
-        assert isinstance(globals_dict['deque_faster'], bool)
-    
+        assert isinstance(globals_dict["deque_faster"], bool)
+
     def test_set_vs_list_membership(self):
         """Test membership testing performance: set vs list."""
-        code = '''
+        code = """
 import time
 
 # Create large list and set
@@ -1154,16 +1165,16 @@ set_membership_time = time.time() - start_time
 
 # Set should be faster for membership testing
 set_faster = set_membership_time < list_membership_time
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
+
         # Set should generally be much faster for membership testing
-        assert isinstance(globals_dict['set_faster'], bool)
-    
+        assert isinstance(globals_dict["set_faster"], bool)
+
     def test_dict_vs_list_lookup(self):
         """Test lookup performance: dict vs list."""
-        code = '''
+        code = """
 # Create test data
 data = [(f"key_{i}", f"value_{i}") for i in range(1000)]
 
@@ -1196,19 +1207,19 @@ for i in range(100):
 dict_lookup_time = time.time() - start_time
 
 dict_faster = dict_lookup_time < list_lookup_time
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert isinstance(globals_dict['dict_faster'], bool)
+
+        assert isinstance(globals_dict["dict_faster"], bool)
 
 
 class TestDataStructureValidation:
     """Test cases for validating data structure implementations."""
-    
+
     def test_validate_stack_implementation(self):
         """Test validation of stack implementation."""
-        code = '''
+        code = """
 class Stack:
     def __init__(self):
         self.items = []
@@ -1224,29 +1235,29 @@ class Stack:
     
     def size(self):
         return len(self.items)
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        Stack = globals_dict['Stack']
-        
+
+        Stack = globals_dict["Stack"]
+
         # Test LIFO behavior
         stack = Stack()
         stack.push(1)
         stack.push(2)
         stack.push(3)
-        
+
         assert stack.pop() == 3  # Last in, first out
         assert stack.pop() == 2
         assert stack.size() == 1
         assert not stack.is_empty()
-        
+
         stack.pop()
         assert stack.is_empty()
-    
+
     def test_validate_queue_implementation(self):
         """Test validation of queue implementation."""
-        code = '''
+        code = """
 from collections import deque
 
 class Queue:
@@ -1264,23 +1275,23 @@ class Queue:
     
     def size(self):
         return len(self.items)
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        Queue = globals_dict['Queue']
-        
+
+        Queue = globals_dict["Queue"]
+
         # Test FIFO behavior
         queue = Queue()
         queue.enqueue(1)
         queue.enqueue(2)
         queue.enqueue(3)
-        
+
         assert queue.dequeue() == 1  # First in, first out
         assert queue.dequeue() == 2
         assert queue.size() == 1
         assert not queue.is_empty()
-        
+
         queue.dequeue()
         assert queue.is_empty()
 
@@ -1288,10 +1299,10 @@ class Queue:
 @pytest.mark.integration
 class TestDataStructureIntegration:
     """Integration tests for data structure exercises."""
-    
+
     def test_combined_data_structure_usage(self):
         """Test combining multiple data structures."""
-        code = '''
+        code = """
 # Student grade management system
 from collections import defaultdict, Counter
 
@@ -1337,18 +1348,18 @@ gm.add_grade("002", 78)
 alice_avg = gm.get_average_grade("001")
 grade_dist = gm.get_grade_distribution()
 math_students = len(gm.course_enrollments["Math"])
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['alice_avg'] == 88.5
-        assert globals_dict['math_students'] == 2
-        assert 85 in globals_dict['grade_dist']
-    
+
+        assert globals_dict["alice_avg"] == 88.5
+        assert globals_dict["math_students"] == 2
+        assert 85 in globals_dict["grade_dist"]
+
     @pytest.mark.asyncio
     async def test_async_data_structure_operations(self):
         """Test async operations with data structures."""
-        code = '''
+        code = """
 import asyncio
 from collections import deque
 
@@ -1398,12 +1409,12 @@ async def test_async_queue():
     return results
 
 result = asyncio.run(test_async_queue())
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['result'] == ["item_0", "item_1", "item_2"]
+
+        assert globals_dict["result"] == ["item_0", "item_1", "item_2"]
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     pytest.main([__file__])

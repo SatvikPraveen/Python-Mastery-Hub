@@ -47,7 +47,7 @@ __all__ = [
     "__description__",
     "__metadata__",
     "BasicsConcepts",
-    "OOPConcepts", 
+    "OOPConcepts",
     "AdvancedConcepts",
     "DataStructures",
     "Algorithms",

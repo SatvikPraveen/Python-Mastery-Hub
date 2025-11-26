@@ -97,9 +97,8 @@ except AttributeError as e:
 print(f"Balance via name mangling: {account._BankAccount__balance}")
 """,
             "output": "=== Encapsulation Demo ===\nAccount 12345 - Owner: Alice\nPIN set successfully\nDeposited $500. New balance: $1500\nCurrent balance: $1500\nWithdrew $200. New balance: $1300\nInvalid PIN\n\n=== Access Level Demonstration ===\nAccount number (public): 12345\nOwner (protected): Alice\nError accessing private attribute: 'BankAccount' object has no attribute '__balance'\nBalance via name mangling: 1300",
-            "explanation": "Encapsulation controls access to object internals using naming conventions and access patterns"
+            "explanation": "Encapsulation controls access to object internals using naming conventions and access patterns",
         },
-        
         "property_based_encapsulation": {
             "code": """
 class Person:
@@ -275,9 +274,8 @@ emp.performance_rating = 4.5
 print(f"Updated performance: {emp.performance_rating}")
 """,
             "output": "=== Property-Based Encapsulation ===\nCreated: Person(name='John Doe', age=25, email='john.doe@email.com')\nAge category: Adult\nAge validation error: Age must be an integer between 0 and 150\nEmail validation error: Email must be a valid email address\nPhone: (123) 456-7890\n\n=== Employee Encapsulation ===\nEmployee: Person(name='Alice Smith', age=30, email='alice@company.com')\nEmployee ID: EMP001\nSalary: $75,000.00\nPerformance: 3.0\nRaise result: Salary changed from $75,000.00 to $82,500.00 by HR Manager\nNew salary: $82,500.00\nUpdated performance: 4.5",
-            "explanation": "Properties provide controlled access to attributes with automatic validation and formatting"
+            "explanation": "Properties provide controlled access to attributes with automatic validation and formatting",
         },
-        
         "data_hiding_patterns": {
             "code": """
 class SecureVault:
@@ -453,6 +451,6 @@ print(f"API key (shown): {config.get_config('api_key', show_sensitive=True)}")
 print(f"All configs: {config.list_configs()}")
 """,
             "output": "=== Advanced Data Hiding ===\nCreated: SecureVault(id=VAULT001, items=0)\nMaster key obtained: 8f7a9c2e...\nItem 'secret_document' stored successfully\nItem 'backup_codes' stored successfully\nAccess denied: Invalid key\nRetrieved document: Top Secret Data\nVault contains: ['secret_document', 'backup_codes']\n\n=== Configuration Manager ===\nConfiguration 'app_name' set successfully\nConfiguration 'version' set successfully\nConfiguration 'api_key' set successfully\nConfiguration 'database_url' set successfully\nCannot modify read-only key: version\nApp name: MyApp\nAPI key (hidden): *********\nAPI key (shown): secret123\nAll configs: {'app_name': 'MyApp', 'version': '1.0.0', 'api_key': '*********', 'database_url': 'localhost:5432'}",
-            "explanation": "Advanced encapsulation patterns protect sensitive data and control access through authentication and authorization"
-        }
+            "explanation": "Advanced encapsulation patterns protect sensitive data and control access through authentication and authorization",
+        },
     }

@@ -10,10 +10,10 @@ from .base import AlgorithmDemo
 
 class SortingAlgorithms(AlgorithmDemo):
     """Demonstration class for sorting algorithms."""
-    
+
     def __init__(self):
         super().__init__("sorting_algorithms")
-    
+
     def _setup_examples(self) -> None:
         """Setup sorting algorithm examples."""
         self.examples = {
@@ -59,9 +59,8 @@ sorted_array = bubble_sort(test_array)
                 "explanation": "Bubble sort repeatedly steps through the list, compares adjacent elements and swaps them if they are in the wrong order",
                 "time_complexity": "O(n²)",
                 "space_complexity": "O(1)",
-                "stable": True
+                "stable": True,
             },
-            
             "merge_sort": {
                 "code": '''
 def merge_sort(arr):
@@ -141,9 +140,8 @@ merge_sort_analysis()
                 "explanation": "Merge sort uses divide-and-conquer strategy, consistently performing in O(n log n) time",
                 "time_complexity": "O(n log n)",
                 "space_complexity": "O(n)",
-                "stable": True
+                "stable": True,
             },
-            
             "quick_sort": {
                 "code": '''
 def quicksort(arr, low=0, high=None):
@@ -233,9 +231,8 @@ quicksort_with_different_pivots()
                 "explanation": "Quicksort partitions array around a pivot, with average O(n log n) performance",
                 "time_complexity": "O(n log n) average, O(n²) worst case",
                 "space_complexity": "O(log n)",
-                "stable": False
+                "stable": False,
             },
-            
             "heap_sort": {
                 "code": '''
 def heap_sort(arr):
@@ -289,9 +286,8 @@ sorted_array = heap_sort(test_array)
                 "explanation": "Heap sort builds a max heap then repeatedly extracts the maximum element",
                 "time_complexity": "O(n log n)",
                 "space_complexity": "O(1)",
-                "stable": False
+                "stable": False,
             },
-            
             "insertion_sort": {
                 "code": '''
 def insertion_sort(arr):
@@ -327,9 +323,8 @@ sorted_array = insertion_sort(test_array)
                 "explanation": "Insertion sort builds the sorted array one element at a time by inserting each element in its correct position",
                 "time_complexity": "O(n²)",
                 "space_complexity": "O(1)",
-                "stable": True
+                "stable": True,
             },
-            
             "selection_sort": {
                 "code": '''
 def selection_sort(arr):
@@ -363,31 +358,33 @@ sorted_array = selection_sort(test_array)
                 "explanation": "Selection sort repeatedly finds the minimum element and places it at the beginning",
                 "time_complexity": "O(n²)",
                 "space_complexity": "O(1)",
-                "stable": False
-            }
+                "stable": False,
+            },
         }
-    
+
     def _setup_exercises(self) -> None:
         """Setup sorting exercises."""
         from .exercises.quicksort_exercise import QuickSortExercise
-        
+
         quicksort_exercise = QuickSortExercise()
-        
+
         self.exercises = [
             {
                 "topic": "sorting_algorithms",
                 "title": "Implement Quick Sort",
                 "description": "Build an efficient quicksort implementation with analysis",
                 "difficulty": "medium",
-                "exercise": quicksort_exercise
+                "exercise": quicksort_exercise,
             }
         ]
-    
+
     def get_explanation(self) -> str:
         """Get detailed explanation for sorting algorithms."""
-        return ("Sorting algorithms arrange elements in a specific order, each with different "
-                "time/space complexity trade-offs and stability characteristics.")
-    
+        return (
+            "Sorting algorithms arrange elements in a specific order, each with different "
+            "time/space complexity trade-offs and stability characteristics."
+        )
+
     def get_best_practices(self) -> List[str]:
         """Get best practices for sorting algorithms."""
         return [
@@ -397,45 +394,45 @@ sorted_array = selection_sort(test_array)
             "Understand time and space complexity trade-offs",
             "Consider external sorting for very large datasets",
             "Test with different data patterns (sorted, reverse, random)",
-            "Implement hybrid algorithms for better performance"
+            "Implement hybrid algorithms for better performance",
         ]
-    
+
     def compare_algorithms(self, data_sizes: List[int] = None) -> Dict[str, Any]:
         """Compare performance of different sorting algorithms."""
         if data_sizes is None:
             data_sizes = [100, 500, 1000]
-        
+
         algorithms = {
-            'bubble_sort': self._bubble_sort_simple,
-            'insertion_sort': self._insertion_sort_simple,
-            'selection_sort': self._selection_sort_simple,
-            'merge_sort': self._merge_sort_simple,
-            'quick_sort': self._quick_sort_simple,
-            'heap_sort': self._heap_sort_simple
+            "bubble_sort": self._bubble_sort_simple,
+            "insertion_sort": self._insertion_sort_simple,
+            "selection_sort": self._selection_sort_simple,
+            "merge_sort": self._merge_sort_simple,
+            "quick_sort": self._quick_sort_simple,
+            "heap_sort": self._heap_sort_simple,
         }
-        
+
         results = {}
-        
+
         for size in data_sizes:
             # Generate random test data
             test_data = [random.randint(1, 1000) for _ in range(size)]
             results[size] = {}
-            
+
             for name, algorithm in algorithms.items():
                 start_time = time.time()
                 sorted_data = algorithm(test_data.copy())
                 end_time = time.time()
-                
+
                 # Verify correctness
                 is_correct = sorted_data == sorted(test_data)
-                
+
                 results[size][name] = {
-                    'time_ms': (end_time - start_time) * 1000,
-                    'correct': is_correct
+                    "time_ms": (end_time - start_time) * 1000,
+                    "correct": is_correct,
                 }
-        
+
         return results
-    
+
     def _bubble_sort_simple(self, arr):
         """Simple bubble sort without visualization."""
         n = len(arr)
@@ -444,7 +441,7 @@ sorted_array = selection_sort(test_array)
                 if arr[j] > arr[j + 1]:
                     arr[j], arr[j + 1] = arr[j + 1], arr[j]
         return arr
-    
+
     def _insertion_sort_simple(self, arr):
         """Simple insertion sort without visualization."""
         for i in range(1, len(arr)):
@@ -455,7 +452,7 @@ sorted_array = selection_sort(test_array)
                 j -= 1
             arr[j + 1] = key
         return arr
-    
+
     def _selection_sort_simple(self, arr):
         """Simple selection sort without visualization."""
         n = len(arr)
@@ -466,23 +463,23 @@ sorted_array = selection_sort(test_array)
                     min_idx = j
             arr[i], arr[min_idx] = arr[min_idx], arr[i]
         return arr
-    
+
     def _merge_sort_simple(self, arr):
         """Simple merge sort without visualization."""
         if len(arr) <= 1:
             return arr
-        
+
         mid = len(arr) // 2
         left = self._merge_sort_simple(arr[:mid])
         right = self._merge_sort_simple(arr[mid:])
-        
+
         return self._merge_simple(left, right)
-    
+
     def _merge_simple(self, left, right):
         """Simple merge function."""
         result = []
         i = j = 0
-        
+
         while i < len(left) and j < len(right):
             if left[i] <= right[j]:
                 result.append(left[i])
@@ -490,48 +487,49 @@ sorted_array = selection_sort(test_array)
             else:
                 result.append(right[j])
                 j += 1
-        
+
         result.extend(left[i:])
         result.extend(right[j:])
         return result
-    
+
     def _quick_sort_simple(self, arr):
         """Simple quicksort without visualization."""
         if len(arr) <= 1:
             return arr
-        
+
         pivot = arr[len(arr) // 2]
         left = [x for x in arr if x < pivot]
         middle = [x for x in arr if x == pivot]
         right = [x for x in arr if x > pivot]
-        
+
         return self._quick_sort_simple(left) + middle + self._quick_sort_simple(right)
-    
+
     def _heap_sort_simple(self, arr):
         """Simple heap sort without visualization."""
+
         def heapify(arr, n, i):
             largest = i
             left = 2 * i + 1
             right = 2 * i + 2
-            
+
             if left < n and arr[left] > arr[largest]:
                 largest = left
             if right < n and arr[right] > arr[largest]:
                 largest = right
-            
+
             if largest != i:
                 arr[i], arr[largest] = arr[largest], arr[i]
                 heapify(arr, n, largest)
-        
+
         n = len(arr)
-        
+
         # Build max heap
         for i in range(n // 2 - 1, -1, -1):
             heapify(arr, n, i)
-        
+
         # Extract elements
         for i in range(n - 1, 0, -1):
             arr[0], arr[i] = arr[i], arr[0]
             heapify(arr, i, 0)
-        
+
         return arr

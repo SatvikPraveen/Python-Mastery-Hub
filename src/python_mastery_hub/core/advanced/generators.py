@@ -9,10 +9,10 @@ from .base import TopicDemo
 
 class GeneratorsDemo(TopicDemo):
     """Demonstration class for Python generators."""
-    
+
     def __init__(self):
         super().__init__("generators")
-    
+
     def _setup_examples(self) -> None:
         """Setup generator examples."""
         self.examples = {
@@ -69,9 +69,8 @@ def stateful_generator():
         else:
             state += 1
 ''',
-                "explanation": "Generators provide memory-efficient iteration by yielding values on-demand rather than creating entire sequences in memory"
+                "explanation": "Generators provide memory-efficient iteration by yielding values on-demand rather than creating entire sequences in memory",
             },
-            
             "advanced_generators": {
                 "code": '''
 import itertools
@@ -178,9 +177,8 @@ def generator_delegation():
     
     return outer_generator()
 ''',
-                "explanation": "Advanced generators enable sophisticated data processing pipelines, coroutines, and efficient memory usage patterns"
+                "explanation": "Advanced generators enable sophisticated data processing pipelines, coroutines, and efficient memory usage patterns",
             },
-            
             "itertools_examples": {
                 "code": '''
 import itertools
@@ -244,31 +242,33 @@ def filtering_grouping_examples():
     
     return grouped, less_than_8, from_8_onwards, chained
 ''',
-                "explanation": "The itertools module provides powerful tools for creating efficient loops and processing iterables"
-            }
+                "explanation": "The itertools module provides powerful tools for creating efficient loops and processing iterables",
+            },
         }
-    
+
     def _setup_exercises(self) -> None:
         """Setup generator exercises."""
         from .exercises.file_pipeline import FilePipelineExercise
-        
+
         pipeline_exercise = FilePipelineExercise()
-        
+
         self.exercises = [
             {
                 "topic": "generators",
                 "title": "File Processing Pipeline",
                 "description": "Build a memory-efficient file processing pipeline using generators",
                 "difficulty": "hard",
-                "exercise": pipeline_exercise
+                "exercise": pipeline_exercise,
             }
         ]
-    
+
     def get_explanation(self) -> str:
         """Get detailed explanation for generators."""
-        return ("Generators create iterators that yield values on-demand, providing memory-efficient "
-                "processing of large datasets and enabling lazy evaluation patterns.")
-    
+        return (
+            "Generators create iterators that yield values on-demand, providing memory-efficient "
+            "processing of large datasets and enabling lazy evaluation patterns."
+        )
+
     def get_best_practices(self) -> List[str]:
         """Get best practices for generators."""
         return [
@@ -276,5 +276,5 @@ def filtering_grouping_examples():
             "Prefer generator expressions for simple transformations",
             "Use yield from for generator delegation",
             "Handle exceptions properly in generators",
-            "Close generators explicitly when needed"
+            "Close generators explicitly when needed",
         ]

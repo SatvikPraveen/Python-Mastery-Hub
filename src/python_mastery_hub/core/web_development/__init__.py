@@ -14,20 +14,20 @@ from .examples import (
     rest_api_examples,
     websocket_examples,
     auth_examples,
-    database_examples
+    database_examples,
 )
 from .exercises import (
     rest_api_exercise,
     websocket_chat_exercise,
     jwt_auth_exercise,
     flask_blog_exercise,
-    microservice_exercise
+    microservice_exercise,
 )
 
 __all__ = [
     "WebDevelopment",
     "flask_examples",
-    "fastapi_examples", 
+    "fastapi_examples",
     "rest_api_examples",
     "websocket_examples",
     "auth_examples",
@@ -36,5 +36,5 @@ __all__ = [
     "websocket_chat_exercise",
     "jwt_auth_exercise",
     "flask_blog_exercise",
-    "microservice_exercise"
+    "microservice_exercise",
 ]

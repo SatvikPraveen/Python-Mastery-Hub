@@ -188,9 +188,8 @@ def after_request(response):
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
 ''',
-            "explanation": "Basic Flask application with routes, forms, templates, and error handling"
+            "explanation": "Basic Flask application with routes, forms, templates, and error handling",
         },
-        
         "flask_templates": {
             "code": '''
 from flask import Flask, render_template, request, redirect, url_for, flash
@@ -444,8 +443,8 @@ def inject_template_vars():
 if __name__ == '__main__':
     app.run(debug=True)
 ''',
-            "explanation": "Flask templates with inheritance, forms, and template features"
-        }
+            "explanation": "Flask templates with inheritance, forms, and template features",
+        },
     }
 
 
@@ -616,9 +615,8 @@ def health_check():
 if __name__ == '__main__':
     app.run(debug=True)
 ''',
-            "explanation": "Flask Blueprints for modular application organization"
+            "explanation": "Flask Blueprints for modular application organization",
         },
-        
         "flask_middleware": {
             "code": '''
 from flask import Flask, request, jsonify, g
@@ -840,6 +838,6 @@ def health_check():
 if __name__ == '__main__':
     app.run(debug=True)
 ''',
-            "explanation": "Flask middleware implementation with decorators and request hooks"
-        }
+            "explanation": "Flask middleware implementation with decorators and request hooks",
+        },
     }

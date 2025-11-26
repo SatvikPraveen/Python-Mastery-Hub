@@ -121,9 +121,8 @@ print(f"Is Buddy a Dog? {isinstance(buddy, Dog)}")
 print(f"Is Whiskers a Dog? {isinstance(whiskers, Dog)}")
 """,
             "output": "=== Creating Animals ===\nBuddy the Dog (Energy: 100)\nWhiskers the Cat (Energy: 100)\n\n=== Inherited Methods ===\nBuddy eats kibble and gains energy\nWhiskers eats fish and gains energy\n\n=== Overridden Methods ===\nBuddy barks: Woof! Woof!\nWhiskers meows: Meow!\n\n=== Specific Methods ===\nBuddy learned sit\nBuddy learned roll over\nBuddy performs sit!\nWhiskers climbs the cat tree\nWhiskers used a life. 8 lives remaining\n\n=== Inheritance Check ===\nIs Buddy an Animal? True\nIs Buddy a Dog? True\nIs Whiskers a Dog? False",
-            "explanation": "Inheritance allows classes to inherit attributes and methods from parent classes while adding their own specific features"
+            "explanation": "Inheritance allows classes to inherit attributes and methods from parent classes while adding their own specific features",
         },
-        
         "multiple_inheritance": {
             "code": """
 # Multiple inheritance with mixins
@@ -206,6 +205,6 @@ print("\\n=== Method Resolution Order ===")
 print(f"Duck MRO: {[cls.__name__ for cls in Duck.__mro__]}")
 """,
             "output": "=== Multiple Inheritance ===\nEagle the Bald Eagle (Energy: 100)\nDonald the Duck (Energy: 100)\n\n=== Flying Behavior ===\nFlying at 1000 feet\nFlying at 500 feet\n\n=== Swimming Behavior ===\nSwimming at 5 feet deep\nDonald dives underwater to find food\nSurfaced to the top\n\n=== Method Resolution Order ===\nDuck MRO: ['Duck', 'Bird', 'Animal', 'Flyable', 'Swimmable', 'object']",
-            "explanation": "Multiple inheritance allows classes to inherit from multiple parents, with MRO determining method lookup order"
-        }
+            "explanation": "Multiple inheritance allows classes to inherit from multiple parents, with MRO determining method lookup order",
+        },
     }

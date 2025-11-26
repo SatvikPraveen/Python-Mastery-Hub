@@ -13,7 +13,7 @@ try:
         InheritanceExercise,
         PolymorphismExercise,
         EncapsulationExercise,
-        AbstractionExercise
+        AbstractionExercise,
     )
     from src.core.evaluators import OOPEvaluator
     from src.models.exercise import Exercise
@@ -21,59 +21,65 @@ except ImportError:
     # Mock classes for when actual modules don't exist
     class ClassExercise:
         pass
+
     class InheritanceExercise:
         pass
+
     class PolymorphismExercise:
         pass
+
     class EncapsulationExercise:
         pass
+
     class AbstractionExercise:
         pass
+
     class OOPEvaluator:
         pass
+
     class Exercise:
         pass
 
 
 class TestBasicClassExercises:
     """Test cases for basic class definition exercises."""
-    
+
     def test_simple_class_definition(self):
         """Test creating a simple class."""
-        code = '''
+        code = """
 class Person:
     pass
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert 'Person' in globals_dict
-        assert inspect.isclass(globals_dict['Person'])
-        
+
+        assert "Person" in globals_dict
+        assert inspect.isclass(globals_dict["Person"])
+
         # Test instantiation
-        person = globals_dict['Person']()
-        assert isinstance(person, globals_dict['Person'])
-    
+        person = globals_dict["Person"]()
+        assert isinstance(person, globals_dict["Person"])
+
     def test_class_with_constructor(self):
         """Test class with __init__ method."""
-        code = '''
+        code = """
 class Person:
     def __init__(self, name, age):
         self.name = name
         self.age = age
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        Person = globals_dict['Person']
+
+        Person = globals_dict["Person"]
         person = Person("Alice", 30)
-        
+
         assert person.name == "Alice"
         assert person.age == 30
-    
+
     def test_class_with_methods(self):
         """Test class with instance methods."""
-        code = '''
+        code = """
 class Calculator:
     def __init__(self):
         self.result = 0
@@ -88,20 +94,20 @@ class Calculator:
     
     def get_result(self):
         return self.result
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        Calculator = globals_dict['Calculator']
+
+        Calculator = globals_dict["Calculator"]
         calc = Calculator()
-        
+
         assert calc.add(10) == 10
         assert calc.subtract(3) == 7
         assert calc.get_result() == 7
-    
+
     def test_class_with_class_variables(self):
         """Test class with class variables."""
-        code = '''
+        code = """
 class Counter:
     count = 0
     
@@ -116,34 +122,34 @@ class Counter:
     @staticmethod
     def reset_count():
         Counter.count = 0
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        Counter = globals_dict['Counter']
-        
+
+        Counter = globals_dict["Counter"]
+
         # Test class variable
         assert Counter.count == 0
-        
+
         # Create instances
         c1 = Counter()
         assert Counter.count == 1
         assert c1.instance_number == 1
-        
+
         c2 = Counter()
         assert Counter.count == 2
         assert c2.instance_number == 2
-        
+
         # Test class method
         assert Counter.get_count() == 2
-        
+
         # Test static method
         Counter.reset_count()
         assert Counter.count == 0
-    
+
     def test_class_with_properties(self):
         """Test class with property decorators."""
-        code = '''
+        code = """
 class Circle:
     def __init__(self, radius):
         self._radius = radius
@@ -165,21 +171,21 @@ class Circle:
     @property
     def circumference(self):
         return 2 * 3.14159 * self._radius
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        Circle = globals_dict['Circle']
+
+        Circle = globals_dict["Circle"]
         circle = Circle(5)
-        
+
         assert circle.radius == 5
         assert abs(circle.area - 78.53975) < 0.001
         assert abs(circle.circumference - 31.4159) < 0.001
-        
+
         # Test setter
         circle.radius = 10
         assert circle.radius == 10
-        
+
         # Test validation
         with pytest.raises(ValueError):
             circle.radius = -1
@@ -187,10 +193,10 @@ class Circle:
 
 class TestInheritanceExercises:
     """Test cases for inheritance exercises."""
-    
+
     def test_single_inheritance(self):
         """Test single inheritance."""
-        code = '''
+        code = """
 class Animal:
     def __init__(self, name):
         self.name = name
@@ -208,31 +214,31 @@ class Dog(Animal):
     
     def get_breed(self):
         return self.breed
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        Animal = globals_dict['Animal']
-        Dog = globals_dict['Dog']
-        
+
+        Animal = globals_dict["Animal"]
+        Dog = globals_dict["Dog"]
+
         # Test base class
         animal = Animal("Generic Animal")
         assert animal.speak() == "Generic Animal makes a sound"
-        
+
         # Test derived class
         dog = Dog("Buddy", "Golden Retriever")
         assert dog.name == "Buddy"
         assert dog.breed == "Golden Retriever"
         assert dog.speak() == "Buddy barks"
         assert dog.get_breed() == "Golden Retriever"
-        
+
         # Test inheritance relationship
         assert isinstance(dog, Dog)
         assert isinstance(dog, Animal)
-    
+
     def test_multiple_inheritance(self):
         """Test multiple inheritance."""
-        code = '''
+        code = """
 class Flyable:
     def fly(self):
         return "Flying in the sky"
@@ -247,26 +253,26 @@ class Duck(Flyable, Swimmable):
     
     def quack(self):
         return f"{self.name} says quack"
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        Duck = globals_dict['Duck']
+
+        Duck = globals_dict["Duck"]
         duck = Duck("Donald")
-        
+
         assert duck.fly() == "Flying in the sky"
         assert duck.swim() == "Swimming in water"
         assert duck.quack() == "Donald says quack"
-        
+
         # Check MRO (Method Resolution Order)
         mro_names = [cls.__name__ for cls in Duck.__mro__]
-        assert 'Duck' in mro_names
-        assert 'Flyable' in mro_names
-        assert 'Swimmable' in mro_names
-    
+        assert "Duck" in mro_names
+        assert "Flyable" in mro_names
+        assert "Swimmable" in mro_names
+
     def test_method_resolution_order(self):
         """Test method resolution order in diamond inheritance."""
-        code = '''
+        code = """
 class A:
     def method(self):
         return "A"
@@ -281,19 +287,19 @@ class C(A):
 
 class D(B, C):
     pass
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        D = globals_dict['D']
+
+        D = globals_dict["D"]
         d = D()
-        
+
         # Should follow MRO: D -> B -> C -> A
         assert d.method() == "B"
-    
+
     def test_super_usage(self):
         """Test proper usage of super()."""
-        code = '''
+        code = """
 class Vehicle:
     def __init__(self, brand, model):
         self.brand = brand
@@ -310,13 +316,13 @@ class Car(Vehicle):
     def start(self):
         base_start = super().start()
         return f"{base_start} with {self.doors} doors"
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        Car = globals_dict['Car']
+
+        Car = globals_dict["Car"]
         car = Car("Toyota", "Camry", 4)
-        
+
         assert car.brand == "Toyota"
         assert car.model == "Camry"
         assert car.doors == 4
@@ -325,10 +331,10 @@ class Car(Vehicle):
 
 class TestPolymorphismExercises:
     """Test cases for polymorphism exercises."""
-    
+
     def test_method_overriding(self):
         """Test method overriding for polymorphism."""
-        code = '''
+        code = """
 class Shape:
     def area(self):
         return 0
@@ -356,30 +362,27 @@ class Circle(Shape):
     
     def perimeter(self):
         return 2 * 3.14159 * self.radius
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        Rectangle = globals_dict['Rectangle']
-        Circle = globals_dict['Circle']
-        
-        shapes = [
-            Rectangle(5, 10),
-            Circle(3)
-        ]
-        
+
+        Rectangle = globals_dict["Rectangle"]
+        Circle = globals_dict["Circle"]
+
+        shapes = [Rectangle(5, 10), Circle(3)]
+
         # Test polymorphic behavior
         areas = [shape.area() for shape in shapes]
         assert areas[0] == 50  # Rectangle area
         assert abs(areas[1] - 28.274) < 0.01  # Circle area
-        
+
         perimeters = [shape.perimeter() for shape in shapes]
         assert perimeters[0] == 30  # Rectangle perimeter
         assert abs(perimeters[1] - 18.849) < 0.01  # Circle perimeter
-    
+
     def test_duck_typing(self):
         """Test duck typing behavior."""
-        code = '''
+        code = """
 class Duck:
     def quack(self):
         return "Quack quack!"
@@ -399,27 +402,27 @@ def make_it_quack_and_walk(duck_like):
         'quack': duck_like.quack(),
         'walk': duck_like.walk()
     }
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        Duck = globals_dict['Duck']
-        Person = globals_dict['Person']
-        make_it_quack_and_walk = globals_dict['make_it_quack_and_walk']
-        
+
+        Duck = globals_dict["Duck"]
+        Person = globals_dict["Person"]
+        make_it_quack_and_walk = globals_dict["make_it_quack_and_walk"]
+
         duck = Duck()
         person = Person()
-        
+
         # Both should work with the function (duck typing)
         duck_result = make_it_quack_and_walk(duck)
         person_result = make_it_quack_and_walk(person)
-        
-        assert duck_result['quack'] == "Quack quack!"
-        assert person_result['quack'] == "Person imitating duck: Quack!"
-    
+
+        assert duck_result["quack"] == "Quack quack!"
+        assert person_result["quack"] == "Person imitating duck: Quack!"
+
     def test_operator_overloading(self):
         """Test operator overloading."""
-        code = '''
+        code = """
 class Vector:
     def __init__(self, x, y):
         self.x = x
@@ -442,27 +445,27 @@ class Vector:
     
     def __repr__(self):
         return f"Vector({self.x}, {self.y})"
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        Vector = globals_dict['Vector']
-        
+
+        Vector = globals_dict["Vector"]
+
         v1 = Vector(3, 4)
         v2 = Vector(1, 2)
-        
+
         # Test addition
         v3 = v1 + v2
         assert v3.x == 4 and v3.y == 6
-        
+
         # Test subtraction
         v4 = v1 - v2
         assert v4.x == 2 and v4.y == 2
-        
+
         # Test multiplication
         v5 = v1 * 2
         assert v5.x == 6 and v5.y == 8
-        
+
         # Test equality
         v6 = Vector(3, 4)
         assert v1 == v6
@@ -471,10 +474,10 @@ class Vector:
 
 class TestEncapsulationExercises:
     """Test cases for encapsulation exercises."""
-    
+
     def test_private_attributes(self):
         """Test private attributes with name mangling."""
-        code = '''
+        code = """
 class BankAccount:
     def __init__(self, initial_balance):
         self.__balance = initial_balance
@@ -496,31 +499,31 @@ class BankAccount:
     
     def _internal_method(self):
         return "This is protected"
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        BankAccount = globals_dict['BankAccount']
+
+        BankAccount = globals_dict["BankAccount"]
         account = BankAccount(100)
-        
+
         # Test public interface
         assert account.get_balance() == 100
         assert account.deposit(50) is True
         assert account.get_balance() == 150
         assert account.withdraw(30) is True
         assert account.get_balance() == 120
-        
+
         # Test private attribute access (should be mangled)
-        assert not hasattr(account, '__balance')
-        assert hasattr(account, '_BankAccount__balance')
-        
+        assert not hasattr(account, "__balance")
+        assert hasattr(account, "_BankAccount__balance")
+
         # Test validation
         assert account.withdraw(200) is False  # Insufficient funds
-        assert account.deposit(-10) is False   # Negative amount
-    
+        assert account.deposit(-10) is False  # Negative amount
+
     def test_property_based_encapsulation(self):
         """Test encapsulation using properties."""
-        code = '''
+        code = """
 class Temperature:
     def __init__(self, celsius=0):
         self._celsius = celsius
@@ -550,26 +553,26 @@ class Temperature:
     @kelvin.setter
     def kelvin(self, value):
         self.celsius = value - 273.15
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        Temperature = globals_dict['Temperature']
+
+        Temperature = globals_dict["Temperature"]
         temp = Temperature(25)
-        
+
         # Test celsius
         assert temp.celsius == 25
         assert abs(temp.fahrenheit - 77) < 0.1
         assert abs(temp.kelvin - 298.15) < 0.1
-        
+
         # Test fahrenheit setter
         temp.fahrenheit = 100
         assert abs(temp.celsius - 37.78) < 0.1
-        
+
         # Test kelvin setter
         temp.kelvin = 300
         assert abs(temp.celsius - 26.85) < 0.1
-        
+
         # Test validation
         with pytest.raises(ValueError):
             temp.celsius = -300
@@ -577,10 +580,10 @@ class Temperature:
 
 class TestAbstractionExercises:
     """Test cases for abstraction exercises."""
-    
+
     def test_abstract_base_class(self):
         """Test abstract base class implementation."""
-        code = '''
+        code = """
 from abc import ABC, abstractmethod
 
 class Animal(ABC):
@@ -611,33 +614,33 @@ class Bird(Animal):
     
     def move(self):
         return f"{self.name} flies"
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        Animal = globals_dict['Animal']
-        Dog = globals_dict['Dog']
-        Bird = globals_dict['Bird']
-        
+
+        Animal = globals_dict["Animal"]
+        Dog = globals_dict["Dog"]
+        Bird = globals_dict["Bird"]
+
         # Cannot instantiate abstract class
         with pytest.raises(TypeError):
             Animal("Generic")
-        
+
         # Can instantiate concrete classes
         dog = Dog("Buddy")
         bird = Bird("Tweety")
-        
+
         assert dog.make_sound() == "Buddy barks"
         assert dog.move() == "Buddy runs"
         assert dog.sleep() == "Buddy is sleeping"
-        
+
         assert bird.make_sound() == "Tweety chirps"
         assert bird.move() == "Tweety flies"
         assert bird.sleep() == "Tweety is sleeping"
-    
+
     def test_interface_like_behavior(self):
         """Test interface-like behavior using abstract methods."""
-        code = '''
+        code = """
 from abc import ABC, abstractmethod
 
 class Drawable(ABC):
@@ -678,57 +681,54 @@ def draw_shapes(shapes):
             'area': shape.get_area()
         })
     return results
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        Rectangle = globals_dict['Rectangle']
-        Circle = globals_dict['Circle']
-        draw_shapes = globals_dict['draw_shapes']
-        
-        shapes = [
-            Rectangle(5, 10),
-            Circle(3)
-        ]
-        
+
+        Rectangle = globals_dict["Rectangle"]
+        Circle = globals_dict["Circle"]
+        draw_shapes = globals_dict["draw_shapes"]
+
+        shapes = [Rectangle(5, 10), Circle(3)]
+
         results = draw_shapes(shapes)
-        
+
         assert len(results) == 2
-        assert results[0]['area'] == 50
-        assert abs(results[1]['area'] - 28.274) < 0.01
+        assert results[0]["area"] == 50
+        assert abs(results[1]["area"] - 28.274) < 0.01
 
 
 class TestOOPEvaluator:
     """Test cases for OOP code evaluator."""
-    
+
     @pytest.fixture
     def evaluator(self):
         """Create an OOP evaluator instance."""
         return OOPEvaluator()
-    
+
     def test_evaluate_class_definition(self, evaluator):
         """Test evaluation of class definition."""
-        code = '''
+        code = """
 class Person:
     def __init__(self, name):
         self.name = name
     
     def greet(self):
         return f"Hello, I'm {self.name}"
-'''
+"""
         result = evaluator.evaluate(code)
-        
-        assert result['success'] is True
-        assert 'Person' in result['globals']
-        
+
+        assert result["success"] is True
+        assert "Person" in result["globals"]
+
         # Test class instantiation
-        Person = result['globals']['Person']
+        Person = result["globals"]["Person"]
         person = Person("Alice")
         assert person.greet() == "Hello, I'm Alice"
-    
+
     def test_evaluate_inheritance(self, evaluator):
         """Test evaluation of inheritance."""
-        code = '''
+        code = """
 class Animal:
     def __init__(self, name):
         self.name = name
@@ -736,20 +736,20 @@ class Animal:
 class Dog(Animal):
     def bark(self):
         return f"{self.name} barks"
-'''
+"""
         result = evaluator.evaluate(code)
-        
-        assert result['success'] is True
-        Dog = result['globals']['Dog']
+
+        assert result["success"] is True
+        Dog = result["globals"]["Dog"]
         dog = Dog("Buddy")
-        
+
         assert dog.name == "Buddy"
         assert dog.bark() == "Buddy barks"
-        assert isinstance(dog, result['globals']['Animal'])
-    
+        assert isinstance(dog, result["globals"]["Animal"])
+
     def test_check_class_structure(self, evaluator):
         """Test checking class structure requirements."""
-        code = '''
+        code = """
 class Calculator:
     def __init__(self):
         self.result = 0
@@ -759,23 +759,26 @@ class Calculator:
     
     def get_result(self):
         return self.result
-'''
-        
+"""
+
         requirements = {
-            'class_name': 'Calculator',
-            'required_methods': ['__init__', 'add', 'get_result'],
-            'required_attributes': ['result']
+            "class_name": "Calculator",
+            "required_methods": ["__init__", "add", "get_result"],
+            "required_attributes": ["result"],
         }
-        
+
         result = evaluator.check_class_structure(code, requirements)
-        
-        assert result['success'] is True
-        assert result['class_found'] is True
-        assert all(method in result['methods_found'] for method in requirements['required_methods'])
-    
+
+        assert result["success"] is True
+        assert result["class_found"] is True
+        assert all(
+            method in result["methods_found"]
+            for method in requirements["required_methods"]
+        )
+
     def test_check_inheritance_chain(self, evaluator):
         """Test checking inheritance relationships."""
-        code = '''
+        code = """
 class Vehicle:
     pass
 
@@ -784,18 +787,18 @@ class Car(Vehicle):
 
 class SportsCar(Car):
     pass
-'''
-        
-        result = evaluator.check_inheritance(code, 'SportsCar', ['Car', 'Vehicle'])
-        
-        assert result['success'] is True
-        assert result['inheritance_correct'] is True
+"""
+
+        result = evaluator.check_inheritance(code, "SportsCar", ["Car", "Vehicle"])
+
+        assert result["success"] is True
+        assert result["inheritance_correct"] is True
 
 
 @pytest.mark.integration
 class TestOOPIntegration:
     """Integration tests for OOP exercises."""
-    
+
     @pytest.mark.asyncio
     async def test_complete_oop_exercise_workflow(self):
         """Test complete workflow of solving an OOP exercise."""
@@ -804,5 +807,5 @@ class TestOOPIntegration:
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     pytest.main([__file__])

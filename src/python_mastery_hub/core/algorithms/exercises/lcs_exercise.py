@@ -9,10 +9,10 @@ from ..base import AlgorithmDemo
 
 class LCSExercise(AlgorithmDemo):
     """Comprehensive LCS exercise with multiple implementations and analysis."""
-    
+
     def __init__(self):
         super().__init__("lcs_exercise")
-    
+
     def _setup_examples(self) -> None:
         """Setup LCS exercise examples."""
         self.examples = {
@@ -20,28 +20,28 @@ class LCSExercise(AlgorithmDemo):
                 "code": self._get_recursive_lcs_code(),
                 "explanation": "Naive recursive LCS solution with exponential time complexity",
                 "time_complexity": "O(2^(m+n)) - exponential",
-                "space_complexity": "O(m+n) for recursion stack"
+                "space_complexity": "O(m+n) for recursion stack",
             },
             "memoized_lcs": {
                 "code": self._get_memoized_lcs_code(),
                 "explanation": "Top-down DP approach using memoization",
                 "time_complexity": "O(m*n)",
-                "space_complexity": "O(m*n) for memoization table + O(m+n) for recursion"
+                "space_complexity": "O(m*n) for memoization table + O(m+n) for recursion",
             },
             "tabulation_lcs": {
                 "code": self._get_tabulation_lcs_code(),
                 "explanation": "Bottom-up DP approach with full table construction",
                 "time_complexity": "O(m*n)",
-                "space_complexity": "O(m*n) for DP table"
+                "space_complexity": "O(m*n) for DP table",
             },
             "space_optimized_lcs": {
                 "code": self._get_space_optimized_lcs_code(),
                 "explanation": "Space-optimized DP using only two rows",
                 "time_complexity": "O(m*n)",
-                "space_complexity": "O(min(m,n))"
-            }
+                "space_complexity": "O(min(m,n))",
+            },
         }
-    
+
     def _get_recursive_lcs_code(self) -> str:
         return '''
 def lcs_recursive(X, Y, m=None, n=None, depth=0):
@@ -102,7 +102,7 @@ print(f"\\nLCS length: {result}")
 length, calls = count_recursive_calls(X, Y)
 print(f"Total recursive calls: {calls}")
 '''
-    
+
     def _get_memoized_lcs_code(self) -> str:
         return '''
 def lcs_memoized(X, Y):
@@ -190,7 +190,7 @@ print(f"LCS length: {length}")
 length_with_path, lcs_string = lcs_memoized_with_path(X, Y)
 print(f"\\nLCS string: '{lcs_string}'")
 '''
-    
+
     def _get_tabulation_lcs_code(self) -> str:
         return '''
 def lcs_tabulation(X, Y):
@@ -297,7 +297,7 @@ length_with_path, lcs_string = lcs_with_path_reconstruction(X, Y)
 
 all_lcs = print_all_lcs("ABC", "AC")  # Simpler example for multiple LCS
 '''
-    
+
     def _get_space_optimized_lcs_code(self) -> str:
         return '''
 def lcs_space_optimized(X, Y):
@@ -431,11 +431,11 @@ lcs_string = lcs_space_optimized_with_path(X, Y)
 
 compare_space_complexity()
 '''
-    
+
     def demonstrate_lcs_performance_analysis(self):
         """Comprehensive performance analysis of different LCS approaches."""
         print("=== LCS Performance Analysis ===")
-        
+
         def time_lcs_function(func, X, Y, *args):
             """Time a specific LCS function."""
             start_time = time.time()
@@ -446,96 +446,102 @@ compare_space_complexity()
             except Exception as e:
                 end_time = time.time()
                 return None, (end_time - start_time) * 1000, str(e)
-        
+
         # Test cases with increasing complexity
         test_cases = [
             ("Small", "ABCD", "ACBD"),
             ("Medium", "AGGTAB", "GXTXAYB"),
             ("Longer", "PROGRAMMING", "GRAMMARING"),
             ("Similar", "ABCDEFGHIJ", "ACEGI"),
-            ("Very Different", "ABCDEFGHIJ", "KLMNOPQRST")
+            ("Very Different", "ABCDEFGHIJ", "KLMNOPQRST"),
         ]
-        
+
         approaches = [
             ("Recursive", self._lcs_recursive_simple),
             ("Memoized", self._lcs_memoized_simple),
             ("Tabulation", self._lcs_tabulation_simple),
-            ("Space Optimized", self._lcs_space_optimized_simple)
+            ("Space Optimized", self._lcs_space_optimized_simple),
         ]
-        
+
         for case_name, X, Y in test_cases:
             print(f"\n{case_name} case: '{X}' vs '{Y}' (lengths: {len(X)}, {len(Y)})")
             print("-" * 60)
-            
+
             for approach_name, func in approaches:
                 # Skip recursive for long strings
                 if approach_name == "Recursive" and (len(X) > 8 or len(Y) > 8):
                     print(f"  {approach_name:15s}: Skipped (too slow for long strings)")
                     continue
-                
+
                 result, time_ms, error = time_lcs_function(func, X, Y)
-                
+
                 if error:
                     print(f"  {approach_name:15s}: Error - {error}")
                 else:
-                    print(f"  {approach_name:15s}: LCS length = {result:2d}, Time = {time_ms:8.3f}ms")
-    
+                    print(
+                        f"  {approach_name:15s}: LCS length = {result:2d}, Time = {time_ms:8.3f}ms"
+                    )
+
     def _lcs_recursive_simple(self, X, Y):
         """Simple recursive LCS for timing."""
+
         def lcs_rec(m, n):
             if m == 0 or n == 0:
                 return 0
-            if X[m-1] == Y[n-1]:
-                return 1 + lcs_rec(m-1, n-1)
-            return max(lcs_rec(m, n-1), lcs_rec(m-1, n))
+            if X[m - 1] == Y[n - 1]:
+                return 1 + lcs_rec(m - 1, n - 1)
+            return max(lcs_rec(m, n - 1), lcs_rec(m - 1, n))
+
         return lcs_rec(len(X), len(Y))
-    
+
     def _lcs_memoized_simple(self, X, Y):
         """Simple memoized LCS for timing."""
         memo = {}
+
         def lcs_memo(m, n):
             if (m, n) in memo:
                 return memo[(m, n)]
             if m == 0 or n == 0:
                 result = 0
-            elif X[m-1] == Y[n-1]:
-                result = 1 + lcs_memo(m-1, n-1)
+            elif X[m - 1] == Y[n - 1]:
+                result = 1 + lcs_memo(m - 1, n - 1)
             else:
-                result = max(lcs_memo(m, n-1), lcs_memo(m-1, n))
+                result = max(lcs_memo(m, n - 1), lcs_memo(m - 1, n))
             memo[(m, n)] = result
             return result
+
         return lcs_memo(len(X), len(Y))
-    
+
     def _lcs_tabulation_simple(self, X, Y):
         """Simple tabulation LCS for timing."""
         m, n = len(X), len(Y)
         dp = [[0] * (n + 1) for _ in range(m + 1)]
-        
+
         for i in range(1, m + 1):
             for j in range(1, n + 1):
-                if X[i-1] == Y[j-1]:
-                    dp[i][j] = dp[i-1][j-1] + 1
+                if X[i - 1] == Y[j - 1]:
+                    dp[i][j] = dp[i - 1][j - 1] + 1
                 else:
-                    dp[i][j] = max(dp[i-1][j], dp[i][j-1])
-        
+                    dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
+
         return dp[m][n]
-    
+
     def _lcs_space_optimized_simple(self, X, Y):
         """Simple space-optimized LCS for timing."""
         m, n = len(X), len(Y)
         prev = [0] * (n + 1)
         curr = [0] * (n + 1)
-        
+
         for i in range(1, m + 1):
             for j in range(1, n + 1):
-                if X[i-1] == Y[j-1]:
-                    curr[j] = prev[j-1] + 1
+                if X[i - 1] == Y[j - 1]:
+                    curr[j] = prev[j - 1] + 1
                 else:
-                    curr[j] = max(prev[j], curr[j-1])
+                    curr[j] = max(prev[j], curr[j - 1])
             prev, curr = curr, [0] * (n + 1)
-        
+
         return prev[n]
-    
+
     def get_exercise_tasks(self) -> List[str]:
         """Get list of exercise tasks for students."""
         return [
@@ -548,9 +554,9 @@ compare_space_complexity()
             "Compare performance of different approaches",
             "Handle edge cases (empty strings, identical strings)",
             "Implement LCS for multiple strings (3 or more)",
-            "Apply LCS to solve related problems (edit distance, diff tools)"
+            "Apply LCS to solve related problems (edit distance, diff tools)",
         ]
-    
+
     def get_starter_code(self) -> str:
         """Get starter code template for students."""
         return '''
@@ -656,7 +662,7 @@ if __name__ == "__main__":
         except Exception as e:
             print(f"  Error: {e}")
 '''
-    
+
     def validate_solution(self, student_lcs_func) -> Tuple[bool, List[str]]:
         """Validate student's LCS implementation."""
         test_cases = [
@@ -669,24 +675,28 @@ if __name__ == "__main__":
             ("AGGTAB", "GXTXAYB", 4),
             ("PROGRAMMING", "GRAMMARING", 7),
             ("ABCDEFG", "HIJKLMN", 0),
-            ("AAAA", "AA", 2)
+            ("AAAA", "AA", 2),
         ]
-        
+
         feedback = []
         all_passed = True
-        
+
         for i, (X, Y, expected) in enumerate(test_cases):
             try:
                 result = student_lcs_func(X, Y)
-                
+
                 if result == expected:
-                    feedback.append(f"✓ Test case {i+1} passed: LCS('{X}', '{Y}') = {result}")
+                    feedback.append(
+                        f"✓ Test case {i+1} passed: LCS('{X}', '{Y}') = {result}"
+                    )
                 else:
-                    feedback.append(f"✗ Test case {i+1} failed: expected {expected}, got {result}")
+                    feedback.append(
+                        f"✗ Test case {i+1} failed: expected {expected}, got {result}"
+                    )
                     all_passed = False
-                    
+
             except Exception as e:
                 feedback.append(f"✗ Test case {i+1} raised exception: {str(e)}")
                 all_passed = False
-        
+
         return all_passed, feedback

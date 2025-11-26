@@ -8,14 +8,16 @@ from ..base import CodeValidator, ExampleRunner
 
 class DataTypeConversionExercise:
     """Interactive exercise for practicing data type conversions."""
-    
+
     def __init__(self):
         self.title = "Data Type Conversion Challenge"
-        self.description = "Convert between different Python data types safely and effectively"
+        self.description = (
+            "Convert between different Python data types safely and effectively"
+        )
         self.difficulty = "easy"
         self.validator = CodeValidator()
         self.runner = ExampleRunner()
-    
+
     def get_instructions(self) -> Dict[str, Any]:
         """Get comprehensive exercise instructions."""
         return {
@@ -26,7 +28,7 @@ class DataTypeConversionExercise:
                 "Handle conversion errors gracefully",
                 "Convert between collections (list, tuple, set)",
                 "Format numbers to strings with proper formatting",
-                "Parse and validate user input data"
+                "Parse and validate user input data",
             ],
             "tasks": [
                 "Convert string numbers to integers and floats",
@@ -34,19 +36,19 @@ class DataTypeConversionExercise:
                 "Convert between list, tuple, and set",
                 "Format numbers as currency strings",
                 "Parse CSV-like string data",
-                "Validate and convert user input safely"
+                "Validate and convert user input safely",
             ],
             "requirements": [
                 "Use appropriate conversion functions (int, float, str)",
                 "Handle ValueError exceptions for invalid conversions",
                 "Preserve data integrity during conversions",
-                "Use proper string formatting techniques"
-            ]
+                "Use proper string formatting techniques",
+            ],
         }
-    
+
     def get_starter_code(self) -> str:
         """Get starter code template."""
-        return '''
+        return """
 # Data Type Conversion Exercise
 
 # Mixed data to convert
@@ -80,8 +82,8 @@ csv_data = "John,25,Engineer,50000"
 # Split and convert to appropriate types
 
 print("Conversion completed!")
-'''
-    
+"""
+
     def get_solution(self) -> str:
         """Get complete solution with explanations."""
         return '''
@@ -292,13 +294,13 @@ print("- Collection type transformations")
 print("- String formatting and parsing")
 print("- Safe conversion utilities")
 '''
-    
+
     def check_solution(self, code: str) -> Dict[str, Any]:
         """Check and validate the student's solution."""
         feedback = []
         score = 0
         max_score = 12
-        
+
         # Check syntax
         syntax_check = self.validator.validate_syntax(code)
         if not syntax_check["valid"]:
@@ -306,9 +308,9 @@ print("- Safe conversion utilities")
                 "score": 0,
                 "max_score": max_score,
                 "feedback": [f"Syntax Error: {syntax_check['message']}"],
-                "suggestions": ["Fix syntax errors before proceeding"]
+                "suggestions": ["Fix syntax errors before proceeding"],
             }
-        
+
         # Check for required conversion functions
         conversion_checks = [
             ("int(", "Integer conversion function", 2),
@@ -318,104 +320,111 @@ print("- Safe conversion utilities")
             ("except", "Exception handling", 2),
             ("tuple(", "Tuple conversion", 1),
             ("list(", "List conversion", 1),
-            ("set(", "Set conversion", 1)
+            ("set(", "Set conversion", 1),
         ]
-        
+
         for pattern, description, points in conversion_checks:
             if pattern in code:
                 feedback.append(f"✓ Used {description}")
                 score += points
             else:
                 feedback.append(f"✗ Missing {description}")
-        
+
         # Check for advanced concepts
         if "ValueError" in code:
             feedback.append("✓ Proper exception handling for ValueError")
-        
+
         # Calculate percentage
         percentage = (score / max_score) * 100
-        
+
         return {
             "score": score,
             "max_score": max_score,
             "percentage": percentage,
             "feedback": feedback,
             "suggestions": self._get_suggestions(score, max_score),
-            "grade": self._calculate_grade(percentage)
+            "grade": self._calculate_grade(percentage),
         }
-    
+
     def run_conversion_demo(self) -> Dict[str, Any]:
         """Run interactive conversion demonstration."""
         results = {}
-        
+
         # String to number conversions
         string_numbers = ["42", "3.14", "invalid"]
         results["string_to_number"] = {}
-        
+
         for s in string_numbers:
             try:
-                if '.' in s:
+                if "." in s:
                     converted = float(s)
                 else:
                     converted = int(s)
-                results["string_to_number"][s] = {"success": True, "value": converted, "type": type(converted).__name__}
+                results["string_to_number"][s] = {
+                    "success": True,
+                    "value": converted,
+                    "type": type(converted).__name__,
+                }
             except ValueError:
-                results["string_to_number"][s] = {"success": False, "error": "Invalid format"}
-        
+                results["string_to_number"][s] = {
+                    "success": False,
+                    "error": "Invalid format",
+                }
+
         # Collection conversions
         original = [1, 2, 3, 2, 4]
         results["collections"] = {
             "list": original,
             "tuple": tuple(original),
             "set": list(set(original)),  # Convert back to list for JSON serialization
-            "unique_count": len(set(original))
+            "unique_count": len(set(original)),
         }
-        
+
         return results
-    
+
     def get_practice_problems(self) -> List[Dict[str, Any]]:
         """Get additional practice problems."""
         return [
             {
                 "problem": "Convert temperature string '98.6F' to float (remove 'F')",
                 "hint": "Use string slicing to remove the 'F' before converting",
-                "solution": "temp_str = '98.6F'\\ntemp_float = float(temp_str[:-1])"
+                "solution": "temp_str = '98.6F'\\ntemp_float = float(temp_str[:-1])",
             },
             {
                 "problem": "Parse date string '2023-12-25' into year, month, day integers",
                 "hint": "Split by '-' and convert each part to int",
-                "solution": "date_str = '2023-12-25'\\nyear, month, day = map(int, date_str.split('-'))"
+                "solution": "date_str = '2023-12-25'\\nyear, month, day = map(int, date_str.split('-'))",
             },
             {
                 "problem": "Convert list of mixed types [1, '2', 3.0, '4.5'] to all floats",
                 "hint": "Use list comprehension with float() conversion",
-                "solution": "mixed = [1, '2', 3.0, '4.5']\\nall_floats = [float(x) for x in mixed]"
-            }
+                "solution": "mixed = [1, '2', 3.0, '4.5']\\nall_floats = [float(x) for x in mixed]",
+            },
         ]
-    
+
     def _get_suggestions(self, score: int, max_score: int) -> List[str]:
         """Get suggestions based on score."""
         percentage = (score / max_score) * 100
-        
+
         if percentage >= 90:
             return [
                 "Excellent! You've mastered data type conversions.",
                 "Try working with more complex nested data structures.",
-                "Consider edge cases like empty strings and None values."
+                "Consider edge cases like empty strings and None values.",
             ]
         elif percentage >= 70:
             return [
                 "Good progress! Focus on error handling patterns.",
                 "Practice with try/except blocks for safe conversions.",
-                "Review collection type conversions."
+                "Review collection type conversions.",
             ]
         else:
             return [
                 "Keep practicing basic conversion functions: int(), float(), str().",
                 "Start with simple conversions before handling errors.",
-                "Review the solution to understand proper patterns."
+                "Review the solution to understand proper patterns.",
             ]
-    
+
     def _calculate_grade(self, percentage: float) -> str:
         """Calculate letter grade from percentage."""
         if percentage >= 90:

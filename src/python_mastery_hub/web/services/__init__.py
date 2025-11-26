@@ -15,18 +15,15 @@ from .email_service import EmailService, EmailTemplate, EmailProvider
 __all__ = [
     # Authentication services
     "AuthService",
-    "TokenService", 
+    "TokenService",
     "PasswordService",
-    
     # Code execution services
     "CodeExecutor",
     "ExecutionResult",
     "CodeExecutionError",
-    
     # Progress tracking services
     "ProgressService",
     "ProgressTracker",
-    
     # Email services
     "EmailService",
     "EmailTemplate",

@@ -114,9 +114,8 @@ total_area = calculate_total_area(shapes)
 print(f"Total area of all shapes: {total_area:.2f}")
 """,
             "output": "=== Polymorphism in Action ===\n\n=== Shape Information ===\nRectangle: Area = 15.00, Perimeter = 16.00\n  Description: This is a Rectangle\nCircle: Area = 50.27, Perimeter = 25.13\n  Description: This is a Circle\nTriangle: Area = 6.00, Perimeter = 12.00\n  Description: This is a Triangle\nRectangle: Area = 14.00, Perimeter = 18.00\n  Description: This is a Rectangle\n\n=== Total Area Calculation ===\nProcessing Rectangle: 15.00\nProcessing Circle: 50.27\nProcessing Triangle: 6.00\nProcessing Rectangle: 14.00\nTotal area of all shapes: 85.27",
-            "explanation": "Polymorphism allows objects of different types to be treated uniformly through a common interface"
+            "explanation": "Polymorphism allows objects of different types to be treated uniformly through a common interface",
         },
-        
         "duck_typing": {
             "code": """
 # Duck typing: "If it walks like a duck and quacks like a duck, it's a duck"
@@ -216,9 +215,8 @@ print(f"\\n=== Protocol Usage ===")
 print(result)
 """,
             "output": "=== Duck Typing Examples ===\n\n=== Swimming Activities ===\nDuck: Duck swimming\nSwan: Swan swimming gracefully\nRobot: Robot swimming with propellers\nFish: Fish swimming underwater\n\n=== Pond Sounds ===\nDuck: Quack!\nSwan: Honk!\nRobot: Beep boop quack!\nFish: Fish is silent\n\n=== Complete Water Activities ===\nDuck:\n  Swimming: Duck swimming\n  Sound: Quack!\nSwan:\n  Swimming: Swan swimming gracefully\n  Sound: Honk!\nRobot:\n  Swimming: Robot swimming with propellers\n  Sound: Beep boop quack!\nFish:\n  Swimming: Fish swimming underwater\n  Sound: Silent\n\n=== Protocol Usage ===\nActivity: Duck swimming and Quack!",
-            "explanation": "Duck typing allows polymorphism based on method availability rather than inheritance"
+            "explanation": "Duck typing allows polymorphism based on method availability rather than inheritance",
         },
-        
         "operator_overloading": {
             "code": """
 class Vector:
@@ -351,6 +349,6 @@ v1[0] = 10
 print(f"After v1[0] = 10: {v1}")
 """,
             "output": "=== Operator Overloading ===\nv1 = Vector(3, 4)\nv2 = Vector(1, 2)\n\n=== Arithmetic Operations ===\nv1 + v2 = Vector(4, 6)\nv1 - v2 = Vector(2, 2)\nv1 * 2 = Vector(6, 8)\n3 * v1 = Vector(9, 12)\nv1 / 2 = Vector(1.5, 2.0)\n\n=== Scalar Operations ===\nv1 + 5 = Vector(8, 9)\n10 + v1 = Vector(13, 14)\n\n=== Comparison Operations ===\nv1 == v3: True\nv1 == v2: False\nv1 < v2: False\n\n=== Special Operations ===\nlen(v1): 5\nv1.magnitude(): 5.00\nv1.dot(v2): 11\n\n=== Indexing ===\nv1[0] = 3, v1[1] = 4\nAfter v1[0] = 10: Vector(10, 4)",
-            "explanation": "Operator overloading allows custom classes to work with Python's built-in operators in meaningful ways"
-        }
+            "explanation": "Operator overloading allows custom classes to work with Python's built-in operators in meaningful ways",
+        },
     }

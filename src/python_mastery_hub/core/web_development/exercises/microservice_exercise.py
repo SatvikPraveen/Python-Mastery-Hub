@@ -23,7 +23,7 @@ def get_exercise() -> Dict[str, Any]:
             "Implement monitoring, logging, and observability",
             "Handle failure scenarios and implement resilience patterns",
             "Deploy services with containerization",
-            "Manage configuration and secrets across services"
+            "Manage configuration and secrets across services",
         ],
         "requirements": [
             "FastAPI for service implementation",
@@ -33,9 +33,9 @@ def get_exercise() -> Dict[str, Any]:
             "nginx for API gateway",
             "httpx for async HTTP client",
             "python-multipart for file uploads",
-            "prometheus-client for metrics"
+            "prometheus-client for metrics",
         ],
-        "system_architecture": '''
+        "system_architecture": """
 # E-Commerce Microservices Architecture
 
 ## Services Overview
@@ -58,7 +58,7 @@ def get_exercise() -> Dict[str, Any]:
 - Redis for caching and message broker
 - Docker for containerization
 - nginx for API gateway and load balancing
-''',
+""",
         "starter_code": '''
 """
 Microservices E-Commerce System - Starter Code
@@ -564,9 +564,9 @@ services:
             "Implement the API Gateway for request routing",
             "Add monitoring, logging, and health checks",
             "Containerize all services with Docker",
-            "Set up service communication and error handling"
+            "Set up service communication and error handling",
         ],
-        "testing_guide": '''
+        "testing_guide": """
 # Testing Microservices System
 
 ## 1. Local Development Setup
@@ -648,7 +648,7 @@ for port in 8001 8002 8003 8004 8005 8006; do
   curl -s http://localhost:$port/health | jq '.'
 done
 ```
-''',
+""",
         "resilience_patterns": [
             "Circuit Breaker: Prevent cascading failures between services",
             "Retry Logic: Automatic retry with exponential backoff",
@@ -657,7 +657,7 @@ done
             "Fallback Mechanisms: Graceful degradation when services fail",
             "Health Checks: Regular service health monitoring",
             "Load Balancing: Distribute load across service instances",
-            "Rate Limiting: Protect services from overload"
+            "Rate Limiting: Protect services from overload",
         ],
         "monitoring_requirements": [
             "Service health endpoints returning status and dependencies",
@@ -666,7 +666,7 @@ done
             "Log aggregation across all services",
             "Distributed tracing for request flows",
             "Database performance monitoring",
-            "Infrastructure metrics (CPU, memory, disk, network)"
+            "Infrastructure metrics (CPU, memory, disk, network)",
         ],
         "bonus_challenges": [
             "Implement distributed tracing with OpenTelemetry",
@@ -678,7 +678,7 @@ done
             "Implement blue-green deployments",
             "Add comprehensive security with OAuth2 and service-to-service auth",
             "Create data synchronization between services",
-            "Implement event sourcing for audit trails"
+            "Implement event sourcing for audit trails",
         ],
         "common_pitfalls": [
             "Not handling partial failures in distributed transactions",
@@ -688,6 +688,6 @@ done
             "Not implementing proper service boundaries",
             "Ignoring network latency and reliability issues",
             "Poor data consistency strategies",
-            "Inadequate security between services"
-        ]
+            "Inadequate security between services",
+        ],
     }

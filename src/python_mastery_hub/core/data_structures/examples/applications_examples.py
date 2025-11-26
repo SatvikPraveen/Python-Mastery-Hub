@@ -14,7 +14,7 @@ from typing import Dict, List, Any, Tuple, Optional
 
 class ApplicationsExamples:
     """Practical applications examples and demonstrations."""
-    
+
     @staticmethod
     def get_real_world_applications() -> Dict[str, Any]:
         """Get comprehensive real-world applications examples."""
@@ -29,7 +29,7 @@ class ApplicationsExamples:
                 "data_aggregation": ApplicationsExamples._get_data_aggregation_example(),
                 "log_processing": ApplicationsExamples._get_log_processing_example(),
                 "recommendation_engine": ApplicationsExamples._get_recommendation_engine_example(),
-                "inventory_management": ApplicationsExamples._get_inventory_management_example()
+                "inventory_management": ApplicationsExamples._get_inventory_management_example(),
             },
             "code": ApplicationsExamples._get_complete_demo_code(),
             "learning_points": [
@@ -37,10 +37,10 @@ class ApplicationsExamples:
                 "Combine multiple structures for complex problems",
                 "Consider performance implications of different operations",
                 "Use built-in collections for efficiency and readability",
-                "Design for scalability and maintainability"
-            ]
+                "Design for scalability and maintainability",
+            ],
         }
-    
+
     @staticmethod
     def _get_text_analysis_example() -> Dict[str, Any]:
         """Text analysis application using Counter and defaultdict."""
@@ -98,10 +98,10 @@ print(f"Most common words: {analysis['most_common']}")
                 "Counter provides O(1) frequency counting",
                 "defaultdict eliminates need for key checking",
                 "set provides O(1) membership testing for unique words",
-                "Efficient memory usage for large documents"
-            ]
+                "Efficient memory usage for large documents",
+            ],
         }
-    
+
     @staticmethod
     def _get_graph_algorithms_example() -> Dict[str, Any]:
         """Graph algorithms using defaultdict and deque."""
@@ -200,10 +200,10 @@ suggestions = network.suggest_friends('alice')
                 "defaultdict simplifies adjacency list management",
                 "deque provides efficient queue operations for BFS",
                 "set operations enable fast intersection for mutual friends",
-                "Scalable to large social networks"
-            ]
+                "Scalable to large social networks",
+            ],
         }
-    
+
     @staticmethod
     def _get_caching_system_example() -> Dict[str, Any]:
         """Caching system using OrderedDict."""
@@ -335,10 +335,10 @@ result2 = expensive_database_query(123, "profile")  # Cache hit
                 "OrderedDict maintains insertion order for LRU",
                 "O(1) cache operations scale to high traffic",
                 "TTL prevents stale data issues",
-                "Statistics enable performance monitoring"
-            ]
+                "Statistics enable performance monitoring",
+            ],
         }
-    
+
     @staticmethod
     def _get_task_scheduling_example() -> Dict[str, Any]:
         """Task scheduling using heapq."""
@@ -465,10 +465,10 @@ print(f"Final stats: {scheduler.get_task_stats()}")
                 "heapq provides efficient priority queue operations",
                 "Handles complex dependency relationships",
                 "Scales to thousands of tasks",
-                "Supports dynamic task addition during execution"
-            ]
+                "Supports dynamic task addition during execution",
+            ],
         }
-    
+
     @staticmethod
     def _get_data_aggregation_example() -> Dict[str, Any]:
         """Data aggregation using multiple structures."""
@@ -629,10 +629,10 @@ report = analyzer.get_comprehensive_report()
                 "defaultdict simplifies multi-dimensional aggregation",
                 "Flexible analysis across any business dimension",
                 "Real-time metrics as data is added",
-                "Scalable to millions of transactions"
-            ]
+                "Scalable to millions of transactions",
+            ],
         }
-    
+
     @staticmethod
     def _get_log_processing_example() -> Dict[str, Any]:
         """Log processing and monitoring."""
@@ -781,10 +781,10 @@ print("Performance Metrics:", monitor.get_performance_metrics())
                 "deque provides efficient sliding window for recent logs",
                 "Counter automatically tracks error frequencies",
                 "Real-time alerting based on configurable thresholds",
-                "Memory-efficient for high-volume log streams"
-            ]
+                "Memory-efficient for high-volume log streams",
+            ],
         }
-    
+
     @staticmethod
     def _get_recommendation_engine_example() -> Dict[str, Any]:
         """Recommendation engine using collaborative filtering."""
@@ -933,10 +933,10 @@ print(f"System statistics: {system_stats}")
                 "defaultdict simplifies user-item matrix management",
                 "set operations enable efficient similarity calculations",
                 "Counter tracks global popularity automatically",
-                "Scalable to millions of users and items"
-            ]
+                "Scalable to millions of users and items",
+            ],
         }
-    
+
     @staticmethod
     def _get_inventory_management_example() -> Dict[str, Any]:
         """Inventory management system."""
@@ -1133,10 +1133,10 @@ print(f"Inventory report: {report}")
                 "defaultdict handles dynamic inventory additions",
                 "deque provides efficient sales history tracking",
                 "heapq manages purchase order priorities",
-                "Real-time demand forecasting and automated reordering"
-            ]
+                "Real-time demand forecasting and automated reordering",
+            ],
         }
-    
+
     @staticmethod
     def _get_complete_demo_code() -> str:
         """Get complete demonstration code for all applications."""

@@ -20,6 +20,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class EmailTemplate:
     """Represents an email template."""
+
     id: str
     name: str
     subject_template: str
@@ -33,195 +34,230 @@ class EmailTemplate:
 
 class EmailTemplateManager:
     """Manages email templates and rendering."""
-    
+
     def __init__(self, template_dir: Optional[Path] = None):
-        self.template_dir = template_dir or Path(__file__).parent / 'email_templates'
+        self.template_dir = template_dir or Path(__file__).parent / "email_templates"
         self.template_dir.mkdir(exist_ok=True)
         self.templates: Dict[str, EmailTemplate] = {}
         self._load_default_templates()
-    
+
     def _load_default_templates(self) -> None:
         """Load default email templates."""
-        
+
         # Welcome Email
-        self.register_template(EmailTemplate(
-            id='welcome',
-            name='Welcome Email',
-            subject_template='Welcome to Python Mastery Hub, ${user_name}!',
-            html_template=self._get_welcome_html_template(),
-            text_template=self._get_welcome_text_template(),
-            variables=['user_name', 'user_email', 'platform_url'],
-            category='onboarding',
-            description='Welcome email for new users',
-            tags=['welcome', 'onboarding']
-        ))
-        
+        self.register_template(
+            EmailTemplate(
+                id="welcome",
+                name="Welcome Email",
+                subject_template="Welcome to Python Mastery Hub, ${user_name}!",
+                html_template=self._get_welcome_html_template(),
+                text_template=self._get_welcome_text_template(),
+                variables=["user_name", "user_email", "platform_url"],
+                category="onboarding",
+                description="Welcome email for new users",
+                tags=["welcome", "onboarding"],
+            )
+        )
+
         # Progress Report
-        self.register_template(EmailTemplate(
-            id='progress_report',
-            name='Weekly Progress Report',
-            subject_template='Your Python Learning Progress - Week of ${week_start}',
-            html_template=self._get_progress_report_html_template(),
-            text_template=self._get_progress_report_text_template(),
-            variables=[
-                'user_name', 'week_start', 'week_end', 'topics_completed',
-                'total_study_time', 'current_streak', 'achievements_earned',
-                'next_milestone', 'progress_percentage'
-            ],
-            category='progress',
-            description='Weekly progress summary email',
-            tags=['progress', 'weekly', 'report']
-        ))
-        
+        self.register_template(
+            EmailTemplate(
+                id="progress_report",
+                name="Weekly Progress Report",
+                subject_template="Your Python Learning Progress - Week of ${week_start}",
+                html_template=self._get_progress_report_html_template(),
+                text_template=self._get_progress_report_text_template(),
+                variables=[
+                    "user_name",
+                    "week_start",
+                    "week_end",
+                    "topics_completed",
+                    "total_study_time",
+                    "current_streak",
+                    "achievements_earned",
+                    "next_milestone",
+                    "progress_percentage",
+                ],
+                category="progress",
+                description="Weekly progress summary email",
+                tags=["progress", "weekly", "report"],
+            )
+        )
+
         # Achievement Notification
-        self.register_template(EmailTemplate(
-            id='achievement_notification',
-            name='Achievement Unlocked',
-            subject_template='🏆 Achievement Unlocked: ${achievement_name}',
-            html_template=self._get_achievement_html_template(),
-            text_template=self._get_achievement_text_template(),
-            variables=[
-                'user_name', 'achievement_name', 'achievement_description',
-                'achievement_badge', 'achievement_points', 'total_points'
-            ],
-            category='achievement',
-            description='Notification for earned achievements',
-            tags=['achievement', 'notification', 'gamification']
-        ))
-        
+        self.register_template(
+            EmailTemplate(
+                id="achievement_notification",
+                name="Achievement Unlocked",
+                subject_template="🏆 Achievement Unlocked: ${achievement_name}",
+                html_template=self._get_achievement_html_template(),
+                text_template=self._get_achievement_text_template(),
+                variables=[
+                    "user_name",
+                    "achievement_name",
+                    "achievement_description",
+                    "achievement_badge",
+                    "achievement_points",
+                    "total_points",
+                ],
+                category="achievement",
+                description="Notification for earned achievements",
+                tags=["achievement", "notification", "gamification"],
+            )
+        )
+
         # Learning Reminder
-        self.register_template(EmailTemplate(
-            id='learning_reminder',
-            name='Learning Reminder',
-            subject_template='Don\'t break your streak! Continue your Python journey',
-            html_template=self._get_reminder_html_template(),
-            text_template=self._get_reminder_text_template(),
-            variables=[
-                'user_name', 'days_since_last_activity', 'current_streak',
-                'suggested_topic', 'estimated_time', 'next_module'
-            ],
-            category='reminder',
-            description='Reminder to continue learning',
-            tags=['reminder', 'engagement', 'streak']
-        ))
-        
+        self.register_template(
+            EmailTemplate(
+                id="learning_reminder",
+                name="Learning Reminder",
+                subject_template="Don't break your streak! Continue your Python journey",
+                html_template=self._get_reminder_html_template(),
+                text_template=self._get_reminder_text_template(),
+                variables=[
+                    "user_name",
+                    "days_since_last_activity",
+                    "current_streak",
+                    "suggested_topic",
+                    "estimated_time",
+                    "next_module",
+                ],
+                category="reminder",
+                description="Reminder to continue learning",
+                tags=["reminder", "engagement", "streak"],
+            )
+        )
+
         # Course Completion
-        self.register_template(EmailTemplate(
-            id='course_completion',
-            name='Course Completion Celebration',
-            subject_template='🎉 Congratulations! You completed ${module_name}',
-            html_template=self._get_completion_html_template(),
-            text_template=self._get_completion_text_template(),
-            variables=[
-                'user_name', 'module_name', 'completion_date', 'total_time',
-                'topics_completed', 'final_score', 'next_recommended_module',
-                'certificate_url'
-            ],
-            category='completion',
-            description='Module/course completion celebration',
-            tags=['completion', 'celebration', 'certificate']
-        ))
-        
+        self.register_template(
+            EmailTemplate(
+                id="course_completion",
+                name="Course Completion Celebration",
+                subject_template="🎉 Congratulations! You completed ${module_name}",
+                html_template=self._get_completion_html_template(),
+                text_template=self._get_completion_text_template(),
+                variables=[
+                    "user_name",
+                    "module_name",
+                    "completion_date",
+                    "total_time",
+                    "topics_completed",
+                    "final_score",
+                    "next_recommended_module",
+                    "certificate_url",
+                ],
+                category="completion",
+                description="Module/course completion celebration",
+                tags=["completion", "celebration", "certificate"],
+            )
+        )
+
         # Streak Milestone
-        self.register_template(EmailTemplate(
-            id='streak_milestone',
-            name='Streak Milestone Achieved',
-            subject_template='🔥 Amazing! ${streak_days}-day learning streak achieved!',
-            html_template=self._get_streak_milestone_html_template(),
-            text_template=self._get_streak_milestone_text_template(),
-            variables=[
-                'user_name', 'streak_days', 'milestone_type', 'total_topics',
-                'total_time', 'next_milestone', 'encouragement_message'
-            ],
-            category='milestone',
-            description='Learning streak milestone notification',
-            tags=['streak', 'milestone', 'motivation']
-        ))
-    
+        self.register_template(
+            EmailTemplate(
+                id="streak_milestone",
+                name="Streak Milestone Achieved",
+                subject_template="🔥 Amazing! ${streak_days}-day learning streak achieved!",
+                html_template=self._get_streak_milestone_html_template(),
+                text_template=self._get_streak_milestone_text_template(),
+                variables=[
+                    "user_name",
+                    "streak_days",
+                    "milestone_type",
+                    "total_topics",
+                    "total_time",
+                    "next_milestone",
+                    "encouragement_message",
+                ],
+                category="milestone",
+                description="Learning streak milestone notification",
+                tags=["streak", "milestone", "motivation"],
+            )
+        )
+
     def register_template(self, template: EmailTemplate) -> None:
         """Register a new email template."""
         self.templates[template.id] = template
         logger.debug(f"Registered email template: {template.id}")
-    
+
     def get_template(self, template_id: str) -> Optional[EmailTemplate]:
         """Get template by ID."""
         return self.templates.get(template_id)
-    
+
     def list_templates(self, category: Optional[str] = None) -> List[EmailTemplate]:
         """List all templates, optionally filtered by category."""
         templates = list(self.templates.values())
-        
+
         if category:
             templates = [t for t in templates if t.category == category]
-        
+
         return templates
-    
+
     def render_email(
-        self, 
-        template_id: str, 
-        variables: Dict[str, Any],
-        format_type: str = 'html'
+        self, template_id: str, variables: Dict[str, Any], format_type: str = "html"
     ) -> Dict[str, str]:
         """
         Render email template with variables.
-        
+
         Args:
             template_id: ID of template to render
             variables: Variables to substitute
             format_type: 'html', 'text', or 'both'
-            
+
         Returns:
             Dictionary with rendered email content
         """
         template = self.get_template(template_id)
         if not template:
             raise ValueError(f"Template not found: {template_id}")
-        
+
         # Prepare variables with defaults
         render_vars = self._prepare_variables(variables)
-        
+
         # Render subject
         subject = Template(template.subject_template).safe_substitute(render_vars)
-        
-        result = {'subject': subject}
-        
+
+        result = {"subject": subject}
+
         # Render body based on format type
-        if format_type in ('html', 'both'):
+        if format_type in ("html", "both"):
             html_body = Template(template.html_template).safe_substitute(render_vars)
-            result['html_body'] = html_body
-        
-        if format_type in ('text', 'both'):
+            result["html_body"] = html_body
+
+        if format_type in ("text", "both"):
             text_body = Template(template.text_template).safe_substitute(render_vars)
-            result['text_body'] = text_body
-        
+            result["text_body"] = text_body
+
         return result
-    
+
     def _prepare_variables(self, variables: Dict[str, Any]) -> Dict[str, str]:
         """Prepare variables for template rendering."""
         # Convert all values to strings and add default values
         render_vars = {}
-        
+
         for key, value in variables.items():
             if isinstance(value, datetime):
-                render_vars[key] = value.strftime('%B %d, %Y')
+                render_vars[key] = value.strftime("%B %d, %Y")
             elif isinstance(value, (list, dict)):
                 render_vars[key] = str(value)
             else:
-                render_vars[key] = str(value) if value is not None else ''
-        
+                render_vars[key] = str(value) if value is not None else ""
+
         # Add current date/time
         now = datetime.now()
-        render_vars.update({
-            'current_date': now.strftime('%B %d, %Y'),
-            'current_year': str(now.year),
-            'platform_name': 'Python Mastery Hub',
-            'support_email': 'support@pythonmasteryhub.com',
-            'unsubscribe_url': 'https://pythonmasteryhub.com/unsubscribe',
-            'platform_url': 'https://pythonmasteryhub.com'
-        })
-        
+        render_vars.update(
+            {
+                "current_date": now.strftime("%B %d, %Y"),
+                "current_year": str(now.year),
+                "platform_name": "Python Mastery Hub",
+                "support_email": "support@pythonmasteryhub.com",
+                "unsubscribe_url": "https://pythonmasteryhub.com/unsubscribe",
+                "platform_url": "https://pythonmasteryhub.com",
+            }
+        )
+
         return render_vars
-    
+
     # Template definitions
     def _get_welcome_html_template(self) -> str:
         return """
@@ -271,7 +307,7 @@ class EmailTemplateManager:
         </body>
         </html>
         """
-    
+
     def _get_welcome_text_template(self) -> str:
         return """
         Welcome to Python Mastery Hub!
@@ -297,7 +333,7 @@ class EmailTemplateManager:
         © ${current_year} ${platform_name}. All rights reserved.
         Unsubscribe: ${unsubscribe_url}
         """
-    
+
     def _get_progress_report_html_template(self) -> str:
         return """
         <!DOCTYPE html>
@@ -368,7 +404,7 @@ class EmailTemplateManager:
         </body>
         </html>
         """
-    
+
     def _get_progress_report_text_template(self) -> str:
         return """
         Your Learning Progress Report
@@ -393,7 +429,7 @@ class EmailTemplateManager:
         © ${current_year} ${platform_name}. All rights reserved.
         Unsubscribe: ${unsubscribe_url}
         """
-    
+
     def _get_achievement_html_template(self) -> str:
         return """
         <!DOCTYPE html>
@@ -439,7 +475,7 @@ class EmailTemplateManager:
         </body>
         </html>
         """
-    
+
     def _get_achievement_text_template(self) -> str:
         return """
         🏆 Achievement Unlocked!
@@ -458,7 +494,7 @@ class EmailTemplateManager:
         © ${current_year} ${platform_name}. All rights reserved.
         Unsubscribe: ${unsubscribe_url}
         """
-    
+
     def _get_reminder_html_template(self) -> str:
         return """
         <!DOCTYPE html>
@@ -508,7 +544,7 @@ class EmailTemplateManager:
         </body>
         </html>
         """
-    
+
     def _get_reminder_text_template(self) -> str:
         return """
         Missing You! Don't let your streak break
@@ -533,7 +569,7 @@ class EmailTemplateManager:
         © ${current_year} ${platform_name}. All rights reserved.
         Unsubscribe: ${unsubscribe_url}
         """
-    
+
     def _get_completion_html_template(self) -> str:
         return """
         <!DOCTYPE html>
@@ -598,7 +634,7 @@ class EmailTemplateManager:
         </body>
         </html>
         """
-    
+
     def _get_completion_text_template(self) -> str:
         return """
         🎉 Congratulations! You completed ${module_name}!
@@ -625,7 +661,7 @@ class EmailTemplateManager:
         © ${current_year} ${platform_name}. All rights reserved.
         Unsubscribe: ${unsubscribe_url}
         """
-    
+
     def _get_streak_milestone_html_template(self) -> str:
         return """
         <!DOCTYPE html>
@@ -677,7 +713,7 @@ class EmailTemplateManager:
         </body>
         </html>
         """
-    
+
     def _get_streak_milestone_text_template(self) -> str:
         return """
         🔥 Streak Milestone Achieved!
@@ -700,72 +736,71 @@ class EmailTemplateManager:
         © ${current_year} ${platform_name}. All rights reserved.
         Unsubscribe: ${unsubscribe_url}
         """
-    
-    def save_template_to_file(self, template_id: str, format_type: str = 'json') -> None:
+
+    def save_template_to_file(
+        self, template_id: str, format_type: str = "json"
+    ) -> None:
         """Save template to file for external editing."""
         template = self.get_template(template_id)
         if not template:
             raise ValueError(f"Template not found: {template_id}")
-        
-        if format_type == 'json':
+
+        if format_type == "json":
             file_path = self.template_dir / f"{template_id}.json"
             template_data = {
-                'id': template.id,
-                'name': template.name,
-                'subject_template': template.subject_template,
-                'html_template': template.html_template,
-                'text_template': template.text_template,
-                'variables': template.variables,
-                'category': template.category,
-                'description': template.description,
-                'tags': template.tags or []
+                "id": template.id,
+                "name": template.name,
+                "subject_template": template.subject_template,
+                "html_template": template.html_template,
+                "text_template": template.text_template,
+                "variables": template.variables,
+                "category": template.category,
+                "description": template.description,
+                "tags": template.tags or [],
             }
-            
-            with file_path.open('w', encoding='utf-8') as f:
+
+            with file_path.open("w", encoding="utf-8") as f:
                 json.dump(template_data, f, indent=2, ensure_ascii=False)
-        
+
         logger.info(f"Saved template {template_id} to {file_path}")
-    
+
     def load_template_from_file(self, file_path: Union[str, Path]) -> EmailTemplate:
         """Load template from file."""
         path = Path(file_path)
-        
+
         if not path.exists():
             raise FileNotFoundError(f"Template file not found: {path}")
-        
-        with path.open('r', encoding='utf-8') as f:
+
+        with path.open("r", encoding="utf-8") as f:
             data = json.load(f)
-        
+
         template = EmailTemplate(
-            id=data['id'],
-            name=data['name'],
-            subject_template=data['subject_template'],
-            html_template=data['html_template'],
-            text_template=data['text_template'],
-            variables=data['variables'],
-            category=data['category'],
-            description=data.get('description'),
-            tags=data.get('tags', [])
+            id=data["id"],
+            name=data["name"],
+            subject_template=data["subject_template"],
+            html_template=data["html_template"],
+            text_template=data["text_template"],
+            variables=data["variables"],
+            category=data["category"],
+            description=data.get("description"),
+            tags=data.get("tags", []),
         )
-        
+
         self.register_template(template)
         return template
 
 
 class EmailRenderer:
     """Utility class for rendering emails with common patterns."""
-    
+
     def __init__(self, template_manager: EmailTemplateManager):
         self.template_manager = template_manager
-    
+
     def render_welcome_email(self, user_name: str, user_email: str) -> Dict[str, str]:
         """Render welcome email for new user."""
-        variables = {
-            'user_name': user_name,
-            'user_email': user_email
-        }
-        return self.template_manager.render_email('welcome', variables, 'both')
-    
+        variables = {"user_name": user_name, "user_email": user_email}
+        return self.template_manager.render_email("welcome", variables, "both")
+
     def render_progress_report(
         self,
         user_name: str,
@@ -776,38 +811,40 @@ class EmailRenderer:
         current_streak: int,
         achievements: List[Dict[str, Any]],
         next_milestone: str,
-        progress_percentage: float
+        progress_percentage: float,
     ) -> Dict[str, str]:
         """Render weekly progress report."""
-        
+
         # Format achievements section
         achievements_html = ""
         achievements_text = ""
-        
+
         if achievements:
-            achievements_html = '<div class="achievement"><h3>🏆 New Achievements</h3><ul>'
+            achievements_html = (
+                '<div class="achievement"><h3>🏆 New Achievements</h3><ul>'
+            )
             achievements_text = "\n🏆 New Achievements:\n"
-            
+
             for achievement in achievements:
                 achievements_html += f"<li>{achievement.get('badge', '🏆')} {achievement.get('name', 'Achievement')}</li>"
                 achievements_text += f"- {achievement.get('badge', '🏆')} {achievement.get('name', 'Achievement')}\n"
-            
-            achievements_html += '</ul></div>'
-        
+
+            achievements_html += "</ul></div>"
+
         variables = {
-            'user_name': user_name,
-            'week_start': week_start.strftime('%B %d'),
-            'week_end': week_end.strftime('%B %d'),
-            'topics_completed': str(topics_completed),
-            'total_study_time': total_study_time,
-            'current_streak': str(current_streak),
-            'achievements_earned': achievements_html if achievements else '',
-            'next_milestone': next_milestone,
-            'progress_percentage': str(int(progress_percentage))
+            "user_name": user_name,
+            "week_start": week_start.strftime("%B %d"),
+            "week_end": week_end.strftime("%B %d"),
+            "topics_completed": str(topics_completed),
+            "total_study_time": total_study_time,
+            "current_streak": str(current_streak),
+            "achievements_earned": achievements_html if achievements else "",
+            "next_milestone": next_milestone,
+            "progress_percentage": str(int(progress_percentage)),
         }
-        
-        return self.template_manager.render_email('progress_report', variables, 'both')
-    
+
+        return self.template_manager.render_email("progress_report", variables, "both")
+
     def render_achievement_notification(
         self,
         user_name: str,
@@ -815,19 +852,21 @@ class EmailRenderer:
         achievement_description: str,
         achievement_badge: str,
         achievement_points: int,
-        total_points: int
+        total_points: int,
     ) -> Dict[str, str]:
         """Render achievement notification email."""
         variables = {
-            'user_name': user_name,
-            'achievement_name': achievement_name,
-            'achievement_description': achievement_description,
-            'achievement_badge': achievement_badge,
-            'achievement_points': str(achievement_points),
-            'total_points': str(total_points)
+            "user_name": user_name,
+            "achievement_name": achievement_name,
+            "achievement_description": achievement_description,
+            "achievement_badge": achievement_badge,
+            "achievement_points": str(achievement_points),
+            "total_points": str(total_points),
         }
-        return self.template_manager.render_email('achievement_notification', variables, 'both')
-    
+        return self.template_manager.render_email(
+            "achievement_notification", variables, "both"
+        )
+
     def render_learning_reminder(
         self,
         user_name: str,
@@ -835,19 +874,21 @@ class EmailRenderer:
         current_streak: int,
         suggested_topic: str,
         estimated_time: str,
-        next_module: str
+        next_module: str,
     ) -> Dict[str, str]:
         """Render learning reminder email."""
         variables = {
-            'user_name': user_name,
-            'days_since_last_activity': str(days_since_last_activity),
-            'current_streak': str(current_streak),
-            'suggested_topic': suggested_topic,
-            'estimated_time': estimated_time,
-            'next_module': next_module
+            "user_name": user_name,
+            "days_since_last_activity": str(days_since_last_activity),
+            "current_streak": str(current_streak),
+            "suggested_topic": suggested_topic,
+            "estimated_time": estimated_time,
+            "next_module": next_module,
         }
-        return self.template_manager.render_email('learning_reminder', variables, 'both')
-    
+        return self.template_manager.render_email(
+            "learning_reminder", variables, "both"
+        )
+
     def render_course_completion(
         self,
         user_name: str,
@@ -857,21 +898,23 @@ class EmailRenderer:
         topics_completed: int,
         final_score: float,
         next_recommended_module: str,
-        certificate_url: str
+        certificate_url: str,
     ) -> Dict[str, str]:
         """Render course completion email."""
         variables = {
-            'user_name': user_name,
-            'module_name': module_name,
-            'completion_date': completion_date.strftime('%B %d, %Y'),
-            'total_time': total_time,
-            'topics_completed': str(topics_completed),
-            'final_score': str(int(final_score)),
-            'next_recommended_module': next_recommended_module,
-            'certificate_url': certificate_url
+            "user_name": user_name,
+            "module_name": module_name,
+            "completion_date": completion_date.strftime("%B %d, %Y"),
+            "total_time": total_time,
+            "topics_completed": str(topics_completed),
+            "final_score": str(int(final_score)),
+            "next_recommended_module": next_recommended_module,
+            "certificate_url": certificate_url,
         }
-        return self.template_manager.render_email('course_completion', variables, 'both')
-    
+        return self.template_manager.render_email(
+            "course_completion", variables, "both"
+        )
+
     def render_streak_milestone(
         self,
         user_name: str,
@@ -880,47 +923,49 @@ class EmailRenderer:
         total_topics: int,
         total_time: str,
         next_milestone: str,
-        encouragement_message: str
+        encouragement_message: str,
     ) -> Dict[str, str]:
         """Render streak milestone email."""
         variables = {
-            'user_name': user_name,
-            'streak_days': str(streak_days),
-            'milestone_type': milestone_type,
-            'total_topics': str(total_topics),
-            'total_time': total_time,
-            'next_milestone': next_milestone,
-            'encouragement_message': encouragement_message
+            "user_name": user_name,
+            "streak_days": str(streak_days),
+            "milestone_type": milestone_type,
+            "total_topics": str(total_topics),
+            "total_time": total_time,
+            "next_milestone": next_milestone,
+            "encouragement_message": encouragement_message,
         }
-        return self.template_manager.render_email('streak_milestone', variables, 'both')
+        return self.template_manager.render_email("streak_milestone", variables, "both")
 
 
 class EmailPreferences:
     """Manages user email preferences."""
-    
+
     def __init__(self):
         self.default_preferences = {
-            'welcome': True,
-            'progress_report': True,
-            'achievement_notification': True,
-            'learning_reminder': True,
-            'course_completion': True,
-            'streak_milestone': True,
-            'frequency_reminders': 'weekly',  # daily, weekly, monthly, never
-            'frequency_reports': 'weekly',    # weekly, monthly, never
-            'format_preference': 'html'       # html, text, both
+            "welcome": True,
+            "progress_report": True,
+            "achievement_notification": True,
+            "learning_reminder": True,
+            "course_completion": True,
+            "streak_milestone": True,
+            "frequency_reminders": "weekly",  # daily, weekly, monthly, never
+            "frequency_reports": "weekly",  # weekly, monthly, never
+            "format_preference": "html",  # html, text, both
         }
-    
+
     def get_user_preferences(self, user_id: str) -> Dict[str, Any]:
         """Get email preferences for user."""
         # In a real implementation, this would load from database
         return self.default_preferences.copy()
-    
-    def update_user_preferences(self, user_id: str, preferences: Dict[str, Any]) -> None:
+
+    def update_user_preferences(
+        self, user_id: str, preferences: Dict[str, Any]
+    ) -> None:
         """Update email preferences for user."""
         # In a real implementation, this would save to database
         logger.info(f"Updated email preferences for user {user_id}")
-    
+
     def should_send_email(self, user_id: str, email_type: str) -> bool:
         """Check if email should be sent based on user preferences."""
         preferences = self.get_user_preferences(user_id)
@@ -946,39 +991,45 @@ def render_achievement_email(
     achievement_description: str,
     achievement_badge: str,
     achievement_points: int,
-    total_points: int
+    total_points: int,
 ) -> Dict[str, str]:
     """Quick function to render achievement email."""
     manager = EmailTemplateManager()
     renderer = EmailRenderer(manager)
     return renderer.render_achievement_notification(
-        user_name, achievement_name, achievement_description,
-        achievement_badge, achievement_points, total_points
+        user_name,
+        achievement_name,
+        achievement_description,
+        achievement_badge,
+        achievement_points,
+        total_points,
     )
 
 
 # Email validation utilities
-def validate_email_variables(template_id: str, variables: Dict[str, Any]) -> Tuple[bool, List[str]]:
+def validate_email_variables(
+    template_id: str, variables: Dict[str, Any]
+) -> Tuple[bool, List[str]]:
     """Validate that all required variables are provided for template."""
     manager = EmailTemplateManager()
     template = manager.get_template(template_id)
-    
+
     if not template:
         return False, [f"Template not found: {template_id}"]
-    
+
     missing_vars = []
     for required_var in template.variables:
         if required_var not in variables:
             missing_vars.append(required_var)
-    
+
     return len(missing_vars) == 0, missing_vars
 
 
 def preview_email(template_id: str, variables: Dict[str, Any]) -> str:
     """Generate HTML preview of email."""
     manager = EmailTemplateManager()
-    rendered = manager.render_email(template_id, variables, 'html')
-    
+    rendered = manager.render_email(template_id, variables, "html")
+
     return f"""
     <!DOCTYPE html>
     <html>

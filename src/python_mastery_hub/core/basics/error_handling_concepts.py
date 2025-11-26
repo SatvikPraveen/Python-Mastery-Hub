@@ -9,11 +9,11 @@ import traceback
 
 class ErrorHandlingConcepts:
     """Handles all error handling-related concepts and examples."""
-    
+
     def __init__(self):
         self.topic = "error_handling"
         self.examples = self._setup_examples()
-    
+
     def demonstrate(self) -> Dict[str, Any]:
         """Return comprehensive error handling demonstrations."""
         return {
@@ -22,7 +22,7 @@ class ErrorHandlingConcepts:
             "explanation": self._get_explanation(),
             "best_practices": self._get_best_practices(),
         }
-    
+
     def _setup_examples(self) -> Dict[str, Any]:
         """Setup comprehensive error handling examples."""
         return {
@@ -83,9 +83,8 @@ for data in test_data:
     print(f"Input '{data}': {process_data(data)}")
 ''',
                 "output": "=== Basic Exception Handling ===\\n10 / 2 = 5.0\\nError: Cannot divide 10 by zero!\\nError: Invalid types for division: int, str\\nError: Invalid types for division: str, int\\n\\n=== Multiple Exception Types ===\\nInput '5': IndexError: list index out of range\\nInput '0': ZeroDivisionError: Cannot divide by zero\\nInput 'abc': ValueError: Cannot convert 'abc' to integer\\nInput '10': IndexError: list index out of range\\nInput '2': Success: 50.0, selected: 3",
-                "explanation": "Exception handling allows programs to respond gracefully to errors instead of crashing"
+                "explanation": "Exception handling allows programs to respond gracefully to errors instead of crashing",
             },
-            
             "try_except_else_finally": {
                 "code": '''
 # Complete try/except/else/finally structure
@@ -148,9 +147,8 @@ for filename, data in test_cases:
     print(f"Result: {result}\\n")
 ''',
                 "output": "=== Try/Except/Else/Finally Structure ===\\nAttempting to process file: valid.txt\\nProcessing data: hello world -> HELLO WORLD\\nFile processed successfully!\\nCleaning up: Handle for valid.txt\\nFile processing attempt completed\\n----------------------------------------\\nResult: HELLO WORLD\\n\\nAttempting to process file: readonly.txt\\nPermission error: File is read-only\\nFile processing attempt completed\\n----------------------------------------\\nResult: None\\n\\nAttempting to process file: missing.txt\\nFile error: File does not exist\\nFile processing attempt completed\\n----------------------------------------\\nResult: None\\n\\nAttempting to process file: valid.txt\\nData error: No data provided\\nFile processing attempt completed\\n----------------------------------------\\nResult: None\\n\\nAttempting to process file: valid.txt\\nData error: No data provided\\nFile processing attempt completed\\n----------------------------------------\\nResult: None",
-                "explanation": "The complete try/except/else/finally structure provides comprehensive error handling and cleanup"
+                "explanation": "The complete try/except/else/finally structure provides comprehensive error handling and cleanup",
             },
-            
             "custom_exceptions": {
                 "code": '''
 # Custom exception classes
@@ -265,9 +263,8 @@ for name, age, email in test_users:
         print(f"✗ Unexpected Error: {e}")
 ''',
                 "output": "=== Custom Exception Handling ===\\n✓ Created: User(name='Alice', age=25, email='alice@email.com')\\n✗ Validation Error: Name cannot be empty | Field: name | Code: EMPTY_NAME\\n✗ Age Error: Age cannot be negative: -5 | Field: age | Code: NEGATIVE_AGE\\n✗ Age Error: Age seems unrealistic: 200 | Field: age | Code: UNREALISTIC_AGE\\n✗ Email Error: Invalid email format: invalid-email | Field: email | Code: INVALID_FORMAT\\n✗ Validation Error: Name must be a string, got int | Field: name | Code: TYPE_ERROR",
-                "explanation": "Custom exceptions provide domain-specific error handling with additional context and structured information"
+                "explanation": "Custom exceptions provide domain-specific error handling with additional context and structured information",
             },
-            
             "exception_chaining": {
                 "code": '''
 # Exception chaining and context
@@ -333,9 +330,8 @@ for user_id in test_user_ids:
     print()
 ''',
                 "output": "=== Exception Chaining ===\\n\\n--- Processing user ID: valid_id ---\\nFetching user data for ID: valid_id\\nSuccess: {'id': 'valid_id', 'name': 'John Doe', 'status': 'active'}\\n\\n\\n--- Processing user ID: invalid ---\\nFetching user data for ID: invalid\\nService Error: Invalid user ID provided: invalid\\nOriginal error: ValueError: Invalid user ID format\\n\\nFull traceback:\\n[Traceback details]\\n\\n--- Processing user ID: not_found ---\\nFetching user data for ID: not_found\\nService Error: Database error for user not_found\\nOriginal error: DatabaseError: User not found in database\\n\\nFull traceback:\\n[Traceback details]\\n\\n--- Processing user ID: connection_error ---\\nFetching user data for ID: connection_error\\nService Error: Unexpected error for user connection_error\\nOriginal error: ConnectionError: Database connection failed\\n\\nFull traceback:\\n[Traceback details]",
-                "explanation": "Exception chaining preserves error context while allowing high-level error handling and debugging"
+                "explanation": "Exception chaining preserves error context while allowing high-level error handling and debugging",
             },
-            
             "logging_and_debugging": {
                 "code": '''
 # Logging and debugging with exceptions
@@ -451,10 +447,10 @@ for line in log_output.strip().split('\\n'):
         print(line)
 ''',
                 "output": "=== Logging and Debugging ===\\nResult: 10 / 2 = 5.0\\nCalculator Error: Division by zero\\nCalculator Error: Invalid types: int, str\\nResult: 15 / 3 = 5.0\\n\\n=== Safe Operations ===\\nSafe divide 10 / 2 = 5.0\\nSafe divide 10 / 0 = None\\nSafe divide 10 / 2 = None\\nSafe divide 15 / 3 = 5.0\\n\\n=== Captured Logs ===\\nDEBUG - Starting division: 10 / 2\\nINFO - Operation 1: divide(10, 2) = 5.0\\nDEBUG - Starting division: 10 / 0\\nERROR - Operation 2: divide(10, 0) failed - Division by zero\\nDEBUG - Starting division: 10 / 2\\nERROR - Operation 3: divide(10, 2) failed - Invalid types: int, str\\nDEBUG - Starting division: 15 / 3\\nINFO - Operation 4: divide(15, 3) = 5.0\\nWARNING - Safe divide failed: Division by zero\\nWARNING - Safe divide failed: Invalid types: int, str",
-                "explanation": "Logging provides structured error tracking and debugging information for production applications"
-            }
+                "explanation": "Logging provides structured error tracking and debugging information for production applications",
+            },
         }
-    
+
     def _get_explanation(self) -> str:
         """Get detailed explanation for error handling."""
         return (
@@ -465,7 +461,7 @@ for line in log_output.strip().split('\\n'):
             "with additional context. Exception chaining preserves error context while allowing "
             "high-level handling. Logging helps track errors and debug issues in production."
         )
-    
+
     def _get_best_practices(self) -> List[str]:
         """Get best practices for error handling."""
         return [
@@ -480,5 +476,5 @@ for line in log_output.strip().split('\\n'):
             "Don't ignore exceptions silently - always handle them appropriately",
             "Use else blocks in try statements for code that should only run on success",
             "Validate input early and raise meaningful exceptions for invalid data",
-            "Consider using context managers (with statements) for resource management"
+            "Consider using context managers (with statements) for resource management",
         ]

@@ -12,10 +12,10 @@ from .base import TopicDemo
 
 class DecoratorsDemo(TopicDemo):
     """Demonstration class for Python decorators."""
-    
+
     def __init__(self):
         super().__init__("decorators")
-    
+
     def _setup_examples(self) -> None:
         """Setup decorator examples."""
         self.examples = {
@@ -100,9 +100,8 @@ def unreliable_network_call(success_rate: float = 0.3):
         return "Success!"
     raise ConnectionError("Network request failed")
 ''',
-                "explanation": "Function decorators modify or enhance function behavior without changing the original function code"
+                "explanation": "Function decorators modify or enhance function behavior without changing the original function code",
             },
-            
             "class_decorators": {
                 "code": '''
 import json
@@ -167,9 +166,8 @@ class Person:
     def __str__(self):
         return f"Person(name='{self.name}', age={self.age}, email='{self.email}')"
 ''',
-                "explanation": "Class decorators can modify entire classes, adding methods, validation, logging, and other behaviors"
+                "explanation": "Class decorators can modify entire classes, adding methods, validation, logging, and other behaviors",
             },
-            
             "advanced_decorators": {
                 "code": '''
 import inspect
@@ -266,31 +264,35 @@ def api_call(endpoint: str):
     """Simulated API call with rate limiting."""
     return f"Called {endpoint} at {time.time():.2f}"
 ''',
-                "explanation": "Advanced decorators can preserve signatures, implement patterns like singleton, add type checking, and control execution flow"
-            }
+                "explanation": "Advanced decorators can preserve signatures, implement patterns like singleton, add type checking, and control execution flow",
+            },
         }
-    
+
     def _setup_exercises(self) -> None:
         """Setup decorator exercises."""
-        from .classes.utilities.exercises.caching_director import CachingDecoratorExercise
-        
+        from .classes.utilities.exercises.caching_director import (
+            CachingDecoratorExercise,
+        )
+
         caching_exercise = CachingDecoratorExercise()
-        
+
         self.exercises = [
             {
                 "topic": "decorators",
                 "title": "Build a Caching Decorator",
                 "description": "Create a sophisticated caching decorator with TTL and size limits",
                 "difficulty": "hard",
-                "exercise": caching_exercise
+                "exercise": caching_exercise,
             }
         ]
-    
+
     def get_explanation(self) -> str:
         """Get detailed explanation for decorators."""
-        return ("Decorators modify or enhance functions and classes without changing their source code, "
-                "providing a clean way to add functionality like logging, timing, caching, and validation.")
-    
+        return (
+            "Decorators modify or enhance functions and classes without changing their source code, "
+            "providing a clean way to add functionality like logging, timing, caching, and validation."
+        )
+
     def get_best_practices(self) -> List[str]:
         """Get best practices for decorators."""
         return [
@@ -298,5 +300,5 @@ def api_call(endpoint: str):
             "Keep decorators simple and focused on single concerns",
             "Use parameterized decorators for configurable behavior",
             "Document decorator behavior clearly",
-            "Consider performance impact of decorators"
+            "Consider performance impact of decorators",
         ]

@@ -169,9 +169,8 @@ def test_add_invalid_items(invalid_item):
 if __name__ == "__main__":
     pytest.main(["-v"])
 ''',
-            "explanation": "Basic pytest structure with simple test functions and parametrized tests"
+            "explanation": "Basic pytest structure with simple test functions and parametrized tests",
         },
-        
         "fixtures_and_advanced": {
             "code": '''
 import pytest
@@ -353,9 +352,8 @@ if __name__ == "__main__":
     # Run with specific markers
     pytest.main(["-v", "-m", "unit"])  # Run only unit tests
 ''',
-            "explanation": "Advanced pytest features including fixtures, markers, and test organization"
+            "explanation": "Advanced pytest features including fixtures, markers, and test organization",
         },
-        
         "async_and_advanced": {
             "code": '''
 import pytest
@@ -593,6 +591,6 @@ if __name__ == "__main__":
         "--maxfail=3"
     ])
 ''',
-            "explanation": "Advanced pytest features including async testing, fixtures with different scopes, and custom configurations"
-        }
+            "explanation": "Advanced pytest features including async testing, fixtures with different scopes, and custom configurations",
+        },
     }

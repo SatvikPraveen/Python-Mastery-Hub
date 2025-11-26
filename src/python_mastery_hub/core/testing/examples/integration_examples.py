@@ -248,9 +248,8 @@ class TestUserRepositoryIntegration(DatabaseIntegrationTestCase):
 if __name__ == '__main__':
     unittest.main(verbosity=2)
 ''',
-            "explanation": "Database integration testing with real SQLite database, transactions, and data persistence"
+            "explanation": "Database integration testing with real SQLite database, transactions, and data persistence",
         },
-        
         "api_integration": {
             "code": '''
 import unittest
@@ -361,9 +360,8 @@ class FileSystemIntegrationTest(unittest.TestCase):
 if __name__ == '__main__':
     unittest.main(verbosity=2)
 ''',
-            "explanation": "Integration testing with external APIs and file system operations, mixing real and mocked dependencies"
+            "explanation": "Integration testing with external APIs and file system operations, mixing real and mocked dependencies",
         },
-        
         "full_stack_integration": {
             "code": '''
 import unittest
@@ -569,6 +567,6 @@ class FullStackIntegrationTest(unittest.TestCase):
 if __name__ == '__main__':
     unittest.main(verbosity=2)
 ''',
-            "explanation": "Full-stack integration testing covering database, repository, business logic, and audit logging layers"
-        }
+            "explanation": "Full-stack integration testing covering database, repository, business logic, and audit logging layers",
+        },
     }

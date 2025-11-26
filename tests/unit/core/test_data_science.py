@@ -15,7 +15,7 @@ from datetime import datetime, timedelta
 import warnings
 
 # Suppress warnings for cleaner test output
-warnings.filterwarnings('ignore')
+warnings.filterwarnings("ignore")
 
 # Import modules under test (adjust based on your actual structure)
 try:
@@ -25,33 +25,39 @@ try:
         MatplotlibExercise,
         DataAnalysisExercise,
         MachineLearningExercise,
-        StatisticsExercise
+        StatisticsExercise,
     )
     from src.core.evaluators import DataScienceEvaluator
 except ImportError:
     # Mock classes for when actual modules don't exist
     class NumpyExercise:
         pass
+
     class PandasExercise:
         pass
+
     class MatplotlibExercise:
         pass
+
     class DataAnalysisExercise:
         pass
+
     class MachineLearningExercise:
         pass
+
     class StatisticsExercise:
         pass
+
     class DataScienceEvaluator:
         pass
 
 
 class TestNumpyExercises:
     """Test cases for NumPy array operations and exercises."""
-    
+
     def test_array_creation_and_basic_operations(self):
         """Test NumPy array creation and basic operations."""
-        code = '''
+        code = """
 import numpy as np
 
 # Array creation
@@ -86,31 +92,31 @@ arr_cumsum = np.cumsum(arr1)
 # Boolean operations
 bool_mask = arr1 > 3
 filtered_arr = arr1[bool_mask]
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
+
         # Test array properties
-        assert globals_dict['shape_2d'] == (2, 3)
-        assert globals_dict['ndim_2d'] == 2
-        assert globals_dict['size_2d'] == 6
-        
+        assert globals_dict["shape_2d"] == (2, 3)
+        assert globals_dict["ndim_2d"] == 2
+        assert globals_dict["size_2d"] == 6
+
         # Test operations
-        assert np.array_equal(globals_dict['arr_sum'], [11, 12, 13, 14, 15])
-        assert np.array_equal(globals_dict['arr_mult'], [2, 4, 6, 8, 10])
-        assert np.array_equal(globals_dict['arr_power'], [1, 4, 9, 16, 25])
-        
+        assert np.array_equal(globals_dict["arr_sum"], [11, 12, 13, 14, 15])
+        assert np.array_equal(globals_dict["arr_mult"], [2, 4, 6, 8, 10])
+        assert np.array_equal(globals_dict["arr_power"], [1, 4, 9, 16, 25])
+
         # Test statistics
-        assert globals_dict['arr_mean'] == 3.0
-        assert globals_dict['arr_max'] == 5
-        assert globals_dict['arr_min'] == 1
-        
+        assert globals_dict["arr_mean"] == 3.0
+        assert globals_dict["arr_max"] == 5
+        assert globals_dict["arr_min"] == 1
+
         # Test boolean operations
-        assert np.array_equal(globals_dict['filtered_arr'], [4, 5])
-    
+        assert np.array_equal(globals_dict["filtered_arr"], [4, 5])
+
     def test_array_indexing_and_slicing(self):
         """Test NumPy array indexing and slicing operations."""
-        code = '''
+        code = """
 import numpy as np
 
 # Create test arrays
@@ -145,28 +151,28 @@ arr_conditional = np.where(arr_1d > 5, arr_1d, 0)
 # Array modification
 arr_copy = arr_1d.copy()
 arr_copy[arr_copy < 5] = -1
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
+
         # Test basic indexing
-        assert globals_dict['first_element'] == 0
-        assert globals_dict['last_element'] == 9
-        assert globals_dict['middle_element'] == 6
-        
+        assert globals_dict["first_element"] == 0
+        assert globals_dict["last_element"] == 9
+        assert globals_dict["middle_element"] == 6
+
         # Test slicing
-        assert np.array_equal(globals_dict['slice_1d'], [2, 3, 4, 5, 6, 7])
-        assert np.array_equal(globals_dict['slice_step'], [0, 2, 4, 6, 8])
-        assert np.array_equal(globals_dict['slice_2d_row'], [5, 6, 7, 8])
-        assert np.array_equal(globals_dict['slice_2d_col'], [3, 7, 11])
-        
+        assert np.array_equal(globals_dict["slice_1d"], [2, 3, 4, 5, 6, 7])
+        assert np.array_equal(globals_dict["slice_step"], [0, 2, 4, 6, 8])
+        assert np.array_equal(globals_dict["slice_2d_row"], [5, 6, 7, 8])
+        assert np.array_equal(globals_dict["slice_2d_col"], [3, 7, 11])
+
         # Test advanced indexing
-        assert np.array_equal(globals_dict['fancy_indexed'], [0, 2, 4])
-        assert np.array_equal(globals_dict['even_numbers'], [0, 2, 4, 6, 8])
-    
+        assert np.array_equal(globals_dict["fancy_indexed"], [0, 2, 4])
+        assert np.array_equal(globals_dict["even_numbers"], [0, 2, 4, 6, 8])
+
     def test_array_reshaping_and_manipulation(self):
         """Test array reshaping and manipulation operations."""
-        code = '''
+        code = """
 import numpy as np
 
 # Create test array
@@ -204,32 +210,34 @@ broadcast_result = arr1[:, np.newaxis] + arr2
 # Array copying
 shallow_copy = arr1.view()
 deep_copy = arr1.copy()
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
+
         # Test reshaping
-        assert globals_dict['reshaped_2d'].shape == (3, 4)
-        assert globals_dict['reshaped_3d'].shape == (2, 2, 3)
-        
+        assert globals_dict["reshaped_2d"].shape == (3, 4)
+        assert globals_dict["reshaped_3d"].shape == (2, 2, 3)
+
         # Test flattening
-        assert len(globals_dict['flattened']) == 12
-        assert np.array_equal(globals_dict['flattened'], np.arange(12))
-        
+        assert len(globals_dict["flattened"]) == 12
+        assert np.array_equal(globals_dict["flattened"], np.arange(12))
+
         # Test transposing
-        assert globals_dict['transposed'].shape == (3, 2)
-        assert np.array_equal(globals_dict['transposed'], globals_dict['transposed_func'])
-        
+        assert globals_dict["transposed"].shape == (3, 2)
+        assert np.array_equal(
+            globals_dict["transposed"], globals_dict["transposed_func"]
+        )
+
         # Test concatenation
-        assert np.array_equal(globals_dict['concatenated'], [1, 2, 3, 4, 5, 6])
-        assert globals_dict['stacked_vertical'].shape == (2, 3)
-        
+        assert np.array_equal(globals_dict["concatenated"], [1, 2, 3, 4, 5, 6])
+        assert globals_dict["stacked_vertical"].shape == (2, 3)
+
         # Test broadcasting
-        assert globals_dict['broadcast_result'].shape == (3, 3)
-    
+        assert globals_dict["broadcast_result"].shape == (3, 3)
+
     def test_linear_algebra_operations(self):
         """Test NumPy linear algebra operations."""
-        code = '''
+        code = """
 import numpy as np
 
 # Matrix operations
@@ -275,33 +283,35 @@ vector_norm = np.linalg.norm(v1)
 
 # Matrix decompositions
 U, s, Vt = np.linalg.svd(A)
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
+
         # Test matrix operations
         expected_matrix_mult = np.array([[19, 22], [43, 50]])
-        assert np.array_equal(globals_dict['matrix_mult'], expected_matrix_mult)
-        assert np.array_equal(globals_dict['matrix_mult_operator'], expected_matrix_mult)
-        
+        assert np.array_equal(globals_dict["matrix_mult"], expected_matrix_mult)
+        assert np.array_equal(
+            globals_dict["matrix_mult_operator"], expected_matrix_mult
+        )
+
         # Test matrix properties
-        assert abs(globals_dict['determinant'] - (-2.0)) < 1e-10
-        assert globals_dict['trace'] == 5
-        
+        assert abs(globals_dict["determinant"] - (-2.0)) < 1e-10
+        assert globals_dict["trace"] == 5
+
         # Test solution verification
-        assert globals_dict['verification'] is True
-        
+        assert globals_dict["verification"] is True
+
         # Test vector operations
-        assert globals_dict['dot_product'] == 32
-        assert len(globals_dict['cross_product']) == 3
+        assert globals_dict["dot_product"] == 32
+        assert len(globals_dict["cross_product"]) == 3
 
 
 class TestPandasExercises:
     """Test cases for Pandas DataFrame operations and exercises."""
-    
+
     def test_dataframe_creation_and_basic_operations(self):
         """Test pandas DataFrame creation and basic operations."""
-        code = '''
+        code = """
 import pandas as pd
 import numpy as np
 
@@ -350,32 +360,32 @@ filtered_df = df_from_dict[df_from_dict['age'] > 30]
 # Sorting
 sorted_by_age = df_from_dict.sort_values('age')
 sorted_by_salary_desc = df_from_dict.sort_values('salary', ascending=False)
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
+
         # Test DataFrame properties
-        assert globals_dict['num_rows'] == 4
-        assert globals_dict['num_cols'] == 4
-        assert 'name' in globals_dict['column_names']
-        assert 'age' in globals_dict['column_names']
-        
+        assert globals_dict["num_rows"] == 4
+        assert globals_dict["num_cols"] == 4
+        assert "name" in globals_dict["column_names"]
+        assert "age" in globals_dict["column_names"]
+
         # Test statistics
-        assert globals_dict['age_mean'] == 29.5
-        assert globals_dict['age_median'] == 29.0
-        
+        assert globals_dict["age_mean"] == 29.5
+        assert globals_dict["age_median"] == 29.0
+
         # Test operations
-        assert 'bonus' in globals_dict['df_copy'].columns
-        assert 'total_compensation' in globals_dict['df_copy'].columns
-        
+        assert "bonus" in globals_dict["df_copy"].columns
+        assert "total_compensation" in globals_dict["df_copy"].columns
+
         # Test filtering
-        filtered = globals_dict['filtered_df']
+        filtered = globals_dict["filtered_df"]
         assert len(filtered) == 2  # Bob and Charlie are > 30
-        assert all(filtered['age'] > 30)
-    
+        assert all(filtered["age"] > 30)
+
     def test_data_cleaning_and_preprocessing(self):
         """Test data cleaning and preprocessing operations."""
-        code = '''
+        code = """
 import pandas as pd
 import numpy as np
 
@@ -424,26 +434,26 @@ valid_ages = (df_cleaned['age'] >= 18) & (df_cleaned['age'] <= 100)
 # Summary statistics after cleaning
 final_shape = df_cleaned.shape
 missing_values_count = df_cleaned.isnull().sum().sum()
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
+
         # Test data cleaning results
-        df_cleaned = globals_dict['df_cleaned']
-        assert globals_dict['missing_values_count'] == 1  # Only email might be missing
-        assert df_cleaned['name'].notna().all()  # No missing names after cleaning
-        assert df_cleaned['salary'].notna().all()  # No missing salaries after dropping
-        
+        df_cleaned = globals_dict["df_cleaned"]
+        assert globals_dict["missing_values_count"] == 1  # Only email might be missing
+        assert df_cleaned["name"].notna().all()  # No missing names after cleaning
+        assert df_cleaned["salary"].notna().all()  # No missing salaries after dropping
+
         # Test data types
-        assert pd.api.types.is_datetime64_any_dtype(df_cleaned['join_date'])
-        assert pd.api.types.is_integer_dtype(df_cleaned['age'])
-        
+        assert pd.api.types.is_datetime64_any_dtype(df_cleaned["join_date"])
+        assert pd.api.types.is_integer_dtype(df_cleaned["age"])
+
         # Test string operations
-        assert all(email.islower() for email in df_cleaned['email'].dropna())
-    
+        assert all(email.islower() for email in df_cleaned["email"].dropna())
+
     def test_groupby_and_aggregation_operations(self):
         """Test groupby and aggregation operations."""
-        code = '''
+        code = """
 import pandas as pd
 import numpy as np
 
@@ -500,31 +510,31 @@ crosstab_product_region = pd.crosstab(df_sales['product'], df_sales['region'], v
 # Time-based grouping
 df_sales['month'] = df_sales['date'].dt.month
 monthly_revenue = df_sales.groupby('month')['revenue'].sum()
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
+
         # Test groupby results
-        grouped_by_person = globals_dict['grouped_by_person']
+        grouped_by_person = globals_dict["grouped_by_person"]
         assert len(grouped_by_person) == 3  # Alice, Bob, Charlie
         assert all(revenue > 0 for revenue in grouped_by_person.values)
-        
+
         # Test pivot table
-        pivot_revenue = globals_dict['pivot_revenue']
+        pivot_revenue = globals_dict["pivot_revenue"]
         assert pivot_revenue.shape[0] == 3  # 3 salespeople
         assert pivot_revenue.shape[1] >= 2  # At least 2 regions
-        
+
         # Test transform operations
-        df_sales = globals_dict['df_sales']
-        assert 'revenue_pct_of_person_total' in df_sales.columns
-        
+        df_sales = globals_dict["df_sales"]
+        assert "revenue_pct_of_person_total" in df_sales.columns
+
         # Verify percentages sum to 1 for each person
-        pct_sums = df_sales.groupby('salesperson')['revenue_pct_of_person_total'].sum()
+        pct_sums = df_sales.groupby("salesperson")["revenue_pct_of_person_total"].sum()
         assert all(abs(pct_sum - 1.0) < 1e-10 for pct_sum in pct_sums)
-    
+
     def test_time_series_operations(self):
         """Test time series operations with pandas."""
-        code = '''
+        code = """
 import pandas as pd
 import numpy as np
 
@@ -578,37 +588,37 @@ business_day_data = ts_data.reindex(business_days, method='ffill')
 daily_returns = ts_data.pct_change()
 volatility = daily_returns.std() * np.sqrt(252)  # Annualized volatility
 sharpe_ratio = daily_returns.mean() / daily_returns.std() * np.sqrt(252)
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
+
         # Test time series operations
-        ts_data = globals_dict['ts_data']
+        ts_data = globals_dict["ts_data"]
         assert len(ts_data) == 365  # Full year of daily data
-        
+
         # Test resampling
-        ts_monthly = globals_dict['ts_monthly']
+        ts_monthly = globals_dict["ts_monthly"]
         assert len(ts_monthly) == 12  # 12 months
-        
+
         # Test rolling operations
-        rolling_mean = globals_dict['rolling_mean']
+        rolling_mean = globals_dict["rolling_mean"]
         assert len(rolling_mean) == len(ts_data)
-        
+
         # Test date components
-        df_ts = globals_dict['df_ts']
-        assert 'year' in df_ts.columns
-        assert 'month' in df_ts.columns
-        assert all(df_ts['year'] == 2023)
-        assert all((df_ts['month'] >= 1) & (df_ts['month'] <= 12))
+        df_ts = globals_dict["df_ts"]
+        assert "year" in df_ts.columns
+        assert "month" in df_ts.columns
+        assert all(df_ts["year"] == 2023)
+        assert all((df_ts["month"] >= 1) & (df_ts["month"] <= 12))
 
 
 class TestMatplotlibExercises:
     """Test cases for Matplotlib plotting exercises."""
-    
-    @patch('matplotlib.pyplot.show')
+
+    @patch("matplotlib.pyplot.show")
     def test_basic_plotting_operations(self, mock_show):
         """Test basic matplotlib plotting operations."""
-        code = '''
+        code = """
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -677,23 +687,23 @@ plt.title('Box Plot Comparison')
 plt.ylabel('Values')
 
 boxplot_created = True
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
+
         # Test that plots were created successfully
-        assert globals_dict['plot_created'] is True
-        assert globals_dict['scatter_created'] is True
-        assert globals_dict['histogram_created'] is True
-        assert globals_dict['boxplot_created'] is True
-        
+        assert globals_dict["plot_created"] is True
+        assert globals_dict["scatter_created"] is True
+        assert globals_dict["histogram_created"] is True
+        assert globals_dict["boxplot_created"] is True
+
         # Verify mock was called (plots were shown)
         assert mock_show.call_count >= 0  # show() might be called
-    
-    @patch('matplotlib.pyplot.show')
+
+    @patch("matplotlib.pyplot.show")
     def test_subplots_and_advanced_plotting(self, mock_show):
         """Test subplot creation and advanced plotting features."""
-        code = '''
+        code = """
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -789,18 +799,18 @@ ax_3d.set_title('3D Surface Plot')
 
 fig.colorbar(surface)
 plot_3d_created = True
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
+
         # Test that advanced plots were created
-        assert globals_dict['subplots_created'] is True
-        assert globals_dict['custom_plot_created'] is True
-        assert globals_dict['plot_3d_created'] is True
-    
+        assert globals_dict["subplots_created"] is True
+        assert globals_dict["custom_plot_created"] is True
+        assert globals_dict["plot_3d_created"] is True
+
     def test_plot_data_analysis_integration(self):
         """Test integration of plotting with data analysis."""
-        code = '''
+        code = """
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
@@ -904,30 +914,30 @@ statistical_plots_created = True
 
 # Calculate correlation coefficient
 temp_humidity_corr = weather_data['temperature'].corr(weather_data['humidity'])
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
+
         # Test that data analysis plots were created
-        assert globals_dict['time_series_plots_created'] is True
-        assert globals_dict['statistical_plots_created'] is True
-        
+        assert globals_dict["time_series_plots_created"] is True
+        assert globals_dict["statistical_plots_created"] is True
+
         # Test data analysis results
-        weather_data = globals_dict['weather_data']
+        weather_data = globals_dict["weather_data"]
         assert len(weather_data) == 365
-        assert 'season' in weather_data.columns
-        
+        assert "season" in weather_data.columns
+
         # Test correlation calculation
-        correlation = globals_dict['temp_humidity_corr']
+        correlation = globals_dict["temp_humidity_corr"]
         assert -1 <= correlation <= 1
 
 
 class TestDataAnalysisExercises:
     """Test cases for comprehensive data analysis exercises."""
-    
+
     def test_exploratory_data_analysis(self):
         """Test exploratory data analysis workflow."""
-        code = '''
+        code = """
 import pandas as pd
 import numpy as np
 
@@ -1024,30 +1034,30 @@ basic_satisfaction = df[df['customer_type'] == 'Basic']['satisfaction_score']
 # ANOVA test (simplified)
 f_statistic, p_value = stats.f_oneway(premium_satisfaction, standard_satisfaction, basic_satisfaction)
 significant_difference = p_value < 0.05
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
+
         # Test EDA results
-        df = globals_dict['df']
-        assert globals_dict['shape_info'] == (1000, 8)
-        assert len(globals_dict['missing_values']) == 8
-        
+        df = globals_dict["df"]
+        assert globals_dict["shape_info"] == (1000, 8)
+        assert len(globals_dict["missing_values"]) == 8
+
         # Test outlier detection
-        assert len(globals_dict['outliers_income']) >= 0
-        assert len(globals_dict['outliers_purchase']) >= 0
-        
+        assert len(globals_dict["outliers_income"]) >= 0
+        assert len(globals_dict["outliers_purchase"]) >= 0
+
         # Test segmentation
-        assert 'customer_segment' in df.columns
-        segment_dist = globals_dict['segment_distribution']
+        assert "customer_segment" in df.columns
+        segment_dist = globals_dict["segment_distribution"]
         assert len(segment_dist) >= 3  # At least 3 segments
-        
+
         # Test statistical analysis
-        assert isinstance(globals_dict['significant_difference'], bool)
-    
+        assert isinstance(globals_dict["significant_difference"], bool)
+
     def test_data_preprocessing_pipeline(self):
         """Test comprehensive data preprocessing pipeline."""
-        code = '''
+        code = """
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import StandardScaler, LabelEncoder, OneHotEncoder
@@ -1171,21 +1181,25 @@ preprocessing_summary = {
     'final_missing_values': final_missing,
     'samples_removed': initial_shape[0] - final_shape[0]
 }
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
+
         # Test preprocessing results
-        summary = globals_dict['preprocessing_summary']
-        assert summary['final_missing_values'] == 0  # No missing values after preprocessing
-        assert summary['final_features'] > summary['initial_features']  # More features due to encoding
-        
+        summary = globals_dict["preprocessing_summary"]
+        assert (
+            summary["final_missing_values"] == 0
+        )  # No missing values after preprocessing
+        assert (
+            summary["final_features"] > summary["initial_features"]
+        )  # More features due to encoding
+
         # Test train-test split
-        X_train = globals_dict['X_train']
-        X_test = globals_dict['X_test']
-        y_train = globals_dict['y_train']
-        y_test = globals_dict['y_test']
-        
+        X_train = globals_dict["X_train"]
+        X_test = globals_dict["X_test"]
+        y_train = globals_dict["y_train"]
+        y_test = globals_dict["y_test"]
+
         assert len(X_train) > len(X_test)  # 80-20 split
         assert len(X_train) == len(y_train)
         assert len(X_test) == len(y_test)
@@ -1193,10 +1207,10 @@ preprocessing_summary = {
 
 class TestMachineLearningExercises:
     """Test cases for basic machine learning exercises."""
-    
+
     def test_supervised_learning_classification(self):
         """Test supervised learning classification workflow."""
-        code = '''
+        code = """
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
@@ -1290,31 +1304,31 @@ comparison_summary = {
     model_name: results['accuracy'] 
     for model_name, results in model_results.items()
 }
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
+
         # Test ML workflow results
-        model_results = globals_dict['model_results']
+        model_results = globals_dict["model_results"]
         assert len(model_results) == 2  # Two models trained
-        
+
         # Test accuracy scores
         for model_name, results in model_results.items():
-            assert 0 <= results['accuracy'] <= 1
-            assert len(results['predictions']) == len(globals_dict['y_test'])
-        
+            assert 0 <= results["accuracy"] <= 1
+            assert len(results["predictions"]) == len(globals_dict["y_test"])
+
         # Test feature importance
-        feature_importance = globals_dict['feature_importance']
+        feature_importance = globals_dict["feature_importance"]
         assert len(feature_importance) == 5  # 5 features
         assert all(importance >= 0 for importance in feature_importance.values())
-        
+
         # Test best model selection
-        best_model = globals_dict['best_model_name']
-        assert best_model in ['Logistic Regression', 'Random Forest']
-    
+        best_model = globals_dict["best_model_name"]
+        assert best_model in ["Logistic Regression", "Random Forest"]
+
     def test_supervised_learning_regression(self):
         """Test supervised learning regression workflow."""
-        code = '''
+        code = """
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
@@ -1443,32 +1457,32 @@ performance_summary = {
     }
     for model_name, results in regression_results.items()
 }
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
+
         # Test regression results
-        regression_results = globals_dict['regression_results']
+        regression_results = globals_dict["regression_results"]
         assert len(regression_results) == 2  # Two models trained
-        
+
         # Test metrics
         for model_name, results in regression_results.items():
-            assert results['r2'] <= 1  # R2 should be <= 1
-            assert results['rmse'] > 0  # RMSE should be positive
-            assert results['mae'] > 0  # MAE should be positive
-        
+            assert results["r2"] <= 1  # R2 should be <= 1
+            assert results["rmse"] > 0  # RMSE should be positive
+            assert results["mae"] > 0  # MAE should be positive
+
         # Test feature importance
-        rf_importance = globals_dict['rf_feature_importance']
+        rf_importance = globals_dict["rf_feature_importance"]
         assert len(rf_importance) == 8  # 8 features
         assert all(importance >= 0 for importance in rf_importance.values())
-        
+
         # Test coefficients
-        lr_coefficients = globals_dict['lr_coefficients']
+        lr_coefficients = globals_dict["lr_coefficients"]
         assert len(lr_coefficients) == 8  # 8 features
-    
+
     def test_unsupervised_learning_clustering(self):
         """Test unsupervised learning clustering workflow."""
-        code = '''
+        code = """
 import pandas as pd
 import numpy as np
 from sklearn.cluster import KMeans, DBSCAN
@@ -1620,31 +1634,31 @@ clustering_summary = {
     'dbscan_ari': dbscan_ari,
     'pca_variance_explained': sum(explained_variance_ratio)
 }
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
+
         # Test clustering results
-        summary = globals_dict['clustering_summary']
-        assert summary['optimal_k'] >= 2
-        assert summary['kmeans_clusters'] >= 2
-        assert -1 <= summary['kmeans_silhouette'] <= 1
-        assert -1 <= summary['kmeans_ari'] <= 1
-        
+        summary = globals_dict["clustering_summary"]
+        assert summary["optimal_k"] >= 2
+        assert summary["kmeans_clusters"] >= 2
+        assert -1 <= summary["kmeans_silhouette"] <= 1
+        assert -1 <= summary["kmeans_ari"] <= 1
+
         # Test PCA
-        assert 0 <= summary['pca_variance_explained'] <= 1
-        
+        assert 0 <= summary["pca_variance_explained"] <= 1
+
         # Test cluster statistics
-        kmeans_stats = globals_dict['kmeans_cluster_stats']
+        kmeans_stats = globals_dict["kmeans_cluster_stats"]
         assert len(kmeans_stats) >= 2  # At least 2 clusters
 
 
 class TestStatisticsExercises:
     """Test cases for statistics and probability exercises."""
-    
+
     def test_descriptive_statistics(self):
         """Test descriptive statistics calculations."""
-        code = '''
+        code = """
 import numpy as np
 import pandas as pd
 from scipy import stats
@@ -1735,37 +1749,39 @@ for col in df_stats.columns:
         'ci_upper': ci[1],
         'margin_of_error': ci[1] - mean_val
     }
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
+
         # Test descriptive statistics
-        central = globals_dict['measures_central']
-        variability = globals_dict['measures_variability']
-        shape = globals_dict['measures_shape']
-        
+        central = globals_dict["measures_central"]
+        variability = globals_dict["measures_variability"]
+        shape = globals_dict["measures_shape"]
+
         assert len(central) == 4  # 4 distributions
         assert len(variability) == 4
         assert len(shape) == 4
-        
+
         # Test that normal distribution has expected properties
-        normal_stats = central['normal_dist']
-        assert 95 < normal_stats['mean'] < 105  # Should be around 100
-        assert abs(normal_stats['mean'] - normal_stats['median']) < 5  # Should be close for normal dist
-        
+        normal_stats = central["normal_dist"]
+        assert 95 < normal_stats["mean"] < 105  # Should be around 100
+        assert (
+            abs(normal_stats["mean"] - normal_stats["median"]) < 5
+        )  # Should be close for normal dist
+
         # Test outlier detection
-        outliers = globals_dict['outliers']
+        outliers = globals_dict["outliers"]
         assert all(count >= 0 for count in outliers.values())
-        
+
         # Test confidence intervals
-        ci = globals_dict['confidence_intervals']
+        ci = globals_dict["confidence_intervals"]
         assert len(ci) == 4
         for col_ci in ci.values():
-            assert col_ci['ci_lower'] < col_ci['mean'] < col_ci['ci_upper']
-    
+            assert col_ci["ci_lower"] < col_ci["mean"] < col_ci["ci_upper"]
+
     def test_hypothesis_testing(self):
         """Test hypothesis testing procedures."""
-        code = '''
+        code = """
 import numpy as np
 import pandas as pd
 from scipy import stats
@@ -1930,40 +1946,40 @@ additional_stats = {
         'sample_size': sample_size
     }
 }
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
+
         # Test hypothesis testing results
-        results = globals_dict['hypothesis_results']
+        results = globals_dict["hypothesis_results"]
         assert len(results) == 5  # 5 different tests
-        
+
         # Test that all tests have required components
         for test_name, test_results in results.items():
-            assert 'p_value' in test_results
-            assert 'reject_null' in test_results
-            assert 'effect_size' in test_results
-            assert 0 <= test_results['p_value'] <= 1
-            assert isinstance(test_results['reject_null'], bool)
-        
+            assert "p_value" in test_results
+            assert "reject_null" in test_results
+            assert "effect_size" in test_results
+            assert 0 <= test_results["p_value"] <= 1
+            assert isinstance(test_results["reject_null"], bool)
+
         # Test additional statistics
-        additional = globals_dict['additional_stats']
-        assert 'normality_test' in additional
-        assert 'power_analysis' in additional
-        assert 0 <= additional['power_analysis']['observed_power'] <= 1
+        additional = globals_dict["additional_stats"]
+        assert "normality_test" in additional
+        assert "power_analysis" in additional
+        assert 0 <= additional["power_analysis"]["observed_power"] <= 1
 
 
 class TestDataScienceEvaluator:
     """Test cases for data science code evaluator."""
-    
+
     @pytest.fixture
     def evaluator(self):
         """Create a data science evaluator instance."""
         return DataScienceEvaluator()
-    
+
     def test_evaluate_numpy_code(self, evaluator):
         """Test evaluation of NumPy code."""
-        numpy_code = '''
+        numpy_code = """
 import numpy as np
 
 # Create arrays
@@ -1982,19 +1998,19 @@ results = {
     'shape_original': arr1.shape,
     'shape_reshaped': reshaped.shape
 }
-'''
+"""
         result = evaluator.evaluate(numpy_code)
-        
-        assert result['success'] is True
-        results = result['globals']['results']
-        assert results['mean'] == 3.0
-        assert results['sum'] == 15
-        assert results['shape_original'] == (5,)
-        assert results['shape_reshaped'] == (5, 1)
-    
+
+        assert result["success"] is True
+        results = result["globals"]["results"]
+        assert results["mean"] == 3.0
+        assert results["sum"] == 15
+        assert results["shape_original"] == (5,)
+        assert results["shape_reshaped"] == (5, 1)
+
     def test_evaluate_pandas_code(self, evaluator):
         """Test evaluation of Pandas code."""
-        pandas_code = '''
+        pandas_code = """
 import pandas as pd
 import numpy as np
 
@@ -2019,19 +2035,19 @@ results = {
     'num_rows': len(df),
     'columns': list(df.columns)
 }
-'''
+"""
         result = evaluator.evaluate(pandas_code)
-        
-        assert result['success'] is True
-        results = result['globals']['results']
-        assert results['mean_age'] == 30.0
-        assert results['total_salary'] == 180000
-        assert results['num_rows'] == 3
-        assert 'name' in results['columns']
-    
+
+        assert result["success"] is True
+        results = result["globals"]["results"]
+        assert results["mean_age"] == 30.0
+        assert results["total_salary"] == 180000
+        assert results["num_rows"] == 3
+        assert "name" in results["columns"]
+
     def test_check_data_science_libraries(self, evaluator):
         """Test checking for data science library usage."""
-        data_science_code = '''
+        data_science_code = """
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -2044,18 +2060,18 @@ arr = np.array([1, 2, 3])
 model = LinearRegression()
 
 plt.plot([1, 2, 3], [2, 4, 6])
-'''
-        
+"""
+
         libraries = evaluator.check_library_usage(data_science_code)
-        
-        assert libraries['pandas'] is True
-        assert libraries['numpy'] is True
-        assert libraries['matplotlib'] is True
-        assert libraries['sklearn'] is True
-    
+
+        assert libraries["pandas"] is True
+        assert libraries["numpy"] is True
+        assert libraries["matplotlib"] is True
+        assert libraries["sklearn"] is True
+
     def test_analyze_data_workflow(self, evaluator):
         """Test analysis of data science workflow patterns."""
-        workflow_code = '''
+        workflow_code = """
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
@@ -2083,25 +2099,25 @@ model.fit(X_train, y_train)
 # 5. Model evaluation
 predictions = model.predict(X_test)
 mse = mean_squared_error(y_test, predictions)
-'''
-        
+"""
+
         workflow = evaluator.analyze_workflow(workflow_code)
-        
-        assert workflow['has_data_loading'] is True
-        assert workflow['has_data_cleaning'] is True
-        assert workflow['has_feature_engineering'] is True
-        assert workflow['has_model_training'] is True
-        assert workflow['has_model_evaluation'] is True
-        assert workflow['follows_ml_pipeline'] is True
+
+        assert workflow["has_data_loading"] is True
+        assert workflow["has_data_cleaning"] is True
+        assert workflow["has_feature_engineering"] is True
+        assert workflow["has_model_training"] is True
+        assert workflow["has_model_evaluation"] is True
+        assert workflow["follows_ml_pipeline"] is True
 
 
 @pytest.mark.integration
 class TestDataScienceIntegration:
     """Integration tests for data science exercises."""
-    
+
     def test_complete_data_science_pipeline(self):
         """Test a complete end-to-end data science pipeline."""
-        code = '''
+        code = """
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -2261,31 +2277,35 @@ final_results = {
     'error_statistics': error_stats,
     'pipeline_successful': pipeline_success
 }
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
+
         # Test the complete pipeline
-        results = globals_dict['final_results']
-        performance = results['model_performance']
-        
+        results = globals_dict["final_results"]
+        performance = results["model_performance"]
+
         # Test data processing
-        assert results['clean_samples'] <= results['original_samples']  # Some outliers removed
-        assert results['final_samples'] >= 800  # Reasonable data retention
-        
+        assert (
+            results["clean_samples"] <= results["original_samples"]
+        )  # Some outliers removed
+        assert results["final_samples"] >= 800  # Reasonable data retention
+
         # Test model performance
-        assert 0 <= performance['r2_score'] <= 1  # Valid R2 score
-        assert performance['rmse'] > 0  # Valid RMSE
-        assert performance['num_features'] >= 8  # Feature engineering occurred
-        
+        assert 0 <= performance["r2_score"] <= 1  # Valid R2 score
+        assert performance["rmse"] > 0  # Valid RMSE
+        assert performance["num_features"] >= 8  # Feature engineering occurred
+
         # Test feature importance
-        top_features = results['top_features']
+        top_features = results["top_features"]
         assert len(top_features) == 5  # Top 5 features identified
-        assert all(importance >= 0 for _, importance in top_features)  # Valid importances
-        
+        assert all(
+            importance >= 0 for _, importance in top_features
+        )  # Valid importances
+
         # Test pipeline success
-        assert isinstance(results['pipeline_successful'], bool)
+        assert isinstance(results["pipeline_successful"], bool)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     pytest.main([__file__])

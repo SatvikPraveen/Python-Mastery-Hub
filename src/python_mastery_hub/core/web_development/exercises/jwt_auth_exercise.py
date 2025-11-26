@@ -23,7 +23,7 @@ def get_exercise() -> Dict[str, Any]:
             "Implement proper password hashing and validation",
             "Handle token expiration and renewal",
             "Add role-based access control",
-            "Implement logout and token revocation"
+            "Implement logout and token revocation",
         ],
         "requirements": [
             "FastAPI for API framework",
@@ -31,7 +31,7 @@ def get_exercise() -> Dict[str, Any]:
             "passlib[bcrypt] for password hashing",
             "python-multipart for form handling",
             "SQLAlchemy for user storage",
-            "pydantic[email] for email validation"
+            "pydantic[email] for email validation",
         ],
         "starter_code": '''
 """
@@ -389,7 +389,7 @@ if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
 ''',
-        "testing_guide": '''
+        "testing_guide": """
 # Testing Your JWT Authentication System
 
 ## 1. Start the Server
@@ -471,7 +471,7 @@ headers = {"Authorization": f"Bearer {access_token}"}
 response = requests.get(f"{base_url}/auth/me", headers=headers)
 print("User info:", response.json())
 ```
-''',
+""",
         "solution_hints": [
             "Use secrets.token_urlsafe() for generating user IDs and tokens",
             "Store password hashes, never plain passwords",
@@ -482,7 +482,7 @@ print("User info:", response.json())
             "Update last_login timestamp on successful login",
             "Use enum values for role comparisons",
             "Implement password strength validation with regex patterns",
-            "Store refresh tokens with metadata for tracking"
+            "Store refresh tokens with metadata for tracking",
         ],
         "security_considerations": [
             "Use environment variables for SECRET_KEY in production",
@@ -492,10 +492,10 @@ print("User info:", response.json())
             "Use HTTPS in production",
             "Implement account lockout after failed attempts",
             "Add logging for security events",
-            "Consider implementing 2FA for enhanced security"
+            "Consider implementing 2FA for enhanced security",
         ],
         "bonus_challenges": [
-            "Add email verification for new registrations", 
+            "Add email verification for new registrations",
             "Implement password reset via email",
             "Add rate limiting to prevent brute force attacks",
             "Implement account lockout after failed login attempts",
@@ -504,6 +504,6 @@ print("User info:", response.json())
             "Add OAuth2 integration (Google, GitHub)",
             "Implement session management with Redis",
             "Add audit logging for all authentication events",
-            "Create user profile picture upload functionality"
-        ]
+            "Create user profile picture upload functionality",
+        ],
     }

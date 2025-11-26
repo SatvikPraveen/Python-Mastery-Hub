@@ -11,7 +11,7 @@ from .applications_examples import ApplicationsExamples
 __all__ = [
     "BuiltinExamples",
     "AdvancedExamples",
-    "CustomExamples", 
+    "CustomExamples",
     "PerformanceExamples",
-    "ApplicationsExamples"
+    "ApplicationsExamples",
 ]

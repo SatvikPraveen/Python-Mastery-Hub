@@ -11,9 +11,9 @@ from .preprocessing_examples import PreprocessingExamples
 
 __all__ = [
     "NumpyExamples",
-    "PandasExamples", 
+    "PandasExamples",
     "VisualizationExamples",
     "StatisticsExamples",
     "MLExamples",
-    "PreprocessingExamples"
+    "PreprocessingExamples",
 ]

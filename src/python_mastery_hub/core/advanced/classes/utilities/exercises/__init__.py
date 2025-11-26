@@ -11,8 +11,8 @@ from .transaction_manager import TransactionManagerExercise
 from .orm_metaclass import ORMMetaclassExercise
 
 __all__ = [
-    'CachingDecoratorExercise',
-    'FilePipelineExercise', 
-    'TransactionManagerExercise',
-    'ORMMetaclassExercise'
+    "CachingDecoratorExercise",
+    "FilePipelineExercise",
+    "TransactionManagerExercise",
+    "ORMMetaclassExercise",
 ]

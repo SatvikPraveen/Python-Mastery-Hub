@@ -11,34 +11,36 @@ from ..base import AlgorithmDemo
 
 class WeightedGraph:
     """Helper class for weighted graph representation."""
-    
+
     def __init__(self):
         self.graph = defaultdict(list)
         self.vertices = set()
-    
+
     def add_edge(self, u, v, weight):
         """Add weighted edge to graph."""
         if weight < 0:
             raise ValueError("Dijkstra's algorithm doesn't work with negative weights")
-        
+
         self.graph[u].append((v, weight))
         self.vertices.add(u)
         self.vertices.add(v)
-    
+
     def print_graph(self):
         """Print graph representation."""
         print("Graph adjacency list:")
         for vertex in sorted(self.vertices):
-            neighbors = [f"{neighbor}({weight})" for neighbor, weight in self.graph[vertex]]
+            neighbors = [
+                f"{neighbor}({weight})" for neighbor, weight in self.graph[vertex]
+            ]
             print(f"  {vertex}: {neighbors}")
 
 
 class DijkstraExercise(AlgorithmDemo):
     """Comprehensive Dijkstra's algorithm exercise with multiple implementations."""
-    
+
     def __init__(self):
         super().__init__("dijkstra_exercise")
-    
+
     def _setup_examples(self) -> None:
         """Setup Dijkstra exercise examples."""
         self.examples = {
@@ -46,22 +48,22 @@ class DijkstraExercise(AlgorithmDemo):
                 "code": self._get_basic_dijkstra_code(),
                 "explanation": "Basic Dijkstra's algorithm with priority queue",
                 "time_complexity": "O((V + E) log V) with binary heap",
-                "space_complexity": "O(V) for distances and priority queue"
+                "space_complexity": "O(V) for distances and priority queue",
             },
             "dijkstra_with_path": {
                 "code": self._get_dijkstra_with_path_code(),
                 "explanation": "Dijkstra with path reconstruction",
                 "time_complexity": "O((V + E) log V)",
-                "space_complexity": "O(V) for distances, previous, and priority queue"
+                "space_complexity": "O(V) for distances, previous, and priority queue",
             },
             "advanced_dijkstra": {
                 "code": self._get_advanced_dijkstra_code(),
                 "explanation": "Advanced features: all paths, early termination, bidirectional",
                 "time_complexity": "Varies by optimization",
-                "space_complexity": "O(V) to O(V²) depending on features"
-            }
+                "space_complexity": "O(V) to O(V²) depending on features",
+            },
         }
-    
+
     def _get_basic_dijkstra_code(self) -> str:
         return '''
 import heapq
@@ -163,7 +165,7 @@ graph.print_graph()
 print("\\n" + "="*50)
 distances = dijkstra_basic(graph, 'A')
 '''
-    
+
     def _get_dijkstra_with_path_code(self) -> str:
         return '''
 def dijkstra_with_path(graph, start):
@@ -297,7 +299,7 @@ all_paths = get_all_shortest_paths(graph, 'A')
 print("\\n=== Single Target with Early Termination ===")
 path, distance = dijkstra_single_target(graph, 'A', 'F')
 '''
-    
+
     def _get_advanced_dijkstra_code(self) -> str:
         return '''
 def dijkstra_all_shortest_paths(graph, start):
@@ -515,31 +517,31 @@ if path:
 print("\\n=== Constrained Dijkstra ===")
 reachable, _ = dijkstra_with_constraints(graph, 'A', max_distance=6, forbidden_vertices={'C'})
 '''
-    
+
     def demonstrate_dijkstra_analysis(self):
         """Comprehensive analysis of Dijkstra's algorithm."""
         print("=== Dijkstra's Algorithm Analysis ===")
-        
+
         def create_test_graphs():
             """Create different types of graphs for testing."""
             graphs = {}
-            
+
             # Dense graph
             dense = WeightedGraph()
-            vertices = ['A', 'B', 'C', 'D', 'E']
+            vertices = ["A", "B", "C", "D", "E"]
             for i, u in enumerate(vertices):
                 for j, v in enumerate(vertices):
                     if i != j:
                         dense.add_edge(u, v, abs(i - j) + 1)
-            graphs['Dense'] = dense
-            
+            graphs["Dense"] = dense
+
             # Sparse graph
             sparse = WeightedGraph()
-            sparse_edges = [('A', 'B', 1), ('B', 'C', 2), ('C', 'D', 3), ('D', 'E', 4)]
+            sparse_edges = [("A", "B", 1), ("B", "C", 2), ("C", "D", 3), ("D", "E", 4)]
             for u, v, w in sparse_edges:
                 sparse.add_edge(u, v, w)
-            graphs['Sparse'] = sparse
-            
+            graphs["Sparse"] = sparse
+
             # Grid graph
             grid = WeightedGraph()
             for i in range(3):
@@ -549,55 +551,55 @@ reachable, _ = dijkstra_with_constraints(graph, 'A', max_distance=6, forbidden_v
                         grid.add_edge(current, f"{i+1},{j}", 1)
                     if j < 2:  # Connect rightward
                         grid.add_edge(current, f"{i},{j+1}", 1)
-            graphs['Grid'] = grid
-            
+            graphs["Grid"] = grid
+
             return graphs
-        
+
         def time_dijkstra(graph, start):
             """Time Dijkstra's algorithm execution."""
-            distances = {vertex: float('inf') for vertex in graph.vertices}
+            distances = {vertex: float("inf") for vertex in graph.vertices}
             distances[start] = 0
             visited = set()
             pq = [(0, start)]
-            
+
             start_time = time.time()
-            
+
             while pq:
                 current_dist, current_vertex = heapq.heappop(pq)
-                
+
                 if current_vertex in visited:
                     continue
-                
+
                 visited.add(current_vertex)
-                
+
                 for neighbor, weight in graph.graph[current_vertex]:
                     if neighbor not in visited:
                         new_distance = current_dist + weight
                         if new_distance < distances[neighbor]:
                             distances[neighbor] = new_distance
                             heapq.heappush(pq, (new_distance, neighbor))
-            
+
             end_time = time.time()
             return (end_time - start_time) * 1000, distances
-        
+
         graphs = create_test_graphs()
-        
+
         for graph_type, graph in graphs.items():
             print(f"\n{graph_type} Graph Analysis:")
             print(f"  Vertices: {len(graph.vertices)}")
             edge_count = sum(len(neighbors) for neighbors in graph.graph.values())
             print(f"  Edges: {edge_count}")
-            
+
             # Time the algorithm
             start_vertex = list(graph.vertices)[0]
             exec_time, distances = time_dijkstra(graph, start_vertex)
-            
+
             print(f"  Execution time: {exec_time:.3f}ms")
-            finite_distances = [d for d in distances.values() if d != float('inf')]
+            finite_distances = [d for d in distances.values() if d != float("inf")]
             if finite_distances:
                 avg_distance = sum(finite_distances) / len(finite_distances)
                 print(f"  Average distance: {avg_distance:.2f}")
-    
+
     def get_exercise_tasks(self) -> List[str]:
         """Get list of exercise tasks for students."""
         return [
@@ -610,9 +612,9 @@ reachable, _ = dijkstra_with_constraints(graph, 'A', max_distance=6, forbidden_v
             "Compare performance with other shortest path algorithms",
             "Handle edge cases (disconnected graphs, negative weights)",
             "Implement A* algorithm as extension of Dijkstra",
-            "Apply algorithm to real-world problems (GPS navigation, network routing)"
+            "Apply algorithm to real-world problems (GPS navigation, network routing)",
         ]
-    
+
     def get_starter_code(self) -> str:
         """Get starter code template for students."""
         return '''
@@ -730,34 +732,43 @@ if __name__ == "__main__":
     if path:
         print(f"Shortest path A → E: {' → '.join(path)} (distance: {distance})")
 '''
-    
+
     def validate_solution(self, student_dijkstra_func) -> Tuple[bool, List[str]]:
         """Validate student's Dijkstra implementation."""
         # Create test graph
         graph = WeightedGraph()
         edges = [
-            ('A', 'B', 4), ('A', 'C', 2),
-            ('B', 'C', 1), ('B', 'D', 5),
-            ('C', 'D', 8), ('C', 'E', 10),
-            ('D', 'E', 2)
+            ("A", "B", 4),
+            ("A", "C", 2),
+            ("B", "C", 1),
+            ("B", "D", 5),
+            ("C", "D", 8),
+            ("C", "E", 10),
+            ("D", "E", 2),
         ]
-        
+
         for u, v, w in edges:
             graph.add_edge(u, v, w)
-        
+
         expected_distances = {
-            'A': {'A': 0, 'B': 3, 'C': 2, 'D': 8, 'E': 10},
-            'B': {'A': float('inf'), 'B': 0, 'C': 1, 'D': 5, 'E': 7},
-            'D': {'A': float('inf'), 'B': float('inf'), 'C': float('inf'), 'D': 0, 'E': 2}
+            "A": {"A": 0, "B": 3, "C": 2, "D": 8, "E": 10},
+            "B": {"A": float("inf"), "B": 0, "C": 1, "D": 5, "E": 7},
+            "D": {
+                "A": float("inf"),
+                "B": float("inf"),
+                "C": float("inf"),
+                "D": 0,
+                "E": 2,
+            },
         }
-        
+
         feedback = []
         all_passed = True
-        
+
         for start_vertex, expected in expected_distances.items():
             try:
                 result = student_dijkstra_func(graph, start_vertex)
-                
+
                 if result == expected:
                     feedback.append(f"✓ Test from {start_vertex} passed")
                 else:
@@ -765,9 +776,11 @@ if __name__ == "__main__":
                     feedback.append(f"  Expected: {expected}")
                     feedback.append(f"  Got: {result}")
                     all_passed = False
-                    
+
             except Exception as e:
-                feedback.append(f"✗ Test from {start_vertex} raised exception: {str(e)}")
+                feedback.append(
+                    f"✗ Test from {start_vertex} raised exception: {str(e)}"
+                )
                 all_passed = False
-        
+
         return all_passed, feedback

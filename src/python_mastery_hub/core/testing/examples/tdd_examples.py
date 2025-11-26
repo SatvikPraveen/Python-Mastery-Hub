@@ -211,9 +211,8 @@ if __name__ == '__main__':
     print("\\n=== Running TDD Tests ===")
     unittest.main(verbosity=2, exit=False)
 ''',
-            "explanation": "Complete TDD cycle demonstration showing Red-Green-Refactor with a password validator"
+            "explanation": "Complete TDD cycle demonstration showing Red-Green-Refactor with a password validator",
         },
-        
         "tdd_best_practices": {
             "code": '''
 """
@@ -478,6 +477,6 @@ if __name__ == '__main__':
     # Run tests
     unittest.main(verbosity=2, exit=False)
 ''',
-            "explanation": "TDD best practices including proper test structure, naming conventions, and incremental development"
-        }
+            "explanation": "TDD best practices including proper test structure, naming conventions, and incremental development",
+        },
     }

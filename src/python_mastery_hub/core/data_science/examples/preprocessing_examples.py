@@ -8,7 +8,7 @@ from typing import Dict, Any
 
 class PreprocessingExamples:
     """Data preprocessing examples and demonstrations."""
-    
+
     @staticmethod
     def get_data_preprocessing() -> Dict[str, Any]:
         """Get comprehensive data preprocessing examples."""
@@ -289,5 +289,5 @@ if __name__ == "__main__":
     feature_selection_demo()
     dimensionality_reduction_demo()
 ''',
-            "explanation": "Data preprocessing is crucial for preparing raw data for machine learning algorithms"
+            "explanation": "Data preprocessing is crucial for preparing raw data for machine learning algorithms",
         }

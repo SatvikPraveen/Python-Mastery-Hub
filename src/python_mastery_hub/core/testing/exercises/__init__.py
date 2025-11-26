@@ -9,7 +9,7 @@ from .integration_exercise import get_integration_exercise
 
 __all__ = [
     "get_unittest_exercise",
-    "get_tdd_exercise", 
+    "get_tdd_exercise",
     "get_mocking_exercise",
-    "get_integration_exercise"
+    "get_integration_exercise",
 ]

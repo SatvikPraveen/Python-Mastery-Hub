@@ -16,33 +16,39 @@ try:
         HTMLExercise,
         CSSExercise,
         JavaScriptExercise,
-        RESTAPIExercise
+        RESTAPIExercise,
     )
     from src.core.evaluators import WebDevEvaluator
 except ImportError:
     # Mock classes for when actual modules don't exist
     class FlaskExercise:
         pass
+
     class FastAPIExercise:
         pass
+
     class HTMLExercise:
         pass
+
     class CSSExercise:
         pass
+
     class JavaScriptExercise:
         pass
+
     class RESTAPIExercise:
         pass
+
     class WebDevEvaluator:
         pass
 
 
 class TestFlaskExercises:
     """Test cases for Flask web development exercises."""
-    
+
     def test_basic_flask_app(self):
         """Test basic Flask application creation."""
-        code = '''
+        code = """
 from flask import Flask, jsonify, request
 
 app = Flask(__name__)
@@ -88,17 +94,17 @@ with app.test_client() as client:
                                  content_type='application/json')
     create_data = response_create.get_json()
     create_status = response_create.status_code
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['hello_status'] == 200
-        assert "Hello, World!" in globals_dict['hello_data']
-        assert globals_dict['user_status'] == 200
-        assert globals_dict['user_data']['id'] == 42
-        assert globals_dict['create_status'] == 201
-        assert globals_dict['create_data']['created'] is True
-    
+
+        assert globals_dict["hello_status"] == 200
+        assert "Hello, World!" in globals_dict["hello_data"]
+        assert globals_dict["user_status"] == 200
+        assert globals_dict["user_data"]["id"] == 42
+        assert globals_dict["create_status"] == 201
+        assert globals_dict["create_data"]["created"] is True
+
     def test_flask_with_templates(self):
         """Test Flask with template rendering."""
         code = '''
@@ -137,15 +143,15 @@ with app.test_client() as client:
 '''
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['status_code'] == 200
-        assert "Test Page" in globals_dict['html_content']
-        assert "My Items" in globals_dict['html_content']
-        assert "Item 1" in globals_dict['html_content']
-    
+
+        assert globals_dict["status_code"] == 200
+        assert "Test Page" in globals_dict["html_content"]
+        assert "My Items" in globals_dict["html_content"]
+        assert "Item 1" in globals_dict["html_content"]
+
     def test_flask_error_handling(self):
         """Test Flask error handling."""
-        code = '''
+        code = """
 from flask import Flask, jsonify, abort
 
 app = Flask(__name__)
@@ -182,24 +188,24 @@ with app.test_client() as client:
     response_200 = client.get('/api/users/42')
     data_200 = response_200.get_json()
     status_200 = response_200.status_code
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['status_400'] == 400
-        assert "Bad request" in globals_dict['data_400']['error']
-        assert globals_dict['status_404'] == 404
-        assert "not found" in globals_dict['data_404']['error']
-        assert globals_dict['status_200'] == 200
-        assert globals_dict['data_200']['id'] == 42
+
+        assert globals_dict["status_400"] == 400
+        assert "Bad request" in globals_dict["data_400"]["error"]
+        assert globals_dict["status_404"] == 404
+        assert "not found" in globals_dict["data_404"]["error"]
+        assert globals_dict["status_200"] == 200
+        assert globals_dict["data_200"]["id"] == 42
 
 
 class TestFastAPIExercises:
     """Test cases for FastAPI web development exercises."""
-    
+
     def test_basic_fastapi_app(self):
         """Test basic FastAPI application creation."""
-        code = '''
+        code = """
 from fastapi import FastAPI, HTTPException
 from fastapi.testclient import TestClient
 from pydantic import BaseModel
@@ -272,22 +278,22 @@ get_status = response_get.status_code
 response_list = client.get("/api/users")
 list_data = response_list.json()
 list_status = response_list.status_code
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['root_status'] == 200
-        assert "Hello, FastAPI!" in globals_dict['root_data']['message']
-        assert globals_dict['create_status'] == 200
-        assert globals_dict['create_data']['name'] == "Alice"
-        assert globals_dict['get_status'] == 200
-        assert globals_dict['get_data']['email'] == "alice@example.com"
-        assert globals_dict['list_status'] == 200
-        assert len(globals_dict['list_data']) == 1
-    
+
+        assert globals_dict["root_status"] == 200
+        assert "Hello, FastAPI!" in globals_dict["root_data"]["message"]
+        assert globals_dict["create_status"] == 200
+        assert globals_dict["create_data"]["name"] == "Alice"
+        assert globals_dict["get_status"] == 200
+        assert globals_dict["get_data"]["email"] == "alice@example.com"
+        assert globals_dict["list_status"] == 200
+        assert len(globals_dict["list_data"]) == 1
+
     def test_fastapi_validation(self):
         """Test FastAPI request validation."""
-        code = '''
+        code = """
 from fastapi import FastAPI, HTTPException, Query, Path
 from fastapi.testclient import TestClient
 from pydantic import BaseModel, validator
@@ -354,21 +360,21 @@ invalid_email_status = response_invalid_email.status_code
 response_query = client.get("/api/users?page=2&size=20&name_filter=alice")
 query_data = response_query.json()
 query_status = response_query.status_code
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['valid_status'] == 200
-        assert globals_dict['invalid_age_status'] == 422  # Validation error
-        assert globals_dict['invalid_email_status'] == 422  # Validation error
-        assert globals_dict['query_status'] == 200
-        assert globals_dict['query_data']['page'] == 2
-        assert globals_dict['query_data']['size'] == 20
+
+        assert globals_dict["valid_status"] == 200
+        assert globals_dict["invalid_age_status"] == 422  # Validation error
+        assert globals_dict["invalid_email_status"] == 422  # Validation error
+        assert globals_dict["query_status"] == 200
+        assert globals_dict["query_data"]["page"] == 2
+        assert globals_dict["query_data"]["size"] == 20
 
 
 class TestHTMLCSSExercises:
     """Test cases for HTML and CSS exercises."""
-    
+
     def test_html_structure_validation(self):
         """Test HTML structure validation."""
         code = '''
@@ -418,18 +424,18 @@ invalid_results = validate_html_structure(invalid_html)
 '''
         globals_dict = {}
         exec(code, globals_dict)
-        
-        valid = globals_dict['valid_results']
-        invalid = globals_dict['invalid_results']
-        
-        assert valid['has_doctype'] is True
-        assert valid['has_html_tag'] is True
-        assert valid['has_title'] is True
-        assert valid['title_text'] == "Test Page"
-        
-        assert invalid['has_doctype'] is False
-        assert invalid['has_title'] is False
-    
+
+        valid = globals_dict["valid_results"]
+        invalid = globals_dict["invalid_results"]
+
+        assert valid["has_doctype"] is True
+        assert valid["has_html_tag"] is True
+        assert valid["has_title"] is True
+        assert valid["title_text"] == "Test Page"
+
+        assert invalid["has_doctype"] is False
+        assert invalid["has_title"] is False
+
     def test_css_parsing_and_validation(self):
         """Test CSS parsing and validation."""
         code = '''
@@ -514,23 +520,23 @@ validation_results = validate_css_properties(parsed_rules)
 '''
         globals_dict = {}
         exec(code, globals_dict)
-        
-        rules = globals_dict['parsed_rules']
-        validation = globals_dict['validation_results']
-        
+
+        rules = globals_dict["parsed_rules"]
+        validation = globals_dict["validation_results"]
+
         assert len(rules) == 3  # body, .header, #content
-        assert any(rule['selector'] == 'body' for rule in rules)
-        assert any(rule['selector'] == '.header' for rule in rules)
-        
+        assert any(rule["selector"] == "body" for rule in rules)
+        assert any(rule["selector"] == ".header" for rule in rules)
+
         # Check validation results
-        header_validation = next(v for v in validation if v['selector'] == '.header')
-        assert 'color' in header_validation['valid_properties']
-        assert 'invalid-property' in header_validation['invalid_properties']
+        header_validation = next(v for v in validation if v["selector"] == ".header")
+        assert "color" in header_validation["valid_properties"]
+        assert "invalid-property" in header_validation["invalid_properties"]
 
 
 class TestJavaScriptExercises:
     """Test cases for JavaScript-related exercises (using PyExecJS or similar)."""
-    
+
     def test_javascript_syntax_validation(self):
         """Test JavaScript syntax validation."""
         code = '''
@@ -595,17 +601,17 @@ invalid_result = validate_javascript_syntax(invalid_js)
 '''
         globals_dict = {}
         exec(code, globals_dict)
-        
-        valid = globals_dict['valid_result']
-        invalid = globals_dict['invalid_result']
-        
-        assert valid['is_valid'] is True
-        assert len(valid['issues']) == 0
-        
-        assert invalid['is_valid'] is False
-        assert len(invalid['issues']) > 0
-        assert any("semicolon" in issue for issue in invalid['issues'])
-    
+
+        valid = globals_dict["valid_result"]
+        invalid = globals_dict["invalid_result"]
+
+        assert valid["is_valid"] is True
+        assert len(valid["issues"]) == 0
+
+        assert invalid["is_valid"] is False
+        assert len(invalid["issues"]) > 0
+        assert any("semicolon" in issue for issue in invalid["issues"])
+
     def test_javascript_function_analysis(self):
         """Test JavaScript function analysis."""
         code = '''
@@ -669,20 +675,20 @@ analysis_result = analyze_javascript_functions(test_js)
 '''
         globals_dict = {}
         exec(code, globals_dict)
-        
-        result = globals_dict['analysis_result']
-        assert result['total_functions'] >= 2
-        assert result['has_arrow_functions'] is True
-        
+
+        result = globals_dict["analysis_result"]
+        assert result["total_functions"] >= 2
+        assert result["has_arrow_functions"] is True
+
         # Check for specific functions
-        function_names = [f['name'] for f in result['functions']]
-        assert 'regularFunction' in function_names
-        assert 'arrowFunction' in function_names
+        function_names = [f["name"] for f in result["functions"]]
+        assert "regularFunction" in function_names
+        assert "arrowFunction" in function_names
 
 
 class TestRESTAPIExercises:
     """Test cases for REST API design and implementation exercises."""
-    
+
     def test_rest_api_design_principles(self):
         """Test REST API design principles validation."""
         code = '''
@@ -746,15 +752,15 @@ invalid_endpoints = [r for r in results if not r['is_valid']]
 '''
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert len(globals_dict['valid_endpoints']) == 5  # First 5 are good
-        assert len(globals_dict['invalid_endpoints']) == 3  # Last 3 are bad
-        
+
+        assert len(globals_dict["valid_endpoints"]) == 5  # First 5 are good
+        assert len(globals_dict["invalid_endpoints"]) == 3  # Last 3 are bad
+
         # Check specific issues
-        invalid = globals_dict['invalid_endpoints']
-        assert any("verb" in str(endpoint['issues']) for endpoint in invalid)
-        assert any("ID in POST" in str(endpoint['issues']) for endpoint in invalid)
-    
+        invalid = globals_dict["invalid_endpoints"]
+        assert any("verb" in str(endpoint["issues"]) for endpoint in invalid)
+        assert any("ID in POST" in str(endpoint["issues"]) for endpoint in invalid)
+
     def test_api_response_formatting(self):
         """Test API response formatting standards."""
         code = '''
@@ -836,34 +842,34 @@ invalid_validation = validate_api_response(invalid_response)
 '''
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['success_validation']['is_valid'] is True
-        assert globals_dict['error_validation']['is_valid'] is True
-        assert globals_dict['invalid_validation']['is_valid'] is False
-        
+
+        assert globals_dict["success_validation"]["is_valid"] is True
+        assert globals_dict["error_validation"]["is_valid"] is True
+        assert globals_dict["invalid_validation"]["is_valid"] is False
+
         # Check response structure
-        success_resp = globals_dict['success_response']
-        assert success_resp['success'] is True
-        assert 'data' in success_resp
-        assert 'metadata' in success_resp
-        
-        error_resp = globals_dict['error_response']
-        assert error_resp['success'] is False
-        assert 'error' in error_resp
-        assert error_resp['error']['code'] == 'USER_NOT_FOUND'
+        success_resp = globals_dict["success_response"]
+        assert success_resp["success"] is True
+        assert "data" in success_resp
+        assert "metadata" in success_resp
+
+        error_resp = globals_dict["error_response"]
+        assert error_resp["success"] is False
+        assert "error" in error_resp
+        assert error_resp["error"]["code"] == "USER_NOT_FOUND"
 
 
 class TestWebDevEvaluator:
     """Test cases for web development code evaluator."""
-    
+
     @pytest.fixture
     def evaluator(self):
         """Create a web dev evaluator instance."""
         return WebDevEvaluator()
-    
+
     def test_evaluate_flask_app(self, evaluator):
         """Test evaluation of Flask application."""
-        code = '''
+        code = """
 from flask import Flask, jsonify
 
 app = Flask(__name__)
@@ -877,16 +883,16 @@ with app.test_client() as client:
     response = client.get('/api/health')
     data = response.get_json()
     status_code = response.status_code
-'''
+"""
         result = evaluator.evaluate(code)
-        
-        assert result['success'] is True
-        assert result['globals']['status_code'] == 200
-        assert result['globals']['data']['status'] == 'healthy'
-    
+
+        assert result["success"] is True
+        assert result["globals"]["status_code"] == 200
+        assert result["globals"]["data"]["status"] == "healthy"
+
     def test_check_web_security_practices(self, evaluator):
         """Test checking for web security practices."""
-        secure_code = '''
+        secure_code = """
 from flask import Flask, request, jsonify
 from werkzeug.security import generate_password_hash
 import secrets
@@ -906,9 +912,9 @@ def create_user():
     password_hash = generate_password_hash(data['password'])
     
     return jsonify({'message': 'User created'}), 201
-'''
-        
-        insecure_code = '''
+"""
+
+        insecure_code = """
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)
@@ -922,18 +928,18 @@ def create_user():
     password = data['password']
     
     return jsonify({'message': 'User created'}), 201
-'''
-        
+"""
+
         secure_analysis = evaluator.analyze_security(secure_code)
         insecure_analysis = evaluator.analyze_security(insecure_code)
-        
-        assert secure_analysis['security_score'] > insecure_analysis['security_score']
-        assert 'password_hashing' in secure_analysis['good_practices']
-        assert 'hardcoded_secrets' in insecure_analysis['vulnerabilities']
-    
+
+        assert secure_analysis["security_score"] > insecure_analysis["security_score"]
+        assert "password_hashing" in secure_analysis["good_practices"]
+        assert "hardcoded_secrets" in insecure_analysis["vulnerabilities"]
+
     def test_api_endpoint_analysis(self, evaluator):
         """Test API endpoint analysis."""
-        api_code = '''
+        api_code = """
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)
@@ -957,20 +963,20 @@ def update_user(user_id):
 @app.route('/api/users/<int:user_id>', methods=['DELETE'])
 def delete_user(user_id):
     return '', 204
-'''
-        
+"""
+
         analysis = evaluator.analyze_api_endpoints(api_code)
-        
-        assert analysis['total_endpoints'] == 5
-        assert analysis['rest_compliance_score'] > 0.8
-        assert 'GET' in analysis['methods_used']
-        assert 'POST' in analysis['methods_used']
-        assert '/api/users' in analysis['resource_paths']
+
+        assert analysis["total_endpoints"] == 5
+        assert analysis["rest_compliance_score"] > 0.8
+        assert "GET" in analysis["methods_used"]
+        assert "POST" in analysis["methods_used"]
+        assert "/api/users" in analysis["resource_paths"]
 
 
 class TestWebSecurityExercises:
     """Test cases for web security exercises."""
-    
+
     def test_sql_injection_prevention(self):
         """Test SQL injection prevention techniques."""
         code = '''
@@ -1039,15 +1045,15 @@ injection_secure = secure_login(injection_attempt, 'wrong_password')
 '''
         globals_dict = {}
         exec(code, globals_dict)
-        
+
         # Normal login should work for both
-        assert globals_dict['normal_login_vulnerable'] is True
-        assert globals_dict['normal_login_secure'] is True
-        
+        assert globals_dict["normal_login_vulnerable"] is True
+        assert globals_dict["normal_login_secure"] is True
+
         # Injection should only work on vulnerable version
-        assert globals_dict['injection_vulnerable'] is True  # Vulnerable to injection
-        assert globals_dict['injection_secure'] is False    # Protected from injection
-    
+        assert globals_dict["injection_vulnerable"] is True  # Vulnerable to injection
+        assert globals_dict["injection_secure"] is False  # Protected from injection
+
     def test_xss_prevention(self):
         """Test XSS prevention techniques."""
         code = '''
@@ -1101,24 +1107,24 @@ xss_event_valid = validate_input(xss_event)
 '''
         globals_dict = {}
         exec(code, globals_dict)
-        
+
         # Normal input should work fine
-        assert "Alice" in globals_dict['normal_vulnerable']
-        assert "Alice" in globals_dict['normal_secure']
-        
+        assert "Alice" in globals_dict["normal_vulnerable"]
+        assert "Alice" in globals_dict["normal_secure"]
+
         # XSS should be escaped in secure version
-        assert "<script>" in globals_dict['xss_vulnerable']  # Vulnerable
-        assert "&lt;script&gt;" in globals_dict['xss_secure']  # Escaped
-        
+        assert "<script>" in globals_dict["xss_vulnerable"]  # Vulnerable
+        assert "&lt;script&gt;" in globals_dict["xss_secure"]  # Escaped
+
         # Validation should catch malicious input
-        assert globals_dict['normal_valid'] is True
-        assert globals_dict['xss_script_valid'] is False
-        assert globals_dict['xss_event_valid'] is False
+        assert globals_dict["normal_valid"] is True
+        assert globals_dict["xss_script_valid"] is False
+        assert globals_dict["xss_event_valid"] is False
 
 
 class TestWebPerformanceExercises:
     """Test cases for web performance optimization exercises."""
-    
+
     def test_caching_strategies(self):
         """Test caching implementation strategies."""
         code = '''
@@ -1204,17 +1210,17 @@ value_c = lru.get("c")  # Should be 3
 '''
         globals_dict = {}
         exec(code, globals_dict)
-        
+
         # Cache should work
-        assert globals_dict['result1'] == 25
-        assert globals_dict['result2'] == 25
-        assert globals_dict['second_call_time'] < globals_dict['first_call_time']
-        
+        assert globals_dict["result1"] == 25
+        assert globals_dict["result2"] == 25
+        assert globals_dict["second_call_time"] < globals_dict["first_call_time"]
+
         # LRU cache should work
-        assert globals_dict['value_a'] is None  # Evicted
-        assert globals_dict['value_b'] == 2
-        assert globals_dict['value_c'] == 3
-    
+        assert globals_dict["value_a"] is None  # Evicted
+        assert globals_dict["value_b"] == 2
+        assert globals_dict["value_c"] == 3
+
     def test_response_compression(self):
         """Test response compression techniques."""
         code = '''
@@ -1266,20 +1272,20 @@ compression_stats = calculate_compression_ratio(original_json, compressed_data)
 '''
         globals_dict = {}
         exec(code, globals_dict)
-        
-        stats = globals_dict['compression_stats']
-        assert stats['compressed_size'] < stats['original_size']
-        assert stats['compression_ratio'] < 1.0
-        assert stats['space_saved_percent'] > 0
+
+        stats = globals_dict["compression_stats"]
+        assert stats["compressed_size"] < stats["original_size"]
+        assert stats["compression_ratio"] < 1.0
+        assert stats["space_saved_percent"] > 0
 
 
 @pytest.mark.integration
 class TestWebDevIntegration:
     """Integration tests for web development exercises."""
-    
+
     def test_full_stack_application_simulation(self):
         """Test a complete full-stack application scenario."""
-        code = '''
+        code = """
 from flask import Flask, request, jsonify
 from datetime import datetime
 import json
@@ -1383,15 +1389,15 @@ with app.test_client() as client:
         len(all_posts) == 1 and
         all_posts[0]['author'] == 'testuser'
     )
-'''
+"""
         globals_dict = {}
         exec(code, globals_dict)
-        
-        assert globals_dict['flow_success'] is True
-        assert globals_dict['user']['username'] == 'testuser'
-        assert globals_dict['post']['title'] == 'My First Post'
-        assert len(globals_dict['all_posts']) == 1
+
+        assert globals_dict["flow_success"] is True
+        assert globals_dict["user"]["username"] == "testuser"
+        assert globals_dict["post"]["title"] == "My First Post"
+        assert len(globals_dict["all_posts"]) == 1
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     pytest.main([__file__])

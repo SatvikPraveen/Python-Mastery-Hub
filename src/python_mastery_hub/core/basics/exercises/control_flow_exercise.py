@@ -9,14 +9,14 @@ from ..base import CodeValidator, ExampleRunner
 
 class ControlFlowExercise:
     """Interactive exercise for practicing control flow structures."""
-    
+
     def __init__(self):
         self.title = "Logic and Loop Challenge"
         self.description = "Solve problems using conditional statements and loops"
         self.difficulty = "medium"
         self.validator = CodeValidator()
         self.runner = ExampleRunner()
-    
+
     def get_instructions(self) -> Dict[str, Any]:
         """Get comprehensive exercise instructions."""
         return {
@@ -27,7 +27,7 @@ class ControlFlowExercise:
                 "Implement different types of loops (for, while)",
                 "Use loop control statements (break, continue)",
                 "Build nested loops for multi-dimensional problems",
-                "Create efficient algorithms using proper control flow"
+                "Create efficient algorithms using proper control flow",
             ],
             "tasks": [
                 "Build a number guessing game with attempt limits",
@@ -35,17 +35,17 @@ class ControlFlowExercise:
                 "Implement a simple menu system with user choices",
                 "Generate multiplication tables using nested loops",
                 "Find prime numbers using loop optimization",
-                "Process data lists with filtering conditions"
+                "Process data lists with filtering conditions",
             ],
             "requirements": [
                 "Use proper indentation and code structure",
                 "Implement input validation and error handling",
                 "Use appropriate loop types for each problem",
                 "Include break and continue statements where beneficial",
-                "Add meaningful comments explaining logic"
-            ]
+                "Add meaningful comments explaining logic",
+            ],
         }
-    
+
     def get_starter_code(self) -> str:
         """Get starter code template."""
         return '''
@@ -133,7 +133,7 @@ if __name__ == "__main__":
     print("\\nStarting guessing game:")
     # number_guessing_game()
 '''
-    
+
     def get_solution(self) -> str:
         """Get complete solution with explanations."""
         return '''
@@ -512,13 +512,13 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         print("\\n\\nProgram interrupted. Goodbye!")
 '''
-    
+
     def check_solution(self, code: str) -> Dict[str, Any]:
         """Check and validate the student's solution."""
         feedback = []
         score = 0
         max_score = 15
-        
+
         # Check syntax
         syntax_check = self.validator.validate_syntax(code)
         if not syntax_check["valid"]:
@@ -526,9 +526,9 @@ if __name__ == "__main__":
                 "score": 0,
                 "max_score": max_score,
                 "feedback": [f"Syntax Error: {syntax_check['message']}"],
-                "suggestions": ["Fix syntax errors before proceeding"]
+                "suggestions": ["Fix syntax errors before proceeding"],
             }
-        
+
         # Check for control flow structures
         control_flow_checks = [
             ("if ", "Conditional statements", 2),
@@ -542,80 +542,84 @@ if __name__ == "__main__":
             ("in ", "Membership operator", 1),
             ("try:", "Error handling", 1),
             ("except", "Exception handling", 1),
-            ("def ", "Function definition", 1)
+            ("def ", "Function definition", 1),
         ]
-        
+
         for pattern, description, points in control_flow_checks:
             if pattern in code:
                 feedback.append(f"✓ Used {description}")
                 score += points
             else:
                 feedback.append(f"✗ Missing {description}")
-        
+
         # Check for complexity and best practices
         complexity_check = self.validator.check_complexity(code)
         if complexity_check["functions"]:
-            complex_functions = [f for f in complexity_check["functions"] if f["complex"]]
+            complex_functions = [
+                f for f in complexity_check["functions"] if f["complex"]
+            ]
             if not complex_functions:
                 feedback.append("✓ Functions have appropriate complexity")
             else:
-                feedback.append(f"⚠ Some functions are complex: {[f['name'] for f in complex_functions]}")
-        
+                feedback.append(
+                    f"⚠ Some functions are complex: {[f['name'] for f in complex_functions]}"
+                )
+
         # Calculate percentage
         percentage = (score / max_score) * 100
-        
+
         return {
             "score": score,
             "max_score": max_score,
             "percentage": percentage,
             "feedback": feedback,
             "suggestions": self._get_suggestions(score, max_score),
-            "grade": self._calculate_grade(percentage)
+            "grade": self._calculate_grade(percentage),
         }
-    
+
     def get_practice_problems(self) -> List[Dict[str, Any]]:
         """Get additional practice problems."""
         return [
             {
                 "problem": "Create a function that prints the Fibonacci sequence up to n terms",
                 "hint": "Use a loop with two variables to track the previous two numbers",
-                "solution": "def fibonacci(n):\\n    a, b = 0, 1\\n    for i in range(n):\\n        print(a, end=' ')\\n        a, b = b, a + b"
+                "solution": "def fibonacci(n):\\n    a, b = 0, 1\\n    for i in range(n):\\n        print(a, end=' ')\\n        a, b = b, a + b",
             },
             {
                 "problem": "Write a function to check if a year is a leap year",
                 "hint": "A leap year is divisible by 4, except for century years which must be divisible by 400",
-                "solution": "def is_leap_year(year):\\n    return year % 4 == 0 and (year % 100 != 0 or year % 400 == 0)"
+                "solution": "def is_leap_year(year):\\n    return year % 4 == 0 and (year % 100 != 0 or year % 400 == 0)",
             },
             {
                 "problem": "Create a password strength checker with multiple criteria",
                 "hint": "Check length, uppercase, lowercase, digits, and special characters",
-                "solution": "def check_password_strength(password):\\n    criteria = [\\n        len(password) >= 8,\\n        any(c.isupper() for c in password),\\n        any(c.islower() for c in password),\\n        any(c.isdigit() for c in password)\\n    ]\\n    return sum(criteria)"
-            }
+                "solution": "def check_password_strength(password):\\n    criteria = [\\n        len(password) >= 8,\\n        any(c.isupper() for c in password),\\n        any(c.islower() for c in password),\\n        any(c.isdigit() for c in password)\\n    ]\\n    return sum(criteria)",
+            },
         ]
-    
+
     def _get_suggestions(self, score: int, max_score: int) -> List[str]:
         """Get suggestions based on score."""
         percentage = (score / max_score) * 100
-        
+
         if percentage >= 90:
             return [
                 "Outstanding work on control flow structures!",
                 "Try implementing more complex algorithms like sorting or searching.",
-                "Consider optimizing your loops for better performance."
+                "Consider optimizing your loops for better performance.",
             ]
         elif percentage >= 70:
             return [
                 "Good understanding of basic control flow.",
                 "Practice nested loops and complex conditionals.",
-                "Add more error handling to make your code robust."
+                "Add more error handling to make your code robust.",
             ]
         else:
             return [
                 "Focus on basic if/else and loop structures first.",
                 "Practice simple problems before attempting complex ones.",
-                "Review the difference between for and while loops."
+                "Review the difference between for and while loops.",
             ]
-    
+
     def _calculate_grade(self, percentage: float) -> str:
         """Calculate letter grade from percentage."""
         if percentage >= 90:

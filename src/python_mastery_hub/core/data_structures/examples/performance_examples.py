@@ -8,7 +8,7 @@ from typing import Dict, Any
 
 class PerformanceExamples:
     """Performance analysis examples and demonstrations."""
-    
+
     @staticmethod
     def get_time_complexity_analysis() -> Dict[str, Any]:
         """Get comprehensive time complexity analysis examples."""
@@ -392,5 +392,5 @@ if __name__ == "__main__":
     print("• Deques are optimal for operations at both ends")
     print("• Always profile with realistic data before optimizing")
 ''',
-            "explanation": "Understanding time complexity and benchmarking helps choose the right data structure for optimal performance in real applications"
+            "explanation": "Understanding time complexity and benchmarking helps choose the right data structure for optimal performance in real applications",
         }

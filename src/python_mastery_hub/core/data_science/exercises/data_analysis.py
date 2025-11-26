@@ -7,7 +7,7 @@ from typing import Dict, Any
 
 class DataAnalysisExercise:
     """Data analysis pipeline exercise implementation."""
-    
+
     @staticmethod
     def get_exercise() -> Dict[str, Any]:
         """Get the data analysis pipeline exercise."""
@@ -22,7 +22,7 @@ exploratory data analysis, and visualization.
                 "Clean and preprocess the data handling missing values and outliers",
                 "Perform exploratory data analysis with statistical summaries",
                 "Create meaningful visualizations to reveal patterns",
-                "Generate actionable insights and recommendations"
+                "Generate actionable insights and recommendations",
             ],
             "tasks": [
                 {
@@ -33,8 +33,8 @@ exploratory data analysis, and visualization.
                         "Read the provided CSV file using pandas",
                         "Display basic information about the dataset (shape, columns, dtypes)",
                         "Show first and last 10 rows",
-                        "Calculate basic statistical summaries"
-                    ]
+                        "Calculate basic statistical summaries",
+                    ],
                 },
                 {
                     "step": 2,
@@ -44,8 +44,8 @@ exploratory data analysis, and visualization.
                         "Identify missing values and their patterns",
                         "Detect outliers using statistical methods",
                         "Check for duplicate records",
-                        "Validate data types and ranges"
-                    ]
+                        "Validate data types and ranges",
+                    ],
                 },
                 {
                     "step": 3,
@@ -55,8 +55,8 @@ exploratory data analysis, and visualization.
                         "Handle missing values appropriately (imputation/removal)",
                         "Deal with outliers (capping, transformation, or removal)",
                         "Create derived features if beneficial",
-                        "Ensure consistent data formats"
-                    ]
+                        "Ensure consistent data formats",
+                    ],
                 },
                 {
                     "step": 4,
@@ -66,8 +66,8 @@ exploratory data analysis, and visualization.
                         "Analyze distributions of key variables",
                         "Examine correlations between variables",
                         "Identify trends and patterns over time (if applicable)",
-                        "Segment analysis by categorical variables"
-                    ]
+                        "Segment analysis by categorical variables",
+                    ],
                 },
                 {
                     "step": 5,
@@ -77,8 +77,8 @@ exploratory data analysis, and visualization.
                         "Create at least 5 different types of plots",
                         "Use appropriate colors and styling",
                         "Include clear titles, labels, and legends",
-                        "Ensure visualizations tell a story"
-                    ]
+                        "Ensure visualizations tell a story",
+                    ],
                 },
                 {
                     "step": 6,
@@ -88,9 +88,9 @@ exploratory data analysis, and visualization.
                         "Document 3-5 key insights from the analysis",
                         "Provide data-driven recommendations",
                         "Identify limitations and potential next steps",
-                        "Create an executive summary"
-                    ]
-                }
+                        "Create an executive summary",
+                    ],
+                },
             ],
             "starter_code": '''
 import pandas as pd
@@ -215,24 +215,32 @@ if __name__ == "__main__":
             "sample_dataset": {
                 "description": "E-commerce sales dataset with customer transactions",
                 "columns": [
-                    "order_id", "customer_id", "product_category", "product_name",
-                    "quantity", "unit_price", "total_amount", "order_date",
-                    "customer_age", "customer_city", "payment_method"
+                    "order_id",
+                    "customer_id",
+                    "product_category",
+                    "product_name",
+                    "quantity",
+                    "unit_price",
+                    "total_amount",
+                    "order_date",
+                    "customer_age",
+                    "customer_city",
+                    "payment_method",
                 ],
                 "size": "10,000 records",
                 "challenges": [
                     "Missing customer ages for ~5% of records",
                     "Some negative quantities (data entry errors)",
                     "Inconsistent city name formatting",
-                    "Outliers in unit_price field"
-                ]
+                    "Outliers in unit_price field",
+                ],
             },
             "evaluation_criteria": [
                 "Code quality and organization (20%)",
                 "Data cleaning effectiveness (20%)",
                 "Depth of exploratory analysis (25%)",
                 "Quality of visualizations (20%)",
-                "Insights and recommendations (15%)"
+                "Insights and recommendations (15%)",
             ],
             "solution": '''
 # Complete solution implementation with best practices
@@ -296,5 +304,5 @@ def assess_data_quality(df):
     return quality_report
 
 # Continue with additional solution methods...
-'''
+''',
         }

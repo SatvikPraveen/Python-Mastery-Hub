@@ -8,7 +8,7 @@ from typing import Dict, Any
 
 class NumpyExamples:
     """NumPy examples and demonstrations."""
-    
+
     @staticmethod
     def get_array_operations() -> Dict[str, Any]:
         """Get NumPy array operations examples."""
@@ -187,9 +187,9 @@ if __name__ == "__main__":
     performance_comparison_demo()
     advanced_operations_demo()
 ''',
-            "explanation": "NumPy provides efficient array operations and mathematical functions for numerical computing"
+            "explanation": "NumPy provides efficient array operations and mathematical functions for numerical computing",
         }
-    
+
     @staticmethod
     def get_linear_algebra() -> Dict[str, Any]:
         """Get NumPy linear algebra examples."""
@@ -314,5 +314,5 @@ if __name__ == "__main__":
     least_squares_demo()
     matrix_decomposition_demo()
 ''',
-            "explanation": "NumPy provides comprehensive linear algebra operations for scientific computing"
+            "explanation": "NumPy provides comprehensive linear algebra operations for scientific computing",
         }

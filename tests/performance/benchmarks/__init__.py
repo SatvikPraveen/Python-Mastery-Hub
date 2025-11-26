@@ -16,9 +16,9 @@ from .api_benchmarks import APIBenchmarks
 
 __all__ = [
     "BenchmarkRunner",
-    "BenchmarkResult", 
+    "BenchmarkResult",
     "BenchmarkConfig",
     "CodeExecutionBenchmarks",
     "DatabaseBenchmarks",
-    "APIBenchmarks"
+    "APIBenchmarks",
 ]

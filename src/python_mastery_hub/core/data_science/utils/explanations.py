@@ -15,7 +15,6 @@ NumPy arrays are more efficient than Python lists for numerical operations due t
 - Broadcasting capabilities for operations on arrays of different shapes
 Key concepts include array creation, indexing, mathematical operations, and linear algebra.
 """,
-
     "pandas_basics": """
 Pandas is a powerful data manipulation and analysis library built on top of NumPy.
 It provides two main data structures: Series (1D) and DataFrame (2D).
@@ -28,7 +27,6 @@ Key features include:
 - Data cleaning and transformation tools
 Essential operations include filtering, grouping, merging, and time-based analysis.
 """,
-
     "data_visualization": """
 Data visualization is crucial for understanding patterns, trends, and insights in data.
 Python offers several powerful libraries:
@@ -39,7 +37,6 @@ Key principles include choosing appropriate chart types, using color effectively
 avoiding chart junk, and telling a clear story with your visualizations.
 Understanding when to use different plot types is essential for effective communication.
 """,
-
     "statistical_analysis": """
 Statistical analysis provides methods for understanding data patterns and making inferences.
 Key areas include:
@@ -51,7 +48,6 @@ Key areas include:
 Proper statistical analysis requires understanding assumptions, choosing appropriate tests,
 and interpreting results in context.
 """,
-
     "machine_learning": """
 Machine learning enables computers to learn patterns from data without explicit programming.
 Main categories include:
@@ -62,7 +58,6 @@ Key concepts include model selection, overfitting/underfitting, cross-validation
 hyperparameter tuning, and evaluation metrics. Success requires understanding
 both the algorithms and the problem domain.
 """,
-
     "data_preprocessing": """
 Data preprocessing is the crucial step of preparing raw data for analysis and modeling.
 Real-world data is often messy and requires cleaning:
@@ -74,12 +69,14 @@ Real-world data is often messy and requires cleaning:
 Quality preprocessing often determines model success more than algorithm choice.
 Understanding your data and choosing appropriate preprocessing steps is essential
 for building robust machine learning pipelines.
-"""
+""",
 }
+
 
 def get_explanation(topic: str) -> str:
     """Get explanation for a specific topic."""
     return EXPLANATIONS.get(topic, "No explanation available for this topic.")
+
 
 def get_all_explanations() -> Dict[str, str]:
     """Get all available explanations."""

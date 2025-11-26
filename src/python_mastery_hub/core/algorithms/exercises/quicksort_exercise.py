@@ -10,10 +10,10 @@ from ..base import AlgorithmDemo
 
 class QuickSortExercise(AlgorithmDemo):
     """Comprehensive QuickSort exercise with multiple implementations and analysis."""
-    
+
     def __init__(self):
         super().__init__("quicksort_exercise")
-    
+
     def _setup_examples(self) -> None:
         """Setup QuickSort exercise examples."""
         self.examples = {
@@ -21,22 +21,22 @@ class QuickSortExercise(AlgorithmDemo):
                 "code": self._get_basic_quicksort_code(),
                 "explanation": "Basic QuickSort implementation with Lomuto partition scheme",
                 "time_complexity": "O(n log n) average, O(n²) worst case",
-                "space_complexity": "O(log n) average, O(n) worst case"
+                "space_complexity": "O(log n) average, O(n) worst case",
             },
             "advanced_quicksort": {
                 "code": self._get_advanced_quicksort_code(),
                 "explanation": "Advanced QuickSort with multiple pivot strategies and optimizations",
                 "time_complexity": "O(n log n) with optimizations",
-                "space_complexity": "O(log n) with tail recursion"
+                "space_complexity": "O(log n) with tail recursion",
             },
             "iterative_quicksort": {
                 "code": self._get_iterative_quicksort_code(),
                 "explanation": "Iterative QuickSort using explicit stack",
                 "time_complexity": "O(n log n) average case",
-                "space_complexity": "O(log n) for stack"
-            }
+                "space_complexity": "O(log n) for stack",
+            },
         }
-    
+
     def _get_basic_quicksort_code(self) -> str:
         return '''
 def quicksort_basic(arr, low=0, high=None):
@@ -102,7 +102,7 @@ def partition_hoare(arr, low, high):
 test_array = [10, 7, 8, 9, 1, 5]
 sorted_array = quicksort_basic(test_array)
 '''
-    
+
     def _get_advanced_quicksort_code(self) -> str:
         return '''
 def quicksort_advanced(arr, low=0, high=None, pivot_strategy='median_of_three', cutoff=10):
@@ -210,7 +210,7 @@ for i, test_array in enumerate(test_arrays[:2]):  # Test first two arrays
         print(f"\\nTesting strategy: {strategy}")
         result = quicksort_advanced(test_array.copy(), pivot_strategy=strategy)
 '''
-    
+
     def _get_iterative_quicksort_code(self) -> str:
         return '''
 def quicksort_iterative(arr):
@@ -300,67 +300,69 @@ iterative_result = quicksort_iterative(test_array)
 print("\\n=== Three-way QuickSort ===")
 three_way_result = quicksort_three_way(test_array)
 '''
-    
+
     def demonstrate_quicksort_analysis(self):
         """Comprehensive analysis of QuickSort performance."""
         print("=== QuickSort Performance Analysis ===")
-        
-        def quicksort_with_stats(arr, strategy='median_of_three'):
+
+        def quicksort_with_stats(arr, strategy="median_of_three"):
             """QuickSort with performance statistics."""
-            stats = {'comparisons': 0, 'swaps': 0, 'recursive_calls': 0}
-            
+            stats = {"comparisons": 0, "swaps": 0, "recursive_calls": 0}
+
             def quicksort_helper(arr, low, high):
-                stats['recursive_calls'] += 1
-                
+                stats["recursive_calls"] += 1
+
                 if low < high:
                     pivot_index = partition_with_stats(arr, low, high, stats)
                     quicksort_helper(arr, low, pivot_index - 1)
                     quicksort_helper(arr, pivot_index + 1, high)
-            
+
             def partition_with_stats(arr, low, high, stats):
                 pivot = arr[high]
                 i = low - 1
-                
+
                 for j in range(low, high):
-                    stats['comparisons'] += 1
+                    stats["comparisons"] += 1
                     if arr[j] <= pivot:
                         i += 1
                         if i != j:
                             arr[i], arr[j] = arr[j], arr[i]
-                            stats['swaps'] += 1
-                
+                            stats["swaps"] += 1
+
                 arr[i + 1], arr[high] = arr[high], arr[i + 1]
-                stats['swaps'] += 1
+                stats["swaps"] += 1
                 return i + 1
-            
+
             arr_copy = arr.copy()
             start_time = time.time()
             quicksort_helper(arr_copy, 0, len(arr_copy) - 1)
             end_time = time.time()
-            
-            stats['time'] = (end_time - start_time) * 1000
-            stats['sorted_array'] = arr_copy
+
+            stats["time"] = (end_time - start_time) * 1000
+            stats["sorted_array"] = arr_copy
             return stats
-        
+
         # Test different input patterns
         test_cases = [
-            ('Random', [random.randint(1, 100) for _ in range(20)]),
-            ('Sorted', list(range(20))),
-            ('Reverse', list(range(20, 0, -1))),
-            ('Many Duplicates', [5, 3, 8, 3, 5, 8, 3, 5] * 3),
-            ('Nearly Sorted', list(range(18)) + [19, 17])
+            ("Random", [random.randint(1, 100) for _ in range(20)]),
+            ("Sorted", list(range(20))),
+            ("Reverse", list(range(20, 0, -1))),
+            ("Many Duplicates", [5, 3, 8, 3, 5, 8, 3, 5] * 3),
+            ("Nearly Sorted", list(range(18)) + [19, 17]),
         ]
-        
+
         for case_name, test_data in test_cases:
-            print(f"\n{case_name} Data: {test_data[:10]}{'...' if len(test_data) > 10 else ''}")
+            print(
+                f"\n{case_name} Data: {test_data[:10]}{'...' if len(test_data) > 10 else ''}"
+            )
             stats = quicksort_with_stats(test_data)
-            
+
             print(f"  Comparisons: {stats['comparisons']}")
             print(f"  Swaps: {stats['swaps']}")
             print(f"  Recursive calls: {stats['recursive_calls']}")
             print(f"  Time: {stats['time']:.3f}ms")
             print(f"  Correctly sorted: {stats['sorted_array'] == sorted(test_data)}")
-    
+
     def get_exercise_tasks(self) -> List[str]:
         """Get list of exercise tasks for students."""
         return [
@@ -373,9 +375,9 @@ three_way_result = quicksort_three_way(test_array)
             "Compare with other sorting algorithms",
             "Handle edge cases (empty arrays, single elements, duplicates)",
             "Optimize for small subarrays using insertion sort",
-            "Implement worst-case O(n log n) guarantee using median-of-medians"
+            "Implement worst-case O(n log n) guarantee using median-of-medians",
         ]
-    
+
     def get_starter_code(self) -> str:
         """Get starter code template for students."""
         return '''
@@ -439,7 +441,7 @@ if __name__ == "__main__":
         print(f"Correct: {result == sorted(test_array)}")
         print()
 '''
-    
+
     def validate_solution(self, student_quicksort_func) -> Tuple[bool, List[str]]:
         """Validate student's QuickSort implementation."""
         test_cases = [
@@ -450,25 +452,27 @@ if __name__ == "__main__":
             [1, 1, 1, 1],
             list(range(10)),
             list(range(10, 0, -1)),
-            [random.randint(1, 100) for _ in range(50)]
+            [random.randint(1, 100) for _ in range(50)],
         ]
-        
+
         feedback = []
         all_passed = True
-        
+
         for i, test_case in enumerate(test_cases):
             try:
                 result = student_quicksort_func(test_case.copy())
                 expected = sorted(test_case)
-                
+
                 if result == expected:
                     feedback.append(f"✓ Test case {i+1} passed")
                 else:
-                    feedback.append(f"✗ Test case {i+1} failed: expected {expected}, got {result}")
+                    feedback.append(
+                        f"✗ Test case {i+1} failed: expected {expected}, got {result}"
+                    )
                     all_passed = False
-                    
+
             except Exception as e:
                 feedback.append(f"✗ Test case {i+1} raised exception: {str(e)}")
                 all_passed = False
-        
+
         return all_passed, feedback

@@ -8,7 +8,7 @@ from typing import Dict, Any
 
 class AdvancedExamples:
     """Advanced collections examples and demonstrations."""
-    
+
     @staticmethod
     def get_collections_module() -> Dict[str, Any]:
         """Get comprehensive collections module examples."""
@@ -272,5 +272,5 @@ if __name__ == "__main__":
     demonstrate_ordereddict()
     demonstrate_chainmap()
 ''',
-            "explanation": "Advanced collections in the collections module provide specialized containers for specific use cases that extend Python's built-in types"
+            "explanation": "Advanced collections in the collections module provide specialized containers for specific use cases that extend Python's built-in types",
         }

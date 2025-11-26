@@ -7,7 +7,7 @@ from typing import Dict, Any
 
 class BSTExercise:
     """Binary Search Tree implementation exercise."""
-    
+
     @staticmethod
     def get_exercise() -> Dict[str, Any]:
         """Get the BST implementation exercise."""
@@ -23,7 +23,7 @@ recursive algorithms, and balanced tree properties.
                 "Implement efficient search, insertion, and deletion operations",
                 "Master different tree traversal methods",
                 "Handle tree balancing and optimization",
-                "Create comprehensive tree analysis tools"
+                "Create comprehensive tree analysis tools",
             ],
             "tasks": [
                 {
@@ -34,8 +34,8 @@ recursive algorithms, and balanced tree properties.
                         "Store data, left, and right child references",
                         "Implement comparison methods for ordering",
                         "Provide clear string representation",
-                        "Handle None values appropriately"
-                    ]
+                        "Handle None values appropriately",
+                    ],
                 },
                 {
                     "step": 2,
@@ -45,8 +45,8 @@ recursive algorithms, and balanced tree properties.
                         "insert(data) - add element maintaining BST property",
                         "search(data) - find element in tree",
                         "delete(data) - remove element handling all cases",
-                        "find_min() and find_max() - locate extreme values"
-                    ]
+                        "find_min() and find_max() - locate extreme values",
+                    ],
                 },
                 {
                     "step": 3,
@@ -56,8 +56,8 @@ recursive algorithms, and balanced tree properties.
                         "inorder_traversal() - left, root, right",
                         "preorder_traversal() - root, left, right",
                         "postorder_traversal() - left, right, root",
-                        "level_order_traversal() - breadth-first"
-                    ]
+                        "level_order_traversal() - breadth-first",
+                    ],
                 },
                 {
                     "step": 4,
@@ -67,8 +67,8 @@ recursive algorithms, and balanced tree properties.
                         "height() - calculate tree height",
                         "size() - count total nodes",
                         "is_balanced() - check balance property",
-                        "validate_bst() - verify BST property"
-                    ]
+                        "validate_bst() - verify BST property",
+                    ],
                 },
                 {
                     "step": 5,
@@ -78,9 +78,9 @@ recursive algorithms, and balanced tree properties.
                         "find_lca() - lowest common ancestor",
                         "path_to_node() - find path from root to node",
                         "serialize() and deserialize() - tree persistence",
-                        "create_balanced_bst() - build balanced tree from sorted array"
-                    ]
-                }
+                        "create_balanced_bst() - build balanced tree from sorted array",
+                    ],
+                },
             ],
             "starter_code": '''
 class TreeNode:
@@ -146,7 +146,7 @@ if __name__ == "__main__":
                 "Handle three cases for deletion: no children, one child, two children",
                 "For deletion with two children, replace with inorder successor",
                 "Use helper methods to separate public interface from implementation",
-                "Consider using a queue for level-order traversal"
+                "Consider using a queue for level-order traversal",
             ],
             "solution": '''
 from collections import deque
@@ -438,7 +438,7 @@ def test_binary_search_tree():
 
 if __name__ == "__main__":
     test_binary_search_tree()
-'''
+''',
         }
 
 

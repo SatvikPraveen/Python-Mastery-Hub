@@ -26,7 +26,7 @@ real-world architectural problems.
             "Understand loose coupling between objects",
             "Practice abstract base classes and interfaces",
             "Handle dynamic subscription management",
-            "Build extensible notification systems"
+            "Build extensible notification systems",
         ],
         "tasks": [
             {
@@ -37,8 +37,8 @@ real-world architectural problems.
                     "Create abstract Observer class with update() method",
                     "Create Subject class with attach/detach/notify methods",
                     "Define clear interfaces for publisher-subscriber communication",
-                    "Add observer management functionality"
-                ]
+                    "Add observer management functionality",
+                ],
             },
             {
                 "step": 2,
@@ -48,8 +48,8 @@ real-world architectural problems.
                     "Inherit from Subject base class",
                     "Manage news articles and categories",
                     "Implement notification logic for new articles",
-                    "Add filtering by category and priority"
-                ]
+                    "Add filtering by category and priority",
+                ],
             },
             {
                 "step": 3,
@@ -59,8 +59,8 @@ real-world architectural problems.
                     "EmailSubscriber for email notifications",
                     "SMSSubscriber for text message alerts",
                     "MobileAppSubscriber for push notifications",
-                    "Each with different filtering preferences"
-                ]
+                    "Each with different filtering preferences",
+                ],
             },
             {
                 "step": 4,
@@ -70,8 +70,8 @@ real-world architectural problems.
                     "Priority-based notifications",
                     "Category-based filtering",
                     "Subscription preferences and settings",
-                    "Notification history and analytics"
-                ]
+                    "Notification history and analytics",
+                ],
             },
             {
                 "step": 5,
@@ -81,9 +81,9 @@ real-world architectural problems.
                     "Track notification delivery rates",
                     "Monitor subscriber engagement",
                     "Generate subscription reports",
-                    "Handle failed notifications and retries"
-                ]
-            }
+                    "Handle failed notifications and retries",
+                ],
+            },
         ],
         "starter_code": '''
 from abc import ABC, abstractmethod
@@ -229,7 +229,7 @@ if __name__ == "__main__":
             "Consider using weak references to prevent memory leaks",
             "Add error handling for notification failures",
             "Use timestamps to track when notifications are sent",
-            "Consider thread safety for concurrent notifications"
+            "Consider thread safety for concurrent notifications",
         ],
         "solution": '''
 from abc import ABC, abstractmethod
@@ -992,5 +992,5 @@ def demonstrate_observer_pattern():
 
 if __name__ == "__main__":
     demonstrate_observer_pattern()
-'''
+''',
     }

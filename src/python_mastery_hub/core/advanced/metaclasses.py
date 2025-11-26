@@ -8,10 +8,10 @@ from .base import TopicDemo
 
 class MetaclassesDemo(TopicDemo):
     """Demonstration class for Python metaclasses."""
-    
+
     def __init__(self):
         super().__init__("metaclasses")
-    
+
     def _setup_examples(self) -> None:
         """Setup metaclass examples."""
         self.examples = {
@@ -117,9 +117,8 @@ class BankAccount(metaclass=AutoPropertyMeta):
     def __str__(self):
         return f"Account {self._account_number}: ${self._balance}"
 ''',
-                "explanation": "Metaclasses control class creation and can add functionality, validation, and patterns to all instances of a class"
+                "explanation": "Metaclasses control class creation and can add functionality, validation, and patterns to all instances of a class",
             },
-            
             "advanced_metaclasses": {
                 "code": '''
 class RegisteredMeta(type):
@@ -227,9 +226,8 @@ class UserAPI(metaclass=APIEndpointMeta):
     def put_user(self, user_id, user_data):
         return {"updated": user_id}
 ''',
-                "explanation": "Advanced metaclasses can implement sophisticated patterns like registration, automatic decoration, and API routing"
+                "explanation": "Advanced metaclasses can implement sophisticated patterns like registration, automatic decoration, and API routing",
             },
-            
             "metaclass_inheritance": {
                 "code": '''
 class CombinedMeta(RegisteredMeta, LoggingMeta):
@@ -333,31 +331,33 @@ print("Method Resolution Order:")
 print(f"CombinedMeta MRO: {[cls.__name__ for cls in CombinedMeta.__mro__]}")
 print(f"ServiceBase MRO: {[cls.__name__ for cls in ServiceBase.__mro__]}")
 ''',
-                "explanation": "Metaclass inheritance allows combining multiple metaclass behaviors and follows method resolution order"
-            }
+                "explanation": "Metaclass inheritance allows combining multiple metaclass behaviors and follows method resolution order",
+            },
         }
-    
+
     def _setup_exercises(self) -> None:
         """Setup metaclass exercises."""
         from .exercises.orm_metaclass import ORMMetaclassExercise
-        
+
         orm_exercise = ORMMetaclassExercise()
-        
+
         self.exercises = [
             {
                 "topic": "metaclasses",
                 "title": "ORM Table Creator",
                 "description": "Create a metaclass that automatically generates database table schemas",
                 "difficulty": "expert",
-                "exercise": orm_exercise
+                "exercise": orm_exercise,
             }
         ]
-    
+
     def get_explanation(self) -> str:
         """Get detailed explanation for metaclasses."""
-        return ("Metaclasses control class creation and can modify class behavior, attributes, and methods "
-                "at definition time, enabling powerful patterns like singletons, validation, and automatic registration.")
-    
+        return (
+            "Metaclasses control class creation and can modify class behavior, attributes, and methods "
+            "at definition time, enabling powerful patterns like singletons, validation, and automatic registration."
+        )
+
     def get_best_practices(self) -> List[str]:
         """Get best practices for metaclasses."""
         return [
@@ -365,5 +365,5 @@ print(f"ServiceBase MRO: {[cls.__name__ for cls in ServiceBase.__mro__]}")
             "Consider class decorators as simpler alternatives",
             "Document metaclass behavior thoroughly",
             "Keep metaclass logic simple and focused",
-            "Use __init_subclass__ for simpler class customization"
+            "Use __init_subclass__ for simpler class customization",
         ]

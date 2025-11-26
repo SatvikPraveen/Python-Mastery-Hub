@@ -32,24 +32,12 @@ except ImportError:
 # Pytest configuration
 def pytest_configure(config):
     """Configure pytest with custom markers and settings."""
-    config.addinivalue_line(
-        "markers", "unit: mark test as a unit test"
-    )
-    config.addinivalue_line(
-        "markers", "integration: mark test as an integration test"
-    )
-    config.addinivalue_line(
-        "markers", "e2e: mark test as an end-to-end test"
-    )
-    config.addinivalue_line(
-        "markers", "performance: mark test as a performance test"
-    )
-    config.addinivalue_line(
-        "markers", "slow: mark test as slow running"
-    )
-    config.addinivalue_line(
-        "markers", "requires_db: mark test as requiring database"
-    )
+    config.addinivalue_line("markers", "unit: mark test as a unit test")
+    config.addinivalue_line("markers", "integration: mark test as an integration test")
+    config.addinivalue_line("markers", "e2e: mark test as an end-to-end test")
+    config.addinivalue_line("markers", "performance: mark test as a performance test")
+    config.addinivalue_line("markers", "slow: mark test as slow running")
+    config.addinivalue_line("markers", "requires_db: mark test as requiring database")
     config.addinivalue_line(
         "markers", "requires_web: mark test as requiring web server"
     )
@@ -70,19 +58,19 @@ def test_db_engine():
     """Create a test database engine using SQLite in memory."""
     if Base is None:
         pytest.skip("Database models not available")
-    
+
     engine = create_engine(
         "sqlite:///:memory:",
         connect_args={"check_same_thread": False},
         poolclass=StaticPool,
-        echo=False
+        echo=False,
     )
-    
+
     # Create all tables
     Base.metadata.create_all(bind=engine)
-    
+
     yield engine
-    
+
     # Cleanup
     Base.metadata.drop_all(bind=engine)
     engine.dispose()
@@ -94,7 +82,7 @@ def test_db_session(test_db_engine):
     TestingSessionLocal = sessionmaker(
         autocommit=False, autoflush=False, bind=test_db_engine
     )
-    
+
     session = TestingSessionLocal()
     try:
         yield session
@@ -131,9 +119,9 @@ def temp_file():
     """Create a temporary file for tests."""
     with tempfile.NamedTemporaryFile(delete=False) as tmp:
         temp_path = Path(tmp.name)
-    
+
     yield temp_path
-    
+
     if temp_path.exists():
         temp_path.unlink()
 
@@ -144,15 +132,17 @@ def test_app():
     """Create a test Flask/FastAPI application instance."""
     if create_app is None:
         pytest.skip("Web application not available")
-    
+
     app = create_app(testing=True)
-    app.config.update({
-        "TESTING": True,
-        "DATABASE_URL": "sqlite:///:memory:",
-        "SECRET_KEY": "test-secret-key",
-        "WTF_CSRF_ENABLED": False
-    })
-    
+    app.config.update(
+        {
+            "TESTING": True,
+            "DATABASE_URL": "sqlite:///:memory:",
+            "SECRET_KEY": "test-secret-key",
+            "WTF_CSRF_ENABLED": False,
+        }
+    )
+
     return app
 
 
@@ -168,15 +158,14 @@ def test_client(test_app):
 def authenticated_client(test_client, test_user):
     """Create an authenticated test client."""
     # Login the test user
-    response = test_client.post('/auth/login', json={
-        'email': test_user.email,
-        'password': 'testpass123'
-    })
-    
+    response = test_client.post(
+        "/auth/login", json={"email": test_user.email, "password": "testpass123"}
+    )
+
     if response.status_code == 200:
         # Extract token or session info if needed
         pass
-    
+
     return test_client
 
 
@@ -188,12 +177,12 @@ def mock_user_manager():
         manager = Mock()
     else:
         manager = Mock(spec=UserManager)
-    
+
     manager.create_user = AsyncMock()
     manager.authenticate_user = AsyncMock()
     manager.get_user_by_email = AsyncMock()
     manager.update_user_progress = AsyncMock()
-    
+
     return manager
 
 
@@ -204,12 +193,12 @@ def mock_exercise_engine():
         engine = Mock()
     else:
         engine = Mock(spec=ExerciseEngine)
-    
+
     engine.get_exercise = AsyncMock()
     engine.evaluate_solution = AsyncMock()
     engine.get_next_exercise = AsyncMock()
     engine.generate_hints = AsyncMock()
-    
+
     return engine
 
 
@@ -220,12 +209,12 @@ def mock_progress_tracker():
         tracker = Mock()
     else:
         tracker = Mock(spec=ProgressTracker)
-    
+
     tracker.track_completion = AsyncMock()
     tracker.get_user_progress = AsyncMock()
     tracker.calculate_mastery = AsyncMock()
     tracker.suggest_next_topics = AsyncMock()
-    
+
     return tracker
 
 
@@ -234,6 +223,7 @@ def mock_progress_tracker():
 def cli_runner():
     """Create a CLI test runner."""
     from click.testing import CliRunner
+
     return CliRunner()
 
 
@@ -252,7 +242,7 @@ def mock_openai_client():
     client.chat = Mock()
     client.chat.completions = Mock()
     client.chat.completions.create = AsyncMock()
-    
+
     return client
 
 
@@ -265,7 +255,7 @@ def mock_redis_client():
     client.delete = AsyncMock()
     client.exists = AsyncMock()
     client.expire = AsyncMock()
-    
+
     return client
 
 
@@ -285,19 +275,19 @@ def sample_exercise_data():
             {
                 "description": "Variable 'name' should exist",
                 "test": "assert 'name' in globals()",
-                "expected": True
+                "expected": True,
             },
             {
                 "description": "Variable 'name' should equal 'Alice'",
                 "test": "assert name == 'Alice'",
-                "expected": True
-            }
+                "expected": True,
+            },
         ],
         "hints": [
             "Use the assignment operator (=) to assign a value to a variable",
-            "String values should be enclosed in quotes"
+            "String values should be enclosed in quotes",
         ],
-        "tags": ["variables", "strings", "assignment"]
+        "tags": ["variables", "strings", "assignment"],
     }
 
 
@@ -315,7 +305,7 @@ def sample_user_data():
         "created_at": "2024-01-01T00:00:00Z",
         "last_active": "2024-01-15T12:00:00Z",
         "is_active": True,
-        "email_verified": True
+        "email_verified": True,
     }
 
 
@@ -332,7 +322,7 @@ def sample_progress_data():
         "completed_at": "2024-01-15T14:30:00Z",
         "solution_code": "name = 'Alice'",
         "feedback": "Good job! Your solution is correct.",
-        "hints_used": 1
+        "hints_used": 1,
     }
 
 
@@ -342,10 +332,10 @@ def performance_config():
     """Configuration for performance tests."""
     return {
         "max_response_time": 1.0,  # seconds
-        "max_memory_usage": 100,   # MB
+        "max_memory_usage": 100,  # MB
         "concurrent_users": 10,
-        "test_duration": 30,       # seconds
-        "ramp_up_time": 5          # seconds
+        "test_duration": 30,  # seconds
+        "ramp_up_time": 5,  # seconds
     }
 
 
@@ -354,14 +344,10 @@ def performance_config():
 def cleanup_test_files():
     """Automatically cleanup test files after each test."""
     yield
-    
+
     # Clean up any test files that might have been created
-    test_files = [
-        "test_output.txt",
-        "test_data.json",
-        "test_config.yaml"
-    ]
-    
+    test_files = ["test_output.txt", "test_data.json", "test_config.yaml"]
+
     for file_path in test_files:
         path = Path(file_path)
         if path.exists():
@@ -385,11 +371,14 @@ def exercise_category(request):
 def assert_response_time(func, max_time=1.0):
     """Assert that a function executes within the specified time."""
     import time
+
     start_time = time.time()
     result = func()
     execution_time = time.time() - start_time
-    
-    assert execution_time <= max_time, f"Function took {execution_time:.2f}s, expected <= {max_time}s"
+
+    assert (
+        execution_time <= max_time
+    ), f"Function took {execution_time:.2f}s, expected <= {max_time}s"
     return result
 
 
@@ -397,16 +386,18 @@ def assert_memory_usage(func, max_memory_mb=100):
     """Assert that a function doesn't exceed memory usage."""
     import psutil
     import os
-    
+
     process = psutil.Process(os.getpid())
     initial_memory = process.memory_info().rss / 1024 / 1024  # MB
-    
+
     result = func()
-    
+
     final_memory = process.memory_info().rss / 1024 / 1024  # MB
     memory_used = final_memory - initial_memory
-    
-    assert memory_used <= max_memory_mb, f"Function used {memory_used:.2f}MB, expected <= {max_memory_mb}MB"
+
+    assert (
+        memory_used <= max_memory_mb
+    ), f"Function used {memory_used:.2f}MB, expected <= {max_memory_mb}MB"
     return result
 
 

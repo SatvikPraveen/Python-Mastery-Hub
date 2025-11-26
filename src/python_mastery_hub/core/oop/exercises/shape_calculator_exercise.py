@@ -26,7 +26,7 @@ and building flexible, extensible object hierarchies.
             "Implement polymorphic methods for different shapes",
             "Use operator overloading for natural shape comparisons",
             "Practice inheritance with mathematical calculations",
-            "Build extensible systems with consistent APIs"
+            "Build extensible systems with consistent APIs",
         ],
         "tasks": [
             {
@@ -37,8 +37,8 @@ and building flexible, extensible object hierarchies.
                     "Use ABC to create abstract base class",
                     "Define abstract methods: area() and perimeter()",
                     "Add concrete methods for common functionality",
-                    "Implement comparison operators based on area"
-                ]
+                    "Implement comparison operators based on area",
+                ],
             },
             {
                 "step": 2,
@@ -48,8 +48,8 @@ and building flexible, extensible object hierarchies.
                     "Each class inherits from Shape base class",
                     "Implement area() and perimeter() for each shape",
                     "Add shape-specific validation in constructors",
-                    "Include string representations for debugging"
-                ]
+                    "Include string representations for debugging",
+                ],
             },
             {
                 "step": 3,
@@ -59,8 +59,8 @@ and building flexible, extensible object hierarchies.
                     "Accept any shape type through polymorphism",
                     "Calculate total area and perimeter of shape collections",
                     "Find largest/smallest shapes by different criteria",
-                    "Generate shape statistics and reports"
-                ]
+                    "Generate shape statistics and reports",
+                ],
             },
             {
                 "step": 4,
@@ -70,8 +70,8 @@ and building flexible, extensible object hierarchies.
                     "Implement <, >, ==, != based on area comparison",
                     "Add + operator to combine shape areas",
                     "Create * operator for scaling shapes",
-                    "Support len() for shape perimeter"
-                ]
+                    "Support len() for shape perimeter",
+                ],
             },
             {
                 "step": 5,
@@ -81,9 +81,9 @@ and building flexible, extensible object hierarchies.
                     "Create composite shapes (multiple shapes as one)",
                     "Add shape transformation methods (scale, rotate)",
                     "Implement shape factory for creating shapes from parameters",
-                    "Add shape validation and error handling"
-                ]
-            }
+                    "Add shape validation and error handling",
+                ],
+            },
         ],
         "starter_code": '''
 from abc import ABC, abstractmethod
@@ -222,7 +222,7 @@ if __name__ == "__main__":
             "Use isinstance() to check shape types in comparisons",
             "Consider floating-point precision when comparing areas",
             "Abstract methods must be implemented in all concrete classes",
-            "Use super().__init__() to call parent constructor"
+            "Use super().__init__() to call parent constructor",
         ],
         "solution": '''
 from abc import ABC, abstractmethod
@@ -783,5 +783,5 @@ def demonstrate_shape_calculator():
 
 if __name__ == "__main__":
     demonstrate_shape_calculator()
-'''
+''',
     }

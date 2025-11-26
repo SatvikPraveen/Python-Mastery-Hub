@@ -14,20 +14,20 @@ from .examples import (
     get_mocking_examples,
     get_tdd_examples,
     get_integration_examples,
-    get_performance_examples
+    get_performance_examples,
 )
 from .exercises import (
     get_unittest_exercise,
     get_tdd_exercise,
     get_mocking_exercise,
-    get_integration_exercise
+    get_integration_exercise,
 )
 
 __all__ = [
     "TestingConcepts",
     # Examples
     "get_unittest_examples",
-    "get_pytest_examples", 
+    "get_pytest_examples",
     "get_mocking_examples",
     "get_tdd_examples",
     "get_integration_examples",
@@ -36,5 +36,5 @@ __all__ = [
     "get_unittest_exercise",
     "get_tdd_exercise",
     "get_mocking_exercise",
-    "get_integration_exercise"
+    "get_integration_exercise",
 ]

@@ -9,14 +9,14 @@ from ..base import CodeValidator, ExampleRunner
 
 class FunctionDesignExercise:
     """Interactive exercise for practicing function design and implementation."""
-    
+
     def __init__(self):
         self.title = "Function Design Challenge"
         self.description = "Design functions for a calculator system with proper parameters and error handling"
         self.difficulty = "medium"
         self.validator = CodeValidator()
         self.runner = ExampleRunner()
-    
+
     def get_instructions(self) -> Dict[str, Any]:
         """Get comprehensive exercise instructions."""
         return {
@@ -28,7 +28,7 @@ class FunctionDesignExercise:
                 "Use different parameter types (positional, keyword, default)",
                 "Add comprehensive error handling and edge cases",
                 "Write clear docstrings with parameter and return documentation",
-                "Create a cohesive calculator system with multiple functions"
+                "Create a cohesive calculator system with multiple functions",
             ],
             "tasks": [
                 "Create basic arithmetic functions (+, -, *, /, **, %)",
@@ -36,7 +36,7 @@ class FunctionDesignExercise:
                 "Implement advanced operations (factorial, square root, logarithm)",
                 "Create a main calculator function that coordinates operations",
                 "Add memory functions (store, recall, clear)",
-                "Design a history tracking system for calculations"
+                "Design a history tracking system for calculations",
             ],
             "requirements": [
                 "All functions must have comprehensive docstrings",
@@ -44,10 +44,10 @@ class FunctionDesignExercise:
                 "Handle edge cases like division by zero, negative square roots",
                 "Implement at least one function with *args or **kwargs",
                 "Create functions that return multiple values using tuples",
-                "Use default parameters appropriately"
-            ]
+                "Use default parameters appropriately",
+            ],
         }
-    
+
     def get_starter_code(self) -> str:
         """Get starter code template."""
         return '''
@@ -147,7 +147,7 @@ if __name__ == "__main__":
     # except ValueError as e:
     #     print(f"Error caught: {e}")
 '''
-    
+
     def get_solution(self) -> str:
         """Get complete solution with explanations."""
         return '''
@@ -516,13 +516,13 @@ def run_calculator_demo():
 if __name__ == "__main__":
     run_calculator_demo()
 '''
-    
+
     def check_solution(self, code: str) -> Dict[str, Any]:
         """Check and validate the student's solution."""
         feedback = []
         score = 0
         max_score = 20
-        
+
         # Check syntax
         syntax_check = self.validator.validate_syntax(code)
         if not syntax_check["valid"]:
@@ -530,9 +530,9 @@ if __name__ == "__main__":
                 "score": 0,
                 "max_score": max_score,
                 "feedback": [f"Syntax Error: {syntax_check['message']}"],
-                "suggestions": ["Fix syntax errors before proceeding"]
+                "suggestions": ["Fix syntax errors before proceeding"],
             }
-        
+
         # Check for required function components
         function_checks = [
             ("def ", "Function definitions", 3),
@@ -548,16 +548,16 @@ if __name__ == "__main__":
             ("self.", "Instance methods", 2),
             ("def __init__", "Constructor", 1),
             ("*args", "Variable arguments", 1),
-            ("**kwargs", "Keyword arguments", 1)
+            ("**kwargs", "Keyword arguments", 1),
         ]
-        
+
         for pattern, description, points in function_checks:
             if pattern in code:
                 feedback.append(f"✓ Used {description}")
                 score += points
             else:
                 feedback.append(f"✗ Missing {description}")
-        
+
         # Check for specific calculator operations
         operations = ["add", "subtract", "multiply", "divide", "power"]
         for op in operations:
@@ -565,7 +565,7 @@ if __name__ == "__main__":
                 feedback.append(f"✓ Implemented {op} operation")
             else:
                 feedback.append(f"✗ Missing {op} operation")
-        
+
         # Check naming conventions
         naming_issues = self.validator.check_naming_conventions(code)
         if not naming_issues:
@@ -573,63 +573,63 @@ if __name__ == "__main__":
             score += 1
         else:
             feedback.extend([f"⚠ Naming: {issue}" for issue in naming_issues[:3]])
-        
+
         # Calculate percentage
         percentage = (score / max_score) * 100
-        
+
         return {
             "score": score,
             "max_score": max_score,
             "percentage": percentage,
             "feedback": feedback,
             "suggestions": self._get_suggestions(score, max_score),
-            "grade": self._calculate_grade(percentage)
+            "grade": self._calculate_grade(percentage),
         }
-    
+
     def get_practice_problems(self) -> List[Dict[str, Any]]:
         """Get additional practice problems."""
         return [
             {
                 "problem": "Create a function that calculates compound interest with flexible parameters",
                 "hint": "Use default parameters for rate and compounding frequency",
-                "solution": "def compound_interest(principal, rate=0.05, time=1, n=1):\\n    return principal * (1 + rate/n)**(n*time)"
+                "solution": "def compound_interest(principal, rate=0.05, time=1, n=1):\\n    return principal * (1 + rate/n)**(n*time)",
             },
             {
                 "problem": "Design a function that finds the greatest common divisor using recursion",
                 "hint": "Use the Euclidean algorithm: gcd(a,b) = gcd(b, a%b)",
-                "solution": "def gcd(a, b):\\n    if b == 0:\\n        return a\\n    return gcd(b, a % b)"
+                "solution": "def gcd(a, b):\\n    if b == 0:\\n        return a\\n    return gcd(b, a % b)",
             },
             {
                 "problem": "Create a function that validates and formats phone numbers",
                 "hint": "Handle multiple input formats and return a standardized format",
-                "solution": "def format_phone(phone):\\n    digits = ''.join(c for c in phone if c.isdigit())\\n    if len(digits) == 10:\\n        return f'({digits[:3]}) {digits[3:6]}-{digits[6:]}'\\n    raise ValueError('Invalid phone number')"
-            }
+                "solution": "def format_phone(phone):\\n    digits = ''.join(c for c in phone if c.isdigit())\\n    if len(digits) == 10:\\n        return f'({digits[:3]}) {digits[3:6]}-{digits[6:]}'\\n    raise ValueError('Invalid phone number')",
+            },
         ]
-    
+
     def _get_suggestions(self, score: int, max_score: int) -> List[str]:
         """Get suggestions based on score."""
         percentage = (score / max_score) * 100
-        
+
         if percentage >= 90:
             return [
                 "Outstanding function design! Your code shows mastery of Python functions.",
                 "Consider exploring advanced topics like decorators and closures.",
-                "Try implementing more complex algorithms using your function design skills."
+                "Try implementing more complex algorithms using your function design skills.",
             ]
         elif percentage >= 70:
             return [
                 "Good function structure. Focus on improving error handling.",
                 "Add more comprehensive docstrings with examples.",
-                "Practice with type hints and parameter validation."
+                "Practice with type hints and parameter validation.",
             ]
         else:
             return [
                 "Focus on basic function definition and parameter handling first.",
                 "Review how to write proper docstrings with Args and Returns sections.",
                 "Practice simple functions before attempting complex calculator operations.",
-                "Study the solution to understand proper function structure and error handling."
+                "Study the solution to understand proper function structure and error handling.",
             ]
-    
+
     def _calculate_grade(self, percentage: float) -> str:
         """Calculate letter grade from percentage."""
         if percentage >= 90:

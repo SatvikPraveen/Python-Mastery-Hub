@@ -7,11 +7,11 @@ from typing import Dict, Any, List
 
 class ControlFlowConcepts:
     """Handles all control flow-related concepts and examples."""
-    
+
     def __init__(self):
         self.topic = "control_flow"
         self.examples = self._setup_examples()
-    
+
     def demonstrate(self) -> Dict[str, Any]:
         """Return comprehensive control flow demonstrations."""
         return {
@@ -20,7 +20,7 @@ class ControlFlowConcepts:
             "explanation": self._get_explanation(),
             "best_practices": self._get_best_practices(),
         }
-    
+
     def _setup_examples(self) -> Dict[str, Any]:
         """Setup comprehensive control flow examples."""
         return {
@@ -64,11 +64,10 @@ activity = "beach" if weather == "sunny" and temperature > 70 else "indoor activ
 print(f"Weather: {weather}, Temp: {temperature}°F -> Suggestion: {activity}")
 ''',
                 "output": "Score: 95, Grade: A, Excellent!\\nScore: 85, Grade: B, Good job!\\nScore: 75, Grade: C, Satisfactory\\nScore: 65, Grade: D, Needs improvement\\nScore: 55, Grade: F, Failed\\nAge 18 is classified as: adult\\nWeather: sunny, Temp: 75°F -> Suggestion: beach",
-                "explanation": "Conditional statements control program flow based on boolean conditions using if/elif/else"
+                "explanation": "Conditional statements control program flow based on boolean conditions using if/elif/else",
             },
-            
             "for_loops": {
-                "code": '''
+                "code": """
 # For loops - iteration over sequences
 print("=== Basic For Loop ===")
 fruits = ["apple", "banana", "cherry", "date"]
@@ -99,13 +98,12 @@ print("\\n=== For Loop with Dictionary ===")
 student_grades = {"Alice": 95, "Bob": 87, "Charlie": 92}
 for name, grade in student_grades.items():
     print(f"{name}: {grade}%")
-''',
+""",
                 "output": "=== Basic For Loop ===\\nI like apple\\nI like banana\\nI like cherry\\nI like date\\n\\n=== For Loop with Range ===\\nIteration 0\\nIteration 1\\nIteration 2\\nIteration 3\\nIteration 4\\n\\n=== For Loop with Enumerate ===\\n1. Apple\\n2. Banana\\n3. Cherry\\n4. Date\\n\\n=== For Loop with Zip ===\\nAlice is 25 years old\\nBob is 30 years old\\nCharlie is 35 years old\\n\\n=== Nested For Loops ===\\n(0,0) (0,1) (0,2) \\n(1,0) (1,1) (1,2) \\n(2,0) (2,1) (2,2) \\n\\n=== For Loop with Dictionary ===\\nAlice: 95%\\nBob: 87%\\nCharlie: 92%",
-                "explanation": "For loops iterate over sequences using various patterns for different data structures"
+                "explanation": "For loops iterate over sequences using various patterns for different data structures",
             },
-            
             "while_loops": {
-                "code": '''
+                "code": """
 # While loops - conditional repetition
 print("=== Basic While Loop ===")
 count = 0
@@ -152,11 +150,10 @@ while True:
     if safety_counter >= 5:  # Safety break
         print("Breaking to prevent infinite loop")
         break
-''',
+""",
                 "output": "=== Basic While Loop ===\\nCount: 0\\nCount: 1\\nCount: 2\\nCount: 3\\nCount: 4\\n\\n=== While Loop with User Input Simulation ===\\nAttempt 1: Enter password: wrong1\\nIncorrect password. 2 attempts remaining.\\nAttempt 2: Enter password: wrong2\\nIncorrect password. 1 attempts remaining.\\nAttempt 3: Enter password: secret123\\nAccess granted!\\n\\n=== While Loop with Accumulator ===\\nAdded 1, total now: 1\\nAdded 2, total now: 3\\nAdded 3, total now: 6\\n...\\nAdded 14, total now: 105\\n\\n=== Infinite Loop Prevention ===\\nIteration 1\\nIteration 2\\nIteration 3\\nIteration 4\\nIteration 5\\nBreaking to prevent infinite loop",
-                "explanation": "While loops repeat based on conditions and require careful handling to avoid infinite loops"
+                "explanation": "While loops repeat based on conditions and require careful handling to avoid infinite loops",
             },
-            
             "loop_control": {
                 "code": '''
 # Loop control with break, continue, and else
@@ -206,11 +203,10 @@ for i in range(5):
         print(f"Processing item {i}")
 ''',
                 "output": "=== Break and Continue ===\\nOdd number: 1\\nOdd number: 3\\nOdd number: 5\\nOdd number: 7\\nOdd number: 9\\n\\n=== Loop with Else Clause ===\\n15 is divisible by 3\\n17 is not divisible by any of [2, 3, 4]\\n\\n=== Nested Loop Control ===\\nFound pair: 1 + 9 = 10 at indices 0, 4\\n\\n=== Pass Statement ===\\nProcessing item 0\\nProcessing item 1\\nProcessing item 3\\nProcessing item 4",
-                "explanation": "Loop control statements provide fine-grained control over iteration flow"
+                "explanation": "Loop control statements provide fine-grained control over iteration flow",
             },
-            
             "comprehensions": {
-                "code": '''
+                "code": """
 # List, set, and dictionary comprehensions
 numbers = range(10)
 words = ["hello", "world", "python", "programming"]
@@ -264,11 +260,10 @@ print(f"Generator values: {list(squares_gen)}")
 # Memory efficient for large datasets
 large_sum = sum(x**2 for x in range(1000))
 print(f"Sum of squares 0-999: {large_sum}")
-''',
+""",
                 "output": "=== List Comprehensions ===\\nSquares: [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]\\nEven squares: [0, 4, 16, 36, 64]\\nUppercase words: ['HELLO', 'WORLD', 'PYTHON', 'PROGRAMMING']\\nMultiplication matrix: [[1, 2, 3], [2, 4, 6], [3, 6, 9]]\\n\\n=== Set Comprehensions ===\\nUnique remainders (mod 3): {0, 1, 2}\\nVowels found: {'e', 'o', 'a', 'i'}\\n\\n=== Dictionary Comprehensions ===\\nWord lengths: {'hello': 5, 'world': 5, 'python': 6, 'programming': 11}\\nLong words: {'python': 6, 'programming': 11}\\nLetter numbers: {'a': 1, 'b': 2, 'c': 3, 'd': 4}\\n\\n=== Generator Expressions ===\\nGenerator: <generator object>\\nGenerator values: [0, 1, 4, 9, 16]\\nSum of squares 0-999: 332833500",
-                "explanation": "Comprehensions provide concise, readable ways to create collections with optional filtering and transformation"
+                "explanation": "Comprehensions provide concise, readable ways to create collections with optional filtering and transformation",
             },
-            
             "match_statements": {
                 "code": '''
 # Match statements (Python 3.10+) - structural pattern matching
@@ -349,10 +344,10 @@ for point in points:
     print(f"{point} -> {analyze_point(point)}")
 ''',
                 "output": "=== Match Statement Examples ===\\nInput: 42                   -> Positive integer: 42\\nInput: -5                   -> Negative integer: -5\\nInput: 0                    -> Zero\\nInput: 'hello'              -> Non-empty string: 'hello'\\nInput: ''                   -> Unknown data type: str\\nInput: []                   -> Empty list\\nInput: [10]                 -> Single integer list: [10]\\nInput: [1, 2]               -> Two-item list: [1, 2]\\nInput: [1, 2, 3, 4]         -> List starting with 1, rest: [2, 3, 4]\\nInput: {'name': 'Alice', 'age': 25} -> Person: Alice, age 25\\nInput: {'type': 'error', 'message': 'File not found'} -> Error occurred: File not found\\nInput: {'unknown': 'data'}  -> Unknown data type: dict\\nInput: 3.14                 -> Unknown data type: float\\n\\n=== Class Pattern Matching ===\\nPoint(0, 0) -> Origin point\\nPoint(0, 5) -> Point on Y-axis at y=5\\nPoint(3, 0) -> Point on X-axis at x=3\\nPoint(4, 4) -> Point on diagonal at (4, 4)\\nPoint(2, 7) -> Point in quadrant at (2, 7)",
-                "explanation": "Match statements provide powerful pattern matching for complex data structures and types"
-            }
+                "explanation": "Match statements provide powerful pattern matching for complex data structures and types",
+            },
         }
-    
+
     def _get_explanation(self) -> str:
         """Get detailed explanation for control flow."""
         return (
@@ -364,7 +359,7 @@ for point in points:
             "to create collections with filtering and transformation. Match statements (Python 3.10+) "
             "provide powerful pattern matching capabilities for complex data structures."
         )
-    
+
     def _get_best_practices(self) -> List[str]:
         """Get best practices for control flow."""
         return [
@@ -379,5 +374,5 @@ for point in points:
             "Use for...else to handle cases where loops complete without breaking",
             "Prefer match statements over long if/elif chains when available",
             "Use generator expressions for memory-efficient processing of large datasets",
-            "Consider using all() and any() for boolean operations on sequences"
+            "Consider using all() and any() for boolean operations on sequences",
         ]

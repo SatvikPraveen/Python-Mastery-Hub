@@ -10,14 +10,14 @@ from . import (
     rest_api_examples,
     websocket_examples,
     auth_examples,
-    database_examples
+    database_examples,
 )
 
 __all__ = [
     "flask_examples",
     "fastapi_examples",
-    "rest_api_examples", 
+    "rest_api_examples",
     "websocket_examples",
     "auth_examples",
-    "database_examples"
+    "database_examples",
 ]

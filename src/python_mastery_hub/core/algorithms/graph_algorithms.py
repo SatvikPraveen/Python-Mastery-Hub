@@ -10,39 +10,41 @@ from .base import AlgorithmDemo
 
 class Graph:
     """Graph implementation with adjacency list representation."""
-    
+
     def __init__(self, directed=False):
         self.graph = defaultdict(list)
         self.directed = directed
         self.vertices = set()
-    
+
     def add_edge(self, u, v, weight=1):
         """Add edge between vertices u and v."""
         self.graph[u].append((v, weight))
         self.vertices.add(u)
         self.vertices.add(v)
-        
+
         if not self.directed:
             self.graph[v].append((u, weight))
-    
+
     def get_neighbors(self, vertex):
         """Get neighbors of a vertex."""
         return self.graph[vertex]
-    
+
     def print_graph(self):
         """Print graph representation."""
         print("Graph adjacency list:")
         for vertex in sorted(self.vertices):
-            neighbors = [f"{neighbor}({weight})" for neighbor, weight in self.graph[vertex]]
+            neighbors = [
+                f"{neighbor}({weight})" for neighbor, weight in self.graph[vertex]
+            ]
             print(f"  {vertex}: {neighbors}")
 
 
 class GraphAlgorithms(AlgorithmDemo):
     """Demonstration class for graph algorithms."""
-    
+
     def __init__(self):
         super().__init__("graph_algorithms")
-    
+
     def _setup_examples(self) -> None:
         """Setup graph algorithm examples."""
         self.examples = {
@@ -89,9 +91,8 @@ g.print_graph()
 ''',
                 "explanation": "Graph representation using adjacency lists for efficient storage and traversal",
                 "time_complexity": "O(V + E) space, O(V) for neighbor lookup",
-                "space_complexity": "O(V + E)"
+                "space_complexity": "O(V + E)",
             },
-            
             "graph_traversal": {
                 "code": '''
 def bfs(graph, start):
@@ -171,9 +172,8 @@ print(f"DFS order: {dfs_result}")
 ''',
                 "explanation": "Graph traversal algorithms explore all vertices systematically",
                 "time_complexity": "O(V + E) for both BFS and DFS",
-                "space_complexity": "O(V) for visited set and queue/stack"
+                "space_complexity": "O(V) for visited set and queue/stack",
             },
-            
             "shortest_path_dijkstra": {
                 "code": '''
 import heapq
@@ -247,9 +247,8 @@ for vertex, distance in distances.items():
 ''',
                 "explanation": "Dijkstra's algorithm finds shortest paths from source to all vertices",
                 "time_complexity": "O((V + E) log V) with binary heap",
-                "space_complexity": "O(V)"
+                "space_complexity": "O(V)",
             },
-            
             "shortest_path_floyd_warshall": {
                 "code": '''
 def floyd_warshall(graph):
@@ -313,9 +312,8 @@ print_distance_matrix(dist_matrix, vertices)
 ''',
                 "explanation": "Floyd-Warshall finds shortest paths between all pairs of vertices",
                 "time_complexity": "O(V³)",
-                "space_complexity": "O(V²)"
+                "space_complexity": "O(V²)",
             },
-            
             "cycle_detection": {
                 "code": '''
 def has_cycle_undirected(graph):
@@ -428,9 +426,8 @@ print(f"Topological order: {topo_result}")
 ''',
                 "explanation": "Cycle detection identifies circular dependencies in graphs",
                 "time_complexity": "O(V + E) for DFS-based detection",
-                "space_complexity": "O(V) for visited tracking"
+                "space_complexity": "O(V) for visited tracking",
             },
-            
             "minimum_spanning_tree": {
                 "code": '''
 def find_parent(parent, vertex):
@@ -543,9 +540,8 @@ print(f"MST edges: {prim_result}")
 ''',
                 "explanation": "MST algorithms find minimum cost to connect all vertices",
                 "time_complexity": "O(E log E) for Kruskal, O(E log V) for Prim",
-                "space_complexity": "O(V) for Union-Find or priority queue"
+                "space_complexity": "O(V) for Union-Find or priority queue",
             },
-            
             "strongly_connected_components": {
                 "code": '''
 def kosaraju_scc(graph):
@@ -667,33 +663,36 @@ print(f"Tarjan SCCs: {tarjan_result}")
 ''',
                 "explanation": "SCC algorithms find maximal sets of mutually reachable vertices",
                 "time_complexity": "O(V + E) for both Kosaraju and Tarjan",
-                "space_complexity": "O(V) for auxiliary data structures"
-            }
+                "space_complexity": "O(V) for auxiliary data structures",
+            },
         }
-    
+
     def demonstrate_graph_comparison(self):
         """Compare different graph algorithms."""
         print("=== Graph Algorithms Comparison ===")
-        
+
         # Create test graph
         graph = Graph()
         edges = [
-            ('A', 'B', 4), ('A', 'C', 2),
-            ('B', 'C', 1), ('B', 'D', 5),
-            ('C', 'D', 8), ('C', 'E', 10),
-            ('D', 'E', 2)
+            ("A", "B", 4),
+            ("A", "C", 2),
+            ("B", "C", 1),
+            ("B", "D", 5),
+            ("C", "D", 8),
+            ("C", "E", 10),
+            ("D", "E", 2),
         ]
-        
+
         for u, v, w in edges:
             graph.add_edge(u, v, w)
-        
-        start_vertex = 'A'
-        
+
+        start_vertex = "A"
+
         # BFS traversal
         visited = set()
         queue = deque([start_vertex])
         bfs_order = []
-        
+
         while queue:
             vertex = queue.popleft()
             if vertex not in visited:
@@ -702,32 +701,32 @@ print(f"Tarjan SCCs: {tarjan_result}")
                 for neighbor, _ in graph.graph[vertex]:
                     if neighbor not in visited:
                         queue.append(neighbor)
-        
+
         print(f"BFS from {start_vertex}: {bfs_order}")
-        
+
         # Dijkstra's shortest paths
-        distances = {vertex: float('inf') for vertex in graph.vertices}
+        distances = {vertex: float("inf") for vertex in graph.vertices}
         distances[start_vertex] = 0
         pq = [(0, start_vertex)]
         visited = set()
-        
+
         while pq:
             current_dist, current_vertex = heapq.heappop(pq)
             if current_vertex in visited:
                 continue
             visited.add(current_vertex)
-            
+
             for neighbor, weight in graph.graph[current_vertex]:
                 if neighbor not in visited:
                     new_distance = current_dist + weight
                     if new_distance < distances[neighbor]:
                         distances[neighbor] = new_distance
                         heapq.heappush(pq, (new_distance, neighbor))
-        
+
         print(f"Shortest distances from {start_vertex}:")
         for vertex, distance in sorted(distances.items()):
             print(f"  To {vertex}: {distance}")
-    
+
     def get_algorithm_comparison(self) -> Dict[str, Any]:
         """Get comparison of graph algorithms."""
         return {
@@ -735,41 +734,41 @@ print(f"Tarjan SCCs: {tarjan_result}")
                 "bfs": {
                     "use_case": "Shortest path in unweighted graphs, level-order traversal",
                     "time": "O(V + E)",
-                    "space": "O(V)"
+                    "space": "O(V)",
                 },
                 "dfs": {
                     "use_case": "Topological sort, cycle detection, pathfinding",
                     "time": "O(V + E)",
-                    "space": "O(V)"
-                }
+                    "space": "O(V)",
+                },
             },
             "shortest_path": {
                 "dijkstra": {
                     "use_case": "Single-source shortest path with non-negative weights",
                     "time": "O((V + E) log V)",
-                    "space": "O(V)"
+                    "space": "O(V)",
                 },
                 "floyd_warshall": {
                     "use_case": "All-pairs shortest path, works with negative weights",
                     "time": "O(V³)",
-                    "space": "O(V²)"
+                    "space": "O(V²)",
                 },
                 "bellman_ford": {
                     "use_case": "Single-source with negative weights, cycle detection",
                     "time": "O(VE)",
-                    "space": "O(V)"
-                }
+                    "space": "O(V)",
+                },
             },
             "mst": {
                 "kruskal": {
                     "use_case": "Sparse graphs, when edges are pre-sorted",
                     "time": "O(E log E)",
-                    "space": "O(V)"
+                    "space": "O(V)",
                 },
                 "prim": {
                     "use_case": "Dense graphs, when starting from specific vertex",
                     "time": "O(E log V)",
-                    "space": "O(V)"
-                }
-            }
+                    "space": "O(V)",
+                },
+            },
         }

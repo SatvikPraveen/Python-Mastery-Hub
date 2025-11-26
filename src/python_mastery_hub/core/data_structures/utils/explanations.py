@@ -18,7 +18,6 @@ foundation of most Python programs:
 Understanding when and how to use each collection type is crucial for writing efficient 
 and readable Python code. Each has different performance characteristics and use cases.
 """,
-
     "advanced_collections": """
 The collections module provides specialized container types that extend Python's built-in 
 collections with additional functionality:
@@ -32,7 +31,6 @@ collections with additional functionality:
 
 These collections solve common programming patterns more elegantly than basic types alone.
 """,
-
     "custom_structures": """
 Custom data structures help understand fundamental computer science concepts and provide 
 solutions when built-in types are insufficient:
@@ -45,7 +43,6 @@ solutions when built-in types are insufficient:
 
 Building these from scratch reinforces algorithmic thinking and memory management concepts.
 """,
-
     "performance_analysis": """
 Understanding time and space complexity helps choose the right data structure for optimal 
 performance. Big O notation describes how algorithms scale with input size:
@@ -59,7 +56,6 @@ list access is O(1) but search is O(n), while dict access and search are both O(
 
 Profiling and benchmarking with realistic data sizes validates theoretical analysis.
 """,
-
     "practical_applications": """
 Real-world applications demonstrate how data structures solve common programming problems 
 efficiently:
@@ -72,24 +68,27 @@ efficiently:
 
 Understanding these patterns helps recognize when to apply specific data structures to 
 solve complex problems elegantly and efficiently.
-"""
+""",
 }
+
 
 def get_explanation(topic: str) -> str:
     """Get explanation for a specific topic."""
     return EXPLANATIONS.get(topic, "No explanation available for this topic.")
 
+
 def get_all_explanations() -> Dict[str, str]:
     """Get all available explanations."""
     return EXPLANATIONS.copy()
+
 
 def search_explanations(keyword: str) -> Dict[str, str]:
     """Search for explanations containing a keyword."""
     results = {}
     keyword_lower = keyword.lower()
-    
+
     for topic, explanation in EXPLANATIONS.items():
         if keyword_lower in explanation.lower():
             results[topic] = explanation
-    
+
     return results

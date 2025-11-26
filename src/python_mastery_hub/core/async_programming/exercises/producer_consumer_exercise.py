@@ -14,6 +14,7 @@ from ..base import AsyncDemo, ThreadSafeCounter
 @dataclass
 class SystemStats:
     """Statistics for the producer-consumer system."""
+
     items_produced: int = 0
     items_consumed: int = 0
     total_production_time: float = 0.0
@@ -24,13 +25,13 @@ class SystemStats:
 
 class ProducerConsumerExercise(AsyncDemo):
     """Exercise for implementing a thread-safe producer-consumer system."""
-    
+
     def __init__(self):
         super().__init__("Producer-Consumer Threading Exercise")
         self.instructions = self._get_instructions()
         self.starter_code = self._get_starter_code()
         self.solution = self._get_solution()
-    
+
     def _get_instructions(self) -> Dict[str, Any]:
         """Get exercise instructions."""
         return {
@@ -43,7 +44,7 @@ class ProducerConsumerExercise(AsyncDemo):
                 "Add proper synchronization using locks and conditions",
                 "Include comprehensive monitoring and statistics",
                 "Handle graceful shutdown and cleanup",
-                "Implement load balancing across consumers"
+                "Implement load balancing across consumers",
             ],
             "requirements": [
                 "Use threading.Queue for thread-safe communication",
@@ -52,12 +53,12 @@ class ProducerConsumerExercise(AsyncDemo):
                 "Track detailed performance statistics",
                 "Support dynamic scaling of workers",
                 "Implement priority-based work items",
-                "Add monitoring and health checks"
+                "Add monitoring and health checks",
             ],
             "difficulty": "Advanced",
-            "estimated_time": "2-3 hours"
+            "estimated_time": "2-3 hours",
         }
-    
+
     def _get_starter_code(self) -> str:
         """Get starter code template."""
         return '''
@@ -129,7 +130,7 @@ if __name__ == "__main__":
     )
     system.run(duration=8.0)
 '''
-    
+
     def _get_solution(self) -> str:
         """Get complete solution."""
         return '''
@@ -594,7 +595,7 @@ if __name__ == "__main__":
     run_stress_test()
     run_performance_comparison()
 '''
-    
+
     def get_explanation(self) -> str:
         """Get explanation for the exercise."""
         return (
@@ -603,9 +604,9 @@ if __name__ == "__main__":
             "threads safely, handle shared resources, implement proper synchronization, "
             "and build production-ready concurrent systems with monitoring and health checks."
         )
-    
+
     def get_best_practices(self) -> List[str]:
-        """Get best practices for producer-consumer systems.""" 
+        """Get best practices for producer-consumer systems."""
         return [
             "Always use thread-safe data structures like queue.Queue",
             "Implement proper exception handling in all threads",
@@ -616,13 +617,13 @@ if __name__ == "__main__":
             "Use timeouts to prevent indefinite blocking",
             "Track performance statistics for optimization",
             "Consider using priority queues for work prioritization",
-            "Test with various load patterns and edge cases"
+            "Test with various load patterns and edge cases",
         ]
-    
+
     def validate_solution(self, solution_code: str) -> List[str]:
         """Validate student solution."""
         feedback = []
-        
+
         required_components = [
             ("queue.Queue", "Must use thread-safe queue"),
             ("threading.Thread", "Must use threading for workers"),
@@ -631,13 +632,13 @@ if __name__ == "__main__":
             ("producer", "Must implement producer function"),
             ("consumer", "Must implement consumer function"),
             ("statistics", "Must track performance statistics"),
-            ("exception", "Must handle exceptions properly")
+            ("exception", "Must handle exceptions properly"),
         ]
-        
+
         for component, message in required_components:
             if component.lower() in solution_code.lower():
                 feedback.append(f"✓ {message}")
             else:
                 feedback.append(f"✗ {message}")
-        
+
         return feedback

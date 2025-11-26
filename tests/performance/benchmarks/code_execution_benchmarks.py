@@ -20,12 +20,18 @@ from dataclasses import dataclass
 import asyncio
 import concurrent.futures
 
-from .benchmark_runner import BenchmarkRunner, BenchmarkConfig, benchmark, async_benchmark
+from .benchmark_runner import (
+    BenchmarkRunner,
+    BenchmarkConfig,
+    benchmark,
+    async_benchmark,
+)
 
 
 @dataclass
 class CodeExecutionMetrics:
     """Metrics for code execution performance."""
+
     parse_time: float
     compile_time: float
     execution_time: float
@@ -38,11 +44,11 @@ class CodeExecutionMetrics:
 
 class CodeExecutionBenchmarks:
     """Benchmark suite for code execution performance."""
-    
+
     def __init__(self):
         self.runner = BenchmarkRunner("code_execution_benchmarks")
         self.sample_codes = self._generate_sample_codes()
-        
+
     def _generate_sample_codes(self) -> Dict[str, str]:
         """Generate various sample code snippets for testing."""
         return {
@@ -196,118 +202,142 @@ json_data = json.dumps({"timestamp": current_time.isoformat(), "result": math_re
 
 print(f"Computed result: {math_result}")
 print(f"JSON length: {len(json_data)}")
-"""
+""",
         }
-    
+
     async def run_all_benchmarks(self) -> Dict[str, Any]:
         """Run all code execution benchmarks."""
         benchmarks = {
             "parse_performance": (
-                BenchmarkConfig("code_parsing", "AST parsing performance", iterations=100),
+                BenchmarkConfig(
+                    "code_parsing", "AST parsing performance", iterations=100
+                ),
                 self.benchmark_code_parsing,
                 (),
-                {}
+                {},
             ),
             "compile_performance": (
-                BenchmarkConfig("code_compilation", "Code compilation performance", iterations=50),
+                BenchmarkConfig(
+                    "code_compilation", "Code compilation performance", iterations=50
+                ),
                 self.benchmark_code_compilation,
                 (),
-                {}
+                {},
             ),
             "execution_simple": (
-                BenchmarkConfig("simple_execution", "Simple code execution", iterations=50),
+                BenchmarkConfig(
+                    "simple_execution", "Simple code execution", iterations=50
+                ),
                 self.benchmark_simple_execution,
                 (),
-                {}
+                {},
             ),
             "execution_complex": (
-                BenchmarkConfig("complex_execution", "Complex code execution", iterations=20),
+                BenchmarkConfig(
+                    "complex_execution", "Complex code execution", iterations=20
+                ),
                 self.benchmark_complex_execution,
                 (),
-                {}
+                {},
             ),
             "memory_usage": (
-                BenchmarkConfig("memory_usage", "Memory usage during execution", iterations=30, measure_memory=True),
+                BenchmarkConfig(
+                    "memory_usage",
+                    "Memory usage during execution",
+                    iterations=30,
+                    measure_memory=True,
+                ),
                 self.benchmark_memory_usage,
                 (),
-                {}
+                {},
             ),
             "concurrent_execution": (
-                BenchmarkConfig("concurrent_execution", "Concurrent code execution", iterations=10),
+                BenchmarkConfig(
+                    "concurrent_execution", "Concurrent code execution", iterations=10
+                ),
                 self.benchmark_concurrent_execution,
                 (),
-                {}
+                {},
             ),
             "sandbox_overhead": (
-                BenchmarkConfig("sandbox_overhead", "Sandboxed execution overhead", iterations=25),
+                BenchmarkConfig(
+                    "sandbox_overhead", "Sandboxed execution overhead", iterations=25
+                ),
                 self.benchmark_sandbox_overhead,
                 (),
-                {}
+                {},
             ),
             "error_handling": (
-                BenchmarkConfig("error_handling", "Error handling performance", iterations=40),
+                BenchmarkConfig(
+                    "error_handling", "Error handling performance", iterations=40
+                ),
                 self.benchmark_error_handling,
                 (),
-                {}
-            )
+                {},
+            ),
         }
-        
+
         return self.runner.run_benchmark_suite(benchmarks)
-    
+
     @benchmark("code_parsing", iterations=100)
     def benchmark_code_parsing(self):
         """Benchmark AST parsing performance."""
         total_nodes = 0
-        
+
         for code in self.sample_codes.values():
             try:
                 tree = ast.parse(code)
                 total_nodes += len(list(ast.walk(tree)))
             except SyntaxError:
                 pass  # Skip invalid syntax
-        
+
         return total_nodes
-    
+
     @benchmark("code_compilation", iterations=50)
     def benchmark_code_compilation(self):
         """Benchmark code compilation performance."""
         compiled_count = 0
-        
+
         for name, code in self.sample_codes.items():
             try:
                 compiled_code = compile(code, f"<{name}>", "exec")
                 compiled_count += 1
             except Exception:
                 pass  # Skip compilation errors
-        
+
         return compiled_count
-    
+
     @benchmark("simple_execution", iterations=50)
     def benchmark_simple_execution(self):
         """Benchmark simple code execution."""
         simple_codes = ["hello_world", "simple_function", "list_comprehension"]
         results = []
-        
+
         for code_name in simple_codes:
             code = self.sample_codes[code_name]
             result = self._execute_code_safely(code)
             results.append(result)
-        
+
         return len(results)
-    
+
     @benchmark("complex_execution", iterations=20)
     def benchmark_complex_execution(self):
         """Benchmark complex code execution."""
-        complex_codes = ["algorithm_sorting", "data_processing", "recursive_function", "import_heavy"]
+        complex_codes = [
+            "algorithm_sorting",
+            "data_processing",
+            "recursive_function",
+            "import_heavy",
+        ]
         results = []
-        
+
         for code_name in complex_codes:
             code = self.sample_codes[code_name]
             result = self._execute_code_safely(code)
             results.append(result)
-        
+
         return len(results)
-    
+
     @benchmark("memory_usage", iterations=30, measure_memory=True)
     def benchmark_memory_usage(self):
         """Benchmark memory usage during code execution."""
@@ -322,43 +352,45 @@ del large_list
 del large_dict
 del matrix
 """
-        
+
         result = self._execute_code_safely(memory_intensive_code)
         return result.execution_time if result else 0
-    
+
     @benchmark("concurrent_execution", iterations=10)
     def benchmark_concurrent_execution(self):
         """Benchmark concurrent code execution."""
         concurrent_code = self.sample_codes["list_comprehension"]
-        
+
         def execute_single():
             return self._execute_code_safely(concurrent_code)
-        
+
         # Execute 5 codes concurrently
         with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
             futures = [executor.submit(execute_single) for _ in range(5)]
-            results = [future.result() for future in concurrent.futures.as_completed(futures)]
-        
+            results = [
+                future.result() for future in concurrent.futures.as_completed(futures)
+            ]
+
         return len([r for r in results if r and not r.error_occurred])
-    
+
     @benchmark("sandbox_overhead", iterations=25)
     def benchmark_sandbox_overhead(self):
         """Benchmark overhead of sandboxed execution."""
         test_code = self.sample_codes["simple_function"]
-        
+
         # Direct execution
         start_time = time.perf_counter()
         self._execute_code_directly(test_code)
         direct_time = time.perf_counter() - start_time
-        
+
         # Sandboxed execution
         start_time = time.perf_counter()
         self._execute_code_safely(test_code)
         sandbox_time = time.perf_counter() - start_time
-        
+
         # Return overhead ratio
         return sandbox_time / direct_time if direct_time > 0 else 1.0
-    
+
     @benchmark("error_handling", iterations=40)
     def benchmark_error_handling(self):
         """Benchmark error handling performance."""
@@ -369,37 +401,37 @@ del matrix
             "import nonexistent_module",  # ImportError
             "[][5]",  # IndexError
         ]
-        
+
         handled_errors = 0
         for code in error_codes:
             result = self._execute_code_safely(code)
             if result and result.error_occurred:
                 handled_errors += 1
-        
+
         return handled_errors
-    
+
     def _execute_code_safely(self, code: str) -> Optional[CodeExecutionMetrics]:
         """Execute code safely with metrics collection."""
         start_total = time.perf_counter()
-        
+
         try:
             # Parse phase
             start_parse = time.perf_counter()
             tree = ast.parse(code)
             parse_time = time.perf_counter() - start_parse
-            
+
             # Compile phase
             start_compile = time.perf_counter()
             compiled_code = compile(tree, "<benchmark>", "exec")
             compile_time = time.perf_counter() - start_compile
-            
+
             # Execution phase
             start_exec = time.perf_counter()
-            
+
             # Capture output
             old_stdout = sys.stdout
             sys.stdout = captured_output = io.StringIO()
-            
+
             # Execute with restricted globals
             restricted_globals = {
                 "__builtins__": {
@@ -422,33 +454,33 @@ del matrix
                     "zip": zip,
                 }
             }
-            
+
             exec(compiled_code, restricted_globals)
             execution_time = time.perf_counter() - start_exec
-            
+
             # Restore stdout
             sys.stdout = old_stdout
             output = captured_output.getvalue()
-            
+
             total_time = time.perf_counter() - start_total
-            
+
             return CodeExecutionMetrics(
                 parse_time=parse_time,
                 compile_time=compile_time,
                 execution_time=execution_time,
                 total_time=total_time,
                 memory_peak_mb=0,  # Would need memory monitoring
-                output_size_bytes=len(output.encode('utf-8')),
-                error_occurred=False
+                output_size_bytes=len(output.encode("utf-8")),
+                error_occurred=False,
             )
-            
+
         except Exception as e:
             # Restore stdout if needed
-            if 'old_stdout' in locals():
+            if "old_stdout" in locals():
                 sys.stdout = old_stdout
-            
+
             total_time = time.perf_counter() - start_total
-            
+
             return CodeExecutionMetrics(
                 parse_time=0,
                 compile_time=0,
@@ -457,28 +489,28 @@ del matrix
                 memory_peak_mb=0,
                 output_size_bytes=0,
                 error_occurred=True,
-                error_message=str(e)
+                error_message=str(e),
             )
-    
+
     def _execute_code_directly(self, code: str) -> float:
         """Execute code directly without safety measures."""
         start_time = time.perf_counter()
-        
+
         try:
             # Capture output to prevent printing
             old_stdout = sys.stdout
             sys.stdout = io.StringIO()
-            
+
             exec(code)
-            
+
         except Exception:
             pass  # Ignore errors for timing comparison
         finally:
-            if 'old_stdout' in locals():
+            if "old_stdout" in locals():
                 sys.stdout = old_stdout
-        
+
         return time.perf_counter() - start_time
-    
+
     def benchmark_code_execution_by_complexity(self) -> Dict[str, Any]:
         """Benchmark code execution grouped by complexity."""
         complexity_groups = {
@@ -486,42 +518,42 @@ del matrix
             "simple": ["simple_function", "list_comprehension"],
             "moderate": ["class_definition", "file_operations"],
             "complex": ["algorithm_sorting", "data_processing"],
-            "advanced": ["recursive_function", "import_heavy"]
+            "advanced": ["recursive_function", "import_heavy"],
         }
-        
+
         results = {}
-        
+
         for complexity, code_names in complexity_groups.items():
             print(f"Benchmarking {complexity} complexity codes...")
-            
+
             def execute_complexity_group():
                 total_time = 0
                 success_count = 0
-                
+
                 for code_name in code_names:
                     code = self.sample_codes[code_name]
                     result = self._execute_code_safely(code)
-                    
+
                     if result and not result.error_occurred:
                         total_time += result.execution_time
                         success_count += 1
-                
+
                 return total_time, success_count
-            
+
             config = BenchmarkConfig(
                 name=f"complexity_{complexity}",
                 description=f"Execution performance for {complexity} complexity code",
-                iterations=20
+                iterations=20,
             )
-            
+
             benchmark_result = asyncio.run(
                 self.runner.run_benchmark(config, execute_complexity_group)
             )
-            
+
             results[complexity] = benchmark_result
-        
+
         return results
-    
+
     def benchmark_language_features(self) -> Dict[str, Any]:
         """Benchmark specific Python language features."""
         feature_codes = {
@@ -558,32 +590,34 @@ joined = " ".join(upper_words)
 data = {f"key_{i}": i**2 for i in range(500)}
 filtered = {k: v for k, v in data.items() if v % 2 == 0}
 values_sum = sum(filtered.values())
-"""
+""",
         }
-        
+
         results = {}
-        
+
         for feature_name, code in feature_codes.items():
             print(f"Benchmarking {feature_name}...")
-            
+
             def execute_feature():
                 result = self._execute_code_safely(code)
-                return result.execution_time if result and not result.error_occurred else 0
-            
+                return (
+                    result.execution_time if result and not result.error_occurred else 0
+                )
+
             config = BenchmarkConfig(
                 name=f"feature_{feature_name}",
                 description=f"Performance of {feature_name}",
-                iterations=50
+                iterations=50,
             )
-            
+
             benchmark_result = asyncio.run(
                 self.runner.run_benchmark(config, execute_feature)
             )
-            
+
             results[feature_name] = benchmark_result
-        
+
         return results
-    
+
     @async_benchmark("async_code_execution", iterations=20)
     async def benchmark_async_code_execution(self):
         """Benchmark asynchronous code execution simulation."""
@@ -602,10 +636,10 @@ async def main():
 # Note: This would need to be executed in an async context
 # For benchmark purposes, we'll simulate the execution time
 """
-        
+
         # Simulate async execution overhead
         await asyncio.sleep(0.001)
-        
+
         result = self._execute_code_safely("result = sum(i*i for i in range(50))")
         return result.execution_time if result else 0
 
@@ -614,32 +648,31 @@ async def main():
 def run_code_execution_benchmarks():
     """Run all code execution benchmarks."""
     benchmarks = CodeExecutionBenchmarks()
-    
+
     print("Running Code Execution Benchmarks")
     print("=" * 50)
-    
+
     # Run main benchmark suite
     results = asyncio.run(benchmarks.run_all_benchmarks())
-    
+
     # Run complexity analysis
     print("\nRunning complexity analysis...")
     complexity_results = benchmarks.benchmark_code_execution_by_complexity()
-    
+
     # Run language features analysis
     print("\nRunning language features analysis...")
     feature_results = benchmarks.benchmark_language_features()
-    
+
     # Generate comprehensive report
     all_results = {**results, **complexity_results, **feature_results}
-    
+
     report = benchmarks.runner.generate_performance_report(
-        all_results, 
-        "code_execution_benchmark_report.md"
+        all_results, "code_execution_benchmark_report.md"
     )
-    
+
     print(f"\nCode execution benchmarks completed!")
     print(f"Total benchmarks run: {len(all_results)}")
-    
+
     return all_results
 
 

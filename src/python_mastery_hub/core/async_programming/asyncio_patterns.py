@@ -11,11 +11,11 @@ from .base import AsyncDemo, ProgressTracker
 
 class AsyncioPatterns(AsyncDemo):
     """Demonstrates asyncio coordination and synchronization patterns."""
-    
+
     def __init__(self):
         super().__init__("Asyncio Patterns")
         self._setup_examples()
-    
+
     def _setup_examples(self) -> None:
         """Setup asyncio patterns examples."""
         self.examples = {
@@ -75,9 +75,8 @@ async def producer_consumer_example():
 
 asyncio.run(producer_consumer_example())
 ''',
-                "explanation": "Producer-consumer pattern coordinates data flow between async producers and consumers using queues"
+                "explanation": "Producer-consumer pattern coordinates data flow between async producers and consumers using queues",
             },
-            
             "rate_limiting": {
                 "code": '''
 import asyncio
@@ -132,9 +131,8 @@ async def rate_limiting_example():
 
 asyncio.run(rate_limiting_example())
 ''',
-                "explanation": "Rate limiting prevents overwhelming external services while maintaining high throughput"
+                "explanation": "Rate limiting prevents overwhelming external services while maintaining high throughput",
             },
-            
             "semaphore_coordination": {
                 "code": '''
 import asyncio
@@ -169,9 +167,8 @@ async def semaphore_example():
 
 asyncio.run(semaphore_example())
 ''',
-                "explanation": "Semaphores control the number of concurrent operations accessing shared resources"
+                "explanation": "Semaphores control the number of concurrent operations accessing shared resources",
             },
-            
             "event_coordination": {
                 "code": '''
 import asyncio
@@ -231,9 +228,8 @@ async def event_coordination_example():
 
 asyncio.run(event_coordination_example())
 ''',
-                "explanation": "Events enable coordination between different parts of an async application"
+                "explanation": "Events enable coordination between different parts of an async application",
             },
-            
             "condition_synchronization": {
                 "code": '''
 import asyncio
@@ -296,10 +292,10 @@ async def condition_example():
 
 asyncio.run(condition_example())
 ''',
-                "explanation": "Condition variables provide sophisticated synchronization for complex scenarios"
-            }
+                "explanation": "Condition variables provide sophisticated synchronization for complex scenarios",
+            },
         }
-    
+
     def get_explanation(self) -> str:
         """Get explanation for asyncio patterns."""
         return (
@@ -308,7 +304,7 @@ asyncio.run(condition_example())
             "shared resources, control flow, and ensure proper ordering of "
             "operations in concurrent async applications."
         )
-    
+
     def get_best_practices(self) -> List[str]:
         """Get best practices for asyncio patterns."""
         return [
@@ -321,41 +317,44 @@ asyncio.run(condition_example())
             "Set appropriate queue sizes to prevent memory issues",
             "Use locks sparingly and prefer higher-level primitives",
             "Implement proper cleanup in exception scenarios",
-            "Monitor and measure the performance impact of synchronization"
+            "Monitor and measure the performance impact of synchronization",
         ]
 
 
 class AsyncRateLimiter:
     """Production-ready async rate limiter."""
-    
+
     def __init__(self, max_calls: int, time_window: float):
         self.max_calls = max_calls
         self.time_window = time_window
         self.calls = []
         self.lock = asyncio.Lock()
-    
+
     async def acquire(self):
         """Acquire permission to make a call."""
         async with self.lock:
             now = time.time()
-            
+
             # Remove expired calls
-            self.calls = [call_time for call_time in self.calls 
-                         if now - call_time < self.time_window]
-            
+            self.calls = [
+                call_time
+                for call_time in self.calls
+                if now - call_time < self.time_window
+            ]
+
             # Check rate limit
             if len(self.calls) >= self.max_calls:
                 sleep_time = self.time_window - (now - self.calls[0])
                 if sleep_time > 0:
                     await asyncio.sleep(sleep_time)
                     return await self.acquire()
-            
+
             self.calls.append(now)
-    
+
     def __aenter__(self):
         """Support async context manager."""
         return self.acquire()
-    
+
     async def __aexit__(self, exc_type, exc_val, exc_tb):
         """Async context manager exit."""
         pass
@@ -363,75 +362,77 @@ class AsyncRateLimiter:
 
 class AsyncSemaphorePool:
     """Enhanced semaphore with monitoring capabilities."""
-    
+
     def __init__(self, max_concurrent: int):
         self.max_concurrent = max_concurrent
         self.semaphore = asyncio.Semaphore(max_concurrent)
         self.active_count = 0
         self.total_acquired = 0
         self.lock = asyncio.Lock()
-    
+
     async def acquire(self):
         """Acquire semaphore with monitoring."""
         await self.semaphore.acquire()
-        
+
         async with self.lock:
             self.active_count += 1
             self.total_acquired += 1
-    
+
     def release(self):
         """Release semaphore with monitoring."""
         self.semaphore.release()
-        
+
         # Note: Using asyncio.create_task to avoid blocking
         asyncio.create_task(self._update_count())
-    
+
     async def _update_count(self):
         """Update active count (called from release)."""
         async with self.lock:
             self.active_count -= 1
-    
+
     async def __aenter__(self):
         """Async context manager entry."""
         await self.acquire()
         return self
-    
+
     async def __aexit__(self, exc_type, exc_val, exc_tb):
         """Async context manager exit."""
         self.release()
-    
+
     def get_stats(self) -> Dict[str, int]:
         """Get current statistics."""
         return {
             "max_concurrent": self.max_concurrent,
             "active_count": self.active_count,
-            "total_acquired": self.total_acquired
+            "total_acquired": self.total_acquired,
         }
 
 
 class AsyncWorkflowCoordinator:
     """Coordinate complex async workflows."""
-    
+
     def __init__(self):
         self.stages = {}
         self.dependencies = {}
         self.results = {}
         self.events = {}
-    
+
     def add_stage(self, stage_name: str, dependencies: List[str] = None):
         """Add a workflow stage with dependencies."""
         self.stages[stage_name] = dependencies or []
         self.events[stage_name] = asyncio.Event()
-    
-    async def execute_stage(self, stage_name: str, stage_func: callable, *args, **kwargs):
+
+    async def execute_stage(
+        self, stage_name: str, stage_func: callable, *args, **kwargs
+    ):
         """Execute a workflow stage."""
         # Wait for dependencies
         for dependency in self.stages.get(stage_name, []):
             if dependency in self.events:
                 await self.events[dependency].wait()
-        
+
         print(f"Executing stage: {stage_name}")
-        
+
         # Execute the stage
         try:
             result = await stage_func(*args, **kwargs)
@@ -444,9 +445,9 @@ class AsyncWorkflowCoordinator:
         finally:
             # Signal completion
             self.events[stage_name].set()
-        
+
         return result
-    
+
     def get_results(self) -> Dict[str, Any]:
         """Get all stage results."""
         return self.results.copy()
