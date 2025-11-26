@@ -204,7 +204,7 @@ class TokenService:
         # )
 
         # Mock validation for demonstration
-        if token == "mock_verification_token":
+        if token == "mock_verification_token":  # nosec B105: mock token for testing/demo only, not production
             return AuthToken(
                 token=token,
                 token_type=token_type,

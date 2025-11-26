@@ -52,7 +52,7 @@ class EmailType(str, Enum):
     """Email type enumeration."""
 
     VERIFICATION = "verification"
-    PASSWORD_RESET = "password_reset"
+    PASSWORD_RESET = "password_reset"  # nosec B105: string constant for email template type identifier, not a credential
     WELCOME = "welcome"
     NOTIFICATION = "notification"
     ACHIEVEMENT = "achievement"

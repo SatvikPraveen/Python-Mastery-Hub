@@ -71,7 +71,7 @@ def get_trusted_hosts() -> List[str]:
     base_hosts = [
         "localhost",
         "127.0.0.1",
-        "0.0.0.0",
+        "0.0.0.0",  # nosec B104: intentional for local development and Docker environments
     ]
 
     if settings.environment == "production":

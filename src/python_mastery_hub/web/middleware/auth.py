@@ -158,7 +158,7 @@ async def get_session_by_token(session_token: str) -> Optional[UserSession]:
         # )
 
         # Mock session for demonstration
-        if session_token == "mock_session_token":
+        if session_token == "mock_session_token":  # nosec B105: mock token for testing/demo only
             from datetime import datetime, timedelta
 
             return UserSession(
@@ -335,7 +335,7 @@ async def create_user_session(
 
         session = UserSession(
             user_id=user.id,
-            session_token="mock_session_token",
+            session_token="mock_session_token",  # nosec B106: mock token for testing/demo only, not production
             created_at=datetime.now(),
             last_accessed=datetime.now(),
             expires_at=datetime.now() + timedelta(hours=expires_hours),

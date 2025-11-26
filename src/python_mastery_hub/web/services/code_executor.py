@@ -11,7 +11,7 @@ import asyncio
 import os
 import resource
 import signal
-import subprocess
+import subprocess  # nosec B404: subprocess used with safe command lists, not untrusted input
 import sys
 import tempfile
 import traceback
