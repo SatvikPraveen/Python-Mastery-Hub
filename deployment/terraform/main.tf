@@ -362,6 +362,24 @@ resource "aws_s3_bucket_public_access_block" "logs" {
   restrict_public_buckets = true
 }
 
+resource "aws_s3_bucket_lifecycle_configuration" "logs" {
+  bucket = aws_s3_bucket.logs.id
+
+  rule {
+    id     = "delete_old_logs"
+    status = "Enabled"
+
+    expiration {
+      days = 90
+    }
+
+    transition {
+      days          = 30
+      storage_class = "STANDARD_INFREQUENT_ACCESS"
+    }
+  }
+}
+
 # S3 bucket for backups
 resource "aws_s3_bucket" "backups" {
   bucket = "${local.cluster_name}-backups"
