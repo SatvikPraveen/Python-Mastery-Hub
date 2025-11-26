@@ -197,7 +197,7 @@ def get_endpoint_identifier(request: Request) -> str:
     
     # Hash long paths to keep keys manageable
     if len(path) > 100:
-        path_hash = hashlib.md5(path.encode()).hexdigest()[:16]
+        path_hash = hashlib.sha256(path.encode()).hexdigest()[:16]
         path = f"hashed:{path_hash}"
     
     return f"{method}:{path}"

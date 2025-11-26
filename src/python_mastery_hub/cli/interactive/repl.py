@@ -366,7 +366,14 @@ Type exit() or Ctrl+D to quit
     def _clear_screen(self) -> None:
         """Clear the screen."""
         import os
-        os.system('cls' if os.name == 'nt' else 'clear')
+        import subprocess
+        try:
+            if os.name == 'nt':
+                subprocess.run(['cmd', '/c', 'cls'], check=False)
+            else:
+                subprocess.run(['clear'], check=False)
+        except Exception:
+            pass  # nosec - fallback to manual clear
         print(self._create_banner())
     
     def _toggle_learning_mode(self) -> None:

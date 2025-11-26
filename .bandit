@@ -1,0 +1,21 @@
+# Bandit security scan configuration for Python Mastery Hub
+
+[bandit]
+# Exclude test files and demo files
+exclude_dirs = [
+    '/test',
+    '/.venv',
+    '/venv',
+    '/.git'
+]
+
+# Skip these test IDs globally (false positives for educational project)
+skips = [
+    # B104: hardcoded_bind_all_interfaces - intentional for local dev/testing
+    # B102: exec_used - required for code execution exercises (controlled input)
+    # B307: eval - required for expression evaluation exercises (controlled input)
+    # B311: random - not used for crypto, only for testing/demonstrations
+    # B105, B106, B107: hardcoded passwords - demo tokens/test data only
+    # B603: subprocess - used with safe command lists, not untrusted input
+    # B110: try_except_pass - acceptable for cleanup code
+]

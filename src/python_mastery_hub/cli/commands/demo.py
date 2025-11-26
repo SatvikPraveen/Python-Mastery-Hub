@@ -604,7 +604,7 @@ print()
             }
             
             # Execute the code
-            exec(code, exec_globals)
+            exec(code, exec_globals)  # nosec - controlled educational context
             
         except Exception as e:
             print(f"{colors.RED}Error: {e}{colors.RESET}")

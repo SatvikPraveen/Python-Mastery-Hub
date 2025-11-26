@@ -507,7 +507,7 @@ class CacheManager:
         
         # Hash long keys
         if len(key) > 200:
-            key_hash = hashlib.md5(key.encode()).hexdigest()
+            key_hash = hashlib.sha256(key.encode()).hexdigest()
             return f"hash:{key_hash}"
         
         return key

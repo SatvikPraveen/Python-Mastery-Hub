@@ -447,7 +447,7 @@ class FileCache:
     def _get_cache_file(self, key: str) -> Path:
         """Get cache file path for key."""
         # Use hash to avoid filesystem issues with special characters
-        key_hash = hashlib.md5(key.encode('utf-8')).hexdigest()
+        key_hash = hashlib.sha256(key.encode('utf-8')).hexdigest()
         return self.cache_dir / f"{key_hash}.cache"
     
     def _load_index(self) -> Dict[str, Any]:

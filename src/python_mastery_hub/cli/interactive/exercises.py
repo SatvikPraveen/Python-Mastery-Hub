@@ -435,7 +435,7 @@ print(result)""",
             }
             
             # Execute code
-            exec(code, exec_globals)
+            exec(code, exec_globals)  # nosec - controlled educational context
             
             output = captured_output.getvalue()
             

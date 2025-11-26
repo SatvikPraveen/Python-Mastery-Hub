@@ -352,7 +352,7 @@ class SecurityConfig:
         """Check if password appears in known breaches."""
         # In a real implementation, you'd check against Have I Been Pwned API
         # or a local database of breached passwords
-        password_hash = hashlib.sha1(password.encode()).hexdigest().upper()
+        password_hash = hashlib.sha256(password.encode()).hexdigest().upper()
         
         # Mock check against common passwords
         common_hashes = {

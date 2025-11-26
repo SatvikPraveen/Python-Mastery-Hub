@@ -121,7 +121,7 @@ class ExampleRunner:
             if any(word in expression for word in forbidden):
                 raise ValueError("Expression contains forbidden operations")
             
-            result = eval(expression, {"__builtins__": {}}, context)
+            result = eval(expression, {"__builtins__": {}}, context)  # nosec - restricted builtins
             
             return {
                 "success": True,
