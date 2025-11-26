@@ -5257,24 +5257,22 @@ files = [
 
 [[package]]
 name = "pdbpp"
-version = "0.10.3"
+version = "0.11.7"
 description = "pdb++, a drop-in replacement for pdb"
 optional = false
 python-versions = "*"
 groups = ["dev"]
 files = [
-    {file = "pdbpp-0.10.3-py2.py3-none-any.whl", hash = "sha256:79580568e33eb3d6f6b462b1187f53e10cd8e4538f7d31495c9181e2cf9665d1"},
-    {file = "pdbpp-0.10.3.tar.gz", hash = "sha256:d9e43f4fda388eeb365f2887f4e7b66ac09dce9b6236b76f63616530e2f669f5"},
+    {file = "pdbpp-0.11.7-py3-none-any.whl", hash = "sha256:51916b63693898cf4881b36b4501c83947758d73f582f1f84893662b163bdb75"},
+    {file = "pdbpp-0.11.7.tar.gz", hash = "sha256:cb6604ac31a35ed0f2a29650a8c022b26284620be3e01cfd41b683b91da1ff14"},
 ]
 
 [package.dependencies]
-fancycompleter = ">=0.8"
+fancycompleter = ">=0.11.0"
 pygments = "*"
-wmctrl = "*"
 
 [package.extras]
-funcsigs = ["funcsigs"]
-testing = ["funcsigs", "pytest"]
+testing = ["ipython", "pexpect", "pytest", "pytest-cov"]
 
 [[package]]
 name = "peewee"
@@ -8806,24 +8804,6 @@ files = [
 ]
 
 [[package]]
-name = "wmctrl"
-version = "0.5"
-description = "A tool to programmatically control windows inside X"
-optional = false
-python-versions = ">=2.7"
-groups = ["dev"]
-files = [
-    {file = "wmctrl-0.5-py2.py3-none-any.whl", hash = "sha256:ae695c1863a314c899e7cf113f07c0da02a394b968c4772e1936219d9234ddd7"},
-    {file = "wmctrl-0.5.tar.gz", hash = "sha256:7839a36b6fe9e2d6fd22304e5dc372dbced2116ba41283ea938b2da57f53e962"},
-]
-
-[package.dependencies]
-attrs = "*"
-
-[package.extras]
-test = ["pytest"]
-
-[[package]]
 name = "wrapt"
 version = "1.17.3"
 description = "Module for decorators, wrappers and monkey patching."
@@ -9165,4 +9145,4 @@ production = ["boto3", "flower", "gunicorn", "prometheus-client", "sentry-sdk", 
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.11"
-content-hash = "21f739cebede8ce1d2ce22aa2ce37bb6c43aa5b3015fd856537ae76f57a8f3c0"
+content-hash = "1b198fecaebcaa343d2554716ba35f6f76014c0e62f339789f13857fc08f6101"
