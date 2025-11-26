@@ -62,10 +62,6 @@ COPY --from=builder /app/.venv /app/.venv
 COPY src/ ./src/
 COPY README.md ./
 
-# Copy static files for web interface
-COPY src/python_mastery_hub/web/static ./static
-COPY src/python_mastery_hub/web/templates ./templates
-
 # Change ownership to non-root user
 RUN chown -R appuser:appuser /app
 
